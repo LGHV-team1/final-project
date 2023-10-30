@@ -1,7 +1,15 @@
 from rest_framework import serializers
 from .models import CustomUser
 
-class CustomUserSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ["email", "name", "is_active", "profile_img", "registration_source"]
+        fields = ['name', 'email', 'password', 'registration_source']
+        extra_kwargs = {'password': {'write_only': True}}
+
+    def create(self, validated_data):
+        password = validated_data.pop('password')
+        user = CustomUser(**validated_data)
+        user.set_password(password)
+        user.save()
+        return user

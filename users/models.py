@@ -21,7 +21,7 @@ class CustomUserManager(BaseUserManager):
 class CustomUser(AbstractBaseUser, PermissionsMixin):
 	name = models.CharField(max_length=255)
 	email = models.EmailField(unique=True)
-	is_active = models.BooleanField(default=True)
+	is_active = models.BooleanField(default=False)
 	profile_img = models.ImageField(upload_to="profile_images/", null=True, blank=True)
 	created_at = models.DateTimeField(default=timezone.now)
 	updated_at = models.DateTimeField(auto_now=True)
