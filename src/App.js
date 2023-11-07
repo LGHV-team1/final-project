@@ -6,7 +6,7 @@ import Redirection from "./page/redirection";
 import React from "react";
 import Header from "./components/header.js";
 import Footer from "./components/footer.js";
-
+import Home from "./page/Home.js";
 function App() {
   return (
     <Router>
@@ -28,6 +28,8 @@ function App() {
             </>
           }
         />
+        <Route path="/home" element={<><Home /></>} />
+        <Route path="/detail:" element={<><Home /></>} />
       </Routes>
       <Footer />
     </Router>
