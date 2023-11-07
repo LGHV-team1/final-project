@@ -1,17 +1,11 @@
 from django.db import models
 
-from django.contrib.auth.models import AbstractUser, BaseUserManager
-
+from django.contrib.auth.models import AbstractUser, BaseUserManager, PermissionsMixin
 
 class UserManager(BaseUserManager):
-    """
-    Custom user model manager where email is the unique identifiers
-    for authentication instead of usernames.
-    """
-
     def create_user(self, email, password, **extra_fields):
         """
-        Create and save a User with the given email and password.
+        주어진 이메일, 비밀번호 등 개인정보로 User 인스턴스 생성
         """
         if not email:
             raise ValueError('The Email must be set')
@@ -23,7 +17,8 @@ class UserManager(BaseUserManager):
 
     def create_superuser(self, email, password, **extra_fields):
         """
-        Create and save a SuperUser with the given email and password.
+        주어진 이메일, 비밀번호 등 개인정보로 User 인스턴스 생성
+        단, 최상위 사용자이므로 권한을 부여
         """
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
@@ -35,10 +30,17 @@ class UserManager(BaseUserManager):
             raise ValueError(('Superuser must have is_superuser=True.'))
         return self.create_user(email, password, **extra_fields)
 
-
-class User(AbstractUser):
-    username = None
+# AbstractBaseUser를 상속해서 유저 커스텀
+class User(AbstractUser, PermissionsMixin):
+    username = models.CharField(max_length=50)
     email = models.EmailField(unique=True, max_length=255)
+    is_superuser = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+    is_admin = models.BooleanField(default=False)
+    is_social = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []

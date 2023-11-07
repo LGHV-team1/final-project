@@ -3,5 +3,5 @@ from .models import User
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
+    list_display = ('email', 'password','created_at','updated_at','is_social')
     pass
-    
