@@ -1,8 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
-import Button from "./button";
-import GoogleLoginButton from "./googleButton.js";
+import Button from "../components/button.js";
+import GoogleLoginButton from "../components/googleButton.js";
 import { useEffect } from "react";
-import SocialKakao from "./kakaoButton";
+import KakaoButton from "../components/kakaoButton.js";
+import NaverButton from "../components/NaverButton.js";
 
 function Login() {
   return (
@@ -40,8 +41,11 @@ function Login() {
           </Link>
         </div>
       </form>
-      <SocialKakao />
-      <GoogleLoginButton />
+      <div style={{ textAlign: "center" }}>
+        <KakaoButton />
+        <GoogleLoginButton />
+        <NaverButton />
+      </div>
     </div>
   );
 }

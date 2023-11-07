@@ -1,23 +1,36 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./index.css";
-import Login from "./components/login.js";
-import Register from "./components/register";
-import Redirection from "./components/redirection";
+import Login from "./page/login.js";
+import Register from "./page/register.js";
+import Redirection from "./page/redirection";
 import React from "react";
-import Kakao_Login from "./components/KakaoLogin";
-
+import Header from "./components/header.js";
+import Footer from "./components/footer.js";
 
 function App() {
   return (
     <Router>
+      <Header />
       <Routes>
-          <Route path="/login" element={<><Login /></>} />
-          <Route path="/register" element={<><Register /></>} />
-          <Route exact path='/auth' element={<Kakao_Login />} />
-        </Routes>
-
+        <Route
+          path="/login"
+          element={
+            <>
+              <Login />
+            </>
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            <>
+              <Register />
+            </>
+          }
+        />
+      </Routes>
+      <Footer />
     </Router>
-    
   );
 }
 

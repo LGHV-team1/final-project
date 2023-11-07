@@ -1,19 +1,25 @@
-import { GoogleOAuthProvider } from "@react-oauth/google";
-import { GoogleLogin } from "@react-oauth/google";
-export default function  GoogleLoginButton () {
-    const clientId = process.env.REACT_APP_GOOGLE_ID;
-    return (
-      <>
-        <GoogleOAuthProvider clientId={clientId}>
-          <GoogleLogin
-            onSuccess={(res) => {
-              console.log(res);
-            }}
-            onFailure={(err) => {
-              console.log(err);
-            }}
-          />
-        </GoogleOAuthProvider>
-      </>
-    );
+import google_btn from "../images/google_btn.png"
+
+export default function GoogleButton () {
+  const Rest_api_key = process.env.REACT_APP_GOOGLE_ID; //REST API KEY
+  const redirect_uri = process.env.REACT_APP_GOOGLE_REDIRECT; //Redirect URI
+  const scope = "https://www.googleapis.com/auth/userinfo.email"
+  // oauth 요청 URL
+  const googleURL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${Rest_api_key}&redirect_uri=${redirect_uri}&scope=${scope}&response_type=code`;
+  const handleLogin = () => {
+    window.location.href = googleURL;
+    
   };
+  return (
+    <button onClick={handleLogin}>
+      <img
+        src={google_btn}
+        alt="구글 로그인 버튼"
+        className="flex justify-center py-2"
+        width="250px"
+      />
+    </button>
+    
+  );
+  
+};
