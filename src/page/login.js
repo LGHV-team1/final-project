@@ -22,7 +22,7 @@ function Login() {
   };
   const login = async () => {
     const response = await axios.post(
-      "http://localhost:8000/api/users/dj-rest-auth/login/",
+      "http://localhost:8000/accounts/dj-rest-auth/login/",
       {
         email: Email,
         password: Password,

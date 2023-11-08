@@ -31,21 +31,21 @@ function Register() {
 
   const confirmEmail = () => {
     if (window.confirm("이메일 인증을 하세요~")) {
-      // registerSend();
+      registerSend();
       navigate("/login");
     }
     const registerSend = async () => {
-      // const response = await axios.post(
-      //   "http://localhost:8000/api/users/dj-rest-auth/registration",
-      //   {
-      //     username: Name,
-      //     email: Email,
-      //     password1: Password,
-      //     password2: ConfirmPassword,
-      //   }
-      // );
+      const response = await axios.post(
+        "http://localhost:8000/accounts/registration",
+        {
+          username: Name,
+          email: Email,
+          password1: Password,
+          password2: ConfirmPassword,
+        }
+      );
 
-      // console.log(response);
+      console.log(response);
     };
   };
   return (
