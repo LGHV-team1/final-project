@@ -11,6 +11,7 @@ function App() {
   return (
     <Router>
       <Header />
+      <div style={style}>
       <Routes>
         <Route
           path="/login"
@@ -30,10 +31,16 @@ function App() {
         />
         <Route path="/home" element={<><Home /></>} />
         <Route path="/detail:" element={<><Home /></>} />
+        <Route path="/mypage" element={<><Home /></>} />
       </Routes>
+      </div>
       <Footer />
     </Router>
   );
 }
-
+const style ={
+  padding: '30px',
+  width: '100%',
+  minHeight:'100vh'
+}
 export default App;
