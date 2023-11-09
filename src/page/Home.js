@@ -3,15 +3,15 @@ import Slide from '../components/slide'
 
 function Home() {
   return (
-    <>
-    <div>Home</div>
-      <Slide style={style}/>
-    </>
+    <div style={style}>
+        <Slide/>
+    </div>
 
   )
 }
-const style ={
-  padding: '30px',
-  width: '50%',
+const style = {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
 }
 export default Home

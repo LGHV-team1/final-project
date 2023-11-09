@@ -5,7 +5,7 @@ const Footer = () => {
   <footer class="py-3 mt-4 bg-black mt-auto d-flex">
     <div class="container">
     <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-      <li class="nav-item"><a href="#" class="nav-link px-2 text-white">홈</a></li>
+      <li class="nav-item"><a href="/home" class="nav-link px-2 text-white">홈</a></li>
       <li class="nav-item"><a href="#" class="nav-link px-2 text-white">영화</a></li>
       <li class="nav-item"><a href="#" class="nav-link px-2 text-white">TV</a></li>
       <li class="nav-item"><a href="#" class="nav-link px-2 text-white">고객센터</a></li>

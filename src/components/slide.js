@@ -10,8 +10,8 @@ import { FaAngleLeft } from "react-icons/fa6";
 import { FaAngleRight } from "react-icons/fa6";
 
 const Background = styled.div`
-  width: 100%;
-  height: 100vh;
+  width: 70vw;
+  height: 80%;
   overflow: hidden;
   position: relative;
 
@@ -50,8 +50,8 @@ const ImgContainer = styled.div`
 `;
 
 const ImgBox = styled.div`
-  width: 100%;
-  height: 100vh;
+  width: 70vw;
+  height: 80%;
   overflow: hidden;
   img {
     width: 100%;
@@ -150,7 +150,7 @@ function Slide() {
   };
 
   return (
-    <>
+    <div>
       <Background>
         <SlideBtn
           className="Left"
@@ -158,12 +158,12 @@ function Slide() {
           onMouseLeave={intervalHandler}
           onClick={() => slideHandler(-1)}
         >
-          <FaAngleLeft size="40" />
+          <FaAngleLeft size="50" />
         </SlideBtn>
         <ImgContainer
           ref={slideRef}
           style={{
-            width: `${100 * SLIDE_NUM}vw`,
+            width: `${70 * SLIDE_NUM}vw`,
             transition: "all 500ms ease-in-out",
             transform: `translateX(${
               -1 * ((100 / slideArr.length) * slideIndex)
@@ -182,11 +182,16 @@ function Slide() {
           onMouseLeave={intervalHandler}
           onClick={() => slideHandler(+1)}
         >
-          <FaAngleRight size="40" />
+          <FaAngleRight size="50" />
         </SlideBtn>
       </Background>
-    </>
+    </div>
   );
 }
 
+const style = {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+}
 export default Slide;
