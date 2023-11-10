@@ -1,9 +1,5 @@
-import json
-import os
-import urllib
+import json,os,urllib
 from json import JSONDecodeError
-
-
 from django.http import HttpResponseRedirect, JsonResponse
 from django.contrib.sites import requests
 from django.shortcuts import render, redirect

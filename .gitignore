@@ -1,3 +1,6 @@
 data
 myvenv
 .ipynb_checkpoints
+secerts.json
+db.sqlite3
+image
