@@ -32,11 +32,7 @@ class UserManager(BaseUserManager):
 
 # AbstractBaseUser를 상속해서 유저 커스텀
 class User(AbstractUser, PermissionsMixin):
-<<<<<<< HEAD
-    username = models.CharField(max_length=50,unique=False)
-=======
     username = models.CharField(max_length=50, null=True)
->>>>>>> 0e829b2aefa914aa3abd43b57a050e73616604d0
     email = models.EmailField(unique=True, max_length=255)
     is_superuser = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
