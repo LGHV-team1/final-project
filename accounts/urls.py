@@ -1,15 +1,15 @@
 from django.urls import path
-from .views import KakaoLoginCallback, NaverLoginCallback, googleCallback
+from .views import kakaoCallback, naverCallback, googleCallback
 from dj_rest_auth.registration.views import VerifyEmailView
 from django.urls import re_path,include,path
 from allauth.account.views import confirm_email
 
 #accounts/
 urlpatterns = [
-    path('kakao/callback', KakaoLoginCallback.as_view(), name='kakao_login_callback'),
+    path('kakao/callback', kakaoCallback, name='kakao_login_callback'),
     path('google/callback', googleCallback, name='google_login_callback'),
     #path('google/login/finish/', GoogleLogin.as_view(), name='google_login_todjango'),
-    path('naver/callback', NaverLoginCallback.as_view(), name='naver_login_callback'),
+    path('naver/callback', naverCallback, name='naver_login_callback'),
 
     #일반 회원 회원가입/로그인
     path('dj-rest-auth/', include('dj_rest_auth.urls')),

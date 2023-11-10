@@ -1,14 +1,12 @@
 # myapp/management/commands/load_vod_data.py
 import pandas as pd
-
 from django.core.management.base import BaseCommand
 import csv
 from contents.models import Vod
 
-
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        with open("./data/제목장르서머리배우러닝타임.csv") as f:
+        with open(".\data\제목장르서머리배우러닝타임.csv", encoding="utf-8") as f:
             reader = csv.reader(f)
             
             vod_list = []
