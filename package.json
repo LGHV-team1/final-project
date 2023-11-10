@@ -16,6 +16,7 @@
     "react-kakao-login": "^2.1.1",
     "react-router-dom": "^6.17.0",
     "react-scripts": "5.0.1",
+    "react-with-important-style": "^0.2.2",
     "recoil": "^0.7.7",
     "styled-components": "^6.1.1",
     "tw-elements-react": "^1.0.0-alpha1",

@@ -6,41 +6,27 @@ import Redirection from "./page/redirection";
 import React from "react";
 import Header from "./components/header.js";
 import Footer from "./components/footer.js";
-import Home from "./page/Home.js";
+import Main from "./page/Main.js";
+import Home from "./page/Home.js"
 function App() {
   return (
     <Router>
       <Header />
       <div style={style}>
-      <Routes>
-        <Route
-          path="/login"
-          element={
-            <>
-              <Login />
-            </>
-          }
-        />
-        <Route
-          path="/register"
-          element={
-            <>
-              <Register />
-            </>
-          }
-        />
-        <Route path="/home" element={<><Home /></>} />
-        <Route path="/detail:" element={<><Home /></>} />
-        <Route path="/mypage" element={<><Home /></>} />
-      </Routes>
+        <Routes>
+          <Route path="/"element={<><Home/></>}/>
+          <Route path="/login"element={<><Login /></>}/>
+          <Route path="/register" element={<><Register /></>}/>
+          <Route path="/main" element={<><Main /></>} />
+          <Route path="/detail:" element={<><Home /></>} />
+          <Route path="/mypage" element={<><Home /></>} />
+        </Routes>
       </div>
       <Footer />
     </Router>
   );
 }
 const style ={
-  padding: '30px',
-  width: '100%',
-  minHeight:'100vh'
+  minHeight:'100vh',
 }
 export default App;
