@@ -22,6 +22,7 @@ class KakaoLoginCallback(generics.GenericAPIView, mixins.ListModelMixin):
     def get(self, request, *args, **kwargs):
         #Callback URL 에서 code 받아오기
         code = request.GET["code"]
+        print(code)
         if not code:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
@@ -37,7 +38,7 @@ class KakaoLoginCallback(generics.GenericAPIView, mixins.ListModelMixin):
         access_token = token['access_token']
         if not access_token:
             return Response(status=status.HTTP_400_BAD_REQUEST)
-
+        print(access_token)
         # kakao에 user info 요청
         headers = {"Authorization": f"Bearer ${access_token}"}
         # 받은 access token 으로 user 정보 요청
@@ -47,7 +48,7 @@ class KakaoLoginCallback(generics.GenericAPIView, mixins.ListModelMixin):
         kakao_account = user_infomation.get('kakao_account')
         #email 은 카카오 user 정보에서 받은 email
         email = kakao_account.get('email')
-
+        print(email)
 
         # 1. 유저가 이미 DB에 있는지 확인하기
         try:
@@ -203,7 +204,6 @@ NAVER_USER_API = "https://openapi.naver.com/v1/nid/me"
 NAVER_REDIRECT_URI = getattr(settings, 'NAVER_REDIRECT_URI', 'NAVER_REDIRECT_URI')
 NAVER_CLIENT_ID = getattr(settings, 'NAVER_CLIENT_ID', 'NAVER_CLIENT_ID')
 NAVER_CLIENT_PW = getattr(settings, 'NAVER_CLIENT_PW', 'NAVER_CLIENT_PW')
-
 
 class NaverLoginCallback(generics.GenericAPIView, mixins.ListModelMixin):
     def get(self, request, *args, **kwargs):

@@ -39,7 +39,6 @@ NAVER_CLIENT_PW = get_secret("NAVER_CLIENT_PW")
 NAVER_REDIRECT_URI = get_secret("NAVER_REDIRECT_URI")
 SECRET_KEY=get_secret("SECRET_KEY")
 
-
 SECRET_KEY=SECRET_KEY
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -213,9 +212,11 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 
 ACCOUNT_USER_MODEL_USERNAME_FIELD = 'username'  # username 필드 사용 x
+#ACCOUNT_USER_MODEL_USERNAME_FIELD = None  # username 필드 사용 x
 ACCOUNT_EMAIL_REQUIRED = True  # email 필드 사용 o
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = True  # username 필드 사용 x
+#ACCOUNT_USERNAME_REQUIRED = False  # username 필드 사용 x
 ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True  # 링크 클릭하면 활성화
