@@ -38,6 +38,8 @@ NAVER_CLIENT_ID = get_secret("NAVER_CLIENT_ID")
 NAVER_CLIENT_PW = get_secret("NAVER_CLIENT_PW")
 NAVER_REDIRECT_URI = get_secret("NAVER_REDIRECT_URI")
 SECRET_KEY=get_secret("SECRET_KEY")
+EMAIL_USER = get_secret("EMAIL_HOST_USER")
+EMAIL_PASSWORD = get_secret("EMAIL_HOST_PASSWORD")
 
 SECRET_KEY=SECRET_KEY
 # Quick-start development settings - unsuitable for production
@@ -203,8 +205,8 @@ EMAIL_PORT = "587"
 EMAIL_USE_TLS = True
 # TLS 보안 방법
 
-EMAIL_HOST_USER = "lghellovisiondxdataschool@gmail.com"
-EMAIL_HOST_PASSWORD = "ksed tnme sgrd ssfo"
+EMAIL_HOST_USER =EMAIL_USER
+EMAIL_HOST_PASSWORD = EMAIL_PASSWORD
 # 발신할 이메일
 # 발신할 메일의 비밀번호
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
