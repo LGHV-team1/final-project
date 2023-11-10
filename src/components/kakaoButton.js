@@ -1,4 +1,4 @@
-import kakao_btn from "../images/kakao_btn.png"
+import kakao_btn from "../images/kakao.png"
 
 const KakaoButton = () => {
     const Rest_api_key = process.env.REACT_APP_KAKAO_KEY; //REST API KEY
@@ -15,7 +15,7 @@ const KakaoButton = () => {
           src={kakao_btn}
           alt="카카오 로그인 버튼"
           className="flex justify-center py-2"
-          width="250px"
+          width="50px"
         />
       </button>
       

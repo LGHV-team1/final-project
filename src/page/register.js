@@ -23,37 +23,40 @@ function Register() {
   };
   const onRegister = (e) => {
     e.preventDefault();
+    if (!Email || !Name || !Password || !ConfirmPassword) {
+      return alert("모든 항목을 입력해주세요.");
+    }
     if (Password !== ConfirmPassword) {
       return alert("비밀번호가 일치하지 않습니다.");
     }
     confirmEmail();
   };
 
+  const registerSend = async () => {
+    const response = await axios.post(
+      "http://localhost:8000/accounts/dj-rest-auth/registration/",
+      {
+        username: Name,
+        email: Email,
+        password1: Password,
+        password2: ConfirmPassword,
+      }
+    );
+
+    console.log(response);
+  };
   const confirmEmail = () => {
-    if (window.confirm("이메일 인증을 하세요~")) {
-      // registerSend();
+    if (window.confirm(`${Email}로 가서 이메일 인증을 하세요~`)) {
+      registerSend();
       navigate("/login");
     }
-    const registerSend = async () => {
-      // const response = await axios.post(
-      //   "http://localhost:8000/api/users/dj-rest-auth/registration",
-      //   {
-      //     username: Name,
-      //     email: Email,
-      //     password1: Password,
-      //     password2: ConfirmPassword,
-      //   }
-      // );
-
-      // console.log(response);
-    };
   };
   return (
     <form
-      className="max-w-[400px] w-[400px] mx-auto bg-white p-4 border border-black mt-4 rounded"
+      className="max-w-[400px] w-[400px] mx-auto bg-white p-4 "
       onSubmit={onRegister}
     >
-      <h2 className="text-5xl font-bold text-center py-5 font-face">
+      <h2 className="text-5xl font-bold text-center py-3 ">
         ~오볼추~
       </h2>
       <div className="flex flex-col py-2">
@@ -77,11 +80,11 @@ function Register() {
           onChange={onConfirmPasswordHandler}
         />
       </div>
-      <div className="flex flex-col py-2">
+      <div className="flex flex-col pt-2">
         <label>Username</label>
         <Input type="text" value={Name} onChange={onNameHandler} />
       </div>
-      <div className="flex justify-between ">
+      <div className="flex justify-between">
         <Link to="/login">
           <Button label={"아이디가 있음"} />
         </Link>

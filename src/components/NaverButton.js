@@ -1,4 +1,4 @@
-import naver_btn from "../images/naver_btn.png"
+import naver_btn from "../images/btnG_아이콘사각.png"
 
 const NaverButton = () => {
     const Rest_api_key = process.env.REACT_APP_NAVER_ID; //REST API KEY
@@ -16,7 +16,7 @@ const NaverButton = () => {
           src={naver_btn}
           alt="네이버 로그인 버튼"
           className="flex justify-center py-2"
-          width="250px"
+          width="50px"
         />
       </button>
       

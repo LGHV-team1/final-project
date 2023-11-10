@@ -1,0 +1,88 @@
+@import './style.scss';
+
+.navbar {
+  position: sticky;
+  top: 0px;
+  background-color: $color-white; /* Use the Sass variable */
+  border-bottom: 1px solid $color-light-gray; /* Use the Sass variable */
+  z-index: 3;
+  ;
+
+  .navbar-container {
+    display: flex;
+    max-width: 1320px;
+    height: 62px;
+    margin: 0 auto;
+    justify-content: space-between;
+
+    .navbar-left {
+      display: flex;
+
+      img {
+        width: 140px;
+        height: 30px;
+        margin: auto 30px auto 0;
+      }
+
+      .sorts-contents {
+        span {
+          display: inline-block;
+          padding: 25px 12px 25px 12px;
+          font-size: $font-size-medium; /* Use the Sass variable */
+          color: #7e7e7e;
+
+          &:first-child {
+            color: #353535;
+          }
+        }
+      }
+    }
+
+    .navbar-right {
+      display: flex;
+      font-size: $font-size-medium; /* Use the Sass variable */
+
+      .search-bar {
+        position: relative;
+        width: 300px;
+        height: 38px;
+        margin-top: 12px;
+        line-height: 23px;
+        background-color: $color-background; /* Use the Sass variable */
+        border-radius: 3px;
+
+        .search-container {
+          padding: 7px 10px 8px 32px;
+
+          i {
+            position: absolute;
+            width: 16px;
+            top: 10px;
+            left: 9px;
+            color: #cbcbd3;
+          }
+
+          .search-input {
+            width: 100%;
+          }
+        }
+      }
+
+      .btn-login {
+        margin: 0px 18px 0px 18px;
+        color: #74747a;
+        cursor: pointer;
+      }
+
+      .btn-signup {
+        display: inline-block;
+        margin: auto 0;
+        height: 32px;
+        padding: 0 14px;
+        border: 1px solid #b9b9bc;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+    }
+  }
+}

@@ -7,32 +7,11 @@ import React from "react";
 import Header from "./components/header.js";
 import Footer from "./components/footer.js";
 import Home from "./page/Home.js";
+import Header2 from "./components/header2.js";
+import AppRoute from "./routes/AppRoute.js";
 function App() {
   return (
-    <Router>
-      <Header />
-      <Routes>
-        <Route
-          path="/login"
-          element={
-            <>
-              <Login />
-            </>
-          }
-        />
-        <Route
-          path="/register"
-          element={
-            <>
-              <Register />
-            </>
-          }
-        />
-        <Route path="/home" element={<><Home /></>} />
-        <Route path="/detail:" element={<><Home /></>} />
-      </Routes>
-      <Footer />
-    </Router>
+    <AppRoute />
   );
 }
 

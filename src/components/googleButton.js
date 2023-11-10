@@ -1,4 +1,4 @@
-import google_btn from "../images/google_btn.png"
+import google_btn from "../images/google.png"
 
 export default function GoogleButton () {
   const Rest_api_key = process.env.REACT_APP_GOOGLE_ID; //REST API KEY
@@ -16,7 +16,7 @@ export default function GoogleButton () {
         src={google_btn}
         alt="구글 로그인 버튼"
         className="flex justify-center py-2"
-        width="250px"
+        width="50px"
       />
     </button>
     
