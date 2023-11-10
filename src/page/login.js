@@ -6,21 +6,27 @@ import KakaoButton from "../components/kakaoButton.js";
 import NaverButton from "../components/NaverButton.js";
 import Input from "../components/input.js";
 import axios from "axios";
-import logo from "../images/lg.jpg"
+import BGimg from '../images/background.png';
+import logo from "../images/lg.jpg";
+
 function Login() {
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
   const navigate = useNavigate();
+
   const onEmailHandler = (event) => {
     setEmail(event.currentTarget.value);
   };
+
   const onPasswordHandler = (event) => {
     setPassword(event.currentTarget.value);
   };
+
   const onLogin = (e) => {
     e.preventDefault();
     login();
   };
+
   const login = async () => {
     try {
       const response = await axios.post(
@@ -40,9 +46,9 @@ function Login() {
   };
 
   return (
-    <div className="max-w-[400px] w-[400px] mx-auto bg-white p-4  ">
+    <div className="max-w-[400px] w-[400px] mx-auto bg-white p-4">
       <form onSubmit={onLogin}>
-        <img className="pb-4 "src={logo} />
+        <img className="pb-4 " src={logo} alt="Logo" />
         <div className="flex flex-col py-2">
           <label>Email</label>
           <Input
@@ -70,17 +76,30 @@ function Login() {
         />
         <div className="flex justify-between pb-2 ">
           <Button
-            label={"비밀번호 찾기"}
-            className={"bg-transparent hover:bg-transparent"}
+            label={"로그인"}
+            className={
+              "border w-full my-3 py-2 bg-pink-600 hover:bg-pink-500 text-white rounded"
+            }
           />
-          <Link to={`/register`}>
+          <div className="flex justify-between mb-5">
             <Button
-              label={"아이디 만들기"}
+              label={"비밀번호 찾기"}
               className={"bg-transparent hover:bg-transparent"}
             />
-          </Link>
+            <Link to={`/register`}>
+              <Button
+                label={"아이디 만들기"}
+                className={"bg-transparent hover:bg-transparent"}
+              />
+            </Link>
+          </div>
         </div>
       </form>
+      <div className="text-center">
+        <KakaoButton />
+        <GoogleLoginButton />
+        <NaverButton />
+      </div>
       <div className="flex justify-around">
         <div><KakaoButton /></div>
         <div><GoogleLoginButton /></div>
