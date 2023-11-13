@@ -9,7 +9,7 @@ function Home() {
         navigate('/login')
     }
     return (
-      <body style={{backgroundSize: 'cover',backgroundRepeat: 'no-repeat', backgroundColor:'black'}}>
+      <body className='bg-black' style={{backgroundSize: 'cover',backgroundRepeat: 'no-repeat',}}>
         <img src={BGimg} alt="background"/>
             <div style={style}> 
                 <h1 style={{fontWeight:"900", fontSize:"72px"}}> 안녕하세요! </h1> 

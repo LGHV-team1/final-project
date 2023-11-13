@@ -19,12 +19,12 @@ function Header2() {
     <div className="navbar-container">
       <div className="navbar-left">
         <a href="/"><img src={logo} alt="logo" /></a>
-        </div>
-        <div className="sorts-contents">
-          <a href="/main" className='menu'>홈</a>
-          <a href="#" className='menu'>영화</a>
-          <a href="#" className='menu'>TV프로그램</a>
-        </div>
+      </div>
+      <div className="sorts-contents">
+        <a href="/main" className='menu'>홈</a>
+        <a href="#" className='menu'>영화</a>
+        <a href="#" className='menu'>TV프로그램</a>
+      </div>
 
     
       <div className="navbar-right">

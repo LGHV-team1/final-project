@@ -9,22 +9,19 @@
   ;
 
   .navbar-container {
-    display: flex;
     width: 85%;
+    display: flex;
     height: 65px;
     margin: 0 auto;
     justify-content: space-between;
     border-bottom: 1px solid $color-light-gray;
-
+  
     .navbar-left {
-      display: flex;
-
+      //display: flex;
       img {
         width: 200px;
         margin: 16px 0 0 30px;
       }
-
-      
     }
     .sorts-contents {
       .menu {
@@ -40,6 +37,7 @@
     }
     .navbar-right {
       display: flex;
+      width: fit-content;
       font-size: $font-size-medium; /* Use the Sass variable */
       margin-right: 30px;
 
@@ -69,6 +67,7 @@
             width: 100%;
             outline: none;
           }
+          
         }
       }
 
