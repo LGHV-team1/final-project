@@ -6,6 +6,12 @@ from reviews.models import Review
 from .serializers import VodListSerializer, VodDetailSerializer
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from reviews.serializers import ReviewSerializer,ReviewshowSerializer
+from wishlists.models import Wishlist  
+from wishlists.serializers import WishlistSerializer
+from wishlists.utils import delete_wishlist
+
+
+
 
 class SearchVods(APIView):
 	permission_classes = [IsAuthenticatedOrReadOnly]
@@ -24,18 +30,51 @@ class SearchVodsDetail(APIView):
 	permission_classes=[IsAuthenticatedOrReadOnly]
 	def get_object(self,vodname):
 		return Vod.objects.get(name=vodname)
+
+	def delete_wishlist(self,request,wishlist_id):
+		wishlist = Wishlist.objects.get(pk=wishlist_id, user=request.user,)
+		wishlist.delete()
+		 
 		
 	def get(self,request,vodname):
 		vod=self.get_object(vodname)
-		serializer=VodDetailSerializer(vod)
+		serializer = VodDetailSerializer(vod, context={'request': request})
 		return Response(serializer.data)
+	
+	def post(self, request,vodname):
+		vod=self.get_object(vodname)
+	
+		wishlist = Wishlist.objects.filter(
+            user=request.user, 
+            vod_id=vod.id
+        ).first()
+		# 찜 추가 or 삭제 확인
+		
+	
+		if wishlist:
+			wishlist_id = wishlist.id
+			# 찜 삭제
+			delete_wishlist(wishlist_id,request.user)
+			return Response(status=status.HTTP_204_NO_CONTENT) 
+		else:
+			wishlist_data = {
+				'user': request.user.id, 
+				'vod': vod.id,
+			}
+			
+			serializer = WishlistSerializer(data=wishlist_data)
+			if serializer.is_valid():
+				serializer.save()
+				return Response(serializer.data, status=status.HTTP_201_CREATED)
+				
+			return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class VodReviews(APIView):
 	permission_classes=[IsAuthenticatedOrReadOnly]
 	def get_object(self,vodname):
 		return Vod.objects.get(name=vodname)
-	
+
 	def get(self, request, vodname):
 		vod = self.get_object(vodname)
 		serializer = ReviewshowSerializer(
@@ -43,7 +82,7 @@ class VodReviews(APIView):
 			many=True,
 		)
 		return Response(serializer.data)
-	
+
 	def post(self,request,vodname):
 		existing_review =Review.objects.filter(user=request.user, contents__name=vodname).first()
 		if existing_review:
@@ -64,7 +103,7 @@ class VodReviews(APIView):
 			return Response(review.errors,status=status.HTTP_400_BAD_REQUEST)
 		
 	def delete(self, request, vodname):
-        # Retrieve the review instance
+		# Retrieve the review instance
 		try:
 			review = self.get_object(vodname).reviews.get(user=request.user)
 		except Review.DoesNotExist:
