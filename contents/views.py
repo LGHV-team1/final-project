@@ -30,10 +30,6 @@ class SearchVodsDetail(APIView):
 	permission_classes=[IsAuthenticatedOrReadOnly]
 	def get_object(self,vodname):
 		return Vod.objects.get(name=vodname)
-
-	def delete_wishlist(self,request,wishlist_id):
-		wishlist = Wishlist.objects.get(pk=wishlist_id, user=request.user,)
-		wishlist.delete()
 		 
 		
 	def get(self,request,vodname):
