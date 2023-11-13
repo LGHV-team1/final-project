@@ -46,12 +46,7 @@ function Register() {
     console.log(response);
   };
   const confirmEmail = () => {
-<<<<<<< HEAD
-    if (window.confirm(`${Email}로 가서 이메일 인증을 하세요~`)) {
-      registerSend();
-      navigate("/login");
-    }
-=======
+
     if (window.confirm("이메일 인증을 하세요~")) {
       registerSend();
       navigate("/login");
@@ -69,7 +64,7 @@ function Register() {
 
       console.log(response);
     };
->>>>>>> 6a063193df84a5a04ebeac0d360dea3e47dbf239
+
   };
   return (
     <form
