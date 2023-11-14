@@ -1,13 +1,12 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./index.css";
-import Login from "./page/login.js";
-import Register from "./page/register.js";
-import Redirection from "./page/redirection";
+import Login from "./page/Login.js";
+import Register from "./page/Register.js";
 import React from "react";
 import Mypage from "./page/Mypage.js";
-import Footer from "./components/footer.js";
+import Footer from "./components/Footer.js";
 import Home from "./page/Home.js";
-import Header2 from "./components/header2.js";
+import Header2 from "./components/Header2.js";
 import Main from "./page/Main.js";
 // import AppRoute from "./routes/AppRoute.js";
 // function App() {

@@ -1,6 +1,6 @@
 import React from 'react'
 import profilepic from "../images/logo.png"
-import Button from "../components/button.js";
+import Button from "../components/Button.js";
 import { Link, useNavigate } from "react-router-dom";
 import { FaHeart } from "react-icons/fa6";
 export default function Mypage() {

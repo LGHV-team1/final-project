@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 import logo from "../images/logo.png";
+import Button from "./Button";
 
 const Header = () => {
   const navigate = new useNavigate();
@@ -55,10 +56,10 @@ const Header = () => {
           {
             window.localStorage.getItem("token") === null
             ? <div class="text-end">
-                <button type="button" class="btn btn-outline-danger" onClick={goToLoginForm}>로그인</button>
+                <Button label = {'로그인'} onClick={goToLoginForm} />
               </div>
             : <div class="text-end">
-                <button type="button" class="btn btn-outline-danger" onClick={goToMypage}>마이페이지</button>
+                <Buttonutton label={'마이페이지'} onClick={goToMypage} />
               </div>
           }
 

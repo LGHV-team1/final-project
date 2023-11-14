@@ -14,7 +14,7 @@ const KakaoButton = () => {
         <img
           src={kakao_btn}
           alt="카카오 로그인 버튼"
-          className="flex justify-center py-2"
+          
           width="50px"
         />
       </button>
