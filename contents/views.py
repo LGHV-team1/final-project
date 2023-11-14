@@ -94,9 +94,25 @@ class VodReviews(APIView):
 		# Save the review instance
 		if review.is_valid():
 			review_instance = review.save()
-			return Response(ReviewSerializer(review_instance).data)
+			return Response(ReviewSerializer(review_instance).data,status=201)
 		else:
 			return Response(review.errors,status=status.HTTP_400_BAD_REQUEST)
+	
+	def put(self, request, vodname):
+		vod = self.get_object(vodname)
+		try:
+			review = vod.reviews.get(user=request.user)
+		except Review.DoesNotExist:
+			return Response({'error':'Review not found.'}, 404)
+
+		serializer = ReviewSerializer(review, data=request.data, partial=True)
+		if not serializer.is_valid():
+			return Response(serializer.errors, status=400)
+
+		serializer.save()
+
+		return Response(serializer.data)
+
 		
 	def delete(self, request, vodname):
 		# Retrieve the review instance
