@@ -2,13 +2,13 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./index.css";
 import Header2 from "./components/header/Header.js";
 import Footer from "./components/footer/Footer.js";
-import Login from "./page/login.js";
-import Register from "./page/register.js";
+import Login from "./page/Login.js";
+import Register from "./page/Register.js";
 import React from "react";
-import Mypage from "./page/myPage.js";
-import Home from "./page/home.js";
-import Main from "./page/main.js";
-import Detail from "./page/detail.js";
+import Mypage from "./page/Mypage.js";
+import Home from "./page/Home.js";
+import Main from "./page/Main.js";
+import Detail from "./page/Detail.js";
 // import AppRoute from "./routes/AppRoute.js";
 // function App() {
 //   return (
