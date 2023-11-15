@@ -26,7 +26,7 @@
 .navbar .navbar-container .sorts-contents .menu {
   text-decoration: none;
   display: inline-block;
-  padding: 20px 20px;
+  padding: 20px 20px 20px 10px;
   /* Use the Sass variable */
   color: white;
 }
@@ -69,7 +69,7 @@
 }
 .navbar .navbar-container .navbar-right .btn-signup {
   display: inline-block;
-  margin: 15px 15px;
+  margin: 15px 0px;
   height: 32px;
   padding: 0 14px;
   border: 1px solid #b9b9bc;
