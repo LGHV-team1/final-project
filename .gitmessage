@@ -7,7 +7,6 @@
 # Wrap at 72 chars. ################################## which is here: #
 
 
-#   ACTION  : Detail
 #   TASKS   : main / dev / feat - fix
 #   feat    : 기능 한 줄 설명 (새로운 기능, 새로운 브랜치 생성)
 #   fix     : 버그 수정 설명
