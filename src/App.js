@@ -4,10 +4,11 @@ import Login from "./page/Login.js";
 import Register from "./page/Register.js";
 import React from "react";
 import Mypage from "./page/Mypage.js";
-import Footer from "./components/Footer.js";
+import Footer from "./components/footer/Footer.js";
 import Home from "./page/Home.js";
 import Header2 from "./components/header/Header.js";
 import Main from "./page/Main.js";
+import Detail from "./page/Detail.js";
 // import AppRoute from "./routes/AppRoute.js";
 // function App() {
 //   return (
@@ -23,7 +24,7 @@ function App() {
           <Route path="/login"element={<><Login /></>}/>
           <Route path="/register" element={<><Register /></>}/>
           <Route path="/main" element={<><Main /></>} />
-          <Route path="/detail:" element={<><Home /></>} />
+          <Route path="/detail" element={<><Detail/></>} />
           <Route path="/mypage" element={<><Mypage /></>} />
         </Routes>
       </div>

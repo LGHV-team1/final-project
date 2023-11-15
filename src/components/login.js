@@ -1,8 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
-import Button from "./button";
-import GoogleLoginButton from "./googleButton.js";
+import Button from "./Button";
+import GoogleLoginButton from "./GoogleButton.js";
 import { useEffect } from "react";
-import SocialKakao from "./kakaoButton";
+import SocialKakao from "./KakaoButton.js";
 
 function Login() {
   return (
