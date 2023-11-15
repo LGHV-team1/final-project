@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Nav.scss";
-import logo from "../images/CI_White.png";
-import Button from "./Button";
+import "./Header.css";
+import logo from "../../images/CI_White.png";
+import Button from "../Button";
 function Header2() {
   const navigate = new useNavigate();
   const goToLoginForm = () => {
@@ -19,7 +19,7 @@ function Header2() {
       <div className="navbar-container">
         <div className="navbar-left">
           <a href="/">
-            <img src={logo} alt="logo" />
+            <img className="navbar-left.img" src={logo} alt="logo" />
           </a>
         </div>
         <div className="sorts-contents">
