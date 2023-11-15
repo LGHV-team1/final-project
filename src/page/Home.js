@@ -1,7 +1,7 @@
 import React from "react";
 import BGimg from "../images/background.png";
 import { useNavigate } from "react-router-dom";
-import HelloAD from "../components/helload";
+import HelloAD from "../components/Helload";
 import Button from "../components/Button";
 function Home() {
   const navigate = new useNavigate();

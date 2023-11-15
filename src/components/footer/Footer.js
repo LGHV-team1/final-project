@@ -1,5 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.css';
-import LGHVlogo from "../images/CI_White.png";
+import LGHVlogo from "../../images/CI_White.png";
 const Footer = () => {
     return (
   <footer class="py-3 bg-black mt-auto position-relative">
