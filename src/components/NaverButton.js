@@ -15,7 +15,7 @@ const NaverButton = () => {
         <img
           src={naver_btn}
           alt="네이버 로그인 버튼"
-          className="flex justify-center py-2"
+          
           width="50px"
         />
       </button>

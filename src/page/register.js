@@ -1,14 +1,19 @@
 import { Link, useNavigate } from "react-router-dom";
-import Button from "../components/button.js";
-import Input from "../components/input.js";
+import Button from "../components/Button.js";
+import Input from "../components/Input.js";
 import { useState } from "react";
 import axios from "axios";
+import BGimg from "../images/background.png"
 function Register() {
   const [Email, setEmail] = useState("");
   const [Name, setName] = useState("");
   const [Password, setPassword] = useState("");
   const [ConfirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
+  const emailRegEx = /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/i;
+  const emailCheck = (username) => {
+    return emailRegEx.test(username); //형식에 맞을 경우, true 리턴
+  }
   const onEmailHandler = (event) => {
     setEmail(event.currentTarget.value);
   };
@@ -23,6 +28,9 @@ function Register() {
   };
   const onRegister = (e) => {
     e.preventDefault();
+    if (emailCheck(e) === false){
+      return alert("이메일형식에 맞춰서 써주세요")
+    }
     if (!Email || !Name || !Password || !ConfirmPassword) {
       return alert("모든 항목을 입력해주세요.");
     }
@@ -46,37 +54,27 @@ function Register() {
     console.log(response);
   };
   const confirmEmail = () => {
-
-    if (window.confirm("이메일 인증을 하세요~")) {
+    if (window.confirm(`${Email}로 가서 이메일 인증을 하세요~`)) {
       registerSend();
       navigate("/login");
     }
-    const registerSend = async () => {
-      const response = await axios.post(
-        "http://localhost:8000/accounts/registration",
-        {
-          username: Name,
-          email: Email,
-          password1: Password,
-          password2: ConfirmPassword,
-        }
-      );
-
-      console.log(response);
-    };
-
   };
   return (
+    <body>
+    <div style={{position:"absolute"}} >
+        <img src={BGimg} alt="background"/>
+      </div>
+      <div className="max-w-[400px] w-[400px] mx-auto bg-transparent p-4 rounded position-relative">
     <form
-      className="max-w-[400px] w-[400px] mx-auto bg-white p-4 "
       onSubmit={onRegister}
     >
-      <h2 className="text-5xl font-bold text-center py-3 ">
-        ~오볼추~
+      <h2 className="text-5xl font-bold text-center text-white py-5 ">
+        회원가입
       </h2>
       <div className="flex flex-col py-2">
-        <label>Email</label>
+        <label className="text-white">Email</label>
         <Input
+          className="border p-2 rounded"
           type="text"
           value={Email}
           onChange={onEmailHandler}
@@ -84,20 +82,21 @@ function Register() {
         />
       </div>
       <div className="flex flex-col py-2">
-        <label>Password</label>
-        <Input type="password" value={Password} onChange={onPasswordHandler} />
+        <label className="text-white">Password</label>
+        <Input className="border p-2 rounded" type="password" value={Password} onChange={onPasswordHandler} />
       </div>
       <div className="flex flex-col py-2">
-        <label>Password 확인</label>
+        <label className="text-white">Password 확인</label>
         <Input
+        className="border p-2 rounded"
           type="password"
           value={ConfirmPassword}
           onChange={onConfirmPasswordHandler}
         />
       </div>
       <div className="flex flex-col pt-2">
-        <label>Username</label>
-        <Input type="text" value={Name} onChange={onNameHandler} />
+        <label className="text-white">셋톱박스 번호</label>
+        <Input className="border p-2 rounded" type="text" value={Name} onChange={onNameHandler} />
       </div>
       <div className="flex justify-between">
         <Link to="/login">
@@ -106,6 +105,8 @@ function Register() {
         <Button label={"회원가입"} />
       </div>
     </form>
+    </div>
+    </body>
   );
 }
 

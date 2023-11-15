@@ -1,12 +1,11 @@
 # Title: Summary, imperative, start upper case, don't end with a period
 # No more than 50 chars. #### 50 chars is here: #
-feat: add linear lr scheduler
+
 # Remember blank line between title and body.
 
 # Body: Explain *what* and *why* (not *how*). Include task ID (Jira issue).
 # Wrap at 72 chars. ################################## which is here: #
-* additional description like this 1 
-* additional description like this 2 
+
 
 #   ACTION  : Detail
 #   TASKS   : main / dev / feat - fix

@@ -1,5 +1,5 @@
 import React from 'react'
-import Slide from '../components/slide'
+import Slide from '../components/Slide'
 
 function Main() {
   return (
