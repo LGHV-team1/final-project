@@ -5,7 +5,6 @@ import { BsBookmarkHeartFill } from "react-icons/bs";
 import { BsPencilSquare } from "react-icons/bs";
 import MiniSlide from '../components/MiniSlide.js';
 import styled from "styled-components";
-import Button from "../components/Button.js";
 
 const IconWrap = styled.div`
     svg {

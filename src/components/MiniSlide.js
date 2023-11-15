@@ -22,7 +22,7 @@ export const StyledSlider = styled(Slider)`
 `
 
 function miniSlide() {
-    const baseURL = "https://image.tmdb.org/t/p/w300"
+    const BASE_URL = "https://image.tmdb.org/t/p/w300"
     const Listitem = [
         {id: 1, name: "효심이네 각자도생",imgurl: "/1cfjiYe7vCh1oNUK0DuCKuvinrv.jpg"},
         {id: 2, name: "인어공주", imgurl: "/do9pxOrrFqgyebHwxj2IYtZXQIp.jpg"},
@@ -46,7 +46,7 @@ function miniSlide() {
                 {Listitem.map((a) => (
                     <div key={a.id} >
                         <div className="img-body">
-                        <img src={`${baseURL}${a.imgurl}`} alt='slide_image' style={{objectFit:"cover", width:"190px", height:"280px"}} />
+                        <img src={`${BASE_URL}${a.imgurl}`} alt='slide_image' style={{objectFit:"cover", width:"190px", height:"280px"}} />
                         </div>
                     </div>))}
             </StyledSlider>
