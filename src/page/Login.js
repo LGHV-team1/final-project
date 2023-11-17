@@ -85,7 +85,7 @@ function Login() {
             <Link to={`/register`}>
               <Button
                 label={"아이디 만들기"}
-                className={"bg-transparent hover:bg-transparent"}
+                className={"bg-transparent hover:bg-transparent text-white"}
               />
             </Link>
           </div>
