@@ -1,42 +1,65 @@
-import React from 'react'
+import React, {useEffect, useState} from "react";
 import profilepic from "../images/logo.png"
 import { useNavigate } from "react-router-dom";
 import { BsBookmarkHeartFill } from "react-icons/bs";
 import { BsPencilSquare } from "react-icons/bs";
 import MiniSlide from '../components/MiniSlide.js';
 import styled from "styled-components";
+import ApiService from "../api/ApiService.js";
+
 
 const IconWrap = styled.div`
     svg {
       font-size: 30px;
       margin-right: 10px;
-      display : inline-flex;
+      display : inline-block;
       align-items: center;
       justify-content: center;
+      margin-bottom: 5px;
+    }
+
+    p {
+      display : inline-block;
+      font-size: 25px;
+      align-items: center;
     }
 `;
 
 export default function Mypage() {
   const navigate = useNavigate();
+  let [userinfo, setUserinfo] = useState({
+    username : '',
+    useremail : '',
+  });
+
+  useEffect(() => {
+    ApiService.getUserInfo()
+    .then((res)=> {
+        console.log(res)
+        setUserinfo(res.data);
+      
+    })
+
+  }, []);
   return (
     <div>
       <div className="max-w-[400px] w-[400px] mx-auto bg-white p-4 text-center">
         <img src={profilepic} alt="프로필사진" width="50%" className='m-auto'></img>
         <div className="flex flex-col py-8">
-          <div>ㅇㅇㅇ님</div>
-          <div>이메일@이메일.com</div>
+          <div>{userinfo.username}님 안녕하세요!</div>
+          <div>{userinfo.useremail}</div>
         </div>
       </div>
     <div className="max-w-[1000px] w-[1000px] mx-auto text-center"> 
     <div className='mb-5'>
       <hr/>
         <IconWrap>
-          <div className="text-center m-7">
+          <div className="text-center">
             <BsBookmarkHeartFill color="#FF66B2"/>
-            <span style={{ fontSize:"23px" }}>Wish List</span>
+            <p>위시리스트 </p>
           </div>
         </IconWrap>
-        <div className="text-center">
+        <div className="text-center mt-3">
           <MiniSlide/>
         </div>
       </div>
@@ -44,9 +67,9 @@ export default function Mypage() {
       <div className='mb-5'>
       <hr/>
         <IconWrap>
-          <div className="text-center m-7">
+          <div className="text-center">
             <BsPencilSquare color='#3399FF'/>
-            <span style={{ fontSize:"23px" }}>My Review</span>
+            <p>나의 리뷰 </p>
           </div>
         </IconWrap>
         <div className="text-center">
