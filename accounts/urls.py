@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import kakaoCallback, naverCallback, googleCallback
+from .views import kakaoCallback, naverCallback, googleCallback, getUserInfo, logout
 from dj_rest_auth.registration.views import VerifyEmailView
 from django.urls import re_path,include,path
 from allauth.account.views import confirm_email
@@ -19,4 +19,8 @@ urlpatterns = [
     # 유저가 클릭한 이메일(=링크) 확인
     re_path(r'^account-confirm-email/(?P<key>[-:\w]+)/$', confirm_email, name='account_confirm_email'),
 
+    #유저 정보
+    path('userinfo', getUserInfo),
+    #로그아웃
+    path('logout', logout, name="logout")
 ]

@@ -1,6 +1,7 @@
 import json,os,urllib
 from json import JSONDecodeError
-from django.http import HttpResponseRedirect, JsonResponse
+from django.core import serializers
+from django.http import HttpResponseRedirect,JsonResponse,HttpResponse
 from django.contrib.sites import requests
 from django.shortcuts import render, redirect
 from rest_framework import generics, mixins, status
@@ -22,7 +23,6 @@ KAKAO_REST_API_KEY = getattr(settings, 'KAKAO_REST_API_KEY', 'KAKAO_REST_API_KEY
 def kakaoCallback(request, *args, **kwargs):
     #Callback URL 에서 code 받아오기
     code = request.GET["code"]
-    print(code)
     if not code:
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
@@ -38,7 +38,6 @@ def kakaoCallback(request, *args, **kwargs):
     access_token = token['access_token']
     if not access_token:
         return Response(status=status.HTTP_400_BAD_REQUEST)
-    print(access_token)
     # kakao에 user info 요청
     headers = {"Authorization": f"Bearer ${access_token}"}
     # 받은 access token 으로 user 정보 요청
@@ -48,18 +47,17 @@ def kakaoCallback(request, *args, **kwargs):
     kakao_account = user_infomation.get('kakao_account')
     #email 은 카카오 user 정보에서 받은 email
     email = kakao_account.get('email')
-    print(email)
 
     # 1. 유저가 이미 DB에 있는지 확인하기
     try:
         #User모델의 이메일과 Token의 이메일이 같은지 확인
         user = User.objects.get(email=email)
         token = Token.objects.get_or_create(user=user)
-        print(token)
+        print(token[0])
         #같으면 이미 있는 유저 -> 바로 리다이렉트
-        res = redirect("http://127.0.0.1:3000")
-        #res.set_cookie(res, token.get('access'), token.get('refresh'))
-        # 쿠키설정은 res.set_cookie('쿠키이름', '쿠키값')
+        res = HttpResponseRedirect("http://127.0.0.1:3000/main")
+        res.set_cookie(key='token', value=token[0],httponly=True, max_age=3600)
+        res.set_cookie(key='is_login', value=True, max_age=3600)
         return res
 
     except User.DoesNotExist:
@@ -83,15 +81,13 @@ def kakaoCallback(request, *args, **kwargs):
         try:
             user = User.objects.get(email=email)
             token = Token.objects.create(user=user)
-            print(token)
-            res = redirect("http://127.0.0.1:3000")
-            #res.set_cookie(res, token.get('access'), token.get('refresh'))
-
+            print(token[0])
+            res = HttpResponseRedirect("http://127.0.0.1:3000/main")
+            res.set_cookie(key='token',value=token[0],httponly=True, max_age=3600)
+            res.set_cookie(key='is_login', value=True, max_age=3600)
             return res
         except:
             return Response(status=status.HTTP_400_BAD_REQUEST)
-
-
 
 
 GOOGLE_TOKEN_API = "https://oauth2.googleapis.com/token"
@@ -106,7 +102,6 @@ def googleCallback(request):
     client_secret = GOOGLE_CLIENT_PW
     code = request.GET.get("code")
     state = "rnrmffhrmdls"
-    print(code)
     # 1. callback으로 받은 코드로 구글에 access token 요청
     token_req = requests.post(
         f"https://oauth2.googleapis.com/token?client_id={client_id}&client_secret={client_secret}&code={code}&grant_type=authorization_code&redirect_uri={GOOGLE_REDIRECT_URI}&state={state}"
@@ -124,7 +119,6 @@ def googleCallback(request):
         raise JSONDecodeError(error)
     ### 1-3. 성공 시 access_token 가져오기
     access_token = token_req_json.get("access_token")
-    print("토큰:", access_token)
 
     #################################################################
 
@@ -150,8 +144,8 @@ def googleCallback(request):
         # get_or_create : 있으면 get 없으면 create
         user = User.objects.get(email=email)
         token = Token.objects.get_or_create(user=user)
-        res = redirect("http://127.0.0.1:3000")
-
+        res = HttpResponseRedirect("http://127.0.0.1:3000/main")
+        res.set_cookie(key='token', value=token[0], httponly=True, max_age=3600)
 
         # # 있는데 구글계정이 아니어도 에러
         # if social_user.provider != "google":
@@ -183,10 +177,8 @@ def googleCallback(request):
         try:
             user = User.objects.get(email=email)
             token = Token.objects.create(user=user)
-            print(token)
-            res = redirect("http://127.0.0.1:3000")
-            # res.set_cookie(res, token.get('access'), token.get('refresh'))
-
+            res = HttpResponseRedirect("http://127.0.0.1:3000/main")
+            res.set_cookie(key='token', value=token[0], httponly=True, max_age=3600)
             return res
         except:
             return Response(status=status.HTTP_400_BAD_REQUEST)
@@ -249,9 +241,8 @@ def naverCallback(request, *args, **kwargs):
         user = User.objects.get(email=email)
         token = Token.objects.get_or_create(user=user)
         #같으면 이미 있는 유저 -> 바로 리다이렉트
-        res = redirect("http://127.0.0.1:3000")
-        #res.set_cookie(res, token.get('access'), token.get('refresh'))
-        # 쿠키설정은 res.set_cookie('쿠키이름', '쿠키값')
+        res = HttpResponseRedirect("http://127.0.0.1:3000/main")
+        res.set_cookie(key='token', value=token[0], httponly=True, max_age=3600)
         return res
 
     except User.DoesNotExist:
@@ -277,13 +268,32 @@ def naverCallback(request, *args, **kwargs):
             user = User.objects.get(email=email)
             token = Token.objects.create(user=user)
             print(token)
-            res = redirect("http://127.0.0.1:3000")
-            #res.set_cookie(res, token.get('access'), token.get('refresh'))
+            res = HttpResponseRedirect("http://127.0.0.1:3000/main")
+            res.set_cookie(key='token', value=token[0], httponly=True, max_age=3600)
 
             return res
         except:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
+
+
+def getUserInfo(request):
+    current = request.COOKIES.get('token')
+    current_user = User.objects.get(auth_token=current)
+    useremail = str(current_user)
+    return JsonResponse({"useremail": useremail})
+
+    # useremail = str(current_user.user)
+    # current_user_name = User.objects.get(email=useremail)
+    # username = str(current_user_name.username)
+    # return JsonResponse({"username": username, "useremail":useremail})
+
+def logout(request):
+    res = HttpResponse("Cookie deleted!")
+    res.delete_cookie('token', path="http://127.0.0.1:3000")
+    res.delete_cookie('token', path="http://127.0.0.1:8000")
+    res.delete_cookie('is_login', path="http://127.0.0.1:8000")
+    return res
 
 
 class ConfirmEmailView(APIView):

@@ -17,6 +17,7 @@ class Command(BaseCommand):
                 vod = Vod(name=vod_name, description=Summary, actors=actors, bigcategory=BigCategory, smallcategory=SmallCategory, category=Category,director=director)
                 vod_list.append(vod)
 
+
         Vod.objects.bulk_create(vod_list)
 
         self.stdout.write(self.style.SUCCESS("Data imported successfully"))
