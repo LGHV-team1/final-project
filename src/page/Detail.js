@@ -1,49 +1,88 @@
-import React from "react";
-import img1 from "../images/img1.jpg";
+import React, { useState } from "react";
 import Rank from "../components/Rank";
-import Button from "../components/Button";
 import Input from "../components/Input";
-import { FaHeart } from "react-icons/fa6";
+
 function Detail() {
+  const [wish, setWish] = useState(false);
+ const handleWish = () => {
+  setWish((current) => !current)
+ }
   return (
     <>
-      <div className="flex mx-28 mt-10 mb-10 gap-10 ">
-        <img className="w-1/2  " src={img1} />
-        <div className="w-1/2  ">
+      <div className="flex mx-32 mt-10 mb-10 gap-10 ">
+        <img
+          className="w-80"
+          src="https://an2-img.amz.wtchn.net/image/v2/y8zw23wQG88i2Y3lNWetpQ.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpFMk9UazFPVEkwTmpnM016QTVNamd6TWpFaWZRLjFQU194eWZtVWFUZG5KUmhsY2V5RHVlVnZXVVhEQ2hhYlhnY01KZ1Fka1k"
+        />
+        <div className=" ">
           <div>
-            <div className="flex justify-between  ">
-              <h1 className="flex-row my-5 font-bold "> 아이언맨 </h1>
-              <Button
-                className={
-                  "flex items-center  my-5 py-2 bg-my-color  text-white  hover:bg-my-color/70 rounded px-4"
-                }
-                label={"위시리스트 추가"}
-                icon={<FaHeart />}
-              ></Button>{" "}
-            </div>
+            <div className="flex justify-between items-center  ">
+              <h1 className="flex-row my-5 font-bold "> 서울의 봄 </h1>
+              {wish === false ? (
+                <div className="flex my-5 flex-col items-center">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    height="4em"
+                    width="4em"
+                    className="hover:scale-125"
+                    onClick={handleWish}
+                  >
+                    <path d="M19 11h-6V5h-2v6H5v2h6v6h2v-6h6z" />
+                  </svg>
+                  위시 추가
+                </div>
+              ) : (
+                <div className="flex my-5 flex-col items-center">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    height="4em"
+                    width="4em"
+                    onClick={handleWish}
+                    className="hover:scale-125"
+                  >
+                    <path d="M5 11h14v2H5z" />
+                  </svg>
+                  위시 삭제
+                </div>
+              )}
 
+              <div className="flex my-5 flex-col items-center">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  height="4em"
+                  width="4em"
+                  className="scale-75"
+                >
+                  <path d="M14.1 9l.9.9L5.9 19H5v-.9L14.1 9m3.6-6c-.2 0-.5.1-.7.3l-1.8 1.8 3.7 3.8L20.7 7c.4-.4.4-1 0-1.4l-2.3-2.3c-.2-.2-.5-.3-.7-.3m-3.6 3.2L3 17.2V21h3.8l11-11.1-3.7-3.7M7 2v3h3v2H7v3H5V7H2V5h3V2h2z" />
+                </svg>
+                리뷰남기기
+              </div>
+            </div>
             <p>
-              천재적인 두뇌와 재능으로 세계 최강의 무기업체를 이끄는 CEO이자,
-              타고난 매력으로 셀러브리티 못지않은 화려한 삶을 살아가던 억만장자
-              토니 스타크. 아프가니스탄에서 자신이 개발한 신무기 발표를 성공리에
-              마치고 돌아가던 그는 게릴라군의 갑작스런 공격에 의해 가슴에
-              치명적인 부상을 입고 게릴라군에게 납치된다. 가까스로 목숨을 건진
-              그에게 게릴라군은 자신들을 위한 강력한 무기를 개발하라며 그를
-              위협한다. 그러나 그는 게릴라군을 위한 무기 대신, 탈출을 위한
-              무기가 장착된 철갑수트를 몰래 만드는 데 성공하고, 그의 첫 수트인
-              ‘Mark1’를 입고 탈출에 성공한다. 미국으로 돌아온 토니 스타크는
-              자신이 만든 무기가 많은 사람들의 생명을 위협하고, 세상을 엄청난
-              위험에 몰아넣고 있다는 사실을 깨닫고 무기사업에서 손 뗄 것을
-              선언한다. 그리고, Mark1을 토대로 최강의 하이테크 수트를 개발하는
-              데 자신의 천재적인 재능과 노력을 쏟아 붓기 시작한다.
+              1979년 12월 12일, 수도 서울 군사반란 발생 그날, 대한민국의 운명이
+              바뀌었다.
+              <br />
+              <br />
+              대한민국을 뒤흔든 10월 26일 이후, 서울에 새로운 바람이 불어온 것도
+              잠시 12월 12일, 보안사령관 전두광이 반란을 일으키고 군 내 사조직을
+              총동원하여 최전선의 전방부대까지 서울로 불러들인다. 권력에 눈이 먼
+              전두광의 반란군과 이에 맞선 수도경비사령관 이태신을 비롯한 진압군
+              사이, 일촉즉발의 9시간이 흘러가는데…
+              <br />
+              <br />
+              목숨을 건 두 세력의 팽팽한 대립 오늘 밤, 대한민국 수도에서 가장
+              치열한 전쟁이 펼쳐진다!
             </p>
           </div>
         </div>
       </div>
       <div className="mx-28">
-        <hr/>
+        <hr />
         <Rank />
-        <Input type={'text'} placeholder={"리뷰를 작성해주세요"} />
+        <Input type={"text"} placeholder={"리뷰를 작성해주세요"} />
       </div>
     </>
   );
