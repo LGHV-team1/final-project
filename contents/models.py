@@ -10,6 +10,11 @@ class Vod(models.Model):
     director = models.CharField(max_length=50, null=True)
     #runningtime = models.TimeField()
     imgpath = models.CharField(max_length=100, null=True)
+    name_no_space = models.CharField(max_length=255, editable=False)
+
+    def save(self, *args, **kwargs):
+        self.name_no_space = self.name.replace(' ', '')
+        super(Vod, self).save(*args, **kwargs)
 
     def __str__(self) -> str:
         return self.name

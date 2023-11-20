@@ -9,7 +9,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         with open("./data/vod_data_addSummary.csv", encoding="utf-8") as f:
             reader = csv.reader(f)
-
+            next(reader)
             vod_list = []
             for row in reader:
                 print(row)
