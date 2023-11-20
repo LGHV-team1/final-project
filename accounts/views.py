@@ -1,6 +1,6 @@
 import json,os,urllib
 from json import JSONDecodeError
-from django.http import HttpResponseRedirect, JsonResponse,HttpResponse
+from django.http import HttpResponseRedirect, JsonResponse
 from django.contrib.sites import requests
 from django.shortcuts import render, redirect
 from rest_framework import generics, mixins, status
@@ -55,11 +55,11 @@ def kakaoCallback(request, *args, **kwargs):
         #User모델의 이메일과 Token의 이메일이 같은지 확인
         user = User.objects.get(email=email)
         token = Token.objects.get_or_create(user=user)
-        print(token[0])
+        print(token)
         #같으면 이미 있는 유저 -> 바로 리다이렉트
-        res = HttpResponseRedirect("http://127.0.0.1:3000/main")
-        res.set_cookie(key='token', value=token[0],httponly=True, max_age=3600)
-        res.set_cookie(key='is_login', value=True, max_age=3600)
+        res = redirect("http://127.0.0.1:3000")
+        #res.set_cookie(res, token.get('access'), token.get('refresh'))
+        # 쿠키설정은 res.set_cookie('쿠키이름', '쿠키값')
         return res
 
     except User.DoesNotExist:
