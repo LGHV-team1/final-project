@@ -2,8 +2,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 import LGHVlogo from "../../images/CI_White.png";
 const Footer = () => {
     return (
-  <footer class="py-3 bg-black mt-auto position-relative">
-    <div class="container">
+  <footer class="py-3 bg-black position-relative">
+    <div class="mx-32 ">
     <ul class="nav justify-content-center border-bottom pb-3 mb-3">
       <li class="nav-item"><a href="/main" class="nav-link px-2 text-white">홈</a></li>
       <li class="nav-item"><a href="#" class="nav-link px-2 text-white">영화</a></li>

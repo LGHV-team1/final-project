@@ -7,6 +7,22 @@ function Rank() {
   const [clicked, setClicked] = useState([false, false, false, false, false]);
   const [hovered, setHovered] = useState([false, false, false, false, false]);
   const [score, setScore] = useState(0);
+  const scoreContent = (score) => {
+    switch (score) {
+      case 1:
+        return <div>1점 별로예요😡</div>;
+      case 2:
+        return <div>2점 그저그래요🙁</div>;
+      case 3:
+        return <div>3점 괜찮아요😑 </div>;
+      case 4:
+        return <div>4점 좋아요🙂</div>;
+      case 5:
+        return <div>5점 최고예요😀</div>;
+      default:
+        return <div>선택하세요</div>;
+    }
+  };
   const handleStarClick = (index) => {
     let clickStates = [...clicked];
     for (let i = 0; i < 5; i++) {
@@ -20,30 +36,15 @@ function Rank() {
       clicked.filter(Boolean).length || hovered.filter(Boolean).length;
 
     setScore(score);
-    sendReview();
+    // sendReview();
   }, [clicked, hovered]); //컨디마 컨디업
-
-  const sendReview = () => {
-    let score = clicked.filter(Boolean).length;
-    // fetch('http://52.78.63.175:8000/movie', {
-    //   method: 'POST',
-    //   Headers: {
-    //     Authroization: 'e7f59ef4b4900fe5aa839fcbe7c5ceb7',
-    //   },
-    //   body: JSON.stringify({
-    //     movie_id:1
-    //     star: score,
-    //   }),
-    // });
-  };
 
   return (
     <>
-      <div className="flex">
-      
-        {ARRAY.map((el, idx) => {
-          return (
-            <div>
+      <div >
+        <div className="flex">
+          {ARRAY.map((el, idx) => {
+            return (
               <FaStar
                 key={idx}
                 size="50"
@@ -59,15 +60,14 @@ function Rank() {
                   setHovered([false, false, false, false, false])
                 }
                 style={{
-                  color: hovered[el] || clicked[el] ? "#C62A5B" : "#555",
+                  color: hovered[el] || clicked[el] ? "#C62A5B" : "#BDBDBD",
                 }}
               />
-            </div>
-          );
-        })}
-        {score === 0 ? "" : score}
+            );
+          })}
+        </div>
+        {scoreContent(score)}
       </div>
-      
     </>
   );
 }

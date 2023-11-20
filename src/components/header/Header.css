@@ -9,7 +9,7 @@
   width: 85%;
   display: flex;
   height: 65px;
-  margin: 0 auto;
+  margin: auto;
   justify-content: space-between;
   border-bottom: 1px solid #ebebeb;
 }
