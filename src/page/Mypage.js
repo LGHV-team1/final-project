@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Button from "../components/Button.js";
 import { BsBookmarkHeartFill } from "react-icons/bs";
 import { BsPencilSquare } from "react-icons/bs";
 import MiniSlide from '../components/MiniSlide.js';
@@ -9,7 +10,7 @@ import profile1 from "../images/profile_boy.png"
 import profile2 from "../images/profile_girl.png"
 import profile3 from "../images/profile_man.png"
 import profile4 from "../images/profile_woman.png"
-
+import ModalProfile from "../components/Modal/ModalProfile.js";
 
 const IconWrap = styled.div`
     svg {
@@ -30,6 +31,12 @@ const IconWrap = styled.div`
 
 export default function Mypage() {
   const navigate = useNavigate();
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const showModal = () => {
+    setModalOpen(true);
+  };
+
   let [userinfo, setUserinfo] = useState({
     useremail : '',
     userprofile : ''
@@ -57,10 +64,13 @@ export default function Mypage() {
       <div className="max-w-[400px] w-[400px] mx-auto bg-white p-4 text-center">
         <img src={profile2} alt="프로필사진" width="50%" className='m-auto'></img>
         <div className="flex flex-col py-8">
-          {/* <div>{userinfo.username}님 안녕하세요!</div> */}
-          <div>ㅇㅇㅇ님 안녕하세요</div>
-          <div>{userinfo.useremail}</div>
+          <div>{userinfo.useremail} 님 안녕하세요</div>
         </div>
+          <Button
+            label={"프로필 사진 변경"}
+            onClick={showModal}
+            className={"border rounded p-1 hover:bg-transparent text-black"}
+          />{modalOpen && <ModalProfile setModalOpen={setModalOpen} />}
       </div>
     <div className="max-w-[1000px] w-[1000px] mx-auto text-center"> 
     <div className='mb-5'>
