@@ -3,13 +3,15 @@ import { useNavigate } from "react-router-dom";
 import "./Header.css";
 import logo from "../../images/CI_White.png";
 import Button from "../Button";
-import {useCookies} from 'react-cookie';
+import {Cookies} from 'react-cookie';
 import ApiService from "../../api/ApiService";
-
+import axios from "axios";
 
 function Header2() {
-  const [cookies, setCookie, removeCookie] = useCookies();
+  const cookies = new Cookies();
   const navigate = new useNavigate();
+  const csrftoken = cookies.get('csrftoken')
+  console.log(csrftoken)
   const goToLoginForm = () => {
     navigate("/login");
   };
@@ -19,19 +21,19 @@ function Header2() {
   const goToSignupForm = () => {
     navigate("/register");
   };
+  const config = {
+    headers: {
+      "X-CSRFToken" : csrftoken
+    }
+  }
   const goToLogout = () => {
-    ApiService.logout( {
-        withCredentials: true, // 이 옵션은 쿠키를 전송하기 위해 필요합니다
-        headers: {
-          'Content-Type': 'application/json',
-        },
+    axios.post("http://127.0.0.1:8000/accounts/dj-rest-auth/logout/",{},config)
+    .then( response => {
+            localStorage.removeItem('jwtToken')
+            alert("로그아웃 되었습니다.")
+            navigate("/");
     })
-    .then((res) => {
-      removeCookie('is_login')
-      removeCookie('token')
-      alert("로그아웃 되었습니다.")
-      navigate("/");
-    })
+    .catch(err => console.log(err));
   }
   return (
     <nav className="navbar">
@@ -75,7 +77,7 @@ function Header2() {
               />
             </div>
           </div>
-          { cookies.is_login == null ? (
+          { localStorage.getItem('jwtToken') == null ? (
             <div classname="b">
               <Button className="btn-login text-white " onClick={goToLoginForm} label={"로그인"}/>
               <Button className="btn-signup text-white " onClick={goToSignupForm} label={"회원가입"}/>

@@ -1,11 +1,14 @@
 import React, {useEffect, useState} from "react";
-import profilepic from "../images/logo.png"
 import { useNavigate } from "react-router-dom";
 import { BsBookmarkHeartFill } from "react-icons/bs";
 import { BsPencilSquare } from "react-icons/bs";
 import MiniSlide from '../components/MiniSlide.js';
 import styled from "styled-components";
 import ApiService from "../api/ApiService.js";
+import profile1 from "../images/profile_boy.png"
+import profile2 from "../images/profile_girl.png"
+import profile3 from "../images/profile_man.png"
+import profile4 from "../images/profile_woman.png"
 
 
 const IconWrap = styled.div`
@@ -28,25 +31,34 @@ const IconWrap = styled.div`
 export default function Mypage() {
   const navigate = useNavigate();
   let [userinfo, setUserinfo] = useState({
-    username : '',
     useremail : '',
+    userprofile : ''
   });
 
   useEffect(() => {
-    ApiService.getUserInfo()
+    ApiService.getUserInfo( 
+      { withCredentials: true }
+    )
     .then((res)=> {
         console.log(res)
         setUserinfo(res.data);
-      
+    
     })
-
   }, []);
+  if (userinfo.userprofile === "1") {
+    const profilepic = "../images/profile_boy.png"
+  }
+  else if(userinfo.userprofile === "2"){
+    const profilepic = profile2;
+  }
+
   return (
     <div>
       <div className="max-w-[400px] w-[400px] mx-auto bg-white p-4 text-center">
-        <img src={profilepic} alt="프로필사진" width="50%" className='m-auto'></img>
+        <img src={profile2} alt="프로필사진" width="50%" className='m-auto'></img>
         <div className="flex flex-col py-8">
-          <div>{userinfo.username}님 안녕하세요!</div>
+          {/* <div>{userinfo.username}님 안녕하세요!</div> */}
+          <div>ㅇㅇㅇ님 안녕하세요</div>
           <div>{userinfo.useremail}</div>
         </div>
       </div>
