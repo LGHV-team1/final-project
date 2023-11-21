@@ -39,8 +39,11 @@ class Command(BaseCommand):
             response = requests.get(url, headers=self.headers, params=params)
             if response.status_code == 200 and response.json()['results']:
                 row.imgpath = response.json()['results'][0]['poster_path'] if response.json()['results'][0]['poster_path'] else "/noimage.png"
+                row.backgroundimgpath = response.json()['results'][0]['backdrop_path'] if response.json()['results'][0]['backdrop_path'] else "/noimage.png"
             else:
                 row.imgpath = "/noimage.png"
+                row.backgroundimgpath = "/noimage.png"
+                
             print(row.imgpath)
             row.save()
         self.stdout.write(self.style.SUCCESS("Image paths updated successfully"))

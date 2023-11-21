@@ -11,6 +11,7 @@ class Vod(models.Model):
     #runningtime = models.TimeField()
     imgpath = models.CharField(max_length=100, null=True)
     name_no_space = models.CharField(max_length=255,editable=False)
+    backgroundimgpath=models.CharField(max_length=100,null=True)
 
     def save(self, *args, **kwargs):
         self.name_no_space = self.name.replace(' ', '')
