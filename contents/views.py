@@ -18,8 +18,8 @@ class SearchVods(APIView):
     
 	def get(self,request,vodname):
 		if vodname:
-			# VOD 모델에서 'name' 필드를 검색합니다.
-			vods = Vod.objects.filter(name__icontains=vodname)
+			vodname_no_space = vodname.replace(' ', '')
+			vods = Vod.objects.filter(name_no_space__icontains=vodname_no_space)
 			serializer = VodListSerializer(vods, many=True)
 			return Response(serializer.data)
 		else:
@@ -124,3 +124,4 @@ class VodReviews(APIView):
 		# Delete the review
 		review.delete()
 		return Response(status=status.HTTP_204_NO_CONTENT)
+	

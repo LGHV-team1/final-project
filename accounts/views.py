@@ -4,28 +4,37 @@ from django.core import serializers
 from django.http import HttpResponseRedirect,JsonResponse,HttpResponse
 from django.contrib.sites import requests
 from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, logout
+from dj_rest_auth.registration.views import SocialLoginView
 from rest_framework import generics, mixins, status
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
+from rest_framework_simplejwt.tokens import AccessToken, RefreshToken
 from allauth.account.models import EmailConfirmation, EmailConfirmationHMAC
+from allauth.socialaccount.models import SocialAccount
+from allauth.socialaccount.providers.oauth2.client import OAuth2Client
+from allauth.socialaccount.providers.google import views as google_view
+from allauth.socialaccount.providers.kakao import views as kakao_view
+from allauth.socialaccount.providers.naver import views as naver_view
+from django.middleware.csrf import get_token
 from django.conf import settings
 from rest_framework.views import APIView
 from accounts.models import User
 from .serializers import UserSerializer
+from urllib.parse import urlencode
 import requests
 
 KAKAO_TOKEN_API = "https://kauth.kakao.com/oauth/token"
 KAKAO_USER_API = "https://kapi.kakao.com/v2/user/me"
 KAKAO_REDIRECT_URI = getattr(settings, 'KAKAO_REDIRECT_URI', 'KAKAO_REDIRECT_URI')
 KAKAO_REST_API_KEY = getattr(settings, 'KAKAO_REST_API_KEY', 'KAKAO_REST_API_KEY')
-
 def kakaoCallback(request, *args, **kwargs):
     #Callback URL 에서 code 받아오기
     code = request.GET["code"]
     if not code:
         return Response(status=status.HTTP_400_BAD_REQUEST)
-
+    print(code)
     # kakao에 access token 발급 요청
     data = {
       "grant_type": "authorization_code",
@@ -42,52 +51,61 @@ def kakaoCallback(request, *args, **kwargs):
     headers = {"Authorization": f"Bearer ${access_token}"}
     # 받은 access token 으로 user 정보 요청
     user_infomation = requests.get(KAKAO_USER_API, headers=headers).json()
-
-    data = {'access_token': access_token, 'code': code}
+    print(access_token)
     kakao_account = user_infomation.get('kakao_account')
     #email 은 카카오 user 정보에서 받은 email
     email = kakao_account.get('email')
 
-    # 1. 유저가 이미 DB에 있는지 확인하기
+    #3. 전달받은 이메일, access_token, code를 바탕으로 회원가입/로그인
     try:
-        #User모델의 이메일과 Token의 이메일이 같은지 확인
+        # 전달받은 이메일로 등록된 유저가 있는지 탐색
+        # get_or_create : 있으면 get 없으면 create
         user = User.objects.get(email=email)
-        token = Token.objects.get_or_create(user=user)
-        print(token[0])
-        #같으면 이미 있는 유저 -> 바로 리다이렉트
-        res = HttpResponseRedirect("http://127.0.0.1:3000/main")
-        res.set_cookie(key='token', value=token[0],httponly=True, max_age=3600)
-        res.set_cookie(key='is_login', value=True, max_age=3600)
-        return res
+        social_user = SocialAccount.objects.get(user=user)
+        # 있는데 카카오계정이 아니어도 에러
+        if social_user.provider != 'kakao':
+            return JsonResponse({'err_msg': 'no matching social type'}, status=status.HTTP_400_BAD_REQUEST)
+
+        # 이미 kakao로 제대로 가입된 유저 => 로그인 & 해당 유저의 jwt 발급
+        data = {'access_token': access_token, 'code': code}
+        accept = requests.post("http://127.0.0.1:8000/accounts/kakao/login/finish/", data=data)
+        accept_status = accept.status_code
+        # 뭔가 중간에 문제가 생기면 에러
+        if accept_status != 200:
+            return JsonResponse({'err_msg': 'failed to signin'}, status=accept_status)
+        else :
+            accept_json = accept.json()
+            print(accept_json)
+            response = HttpResponseRedirect('http://127.0.0.1:3000/socialk')
+            response.set_cookie('access_token', access_token)
+            response.set_cookie('code', code)
+            return response
 
     except User.DoesNotExist:
-        # 2. 없으면 회원가입하기
-        data = {
-            'email': email,
-            'password': 'kakao',
-            'is_social': True
-            # 비밀번호는 없지만 validation 을 통과하기 위해서 임시로 사용
-            # 비밀번호를 입력해서 로그인하는 부분은 없으므로 안전함
-            # is_social 값을 True 변경
-        }
-        serializer = UserSerializer(data=data)
-        if not serializer.is_valid():
-            return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        # 전달받은 이메일로 기존에 가입된 유저가 아예 없으면 => 새로 회원가입 & 해당 유저의 jwt 발급
 
-        user = serializer.validated_data
-        serializer.create(validated_data=user)
+        data = {'access_token': access_token, 'code': code}
+        accept = requests.post("http://127.0.0.1:8000/accounts/kakao/login/finish/", data=data)
+        accept_status = accept.status_code
 
-        # 2-1. 회원가입 하고 토큰 만들어서 쿠키에 저장하기
-        try:
-            user = User.objects.get(email=email)
-            token = Token.objects.create(user=user)
-            print(token[0])
-            res = HttpResponseRedirect("http://127.0.0.1:3000/main")
-            res.set_cookie(key='token',value=token[0],httponly=True, max_age=3600)
-            res.set_cookie(key='is_login', value=True, max_age=3600)
-            return res
-        except:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+        # 뭔가 중간에 문제가 생기면 에러
+        if accept_status != 200:
+            return JsonResponse({'err_msg': 'failed to signup'}, status=accept_status)
+        else :
+            accept_json = accept.json()
+            print(accept_json)
+            response = HttpResponseRedirect('http://127.0.0.1:3000/socialk')
+            response.set_cookie('access_token', access_token)
+            response.set_cookie('code', code)
+            return response
+
+    except SocialAccount.DoesNotExist:
+        # User는 있는데 SocialAccount가 없을 때 (=일반회원으로 가입된 이메일일때)
+        return JsonResponse({'err_msg': 'email exists but not social user'}, status=status.HTTP_400_BAD_REQUEST)
+class KakaoLogin(SocialLoginView):
+    adapter_class = kakao_view.KakaoOAuth2Adapter
+    #callback_url = KAKAO_REDIRECT_URI
+    #client_class = OAuth2Client
 
 
 GOOGLE_TOKEN_API = "https://oauth2.googleapis.com/token"
@@ -95,7 +113,6 @@ GOOGLE_USER_API = "https://www.googleapis.com/userinfo/v2/me"
 GOOGLE_REDIRECT_URI = getattr(settings, 'GOOGLE_REDIRECT_URI', 'GOOGLE_REDIRECT_URI')
 GOOGLE_CLIENT_ID = getattr(settings, 'GOOGLE_CLIENT_ID', 'GOOGLE_CLIENT_ID')
 GOOGLE_CLIENT_PW = getattr(settings, 'GOOGLE_CLIENT_PW', 'GOOGLE_CLIENT_PW')
-BASE_URL = "http://localhost:8000/"
 
 def googleCallback(request):
     client_id = GOOGLE_CLIENT_ID
@@ -120,7 +137,6 @@ def googleCallback(request):
     ### 1-3. 성공 시 access_token 가져오기
     access_token = token_req_json.get("access_token")
 
-    #################################################################
 
     # 2. 가져온 access_token으로 이메일값을 구글에 요청
     email_req = requests.get(
@@ -143,53 +159,56 @@ def googleCallback(request):
         # 전달받은 이메일로 등록된 유저가 있는지 탐색
         # get_or_create : 있으면 get 없으면 create
         user = User.objects.get(email=email)
-        token = Token.objects.get_or_create(user=user)
-        res = HttpResponseRedirect("http://127.0.0.1:3000/main")
-        res.set_cookie(key='token', value=token[0], httponly=True, max_age=3600)
+        social_user = SocialAccount.objects.get(user=user)
+        # 있는데 구글계정이 아니어도 에러
+        if social_user.provider != 'google':
+            return JsonResponse({'err_msg': 'no matching social type'}, status=status.HTTP_400_BAD_REQUEST)
 
-        # # 있는데 구글계정이 아니어도 에러
-        # if social_user.provider != "google":
-        #     return JsonResponse(
-        #         {"err_msg": "no matching social type"},
-        #         status=status.HTTP_400_BAD_REQUEST,
-        #     )
+        # 이미 Google로 제대로 가입된 유저 => 로그인 & 해당 우저의 jwt 발급
+        data = {'access_token': access_token, 'code': code}
+        accept = requests.post("http://127.0.0.1:8000/accounts/google/login/finish/", data=data)
+        accept_status = accept.status_code
+        # 뭔가 중간에 문제가 생기면 에러
+        if accept_status != 200:
+            return JsonResponse({'err_msg': 'failed to signin'}, status=accept_status)
 
-        return res
+        else :
+            accept_json = accept.json()
+            print(accept_json)
+            response = HttpResponseRedirect('http://127.0.0.1:3000/socialg')
+            response.set_cookie('access_token', access_token)
+            response.set_cookie('code', code)
+            return response
 
     except User.DoesNotExist:
-        # 전달받은 이메일로 기존에 가입된 유저가 아예 없으면 => 새로 회원가입 & 해당 유저의 token 발급
+        # 전달받은 이메일로 기존에 가입된 유저가 아예 없으면 => 새로 회원가입 & 해당 유저의 jwt 발급
+        data = {'access_token': access_token, 'code': code}
+        accept = requests.post("http://127.0.0.1:8000/accounts/google/login/finish/", data=data)
+        accept_status = accept.status_code
 
-        data = {
-            'email': email,
-            'password': 'google',
-            'is_social': True
-            # 비밀번호는 없지만 validation 을 통과하기 위해서 임시로 사용
-            # 비밀번호를 입력해서 로그인하는 부분은 없으므로 안전함
-            # is_social 값을 True 변경
-        }
-        serializer = UserSerializer(data=data)
-        if not serializer.is_valid():
-            return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        # 뭔가 중간에 문제가 생기면 에러
+        if accept_status != 200:
+            return JsonResponse({'err_msg': 'failed to signup'}, status=accept_status)
+        else:
+            accept_json = accept.json()
+            print(accept_json)
+            response = HttpResponseRedirect('http://127.0.0.1:3000/socialg')
+            response.set_cookie('access_token', access_token)
+            response.set_cookie('code', code)
+            return response
 
-        user = serializer.validated_data
-        serializer.create(validated_data=user)
+    except SocialAccount.DoesNotExist:
+        # User는 있는데 SocialAccount가 없을 때 (=일반회원으로 가입된 이메일일때)
+        return JsonResponse({'err_msg': 'email exists but not social user'}, status=status.HTTP_400_BAD_REQUEST)
 
-        try:
-            user = User.objects.get(email=email)
-            token = Token.objects.create(user=user)
-            res = HttpResponseRedirect("http://127.0.0.1:3000/main")
-            res.set_cookie(key='token', value=token[0], httponly=True, max_age=3600)
-            return res
-        except:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+class GoogleLogin(SocialLoginView):
+    adapter_class = google_view.GoogleOAuth2Adapter
+    callback_url = GOOGLE_REDIRECT_URI
+    client_class = OAuth2Client
 
 
-    # except SocialAccount.DoesNotExist:
-    #     # User는 있는데 SocialAccount가 없을 때 (=일반회원으로 가입된 이메일일때)
-    #     return JsonResponse(
-    #         {"err_msg": "email exists but not social user"},
-    #         status=status.HTTP_400_BAD_REQUEST,
-    #     )
+
+
 
 NAVER_TOKEN_API = "https://nid.naver.com/oauth2.0/token"
 NAVER_USER_API = "https://openapi.naver.com/v1/nid/me"
@@ -234,67 +253,68 @@ def naverCallback(request, *args, **kwargs):
 
     email = jsonResult.get('response').get('email')
 
-
-    # 1. 유저가 이미 DB에 있는지 확인하기
+    # 3. 전달받은 이메일, access_token, code를 바탕으로 회원가입/로그인
     try:
-        #User모델의 이메일과 Token의 이메일이 같은지 확인
+        # 전달받은 이메일로 등록된 유저가 있는지 탐색
+        # get_or_create : 있으면 get 없으면 create
         user = User.objects.get(email=email)
-        token = Token.objects.get_or_create(user=user)
-        #같으면 이미 있는 유저 -> 바로 리다이렉트
-        res = HttpResponseRedirect("http://127.0.0.1:3000/main")
-        res.set_cookie(key='token', value=token[0], httponly=True, max_age=3600)
-        return res
+        social_user = SocialAccount.objects.get(user=user)
+        # 있는데 네이버계정이 아니어도 에러
+        if social_user.provider != 'naver':
+            return JsonResponse({'err_msg': 'no matching social type'}, status=status.HTTP_400_BAD_REQUEST)
+
+        # 이미 naver로 제대로 가입된 유저 => 로그인 & 해당 우저의 jwt 발급
+        data = {'access_token': access_token, 'code': code}
+        accept = requests.post("http://127.0.0.1:8000/accounts/naver/login/finish/", data=data)
+        accept_status = accept.status_code
+
+        # 뭔가 중간에 문제가 생기면 에러
+        if accept_status != 200:
+            return JsonResponse({'err_msg': 'failed to signin'}, status=accept_status)
+
+        else:
+            accept_json = accept.json()
+            print(accept_json)
+            response = HttpResponseRedirect('http://127.0.0.1:3000/socialn')
+            response.set_cookie('access_token', access_token)
+            response.set_cookie('code', code)
+            return response
 
     except User.DoesNotExist:
-        # 2. 없으면 회원가입하기
-        data = {
-            'email': email,
-            'password': 'naver',
-            'is_social': True
-            # 비밀번호는 없지만 validation 을 통과하기 위해서 임시로 사용
-            # 비밀번호를 입력해서 로그인하는 부분은 없으므로 안전함
-            # is_social 값을 True 변경
-        }
+        # 전달받은 이메일로 기존에 가입된 유저가 아예 없으면 => 새로 회원가입 & 해당 유저의 jwt 발급
+        data = {'access_token': access_token, 'code': code}
+        accept = requests.post("http://127.0.0.1:8000/accounts/naver/login/finish/", data=data)
+        accept_status = accept.status_code
 
-        serializer = UserSerializer(data=data)
-        if not serializer.is_valid():
-            return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        # 뭔가 중간에 문제가 생기면 에러
+        if accept_status != 200:
+            return JsonResponse({'err_msg': 'failed to signup'}, status=accept_status)
 
-        user = serializer.validated_data
-        serializer.create(validated_data=user)
+        else:
+            accept_json = accept.json()
+            print(accept_json)
+            response = HttpResponseRedirect('http://127.0.0.1:3000/socialn')
+            response.set_cookie('access_token', access_token)
+            response.set_cookie('code', code)
+            return response
 
-        # 2-1. 회원가입 하고 토큰 만들어서 쿠키에 저장하기
-        try:
-            user = User.objects.get(email=email)
-            token = Token.objects.create(user=user)
-            print(token)
-            res = HttpResponseRedirect("http://127.0.0.1:3000/main")
-            res.set_cookie(key='token', value=token[0], httponly=True, max_age=3600)
+    except SocialAccount.DoesNotExist:
+        # User는 있는데 SocialAccount가 없을 때 (=일반회원으로 가입된 이메일일때)
+        return JsonResponse({'err_msg': 'email exists but not social user'}, status=status.HTTP_400_BAD_REQUEST)
 
-            return res
-        except:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+class NaverLogin(SocialLoginView):
+    adapter_class = naver_view.NaverOAuth2Adapter
+    callback_url = NAVER_REDIRECT_URI
+    client_class = OAuth2Client
 
 
 
-def getUserInfo(request):
-    current = request.COOKIES.get('token')
-    current_user = User.objects.get(auth_token=current)
-    useremail = str(current_user)
+def current_user(request):
+    current_user = request.user
+    print(current_user)
+    useremail = current_user.email
     return JsonResponse({"useremail": useremail})
-
-    # useremail = str(current_user.user)
-    # current_user_name = User.objects.get(email=useremail)
-    # username = str(current_user_name.username)
-    # return JsonResponse({"username": username, "useremail":useremail})
-
-def logout(request):
-    res = HttpResponse("Cookie deleted!")
-    res.delete_cookie('token', path="http://127.0.0.1:3000")
-    res.delete_cookie('token', path="http://127.0.0.1:8000")
-    res.delete_cookie('is_login', path="http://127.0.0.1:8000")
-    return res
-
 
 class ConfirmEmailView(APIView):
     permission_classes = [AllowAny]
