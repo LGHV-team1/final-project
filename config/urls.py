@@ -23,5 +23,6 @@ urlpatterns = [
     path('accounts/',include('accounts.urls')),
     path('contents/',include('contents.urls')),
     path('wishlists/',include('wishlists.urls')),
+    path('review/', include('reviews.urls'))
     
 ]
