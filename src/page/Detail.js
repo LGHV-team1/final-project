@@ -1,112 +1,160 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Review from "../components/Review";
-import "./Detail.css"
+
+import axios from "axios";
+import Rank from "../components/Rank";
 function Detail() {
+  const [movie, setMovie] = useState({});
+  const movieName = "끝까지 간다";
+  const getData = async () => {
+    try {
+      const url = `http://3.34.50.51/contents/${movieName}/detail/`;
+      const response = await axios.get(url);
+      const data = response.data;
+      setMovie(data);
+      console.log(movie);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  useEffect(() => {
+    getData();
+  }, []);
   const [wish, setWish] = useState(false);
   const handleWish = () => {
     setWish((current) => !current);
   };
-  const [reviewShow, setReviewShow] = useState(false);
-  const handleReviewShow = () => {
-    setReviewShow(true);
+  const copyURL = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      alert("현재 링크가 클립보드에 복사되었습니다.");
+    } catch (err) {
+      console.error("URL 복사에 실패했습니다.", err);
+    }
   };
-  const backgroundImageUrl = "https://image.tmdb.org/t/p/w500/kcrjQkK9XlUe0yD1cZptf4z5h3v.jpg";
+  const backgroundImageUrl = `https://image.tmdb.org/t/p/original/${movie.backgroundimgpath}`;
+  const inputForm = useRef(); //특정 DOM을 가리킬 때 사용하는 Hook함수, SecondDiv에 적용
+  const onMoveToReview = () => {
+    inputForm.current.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
   return (
     <>
-    <div  className="w-fit h-fit bg-cover bg-center bg-no-repeat" style={{ backgroundImage: `url(${backgroundImageUrl})` }} >
-    <h5 className="mb-4 text-white">
-              2023 드라마 한국 
-              {/* 년도 장르 국가 */}
-              <br/>
-              2시간 21분 12세
-              {/* 러닝타인 연령 */}
-              <br />
-              출연진 ...
-              {/* 출연진 */}
-            </h5>
-    </div>
-    <div className="flex mx-32 mt-10 mb-10 gap-10 ">
-        <img
-          className="w-80"
-          src="https://an2-img.amz.wtchn.net/image/v2/y8zw23wQG88i2Y3lNWetpQ.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpFMk9UazFPVEkwTmpnM016QTVNamd6TWpFaWZRLjFQU194eWZtVWFUZG5KUmhsY2V5RHVlVnZXVVhEQ2hhYlhnY01KZ1Fka1k"
-        />
-        <div >
-          <div>
-            <div className="mb-4 grid grid-cols-2 items-center">
-              <h1 className=" font-bold justify-start "> 서울의 봄 </h1>
-              <div className="flex justify-end gap-10 text-gray-600 ">
-                {wish === false ? (
-                  <div className="icon-container hover:text-gray-800 hover:scale-105">
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="#BDBDBD"
-                      height="4em"
-                      width="4em"
-                      className="icon"
-                      onClick={handleWish}
-                    >
-                      <path d="M19 11h-6V5h-2v6H5v2h6v6h2v-6h6z" />
-                    </svg>
-                    위시 추가
-                  </div>
-                ) : (
-                  <div className="icon-container hover:text-gray-800 hover:scale-105">
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="#BDBDBD"
-                      height="4em"
-                      width="4em"
-                      onClick={handleWish}
-                      className="icon"
-                    >
-                      <path d="M5 11h14v2H5z" />
-                    </svg>
-                    위시 삭제
-                  </div>
-                )}
-
-                <div className="icon-container flex flex-col items-center hover:text-gray-800 hover:scale-105 ">
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="#BDBDBD"
-                    height="4em"
-                    width="4em"
-                    className="icon scale-75"
-                    onClick={handleReviewShow}
-                  >
-                    <path d="M14.1 9l.9.9L5.9 19H5v-.9L14.1 9m3.6-6c-.2 0-.5.1-.7.3l-1.8 1.8 3.7 3.8L20.7 7c.4-.4.4-1 0-1.4l-2.3-2.3c-.2-.2-.5-.3-.7-.3m-3.6 3.2L3 17.2V21h3.8l11-11.1-3.7-3.7M7 2v3h3v2H7v3H5V7H2V5h3V2h2z" />
-                  </svg>
-                  리뷰 남기기
-                </div>
-              </div>
-            </div>
-            <hr/>
-           
-            
-            <p>
-              1979년 12월 12일, 수도 서울 군사반란 발생 그날, 대한민국의 운명이
-              바뀌었다.
-              <br />
-              <br />
-              대한민국을 뒤흔든 10월 26일 이후, 서울에 새로운 바람이 불어온 것도
-              잠시 12월 12일, 보안사령관 전두광이 반란을 일으키고 군 내 사조직을
-              총동원하여 최전선의 전방부대까지 서울로 불러들인다. 권력에 눈이 먼
-              전두광의 반란군과 이에 맞선 수도경비사령관 이태신을 비롯한 진압군
-              사이, 일촉즉발의 9시간이 흘러가는데…
-              <br />
-              <br />
-              목숨을 건 두 세력의 팽팽한 대립 오늘 밤, 대한민국 수도에서 가장
-              치열한 전쟁이 펼쳐진다!
-            </p>
+      <div
+        className="relative py-80 bg-cover bg-center "
+        style={{ backgroundImage: `url(${backgroundImageUrl})` }}
+      >
+        <div className=" absolute bottom-10 left-44  text-white">
+          <h1 className=" text-6xl font-bold pb-3">{movie.name}</h1>
+          <div className="pb-2 text-2xl">
+            {movie.bigcategory}
+            <br />
+            {movie.smallcategory}
+            <br />
+            평점 {movie.avg_rate}
           </div>
         </div>
       </div>
-      <div className="mx-28">
-        <hr />
-        {reviewShow === false ? "" : <Review />}
+      <div className="flex mx-44 mt-10 mb-10 gap-10 ">
+        <div className="w-1/4">
+          <img src={`https://image.tmdb.org/t/p/original/${movie.imgpath}`} />
+        </div>
+        <div className="w-3/4">
+          <div>
+            <div className="mb-4 items-center">
+              <div className="flex justify-start gap-10">
+                {wish === false ? (
+                  <div className="item-center  hover:scale-105">
+                    <svg
+                      fill="currentColor"
+                      viewBox="0 0 16 16"
+                      height="4em"
+                      width="4em"
+                      onClick={handleWish}
+                      className="scale-90"
+                    >
+                      <path d="M8 2.748l-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 01.176-.17C12.72-3.042 23.333 4.867 8 15z" />
+                    </svg>
+                    <div className="text-center">위시 추가</div>
+                  </div>
+                ) : (
+                  <div className=" hover:scale-105">
+                    <svg
+                      fill="#C62A5B"
+                      viewBox="0 0 16 16"
+                      height="4em"
+                      width="4em"
+                      onClick={handleWish}
+                      className="scale-90"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"
+                      />
+                    </svg>
+                    <div className="text-center text-my-color ">위시 삭제</div>
+                  </div>
+                )}
+
+                <div className=" flex flex-col items-center  hover:scale-105 ">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="#000000"
+                    height="4em"
+                    width="4em"
+                    onClick={onMoveToReview}
+                  >
+                    <path d="M11 14h2v-3h3V9h-3V6h-2v3H8v2h3z" />
+                    <path d="M20 2H4c-1.103 0-2 .897-2 2v18l5.333-4H20c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2zm0 14H6.667L4 18V4h16v12z" />
+                  </svg>
+                  <div className="text-center">리뷰 남기기</div>
+                </div>
+                <div className="hover:scale-105">
+                  <svg
+                    fill="none"
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    viewBox="0 0 24 24"
+                    height="4em"
+                    width="4em"
+                    className=" scale-90 "
+                    onClick={copyURL}
+                  >
+                    <path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71" />
+                    <path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71" />
+                  </svg>
+                  <div className="text-center">주소 복사</div>
+                </div>
+              </div>
+            </div>
+            <hr />
+            <div className="flex">
+              {/* 줄거리 */}
+              <div className="w-3/5 pr-3 border-r border-solid border-gray-300">
+                <h3>
+                줄거리
+                </h3>
+                <p className="mt-2 ">{movie.description}</p>
+              </div>
+              {/* 출연진 */}
+              <div className="w-2/5  pl-3">
+              <h3>
+                감독/출연
+                </h3>
+               
+                <div className="mt-2">{movie.actors}</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    
-      
+      <div className="mx-44">
+        <hr />
+        <div ref={inputForm}>
+          <Review />
+        </div>
+      </div>
     </>
   );
 }

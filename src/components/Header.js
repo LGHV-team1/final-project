@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Header.css";
-import logo from "../../images/CI_White.png";
-import Button from "../Button";
+import logo from "../images/CI_White.png";
+import Button from "./Button";
 function Header2() {
   const navigate = new useNavigate();
   const goToLoginForm = () => {
@@ -15,33 +14,34 @@ function Header2() {
     navigate("/register");
   };
   return (
-    <nav className="navbar">
-      <div className="navbar-container">
-        <div className="navbar-left">
-          <a href="/">
-            <img className="navbar-left.img" src={logo} alt="logo" />
+    <nav className="sticky top-0 bg-black z-10">
+      <div className=" pt-10 pb-8 mx-44 w-4/5 flex h-16 justify-between border-b border-gray-300">
+        <div className="flex items-center gap-10 ">
+        <a href="/">
+            <img className="my-1" src={logo} alt="logo" width="200px" />
           </a>
-        </div>
-        <div className="sorts-contents">
-          <a href="/main" className="menu">
+       
+        <div className="flex justify-center sorts-contents gap-3">
+          <a href="/main" className=" text-white no-underline">
             홈
           </a>
-          <a href="#" className="menu">
+          <a href="#" className=" text-white no-underline">
             영화
           </a>
-          <a href="#" className="menu">
-            TV프로그램
+          <a href="#" className=" text-white no-underline">
+            TV
           </a>
         </div>
-
-        <div className="navbar-right">
-          <div className="search-bar">
-            <div className="search-container">
+        </div>
+          
+        <div className="flex items-center gap-3 ">
+          <div className="flex relative w-64 h-10 bg-white rounded">
+            
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 fill="currentColor"
-                className="w-6 h-6"
+                className="p-1"
               >
                 <path
                   fillRule="evenodd"
@@ -50,36 +50,39 @@ function Header2() {
                 />
               </svg>
               <input
-                className="search-input"
+                className=" outline-none w-full rounded"
                 placeholder="제목, 배우, 감독을 검색해보세요."
                 type="text"
               />
-            </div>
+            
           </div>
           {window.localStorage.getItem("token") === null ? (
-            <div classname="b">
+            <div >
               <Button
-                className="btn-login text-white "
+                className=" mr-5 cursor-pointer text-white "
                 onClick={goToLoginForm}
                 label={"로그인"}
               />
               <Button
-                className="btn-signup text-white "
+                className=" h-8 px-2 border border-gray-300 rounded-md cursor-pointer text-white "
                 onClick={goToSignupForm}
                 label={"회원가입"}
               />
             </div>
           ) : (
-            <div classname="b">
+            <div>
               <Button className="btn-login text-white" label={"로그아웃"} />
               <Button
-                className="btn-signup text-white "
+                className=" h-8 px-2 border border-gray-300 rounded-md cursor-pointer text-white "
                 onClick={goToMypage}
                 label={"마이페이지"}
               />
             </div>
           )}
         </div>
+      </div>
+      <div className="p-0 text-xs">
+        a
       </div>
     </nav>
   );

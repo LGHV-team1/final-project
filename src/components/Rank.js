@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FaStar } from "react-icons/fa";
+import { IoStar } from "react-icons/io5";
 
 const ARRAY = [0, 1, 2, 3, 4];
 
@@ -45,7 +45,7 @@ function Rank() {
         <div className="flex">
           {ARRAY.map((el, idx) => {
             return (
-              <FaStar
+              <IoStar
                 key={idx}
                 size="50"
                 onClick={() => handleStarClick(el)}
