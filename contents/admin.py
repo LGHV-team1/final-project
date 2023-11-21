@@ -3,5 +3,5 @@ from .models import Vod
 
 @admin.register(Vod)
 class VodAdmin(admin.ModelAdmin):
-    list_display=("name","bigcategory","smallcategory")
+    list_display=("name","bigcategory","smallcategory","imgpath")
 
