@@ -104,8 +104,8 @@ def kakaoCallback(request, *args, **kwargs):
         return JsonResponse({'err_msg': 'email exists but not social user'}, status=status.HTTP_400_BAD_REQUEST)
 class KakaoLogin(SocialLoginView):
     adapter_class = kakao_view.KakaoOAuth2Adapter
-    #callback_url = KAKAO_REDIRECT_URI
-    #client_class = OAuth2Client
+    callback_url = KAKAO_REDIRECT_URI
+    client_class = OAuth2Client
 
 
 GOOGLE_TOKEN_API = "https://oauth2.googleapis.com/token"
@@ -308,13 +308,11 @@ class NaverLogin(SocialLoginView):
     callback_url = NAVER_REDIRECT_URI
     client_class = OAuth2Client
 
-
-
 def current_user(request):
     current_user = request.user
     print(current_user)
     useremail = current_user.email
-    return JsonResponse({"useremail": useremail})
+    return JsonResponse({"useremail": useremail, "userprofile": 1})
 
 class ConfirmEmailView(APIView):
     permission_classes = [AllowAny]

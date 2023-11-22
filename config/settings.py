@@ -20,7 +20,7 @@ from django.core.exceptions import ImproperlyConfigured
 BASE_DIR = Path(__file__).resolve().parent.parent
 ROOT_DIR = os.path.dirname(BASE_DIR)
 SECRET_PATH = os.path.join(ROOT_DIR, ".footprint_secret")
-SECRET_BASE_FILE = os.path.join(BASE_DIR, "secrets.json")
+SECRET_BASE_FILE = os.path.join(BASE_DIR, "../../../vodb/secrets.json")
 
 secrets = json.loads(open(SECRET_BASE_FILE).read())
 def get_secret(setting, secrets=secrets):

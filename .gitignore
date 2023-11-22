@@ -3,7 +3,7 @@ LGHV.pem
 data
 myvenv
 .ipynb_checkpoints
-secrets.json
+../../vodb/secrets.json
 db.sqlite3
 image
 *.sqlite3
