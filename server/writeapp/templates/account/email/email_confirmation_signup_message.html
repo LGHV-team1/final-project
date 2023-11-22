@@ -1,0 +1,67 @@
+<!-- email_confirmation_signup_message.html (본문) -->
+{% load account %}
+{% load i18n %}
+{% block content %}
+{% autoescape off %}
+{% user_display user as user_display %}
+{% blocktrans with site_name=current_site.name site_domain=current_site.domain %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      font-family: Arial, sans-serif; 
+      font-size: 16px;
+      color: #333;
+    }
+    
+    h1 {
+      text-align: center;
+    }
+    
+    p {
+      line-height: 1.5;
+    }
+    
+    a {
+      color: #0066cc;
+    }
+    
+    .container {
+      max-width: 600px; 
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+  </style>  
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1>회원가입 이메일 인증</h1>
+
+  <p>
+    귀하의 아이디는 
+    <span style="font-weight: bold;">{{ user_display }}</span>
+    입니다.
+  </p>
+
+  <div style="text-align: center;">
+    <a href="{{ activate_url }}" target="_blank" 
+      style="display: inline-block; padding: 10px 20px; color: #fff; background: #337ab7; text-decoration: none;">
+      계정 인증하기
+    </a>
+  </div>
+
+</div>
+
+</body>
+</html>
+
+{% endblocktrans %}
+{% endautoescape %}
+{% endblock %}
