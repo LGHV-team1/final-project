@@ -29,16 +29,17 @@ function Login() {
   const login = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:8000/accounts/dj-rest-auth/login/",
+        "http://3.34.50.51/accounts/dj-rest-auth/login/",
         {
           email: Email,
           password: Password,
-        }
+        },
+        { withCredentials: true}
       );
       const token = response.data.key;
-      console.log(token);
+      console.log(response);
       localStorage.setItem("jwtToken", token);
-      navigate("/home");
+      navigate("/detail");
     } catch (error) {
       console.error("로그인 실패:", error);
     }

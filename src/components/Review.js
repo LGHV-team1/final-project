@@ -2,15 +2,39 @@ import React, { useState } from "react";
 import Input from "./Input";
 import Rank from "./Rank";
 import Button from "./Button";
+import axios from "axios";
 
 export default function Review() {
   const [review, setReview] = useState("");
   const onHandlerReview = (e) => {
     setReview(e.target.value);
   };
-  const sendReview = (e) => {
-    
+
+  const sendReview = async (e) => {
+    e.preventDefault();
+    try {
+      const url = `http://3.34.50.51/contents/끝까지 간다/review/`;
+      const token = localStorage.getItem("jwtToken");
+
+      const response = await axios.post(
+        url,
+        {
+          payload: review,
+          rating: 5,
+        },
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+
+      console.log(response.data);
+    } catch (error) {
+      console.error("API 요청 중 오류:", error.response.data);
+    }
   };
+
   return (
     <form onSubmit={sendReview}>
       <div className="w-full mb-4 border border-gray-200 rounded-px-4 bg-gray-50 dark:bg-gray-700 dark:border-gray-600">

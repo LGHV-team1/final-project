@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { IoStar } from "react-icons/io5";
 
 const ARRAY = [0, 1, 2, 3, 4];
 
@@ -30,39 +29,45 @@ function Rank() {
     }
     setClicked(clickStates);
   };
-
   useEffect(() => {
     let score =
       clicked.filter(Boolean).length || hovered.filter(Boolean).length;
-
+    
     setScore(score);
     // sendReview();
   }, [clicked, hovered]); //컨디마 컨디업
-
+  console.log(score)
   return (
     <>
-      <div >
+      <div>
         <div className="flex">
-          {ARRAY.map((el, idx) => {
+          {ARRAY.map((item, idx) => {
             return (
-              <IoStar
-                key={idx}
-                size="50"
-                onClick={() => handleStarClick(el)}
-                onMouseEnter={() => {
-                  let hoverStates = [{ ...hovered }];
-                  for (let i = 0; i < 5; i++) {
-                    hoverStates[i] = i <= el ? true : false;
+              <div>
+                <svg
+                  key={idx}
+                  width="50"
+                  height="50"
+                  viewBox="0 0 14 14"
+                  fill={hovered[item] || clicked[item] ? "#C62A5B" : "#BDBDBD"}
+                  onClick={() => handleStarClick(item)}
+                  onMouseEnter={() => {
+                    let hoverStates = [...hovered]; // 새 배열을 만들기 위해 스프레드 연산자 사용
+                    for (let i = 0; i < 5; i++) {
+                      hoverStates[i] = i <= item ? true : false;
+                    }
+                    setHovered(hoverStates);
+                  }}
+                  onMouseLeave={() =>
+                    setHovered([false, false, false, false, false])
                   }
-                  setHovered(hoverStates);
-                }}
-                onMouseLeave={() =>
-                  setHovered([false, false, false, false, false])
-                }
-                style={{
-                  color: hovered[el] || clicked[el] ? "#C62A5B" : "#BDBDBD",
-                }}
-              />
+                >
+                  <path
+                    d="M9,2l2.163,4.279L16,6.969,12.5,10.3l.826,4.7L9,12.779,4.674,15,5.5,10.3,2,6.969l4.837-.69Z"
+                    transform="translate(-2 -2)"
+                  />
+                </svg>
+              </div>
             );
           })}
         </div>
