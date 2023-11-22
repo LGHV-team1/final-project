@@ -29,16 +29,18 @@ function Login() {
   const login = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:8000/accounts/dj-rest-auth/login/",
+        "http://127.0.0.1:8000/accounts/dj-rest-auth/login/",
         {
           email: Email,
           password: Password,
-        }
+        },
+        { withCredentials: true }
       );
       const token = response.data.key;
+      console.log('로그인 성공:', response);
       console.log(token);
       localStorage.setItem("jwtToken", token);
-      navigate("/home");
+      navigate("/main");
     } catch (error) {
       console.error("로그인 실패:", error);
     }
@@ -85,7 +87,7 @@ function Login() {
             <Link to={`/register`}>
               <Button
                 label={"아이디 만들기"}
-                className={"bg-transparent hover:bg-transparent"}
+                className={"bg-transparent hover:bg-transparent text-white"}
               />
             </Link>
           </div>
