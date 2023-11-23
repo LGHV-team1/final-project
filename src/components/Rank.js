@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 const ARRAY = [0, 1, 2, 3, 4];
 
-function Rank() {
+function Rank(props) {
   const [clicked, setClicked] = useState([false, false, false, false, false]);
   const [hovered, setHovered] = useState([false, false, false, false, false]);
   const [score, setScore] = useState(0);
@@ -30,13 +30,21 @@ function Rank() {
     setClicked(clickStates);
   };
   useEffect(() => {
+    let realScore = clicked.filter(Boolean).length;
+    setScore(score);
+    try {
+      props.onScoreChange(realScore);
+      setScore(0)
+    } catch (err) {
+      console.log(err);
+    }
+  }, [clicked]);
+  useEffect(() => {
     let score =
       clicked.filter(Boolean).length || hovered.filter(Boolean).length;
-    
     setScore(score);
-    // sendReview();
   }, [clicked, hovered]); //컨디마 컨디업
-  console.log(score)
+
   return (
     <>
       <div>
@@ -77,4 +85,4 @@ function Rank() {
   );
 }
 
-export default Rank;
+export default React.memo(Rank);

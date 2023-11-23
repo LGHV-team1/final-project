@@ -1,17 +1,22 @@
-import React, { useState } from "react";
-import Input from "./Input";
+import React, { useState, useCallback} from "react";
 import Rank from "./Rank";
 import Button from "./Button";
 import axios from "axios";
 
 export default function Review() {
   const [review, setReview] = useState("");
+  const [reviewScore, setReviewScore] = useState(0);
+  const handleScoreChange = useCallback(
+    (newScore) => {
+      setReviewScore(newScore);
+    },
+    [reviewScore]
+  );
   const onHandlerReview = (e) => {
     setReview(e.target.value);
   };
 
-  const sendReview = async (e) => {
-    e.preventDefault();
+  const sendReview = async () => {
     try {
       const url = `http://3.34.50.51/contents/끝까지 간다/review/`;
       const token = localStorage.getItem("jwtToken");
@@ -20,7 +25,7 @@ export default function Review() {
         url,
         {
           payload: review,
-          rating: 5,
+          rating: reviewScore,
         },
         {
           headers: {
@@ -30,6 +35,8 @@ export default function Review() {
       );
 
       console.log(response.data);
+      setReview("");
+      setReviewScore(0);
     } catch (error) {
       console.error("API 요청 중 오류:", error.response.data);
     }
@@ -46,6 +53,7 @@ export default function Review() {
             placeholder="이 작품에 대한 생각을 자유롭게 작성해주세요..."
             required
             onChange={onHandlerReview}
+            value={review}
           ></textarea>
         </div>
         <div className="flex items-center justify-between px-3 py-2 border-t dark:border-gray-600">
@@ -55,7 +63,7 @@ export default function Review() {
             className="py-2 bg-my-color  text-white  hover:bg-my-color/70 rounded px-4"
           />
           <div className="flex ps-0 space-x-1 rtl:space-x-reverse sm:ps-2">
-            <Rank />
+            <Rank onScoreChange={handleScoreChange} />
           </div>
         </div>
       </div>

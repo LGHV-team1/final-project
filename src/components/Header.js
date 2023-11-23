@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import logo from "../images/CI_White.png";
 import Button from "./Button";
 import { Cookies } from "react-cookie";
-import ApiService from "../../api/ApiService";
+import ApiService from "../api/ApiService";
 import axios from "axios";
 
 function Header2() {
@@ -35,7 +35,7 @@ function Header2() {
       .catch((err) => console.log(err));
   };
   return (
-    <nav className="sticky top-0 bg-black z-10">
+    <nav className="sticky top-0 bg-black z-10 ">
       <div className=" pt-10 pb-8 mx-44 w-4/5 flex h-16 justify-between border-b border-gray-300">
         <div className="flex items-center gap-10 ">
           <a href="/">

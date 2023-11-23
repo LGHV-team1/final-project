@@ -2,7 +2,7 @@ export default function Input({ type, placeholder, className = "border p-2" ,onC
     return (
       
         <input placeholder={placeholder} type={type} className={className} value={value} onChange={onChange} />
-      
+
     );
   }
   
