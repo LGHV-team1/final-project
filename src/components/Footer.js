@@ -11,12 +11,10 @@ const Footer = () => {
       <li class="nav-item"><a href="#" class="nav-link px-2 text-white">고객센터</a></li>
       <li class="nav-item"><a href="#" class="nav-link px-2 text-white">About</a></li>
     </ul>
-
-        <img src={LGHVlogo} alt="hellovisionlogo" width="200px"/>
-    
-    <div class="text-end">
-        <span class="text-white">&copy; 오볼추</span>
-          </div>
+    <div>
+      <img src={LGHVlogo} alt="hellovisionlogo" width="200px" style={{display:'inline', float:"left"}}/>
+      <span class="text-white float-right">&copy; 오볼추</span>
+    </div>
         
     </div>
   </footer>

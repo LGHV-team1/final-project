@@ -3,10 +3,13 @@ import { useNavigate } from "react-router-dom";
 import logo from "../images/CI_White.png";
 import Button from "./Button";
 import { Cookies } from "react-cookie";
+import ApiService from "../../api/ApiService";
+import axios from "axios";
+
 function Header2() {
   const cookies = new Cookies();
   const navigate = new useNavigate();
-  const csrftoken = cookies.get('csrftoken')
+  const csrftoken = cookies.get("csrftoken");
   const goToLoginForm = () => {
     navigate("/login");
   };
@@ -17,10 +20,20 @@ function Header2() {
     navigate("/register");
   };
   const config = {
-    headers : {
-      "X-CSRFToken" : csrftoken
-    }
-  }
+    headers: {
+      "X-CSRFToken": csrftoken,
+    },
+  };
+  const goToLogout = () => {
+    axios
+      .post("http://127.0.0.1:8000/accounts/dj-rest-auth/logout/", {}, config)
+      .then((response) => {
+        localStorage.removeItem("jwtToken");
+        alert("로그아웃 되었습니다.");
+        navigate("/");
+      })
+      .catch((err) => console.log(err));
+  };
   return (
     <nav className="sticky top-0 bg-black z-10">
       <div className=" pt-10 pb-8 mx-44 w-4/5 flex h-16 justify-between border-b border-gray-300">
@@ -77,7 +90,10 @@ function Header2() {
             </div>
           ) : (
             <div>
-              <Button className=" mr-5 cursor-pointer text-white " label={"로그아웃"} />
+              <Button
+                className=" mr-5 cursor-pointer text-white "
+                label={"로그아웃"}
+              />
               <Button
                 className=" h-8 px-2 border border-gray-300 rounded-md cursor-pointer text-white "
                 onClick={goToMypage}
