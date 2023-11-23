@@ -8,7 +8,7 @@ class Vod(models.Model):
     category = models.CharField(max_length=50, null=True)
     actors = models.CharField(max_length=100, null=True)
     director = models.CharField(max_length=50, null=True)
-    #runningtime = models.TimeField()
+    runningtime = models.CharField(max_length=10,null=True)
     imgpath = models.CharField(max_length=100, null=True)
     name_no_space = models.CharField(max_length=255,editable=False)
     backgroundimgpath=models.CharField(max_length=100,null=True)
