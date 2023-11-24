@@ -1,11 +1,14 @@
-import React, { useState, useCallback} from "react";
+import React, { useState, useCallback } from "react";
 import Rank from "./Rank";
 import Button from "./Button";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 export default function Review() {
   const [review, setReview] = useState("");
   const [reviewScore, setReviewScore] = useState(0);
+  const rankValue = useSelector((state) => state.rank.value);
+  console.log(rankValue)
   const handleScoreChange = useCallback(
     (newScore) => {
       setReviewScore(newScore);
@@ -23,9 +26,9 @@ export default function Review() {
 
       const response = await axios.post(
         url,
-        {
+        { 
           payload: review,
-          rating: reviewScore,
+          rating: rankValue,
         },
         {
           headers: {

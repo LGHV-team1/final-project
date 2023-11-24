@@ -12,6 +12,7 @@ import Detail from "./page/Detail.js";
 import Socialkakao from "./Socialkakao.js";
 import Socialnaver from "./Socialnaver.js";
 import Socialgoogle from "./Socialgoogle.js";
+import Search from "./page/Search.js";
 // import AppRoute from "./routes/AppRoute.js";
 // function App() {
 //   return (
@@ -32,6 +33,7 @@ function App() {
           <Route path="/socialk" element={<><Socialkakao /></>} />
           <Route path="/socialn" element={<><Socialnaver /></>} />
           <Route path="/socialg" element={<><Socialgoogle /></>} />
+          <Route path="/search" element={<><Search /></>} />
         </Routes>
       </div>
       <Footer />

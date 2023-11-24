@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
-
+import { useDispatch } from "react-redux";
+import { setRankValue } from "../redux/rankSlice";
 const ARRAY = [0, 1, 2, 3, 4];
 
-function Rank(props) {
+function Rank() {
+  const dispatch = useDispatch();
   const [clicked, setClicked] = useState([false, false, false, false, false]);
   const [hovered, setHovered] = useState([false, false, false, false, false]);
   const [score, setScore] = useState(0);
@@ -32,9 +34,9 @@ function Rank(props) {
   useEffect(() => {
     let realScore = clicked.filter(Boolean).length;
     setScore(score);
+    dispatch(setRankValue(realScore));
     try {
-      props.onScoreChange(realScore);
-      setScore(0)
+      setScore(0);
     } catch (err) {
       console.log(err);
     }
@@ -42,6 +44,7 @@ function Rank(props) {
   useEffect(() => {
     let score =
       clicked.filter(Boolean).length || hovered.filter(Boolean).length;
+    
     setScore(score);
   }, [clicked, hovered]); //컨디마 컨디업
 
@@ -85,4 +88,4 @@ function Rank(props) {
   );
 }
 
-export default React.memo(Rank);
+export default Rank;

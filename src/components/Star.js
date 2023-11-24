@@ -38,7 +38,7 @@ export default function Star({ AVR_RATE}) {
                   transform="translate(-2 -2)"
                 />
                 <use
-                  clipPath={`url(#${item}StarClip)`}
+                  clipPath={`url(#$ {item}StarClip)`}
                   href={`#${item}Star`}
                   fill="#C62A5B"
                 />
