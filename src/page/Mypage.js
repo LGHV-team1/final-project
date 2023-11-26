@@ -99,21 +99,24 @@ export default function Mypage() {
           <hr/>
         </div>
         <div className="max-w-[200px] w-[400px] mx-auto m-7 text-center">
-          <button
+          <Button
             className={
-              "border mt-2 py-2 w-full bg-pink-700 hover:bg-pink-900  text-white rounded"
+              "border mt-2 py-2 w-full bg-my-color  hover:bg-my-color/70 text-white  rounded px-4"
             }
-          >회원정보 수정</button>
-          <button
+            label={"회원정보 수정"}
+          />
+          <Button
             className={
-              "border mt-2 py-2 w-full bg-pink-700 hover:bg-pink-900 text-white rounded"
+              "border mt-2 py-2 w-full bg-my-color  hover:bg-my-color/70 text-white  rounded px-4"
             }
-          >로그아웃</button>
-          <button
+            label={"로그아웃"}
+          />
+          <Button
             className={
-              "border mt-2 py-2 w-full bg-pink-700 hover:bg-pink-900 text-white rounded"
+              "border mt-2 py-2 w-full bg-my-color  hover:bg-my-color/70 text-white  rounded px-4"
             }
-          >회원 탈퇴</button>
+            label={"회원 탈퇴"}
+          />
         </div>
         </div>
     </div>

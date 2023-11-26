@@ -10,10 +10,9 @@ function Home() {
   };
   return (
     <body
-      className="bg-black"
-      style={{ backgroundSize: "cover", backgroundRepeat: "no-repeat" }}
+      className="bg-black "
+      style={{ backgroundImage: `url(${BGimg})`, backgroundSize: "cover", backgroundRepeat: "no-repeat", height:"100vh" }}
     >
-      <img src={BGimg} alt="background" />
       <div style={style}>
         <h1 style={{ fontWeight: "900", fontSize: "72px" }}> 안녕하세요! </h1>
         <br></br>
