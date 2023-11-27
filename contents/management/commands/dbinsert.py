@@ -31,7 +31,7 @@ class Command(BaseCommand):
                     vod_name,
                     running_time
                 ) = row
-                
+                director=director.split(",")[0]
                 actors = actors.replace("-", "")
                 vod = Vod(
                     name=vod_name,
@@ -45,6 +45,7 @@ class Command(BaseCommand):
                 )
                 
                 vod_list.append(vod)
+                print(vod)
             Vod.objects.bulk_create(vod_list)
             self.stdout.write(self.style.SUCCESS("Data imported successfully"))
 
@@ -77,10 +78,11 @@ class Command(BaseCommand):
                 row.backgroundimgpath = "/noimage.png"
 
             # 인물 사진 가져오기.
-            actor_dict = {}
-            actors = list(row.actors.split(","))
+            
+            actors = list(row.actors.split(","))[0:4]
+            actor_list=[]
             for actor in actors:
-                
+                actor_dict = {}    
                 url = "https://api.themoviedb.org/3/search/person"
                 params = {
                     "api_key": "8fe7f744939eb8f0ff8dce0f69237f7f",
@@ -93,7 +95,8 @@ class Command(BaseCommand):
                     actor_dict[actor] = response.json()["results"][0]["profile_path"] if response.json()["results"][0]["profile_path"] else "/noimage.png"
                 else:
                     actor_dict[actor] = "/noimage.png"
-            row.actors = actor_dict
+                actor_list.append(actor_dict)
+            row.actors = actor_list
             print(row.imgpath)
             print(row.actors)
             row.save()

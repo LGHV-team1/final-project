@@ -175,7 +175,9 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "accounts.User"
-
+REST_AUTH = {
+    'USER_DETAILS_SERIALIZER': 'accounts.serializers.CustomUserDetailsSerializer',
+}
 AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",  # <- 디폴트 모델 백엔드
     "allauth.account.auth_backends.AuthenticationBackend",  # <- 추가
@@ -192,6 +194,10 @@ REST_FRAMEWORK = {
         'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
     ),
 }
+
+
+
+
 REST_USE_JWT = True
 
 SIMPLE_JWT = {
