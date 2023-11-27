@@ -6,7 +6,7 @@ class Vod(models.Model):
     bigcategory = models.CharField(max_length=50, null=False,default="기타")
     smallcategory = models.CharField(max_length=50, null=False,default='기타')
     category = models.CharField(max_length=50, null=True)
-    actors = models.CharField(max_length=100, null=True)
+    actors = models.CharField(max_length=200, null=True)
     director = models.CharField(max_length=50, null=True)
     runningtime = models.CharField(max_length=10,null=True)
     imgpath = models.CharField(max_length=100, null=True)
