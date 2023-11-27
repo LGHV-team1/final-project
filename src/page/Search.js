@@ -28,15 +28,19 @@ function Search() {
     <div className="mx-44 mt-5">
       <h1>
         검색 결과: {searchValue}
+        <div className="grid  grid-cols-4 gap-5 my-5">
         {movies.map((movie, index) => (
-          <div key={index}>
-            <Link to={`/detail/${movie.name}`}>
-              <h3>{movie.name}</h3>
+          <div key={index} className=" items-center w-auto" >
+            <Link style={{ textDecoration: 'none' }} to={`/detail/${movie.name}`}>
+              <h3  className=" text-black">{movie.name}</h3>
+              <img src={`https://image.tmdb.org/t/p/original/${movie.imgpath}`} alt="포스터사진" className=" rounded-xl" />
             </Link>
 
-            <p className=" text-xs">{movie.smallcategory}</p>
+            <p className=" text-base">{movie.smallcategory}</p>
+            
           </div>
         ))}
+        </div>
       </h1>
     </div>
   );

@@ -51,8 +51,8 @@ function Detail() {
       ) : (
         <div>
           <div
-            className="relative py-80 bg-cover bg-center "
-            style={{ backgroundImage: `url(${backgroundImageUrl})` }}
+            className="relative py-80 bg-cover bg-center bg-no-repeat "
+            style={{ backgroundImage: `url(${backgroundImageUrl})` , backgroundSize: "cover",  }}
           >
             <div className=" absolute bottom-10 left-44  text-white">
               <h1 className=" text-6xl font-bold pb-3">{movie.name}</h1>
