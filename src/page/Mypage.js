@@ -49,17 +49,21 @@ export default function Mypage() {
     )
     .then((res)=> {
       setUserinfo(res.data);
-      if(userinfo.user_profile === 1){
-        setProfilepic(profile2)
-      }
-      else if(userinfo.user_profile === 2){
-        setProfilepic(profile3)
-      }
-      else if(userinfo.user_profile === 3){
-        setProfilepic(profile4)
+      switch (userinfo.user_profile) {
+        case 1:
+          setProfilepic(profile2);
+          break;
+        case 2:
+          setProfilepic(profile3);
+          break;
+        case 3:
+          setProfilepic(profile4);
+          break;
+        default:
+          setProfilepic(profile1);
       }
     })
-  }, [userinfo]);
+  }, [userinfo.user_profile]);
 
 
   return (
