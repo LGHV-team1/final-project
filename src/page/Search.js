@@ -24,7 +24,8 @@ function Search() {
       console.error(err);
     }
   };
-    return (
+
+  return (
     <div className="mx-44 mt-5">
       <h1>
         검색 결과: {searchValue}
