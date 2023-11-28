@@ -49,7 +49,7 @@ function Login() {
   return (
     <body>
       <div style={{position:"absolute"}} >
-      <img  src={BGimg}alt="background"/>
+      <img  src={BGimg} alt="background"/>
       </div>
       <div className="max-w-[400px] w-[400px] mx-auto bg-transparent p-4 rounded position-relative">
         <form onSubmit={onLogin}>

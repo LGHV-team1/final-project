@@ -32,14 +32,15 @@ const IconWrap = styled.div`
 export default function Mypage() {
   const navigate = useNavigate();
   const [modalOpen, setModalOpen] = useState(false);
-
+  const [profilepic, setProfilepic] = useState(profile1);
   const showModal = () => {
     setModalOpen(true);
   };
 
   let [userinfo, setUserinfo] = useState({
-    useremail : '',
-    userprofile : ''
+    email : '',
+    username : '',
+    user_profile : ''
   });
 
   useEffect(() => {
@@ -47,23 +48,26 @@ export default function Mypage() {
       { withCredentials: true }
     )
     .then((res)=> {
-        setUserinfo(res.data);
-    
+      setUserinfo(res.data);
+      if(userinfo.user_profile === 1){
+        setProfilepic(profile2)
+      }
+      else if(userinfo.user_profile === 2){
+        setProfilepic(profile3)
+      }
+      else if(userinfo.user_profile === 3){
+        setProfilepic(profile4)
+      }
     })
-  }, []);
-  if (userinfo.userprofile === "1") {
-    const profilepic = "../images/profile_boy.png"
-  }
-  else if(userinfo.userprofile === "2"){
-    const profilepic = profile2;
-  }
+  }, [userinfo]);
+
 
   return (
     <div>
       <div className="max-w-[400px] w-[400px] mx-auto bg-white p-4 text-center ">
-        <img src={profile2} alt="프로필사진" width="50%" className='m-auto'></img>
+        <img src={profilepic} alt="프로필사진" width="50%" className='m-auto'></img>
         <div className="flex flex-col py-8">
-          <div>{userinfo.useremail} 님 안녕하세요</div>
+          <div>{userinfo.email} 님 안녕하세요</div>
         </div>
           <Button
             label={"프로필 사진 변경"}

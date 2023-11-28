@@ -44,7 +44,7 @@ function Register() {
   const registerSend = async () => {
     try {
       const response = await axios.post(
-        "http://3.34.50.51/accounts/dj-rest-auth/registration/",
+        "http://127.0.0.1:8000/accounts/dj-rest-auth/registration/",
         {
           username: Name,
           email: Email,
@@ -60,6 +60,7 @@ function Register() {
       if (error.response) {
         // 서버가 응답을 반환하지만 2xx 상태 코드가 아닌 경우
         console.error("Error response from server:", error.response.data);
+        alert(error.response.data.non_field_errors[0])
       } else if (error.request) {
         // 서버로의 요청이 전송되지 않은 경우
         console.error(
