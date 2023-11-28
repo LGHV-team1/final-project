@@ -25,6 +25,8 @@ from .serializers import UserSerializer
 from urllib.parse import urlencode
 import requests
 
+
+
 KAKAO_TOKEN_API = "https://kauth.kakao.com/oauth/token"
 KAKAO_USER_API = "https://kapi.kakao.com/v2/user/me"
 KAKAO_REDIRECT_URI = getattr(settings, 'KAKAO_REDIRECT_URI', 'KAKAO_REDIRECT_URI')
@@ -64,7 +66,10 @@ def kakaoCallback(request, *args, **kwargs):
         social_user = SocialAccount.objects.get(user=user)
         # 있는데 카카오계정이 아니어도 에러
         if social_user.provider != 'kakao':
-            return JsonResponse({'err_msg': 'no matching social type'}, status=status.HTTP_400_BAD_REQUEST)
+            err_msg = 'not_kakao'
+            response = HttpResponseRedirect('http://127.0.0.1:3000/socialk')
+            response.set_cookie('loginerror', err_msg)
+            return response
 
         # 이미 kakao로 제대로 가입된 유저 => 로그인 & 해당 유저의 jwt 발급
         data = {'access_token': access_token, 'code': code}
@@ -72,7 +77,10 @@ def kakaoCallback(request, *args, **kwargs):
         accept_status = accept.status_code
         # 뭔가 중간에 문제가 생기면 에러
         if accept_status != 200:
-            return JsonResponse({'err_msg': 'failed to signin'}, status=accept_status)
+            err_msg = 'failed to signin'
+            response = HttpResponseRedirect('http://127.0.0.1:3000/socialk')
+            response.set_cookie('loginerror', err_msg)
+            return response
         else :
             accept_json = accept.json()
             print(accept_json)
@@ -90,7 +98,10 @@ def kakaoCallback(request, *args, **kwargs):
 
         # 뭔가 중간에 문제가 생기면 에러
         if accept_status != 200:
-            return JsonResponse({'err_msg': 'failed to signup'}, status=accept_status)
+            err_msg = 'failed to signin'
+            response = HttpResponseRedirect('http://127.0.0.1:3000/socialk')
+            response.set_cookie('loginerror', err_msg)
+            return response
         else :
             accept_json = accept.json()
             print(accept_json)
@@ -101,7 +112,11 @@ def kakaoCallback(request, *args, **kwargs):
 
     except SocialAccount.DoesNotExist:
         # User는 있는데 SocialAccount가 없을 때 (=일반회원으로 가입된 이메일일때)
-        return JsonResponse({'err_msg': 'email exists but not social user'}, status=status.HTTP_400_BAD_REQUEST)
+        err_msg = 'not_social'
+        response = HttpResponseRedirect('http://127.0.0.1:3000/socialk')
+        response.set_cookie('loginerror', err_msg)
+        return response
+
 class KakaoLogin(SocialLoginView):
     adapter_class = kakao_view.KakaoOAuth2Adapter
     callback_url = KAKAO_REDIRECT_URI
@@ -162,7 +177,10 @@ def googleCallback(request):
         social_user = SocialAccount.objects.get(user=user)
         # 있는데 구글계정이 아니어도 에러
         if social_user.provider != 'google':
-            return JsonResponse({'err_msg': 'no matching social type'}, status=status.HTTP_400_BAD_REQUEST)
+            err_msg = 'not_google'
+            response = HttpResponseRedirect('http://127.0.0.1:3000/socialg')
+            response.set_cookie('loginerror', err_msg)
+            return response
 
         # 이미 Google로 제대로 가입된 유저 => 로그인 & 해당 우저의 jwt 발급
         data = {'access_token': access_token, 'code': code}
@@ -170,7 +188,10 @@ def googleCallback(request):
         accept_status = accept.status_code
         # 뭔가 중간에 문제가 생기면 에러
         if accept_status != 200:
-            return JsonResponse({'err_msg': 'failed to signin'}, status=accept_status)
+            err_msg = 'failed to signin'
+            response = HttpResponseRedirect('http://127.0.0.1:3000/socialg')
+            response.set_cookie('loginerror', err_msg)
+            return response
 
         else :
             accept_json = accept.json()
@@ -188,7 +209,10 @@ def googleCallback(request):
 
         # 뭔가 중간에 문제가 생기면 에러
         if accept_status != 200:
-            return JsonResponse({'err_msg': 'failed to signup'}, status=accept_status)
+            err_msg = 'failed to signin'
+            response = HttpResponseRedirect('http://127.0.0.1:3000/socialg')
+            response.set_cookie('loginerror', err_msg)
+            return response
         else:
             accept_json = accept.json()
             print(accept_json)
@@ -199,7 +223,10 @@ def googleCallback(request):
 
     except SocialAccount.DoesNotExist:
         # User는 있는데 SocialAccount가 없을 때 (=일반회원으로 가입된 이메일일때)
-        return JsonResponse({'err_msg': 'email exists but not social user'}, status=status.HTTP_400_BAD_REQUEST)
+        err_msg = 'not_social'
+        response = HttpResponseRedirect('http://127.0.0.1:3000/socialg')
+        response.set_cookie('loginerror', err_msg)
+        return response
 
 class GoogleLogin(SocialLoginView):
     adapter_class = google_view.GoogleOAuth2Adapter
@@ -261,7 +288,10 @@ def naverCallback(request, *args, **kwargs):
         social_user = SocialAccount.objects.get(user=user)
         # 있는데 네이버계정이 아니어도 에러
         if social_user.provider != 'naver':
-            return JsonResponse({'err_msg': 'no matching social type'}, status=status.HTTP_400_BAD_REQUEST)
+            err_msg = 'not_naver'
+            response = HttpResponseRedirect('http://127.0.0.1:3000/socialn')
+            response.set_cookie('loginerror', err_msg)
+            return response
 
         # 이미 naver로 제대로 가입된 유저 => 로그인 & 해당 우저의 jwt 발급
         data = {'access_token': access_token, 'code': code}
@@ -270,7 +300,10 @@ def naverCallback(request, *args, **kwargs):
 
         # 뭔가 중간에 문제가 생기면 에러
         if accept_status != 200:
-            return JsonResponse({'err_msg': 'failed to signin'}, status=accept_status)
+            err_msg = 'failed to signin'
+            response = HttpResponseRedirect('http://127.0.0.1:3000/socialn')
+            response.set_cookie('loginerror', err_msg)
+            return response
 
         else:
             accept_json = accept.json()
@@ -288,7 +321,10 @@ def naverCallback(request, *args, **kwargs):
 
         # 뭔가 중간에 문제가 생기면 에러
         if accept_status != 200:
-            return JsonResponse({'err_msg': 'failed to signup'}, status=accept_status)
+            err_msg = 'failed to signin'
+            response = HttpResponseRedirect('http://127.0.0.1:3000/socialn')
+            response.set_cookie('loginerror', err_msg)
+            return response
 
         else:
             accept_json = accept.json()
@@ -300,8 +336,10 @@ def naverCallback(request, *args, **kwargs):
 
     except SocialAccount.DoesNotExist:
         # User는 있는데 SocialAccount가 없을 때 (=일반회원으로 가입된 이메일일때)
-        return JsonResponse({'err_msg': 'email exists but not social user'}, status=status.HTTP_400_BAD_REQUEST)
-
+        err_msg = 'not_social'
+        response = HttpResponseRedirect('http://127.0.0.1:3000/socialn')
+        response.set_cookie('loginerror', err_msg)
+        return response
 
 class NaverLogin(SocialLoginView):
     adapter_class = naver_view.NaverOAuth2Adapter
