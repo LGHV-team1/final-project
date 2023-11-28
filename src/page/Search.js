@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { useLocation, Link } from "react-router-dom";
-
+import noImage from "../images/noimage.png";
 function Search() {
   const searchValue = useSelector((state) => state.search.value);
 
@@ -24,26 +24,36 @@ function Search() {
       console.error(err);
     }
   };
-  return (
-    <div className="mx-44 mt-5">
-      <h1>
-        검색 결과: {searchValue}
-        <div className="grid  grid-cols-4 gap-5 my-5">
-        {movies.map((movie, index) => (
-          <div key={index} className=" items-center w-auto" >
-            <Link style={{ textDecoration: 'none' }} to={`/detail/${movie.name}`}>
-              <h3  className=" text-black">{movie.name}</h3>
-              <img src={`https://image.tmdb.org/t/p/original/${movie.imgpath}`} alt="포스터사진" className=" rounded-xl" />
-            </Link>
-
-            <p className=" text-base">{movie.smallcategory}</p>
-            
+  if (searchValue === "") {
+    return <h1 className="mx-44 mt-5">검색어를 입력해주세요</h1>;
+  } else {
+    return (
+      <div className="mx-44 mt-5">
+        <h1>
+          검색 결과: {searchValue}
+          <div className="flex flex-wrap justify-between my-5">
+            {movies.map((movie, index) => (
+              <div
+                key={index}
+                className="sm:w-1/2 md:w-1/2 lg:w-[24%] xl:w-[24%]  hover:scale-105"
+              >
+                <Link to={`/detail/${movie.name}`} className="">
+                  <img
+                    src={`https://image.tmdb.org/t/p/w500/${movie.imgpath}`}
+                    className=" rounded-md w-full"
+                    onError={(e) => (e.currentTarget.src = noImage)}
+                    style={{height:"450px"}}
+                  />
+                </Link>
+                <h3 className="text-black">{movie.name}</h3>
+                <p className="text-base">{movie.smallcategory}</p>
+              </div>
+            ))}
           </div>
-        ))}
-        </div>
-      </h1>
-    </div>
-  );
+        </h1>
+      </div>
+    );
+  }
 }
 
 export default Search;

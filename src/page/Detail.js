@@ -1,14 +1,16 @@
 import React, { useEffect, useState, useRef } from "react";
 import Review from "../components/Review";
-
+import noImage from "../images/noimage.png";
+import noImageBG from "../images/no_img.jpg";
 import axios from "axios";
 import Star from "../components/Star";
 import { useParams } from "react-router-dom";
+import Spinner from "../components/Spinner";
 function Detail() {
   const { name } = useParams();
   const [movie, setMovie] = useState({});
   const [loading, setLoading] = useState(true);
-  console.log(name);
+
   const getData = async () => {
     try {
       const url = `http://13.125.242.196/contents/${name}/detail/`;
@@ -17,12 +19,12 @@ function Detail() {
       setMovie(data);
       console.log(movie);
       setLoading(false);
-      console.log(movie.description.length)
+      console.log(movie.backgroundimgpath);
     } catch (err) {
       console.error(err);
     }
   };
- 
+
   useEffect(() => {
     getData();
   }, []);
@@ -38,7 +40,15 @@ function Detail() {
       console.error("URL 복사에 실패했습니다.", err);
     }
   };
-  const backgroundImageUrl = `https://image.tmdb.org/t/p/original/${movie.backgroundimgpath}`;
+  
+  let backgroundImageUrl = `https://image.tmdb.org/t/p/original/${movie.backgroundimgpath}`;
+  if (!loading) {
+    if (movie.backgroundimgpath === "/noimage.png") {
+      backgroundImageUrl = noImageBG
+    }
+  }
+  
+  console.log(backgroundImageUrl);
   const inputForm = useRef(); //특정 DOM을 가리킬 때 사용하는 Hook함수, SecondDiv에 적용
   const onMoveToReview = () => {
     inputForm.current.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -47,12 +57,15 @@ function Detail() {
   return (
     <>
       {loading ? (
-        <h1>loading...</h1>
+        <Spinner />
       ) : (
         <div>
           <div
             className="relative py-80 bg-cover bg-center bg-no-repeat "
-            style={{ backgroundImage: `url(${backgroundImageUrl})` , backgroundSize: "cover",  }}
+            style={{
+              backgroundImage: `url(${backgroundImageUrl})`,
+              backgroundSize: "cover",
+            }}
           >
             <div className=" absolute bottom-10 left-44  text-white">
               <h1 className=" text-6xl font-bold pb-3">{movie.name}</h1>
@@ -64,10 +77,12 @@ function Detail() {
               </div>
             </div>
           </div>
+          
           <div className="flex mx-44 mt-10 mb-10 gap-10 ">
             <div className="w-1/4">
               <img
                 src={`https://image.tmdb.org/t/p/original/${movie.imgpath}`}
+                onError={(e) => (e.currentTarget.src = noImage)}
               />
             </div>
             <div className="w-3/4">
@@ -153,23 +168,13 @@ function Detail() {
                     <p className="mt-2 ">
                       {movie.description && movie.description.length < 300
                         ? movie.description
-                        : `${movie.description.slice(0, 300)}...`
-                        }
+                        : `${movie.description.slice(0, 300)}...`}
                     </p>
                   </div>
                   {/* 출연진 */}
                   <div className="w-2/5  pl-3">
                     <h3>감독/출연</h3>
-                    {/* {Object.entries(movie.actors).map(([actorName, actorImage]) => (
-                <div key={actorName}>
-                  <p>{actorName}</p>
-                  <img
-                    src={actorImage}
-                    alt={actorName}
-                    style={{ width: "100px", height: "150px" }}
-                  />
-                </div>
-              ))} */}
+
                     <div className="mt-2"></div>
                   </div>
                 </div>
