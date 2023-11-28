@@ -137,6 +137,7 @@ function Header2() {
                 type="text"
                 onChange={handleInputChange}
                 onKeyUp={handleInputEnter}
+                autoFocus
               />
             </div>
           )}

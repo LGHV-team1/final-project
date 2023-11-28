@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 
 const ARRAY = [0, 1, 2, 3, 4];
 
-export default function Star({ AVR_RATE}) {
+export default function Star({ AVR_RATE = 3}) {
   const percentAVR_RATE = AVR_RATE * 20
   const [ratesResArr, setRatesResArr] = useState([0, 0, 0, 0, 0]);
   const calcStarRates = () => {
@@ -19,8 +19,9 @@ export default function Star({ AVR_RATE}) {
     return tempStarRatesArr;
   };
   useEffect(() => {
-    setRatesResArr(calcStarRates);
+    setRatesResArr(calcStarRates());
   }, [AVR_RATE]);
+
   return (
     <div>
       <div>별점 {AVR_RATE}</div>
@@ -30,7 +31,7 @@ export default function Star({ AVR_RATE}) {
             <span key={`${item}_${idx}`}>
               <svg width="50" height="50" viewBox="0 0 14 14" fill="#cacaca">
                 <clipPath id={`${item}StarClip`}>
-                  <rect width={`${ratesResArr[idx]}`} height="50" />
+                  <rect width={ratesResArr[idx]} height="50" />
                 </clipPath>
                 <path
                   id={`${item}Star`}
@@ -38,8 +39,8 @@ export default function Star({ AVR_RATE}) {
                   transform="translate(-2 -2)"
                 />
                 <use
-                  clipPath={`url(#$ {item}StarClip)`}
-                  href={`#${item}Star`}
+                  clipPath={`url(#${item}StarClip)`}
+                  xlinkHref={`#${item}Star`}
                   fill="#C62A5B"
                 />
               </svg>
