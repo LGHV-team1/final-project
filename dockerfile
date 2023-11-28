@@ -3,9 +3,9 @@ FROM --platform=linux/arm64 python
 
 # 필요한 시스템 패키지 설치
 RUN apt-get update \
-	&& apt-get install -y --no-install-recommends \
-		postgresql-client \
-			&& rm -rf /var/lib/apt/lists/*
+    && apt-get install -y --no-install-recommends \
+    && rm -rf /var/lib/apt/lists/*
+
 # 작업 디렉토리 설정
 WORKDIR /usr/src/app
 
