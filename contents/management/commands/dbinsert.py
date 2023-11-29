@@ -82,7 +82,8 @@ class Command(BaseCommand):
             actors = list(row.actors.split(","))[0:4]
             actor_list=[]
             for actor in actors:
-                actor_dict = {}    
+                actor_dict = {}
+                actor_dict["name"]=actor    
                 url = "https://api.themoviedb.org/3/search/person"
                 params = {
                     "api_key": "8fe7f744939eb8f0ff8dce0f69237f7f",
@@ -92,9 +93,9 @@ class Command(BaseCommand):
                 }
                 response = requests.get(url, headers=self.headers, params=params)
                 if response.status_code == 200 and response.json()["results"]:
-                    actor_dict[actor] = response.json()["results"][0]["profile_path"] if response.json()["results"][0]["profile_path"] else "/noimage.png"
+                    actor_dict["image"] = response.json()["results"][0]["profile_path"] if response.json()["results"][0]["profile_path"] else "/noimage.png"
                 else:
-                    actor_dict[actor] = "/noimage.png"
+                    actor_dict["image"] = "/noimage.png"
                 actor_list.append(actor_dict)
             row.actors = actor_list
             print(row.imgpath)
