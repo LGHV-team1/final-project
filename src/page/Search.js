@@ -35,18 +35,18 @@ function Search() {
             {movies.map((movie, index) => (
               <div
                 key={index}
-                className="w-[23.5%]  sm:w-1/2 md:w-1/2 lg:w-[24%] xl:w-[23.5%]  hover:scale-105"
+                className="w-[23.5%]  sm:w-1/2 md:w-1/2 lg:w-[24%] xl:w-[23.5%]  hover:scale-105 mb-5"
               >
                 <Link to={`/detail/${movie.name}`} className="">
                   <img
                     src={`https://image.tmdb.org/t/p/w500/${movie.imgpath}`}
-                    className=" rounded-md w-full"
+                    className=" rounded-md w-full shadow-xl"
                     onError={(e) => (e.currentTarget.src = noImage)}
                     style={{height:"450px"}}
                   />
                 </Link>
-                <h3 className="text-black">{movie.name}</h3>
-                <p className="text-base">{movie.smallcategory}</p>
+                <div className="text-black text-[25px]" >{movie.name}</div>
+                <div className="text-[15px]">{movie.smallcategory}</div>
               </div>
             ))}
           </div>

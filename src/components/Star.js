@@ -3,8 +3,8 @@ import { useState, useEffect } from "react";
 
 const ARRAY = [0, 1, 2, 3, 4];
 
-export default function Star({ AVR_RATE = 3}) {
-  const percentAVR_RATE = AVR_RATE * 20
+export default function Star({ AVR_RATE = 3 }) {
+  const percentAVR_RATE = AVR_RATE * 20;
   const [ratesResArr, setRatesResArr] = useState([0, 0, 0, 0, 0]);
   const calcStarRates = () => {
     let tempStarRatesArr = [0, 0, 0, 0, 0];
@@ -24,12 +24,11 @@ export default function Star({ AVR_RATE = 3}) {
 
   return (
     <div>
-      <div>별점 {AVR_RATE}</div>
-      <div className="flex">
+      <div className="flex ">
         {ARRAY.map((item, idx) => {
           return (
-            <span key={`${item}_${idx}`}>
-              <svg width="50" height="50" viewBox="0 0 14 14" fill="#cacaca">
+            <span key={`${item}_${idx}`} >
+              <svg width="50" height="50" viewBox="0 0 14 14" fill="#cacaca" >
                 <clipPath id={`${item}StarClip`}>
                   <rect width={ratesResArr[idx]} height="50" />
                 </clipPath>
@@ -48,6 +47,7 @@ export default function Star({ AVR_RATE = 3}) {
           );
         })}
       </div>
+      <div>별점 {AVR_RATE}</div>
     </div>
   );
 }
