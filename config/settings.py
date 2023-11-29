@@ -15,7 +15,6 @@ from datetime import timedelta
 import os,json,sys
 from django.core.exceptions import ImproperlyConfigured
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 ROOT_DIR = os.path.dirname(BASE_DIR)
@@ -224,16 +223,16 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 # 사이트와 관련한 자동응답을 받을 이메일 주소,'webmaster@localhost'
 
 
-ACCOUNT_USER_MODEL_USERNAME_FIELD = 'username'  # username 필드 사용 x
-#ACCOUNT_USER_MODEL_USERNAME_FIELD = None  # username 필드 사용 x
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None  # username 필드 사용 x
 ACCOUNT_EMAIL_REQUIRED = True  # email 필드 사용 o
 ACCOUNT_UNIQUE_EMAIL = True
-ACCOUNT_USERNAME_REQUIRED = True  # username 필드 사용 x
+ACCOUNT_USERNAME_REQUIRED = False
 #ACCOUNT_USERNAME_REQUIRED = False  # username 필드 사용 x
 ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True  # 링크 클릭하면 활성화
-ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = "/"
+ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = "http://127.0.0.1:3000/login"
+ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = "http://127.0.0.1:3000/login"
 # 이메일에 자동으로 표시되는 사이트 정보
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
 

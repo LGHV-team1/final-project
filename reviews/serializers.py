@@ -8,11 +8,12 @@ class ReviewshowSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Review
-        fields = ("payload","rating","username")
+        fields = ("id","payload","rating","username")
 
 
 class ReviewSerializer(serializers.ModelSerializer):
-
+    username = serializers.CharField(source='user.email')
+    vodname = serializers.CharField(source='contents.name')
     class Meta:
         model = Review
         fields = "__all__"
