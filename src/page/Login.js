@@ -42,14 +42,21 @@ function Login() {
       localStorage.setItem("jwtToken", token);
       navigate("/main");
     } catch (error) {
-      console.error("로그인 실패:", error);
+      // API 호출 중 에러가 발생한 경우
+      if (error.response) {
+        // 서버가 응답을 반환하지만 2xx 상태 코드가 아닌 경우
+        console.error("Error response from server:", error.response.data);
+        const getValues = Object.values(error.response.data)
+        const arrayString = getValues.join('\n');
+        alert(arrayString);
+} 
     }
   };
 
   return (
     <body>
       <div style={{position:"absolute"}} >
-      <img  src={BGimg}alt="background"/>
+      <img  src={BGimg} alt="background"/>
       </div>
       <div className="max-w-[400px] w-[400px] mx-auto bg-transparent p-4 rounded position-relative">
         <form onSubmit={onLogin}>

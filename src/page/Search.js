@@ -24,6 +24,7 @@ function Search() {
       console.error(err);
     }
   };
+
   return (
     <div className="mx-44 mt-5">
       <h1>

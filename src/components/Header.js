@@ -8,6 +8,7 @@ import ApiService from "../api/ApiService";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setSearchValue } from "../redux/searchSlice";
+
 function Header2() {
   const searchInputRef = useRef(null); // 입력창 참조 생성
   const dispatch = useDispatch();
@@ -158,6 +159,7 @@ function Header2() {
             <div>
               <Button
                 className=" mr-5 cursor-pointer text-white "
+                onClick={goToLogout}
                 label={"로그아웃"}
               />
               <Button
