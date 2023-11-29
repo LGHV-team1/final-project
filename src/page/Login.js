@@ -29,7 +29,7 @@ function Login() {
   const login = async () => {
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8000/accounts/dj-rest-auth/login/",
+        "http://13.125.242.196/accounts/login/",
         {
           email: Email,
           password: Password,

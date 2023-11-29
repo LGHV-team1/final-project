@@ -3,8 +3,9 @@ import Rank from "./Rank";
 import Button from "./Button";
 import axios from "axios";
 import { useSelector } from "react-redux";
-
+import { useParams} from "react-router-dom";
 export default function Review() {
+  const {name} = useParams();
   const [review, setReview] = useState("");
   const [reviewScore, setReviewScore] = useState(0);
   const rankValue = useSelector((state) => state.rank.value);
@@ -19,11 +20,12 @@ export default function Review() {
     setReview(e.target.value);
   };
 
-  const sendReview = async () => {
+  const sendReview = async (e) => { 
+    e.preventDefault();
     try {
-      const url = `http://3.34.50.51/contents/끝까지 간다/review/`;
+      const url = `http://13.125.242.196/contents/${name}/review/`;
       const token = localStorage.getItem("jwtToken");
-
+      console.log(review, rankValue)
       const response = await axios.post(
         url,
         { 
@@ -41,12 +43,12 @@ export default function Review() {
       setReview("");
       setReviewScore(0);
     } catch (error) {
-      console.error("API 요청 중 오류:", error.response.data);
+      console.error("API 요청 중 오류:", error);
     }
   };
 
   return (
-    <form onSubmit={sendReview}>
+    <form onSubmit={sendReview} className=" rounded">
       <div className="w-full mb-4 border border-gray-200 rounded-px-4 bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
         <div className="p-4 bg-white rounded-t-lg dark:bg-gray-800">
           <textarea
