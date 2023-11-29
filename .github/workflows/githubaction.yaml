@@ -1,9 +1,9 @@
 name: django
 on:
   push:
-    branches: ["Deploy/Server"]
+    branches: ["Deploy/Server","Develop/Server"]
   pull_request:
-    branches: ["Deploy/Server"]
+    branches: ["Deploy/Server","Develop/Server"]
 
 permissions:
   id-token: write
