@@ -15,7 +15,8 @@ env:
   ECS_SERVICE: vod-service
   ECS_CLUSTER: vod_cluster
   ECS_TASK_DEFINITION: ./task-definition.json
-  CONTAINER_NAME: vod_container
+  CONTAINER_NAME: vod_container	
+
 
 
 jobs:
@@ -36,8 +37,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Build Docker Compose
-        run : docker-compose
+      - name: Build and Push Docker Image
+        run: |
+          docker build -t ${{ env.ECR_REPOSITORY }}:${{ github.sha }} .
+          docker push ${{ env.ECR_REPOSITORY }}:${{ github.sha }}
       
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
