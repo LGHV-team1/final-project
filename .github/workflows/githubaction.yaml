@@ -36,6 +36,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Decode secrets.json
+        run: |
+          echo "${{ secrets.SECRETS_JSON }}" | base64 --decode > secrets.json
+
+
       - name: Build Docker Compose
         run: docker-compose
 
