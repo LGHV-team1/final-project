@@ -7,10 +7,10 @@ import MyWish from '../components/MyWish.js';
 import MyReview from "../components/MyReview.js"
 import styled from "styled-components";
 import ApiService from "../api/ApiService.js";
-import profile1 from "../images/profile_boy.png"
-import profile2 from "../images/profile_girl.png"
-import profile3 from "../images/profile_man.png"
-import profile4 from "../images/profile_woman.png"
+import profile1 from "../images/profileimg/profile_boy.png"
+import profile2 from "../images/profileimg/profile_girl.png"
+import profile3 from "../images/profileimg/profile_man.png"
+import profile4 from "../images/profileimg/profile_woman.png"
 import ModalProfile from "../components/Modal/ModalProfile.js";
 import ModalChangeinfo from "../components/Modal/ModalChangeinfo.js";
 import { Cookies } from "react-cookie";

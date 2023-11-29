@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import styles from './ModalProfile.module.css';
-import profile1 from "../../images/profile_boy.png"
-import profile2 from "../../images/profile_girl.png"
-import profile3 from "../../images/profile_man.png"
-import profile4 from "../../images/profile_woman.png"
+import profile1 from "../../images/profileimg/profile_boy.png"
+import profile2 from "../../images/profileimg/profile_girl.png"
+import profile3 from "../../images/profileimg/profile_man.png"
+import profile4 from "../../images/profileimg/profile_woman.png"
 import { Cookies } from "react-cookie";
 import axios from "axios";
 function ModalProfile({ setModalOpen}){
