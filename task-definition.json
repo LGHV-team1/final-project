@@ -3,7 +3,6 @@
     "containerDefinitions": [
         {
             "name": "vod_container",
-            "image": "590166514721.dkr.ecr.ap-northeast-2.amazonaws.com/lg_final_project:latest",
             "cpu": 0,
             "portMappings": [
                 {
