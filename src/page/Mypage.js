@@ -12,6 +12,9 @@ import profile2 from "../images/profile_girl.png"
 import profile3 from "../images/profile_man.png"
 import profile4 from "../images/profile_woman.png"
 import ModalProfile from "../components/Modal/ModalProfile.js";
+import ModalChangeinfo from "../components/Modal/ModalChangeinfo.js";
+import { Cookies } from "react-cookie";
+import axios from "axios";
 const IconWrap = styled.div`
     svg {
       font-size: 30px;
@@ -31,12 +34,17 @@ const IconWrap = styled.div`
 
 export default function Mypage() {
   const navigate = useNavigate();
-  const [modalOpen, setModalOpen] = useState(false);
+  const cookies = new Cookies();
+  const [modal1Open, setModal1Open] = useState(false);
+  const [modal2Open, setModal2Open] = useState(false);
   const [profilepic, setProfilepic] = useState(profile1);
-  const showModal = () => {
-    setModalOpen(true);
+  const csrftoken = cookies.get("csrftoken");
+  const showModal1 = () => {
+    setModal1Open(true);
   };
-
+  const showModal2 = () => {
+    setModal2Open(true);
+  };
   let [userinfo, setUserinfo] = useState({
     email : '',
     username : '',
@@ -65,7 +73,21 @@ export default function Mypage() {
     })
   }, [userinfo.user_profile]);
 
-
+  const config = {
+    headers: {
+      "X-CSRFToken": csrftoken,
+    },
+  };
+  const goToLogout = () => {
+    axios
+      .post("http://127.0.0.1:8000/accounts/dj-rest-auth/logout/", {}, config)
+      .then((response) => {
+        localStorage.removeItem("jwtToken");
+        alert("로그아웃 되었습니다.");
+        navigate("/");
+      })
+      .catch((err) => console.log(err));
+  };
   return (
     <div>
       <div className="max-w-[400px] w-[400px] mx-auto bg-white p-4 text-center ">
@@ -75,9 +97,9 @@ export default function Mypage() {
         </div>
           <Button
             label={"프로필 사진 변경"}
-            onClick={showModal}
+            onClick={showModal1}
             className={"border rounded p-1 hover:bg-transparent text-black"}
-          />{modalOpen && <ModalProfile setModalOpen={setModalOpen} />}
+          />{modal1Open && <ModalProfile setModalOpen={setModal1Open} />}
       </div>
       <div className="max-w-[1000px] w-[1000px] mx-auto text-center my-10"> 
         <div className='mb-20'>
@@ -107,17 +129,18 @@ export default function Mypage() {
           <hr/>
         </div>
         <div className="max-w-[200px] w-[400px] mx-auto m-7 text-center">
-          <Button
-            className={
-              "border mt-2 py-2 w-full bg-my-color  hover:bg-my-color/70 text-white  rounded px-4"
-            }
+        <Button
             label={"회원정보 수정"}
-          />
+            onClick={showModal2}
+            className={"border mt-2 py-2 w-full bg-my-color  hover:bg-my-color/70 text-white  rounded px-4"}
+          />{modal2Open && <ModalChangeinfo setModalOpen={setModal2Open} />}
+
           <Button
             className={
               "border mt-2 py-2 w-full bg-my-color  hover:bg-my-color/70 text-white  rounded px-4"
             }
             label={"로그아웃"}
+            onClick={goToLogout}
           />
           <Button
             className={
