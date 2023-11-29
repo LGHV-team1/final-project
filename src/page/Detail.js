@@ -1,34 +1,57 @@
 import React, { useEffect, useState, useRef } from "react";
 import Review from "../components/Review";
-
+import noImage from "../images/noimage.png";
+import noImageBG from "../images/no_img.jpg";
 import axios from "axios";
 import Star from "../components/Star";
 import { useParams } from "react-router-dom";
+import Spinner from "../components/Spinner";
+import noImagePs from "../images/noimageps.png";
+import Modal from "../components/Modal";
+
 function Detail() {
   const { name } = useParams();
   const [movie, setMovie] = useState({});
   const [loading, setLoading] = useState(true);
-  console.log(name);
+  const [wish, setWish] = useState(false);
+  const [originalWish, setOriginalWish] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const getData = async () => {
     try {
       const url = `http://13.125.242.196/contents/${name}/detail/`;
       const response = await axios.get(url);
       const data = response.data;
-      setMovie(data);
-      console.log(movie);
+      setMovie(data); // 먼저 movie 상태를 설정
+      setWish(data.is_liked);
+      setOriginalWish(data.is_liked); // 그 다음에 wish 상태를 설정
       setLoading(false);
-      console.log(movie.description.length)
     } catch (err) {
       console.error(err);
     }
   };
- 
+
   useEffect(() => {
     getData();
   }, []);
-  const [wish, setWish] = useState(false);
+
+  useEffect(() => {
+    // 페이지 이동을 감지하는 함수
+    const handleRouteChange = () => {
+      if (wish !== originalWish) {
+        console.log("상태가 변경되었습니다. POST 요청을 수행합니다.");
+        // 여기에 POST 요청을 수행하는 코드를 추가하세요.
+      }
+    };
+
+    // 컴포넌트가 언마운트될 때 실행될 반환 함수
+    return () => {
+      handleRouteChange();
+    };
+  }, [wish]);
+
   const handleWish = () => {
     setWish((current) => !current);
+    console.log(wish);
   };
   const copyURL = async () => {
     try {
@@ -38,36 +61,51 @@ function Detail() {
       console.error("URL 복사에 실패했습니다.", err);
     }
   };
-  const backgroundImageUrl = `https://image.tmdb.org/t/p/original/${movie.backgroundimgpath}`;
+
+  let backgroundImageUrl = `https://image.tmdb.org/t/p/original/${movie.backgroundimgpath}`;
+
+  if (!loading) {
+    if (movie.backgroundimgpath === "/noimage.png") {
+      backgroundImageUrl = noImageBG;
+    }
+  }
+
   const inputForm = useRef(); //특정 DOM을 가리킬 때 사용하는 Hook함수, SecondDiv에 적용
   const onMoveToReview = () => {
     inputForm.current.scrollIntoView({ behavior: "smooth", block: "start" });
   };
-
+  console.log(wish);
   return (
     <>
       {loading ? (
-        <h1>loading...</h1>
+        <Spinner />
       ) : (
         <div>
           <div
-            className="relative py-80 bg-cover bg-center "
-            style={{ backgroundImage: `url(${backgroundImageUrl})` }}
+            className="relative py-80 bg-cover bg-center bg-no-repeat "
+            style={{
+              backgroundImage: `url(${backgroundImageUrl})`,
+              backgroundSize: "cover",
+            }}
           >
-            <div className=" absolute bottom-10 left-44  text-white">
-              <h1 className=" text-6xl font-bold pb-3">{movie.name}</h1>
-              <div className="pb-2 text-2xl">
+            <div className=" absolute bottom-10 left-44  text-white ">
+              <span className=" text-6xl pb-3">{movie.name}</span>
+              <div className="pb-2 text-2xl ">
                 {movie.bigcategory}
                 <br />
                 {movie.smallcategory}
                 <br />
+                {movie.runningtime}
               </div>
             </div>
           </div>
+
           <div className="flex mx-44 mt-10 mb-10 gap-10 ">
             <div className="w-1/4">
               <img
                 src={`https://image.tmdb.org/t/p/original/${movie.imgpath}`}
+                onError={(e) => (e.currentTarget.src = noImage)}
+                className=" shadow-xl rounded"
               />
             </div>
             <div className="w-3/4">
@@ -75,14 +113,14 @@ function Detail() {
                 <div className="mb-4 ">
                   <div className="flex justify-between  items-center">
                     <Star AVR_RATE={2.5} />
-                    <div className="flex gap-10">
+                    <div className="flex gap-3">
                       {wish === false ? (
-                        <div className="item-center  hover:scale-105">
+                        <div className="flex flex-col items-center  hover:scale-105">
                           <svg
                             fill="currentColor"
                             viewBox="0 0 16 16"
-                            height="4em"
-                            width="4em"
+                            height="2.5em"
+                            width="2.5em"
                             onClick={handleWish}
                             className="scale-90"
                           >
@@ -91,12 +129,12 @@ function Detail() {
                           <div className="text-center">위시 추가</div>
                         </div>
                       ) : (
-                        <div className=" hover:scale-105">
+                        <div className="flex flex-col items-center hover:scale-105">
                           <svg
                             fill="#C62A5B"
                             viewBox="0 0 16 16"
-                            height="4em"
-                            width="4em"
+                            height="2.5em"
+                            width="2.5em"
                             onClick={handleWish}
                             className="scale-90"
                           >
@@ -113,28 +151,31 @@ function Detail() {
 
                       <div className=" flex flex-col items-center  hover:scale-105 ">
                         <svg
+                          fill="none"
                           viewBox="0 0 24 24"
-                          fill="#000000"
-                          height="4em"
-                          width="4em"
+                          stroke-width="1.5"
+                          stroke="currentColor"
                           onClick={onMoveToReview}
+                          height="2.5em"
+                          width="2.5em"
                         >
-                          <path d="M11 14h2v-3h3V9h-3V6h-2v3H8v2h3z" />
-                          <path d="M20 2H4c-1.103 0-2 .897-2 2v18l5.333-4H20c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2zm0 14H6.667L4 18V4h16v12z" />
+                          <path d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
                         </svg>
+
                         <div className="text-center">리뷰 남기기</div>
                       </div>
-                      <div className="hover:scale-105">
+                      <div className="flex flex-col items-center hover:scale-105">
                         <svg
                           fill="none"
                           stroke="currentColor"
+                          stroke-width="1.5"
                           strokeLinecap="round"
                           strokeLinejoin="round"
-                          strokeWidth={2}
+                          strokeWidth={1.75}
                           viewBox="0 0 24 24"
-                          height="4em"
-                          width="4em"
-                          className=" scale-90 "
+                          height="2.5em"
+                          width="2.5em"
+                          className=" scale-95 "
                           onClick={copyURL}
                         >
                           <path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71" />
@@ -142,8 +183,24 @@ function Detail() {
                         </svg>
                         <div className="text-center">주소 복사</div>
                       </div>
+                      <div className="flex flex-col items-center hover:scale-105">
+                        <svg
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke-width="1.5"
+                          stroke="currentColor"
+                          height="2.5em"
+                          width="2.5em"
+                          onClick={() => setShowModal(true)}
+                        >
+                          
+                          <path d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" />
+                        </svg>
+                        <div className="text-center">예고편 보기</div>
+                      </div>
                     </div>
                   </div>
+                  <Modal showModal={showModal} setShowModal={setShowModal} />
                 </div>
                 <hr />
                 <div className="flex">
@@ -153,24 +210,29 @@ function Detail() {
                     <p className="mt-2 ">
                       {movie.description && movie.description.length < 300
                         ? movie.description
-                        : `${movie.description.slice(0, 300)}...`
-                        }
+                        : `${movie.description.slice(0, 300)}...`}
                     </p>
                   </div>
                   {/* 출연진 */}
                   <div className="w-2/5  pl-3">
-                    <h3>감독/출연</h3>
-                    {/* {Object.entries(movie.actors).map(([actorName, actorImage]) => (
-                <div key={actorName}>
-                  <p>{actorName}</p>
-                  <img
-                    src={actorImage}
-                    alt={actorName}
-                    style={{ width: "100px", height: "150px" }}
-                  />
-                </div>
-              ))} */}
-                    <div className="mt-2"></div>
+                    <div className="mb-2">
+                      <h3>감독</h3>
+                      {movie.director}
+                    </div>
+
+                    <h3>출연</h3>
+                    <div className="flex flex-wrap gap-2">
+                      {movie.actors.map((item) => (
+                        <div className="w-[23%] flex flex-col items-center rounded shadow-md">
+                          <img
+                            src={`https://image.tmdb.org/t/p/original/${item.image}`}
+                            className=" rounded-t"
+                            onError={(e) => (e.currentTarget.src = noImagePs)}
+                          />
+                          {item.name}
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
