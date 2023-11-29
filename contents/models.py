@@ -12,6 +12,7 @@ class Vod(models.Model):
     imgpath = models.CharField(max_length=100, null=True)
     name_no_space = models.CharField(max_length=255,editable=False)
     backgroundimgpath=models.CharField(max_length=100,null=True)
+    count = models.IntegerField(null=True)
 
     def save(self, *args, **kwargs):
         self.name_no_space = self.name.replace(' ', '')
