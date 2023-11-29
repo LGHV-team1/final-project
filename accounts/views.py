@@ -346,12 +346,6 @@ class NaverLogin(SocialLoginView):
     callback_url = NAVER_REDIRECT_URI
     client_class = OAuth2Client
 
-def current_user(request):
-    current_user = request.user
-    print(current_user)
-    useremail = current_user.email
-    return JsonResponse({"useremail": useremail, "userprofile": 1})
-
 class ConfirmEmailView(APIView):
     permission_classes = [AllowAny]
 
