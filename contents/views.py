@@ -11,8 +11,6 @@ from wishlists.serializers import WishlistSerializer
 from wishlists.utils import delete_wishlist
 
 
-
-
 class SearchVods(APIView):
 	permission_classes = [IsAuthenticatedOrReadOnly]
     
@@ -24,7 +22,6 @@ class SearchVods(APIView):
 			return Response(serializer.data)
 		else:
 			return Response({'error': '검색어를 제공해야 합니다.'}, status=400)
-		
 
 class SearchVodsDetail(APIView):
 	permission_classes=[IsAuthenticatedOrReadOnly]
@@ -64,7 +61,6 @@ class SearchVodsDetail(APIView):
 				return Response(serializer.data, status=status.HTTP_201_CREATED)
 				
 			return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 
 class VodReviews(APIView):
 	permission_classes=[IsAuthenticatedOrReadOnly]
@@ -125,3 +121,4 @@ class VodReviews(APIView):
 		review.delete()
 		return Response(status=status.HTTP_204_NO_CONTENT)
 	
+
