@@ -85,14 +85,17 @@ function Header2() {
           </a>
 
           <div className="flex justify-center sorts-contents gap-3">
-            <a href="/main" className=" text-white no-underline">
+            <a href="/main" className=" text-white no-underline mr-2">
               홈
             </a>
-            <a href="#" className=" text-white no-underline">
+            <a href="#" className=" text-white no-underline mr-2">
               영화
             </a>
-            <a href="#" className=" text-white no-underline">
+            <a href="#" className=" text-white no-underline mr-2">
               TV
+            </a>
+            <a href="#" className=" text-white no-underline mr-2">
+              키즈
             </a>
           </div>
         </div>

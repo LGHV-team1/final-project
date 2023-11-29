@@ -8,7 +8,7 @@ const Footer = () => {
       <li class="nav-item"><a href="/main" class="nav-link px-2 text-white">홈</a></li>
       <li class="nav-item"><a href="#" class="nav-link px-2 text-white">영화</a></li>
       <li class="nav-item"><a href="#" class="nav-link px-2 text-white">TV</a></li>
-      <li class="nav-item"><a href="#" class="nav-link px-2 text-white">고객센터</a></li>
+      <li class="nav-item"><a href="#" class="nav-link px-2 text-white">키즈</a></li>
       <li class="nav-item"><a href="#" class="nav-link px-2 text-white">About</a></li>
     </ul>
     <div>

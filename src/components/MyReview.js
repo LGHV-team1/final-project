@@ -39,9 +39,12 @@ function MyReview() {
             })
         }
     return(
-        <div className="text-center">
+        <div className="text-center mb-3">
             <div className="block text-end mb-1" >총 {reviewcount}건</div>
-            {reviewList.map((a)=>(
+            {reviewList.length === 0 ? (
+                <p>작성한 리뷰가 없습니다.</p>
+            ) 
+            : ( reviewList.map((a)=>(
                 <div key={a.id} className="mb-4">
                     <hr className="text-center mb-4"></hr>
                     <div className="m-auto" >
@@ -67,7 +70,7 @@ function MyReview() {
                     </div>
                 </div>
             )
-            )}
+            ))}
         </div>
     )
 }
