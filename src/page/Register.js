@@ -44,9 +44,8 @@ function Register() {
   const registerSend = async () => {
     try {
       const response = await axios.post(
-        "http://3.34.50.51/accounts/dj-rest-auth/registration/",
+        "http://127.0.0.1:8000/accounts/dj-rest-auth/registration/",
         {
-          username: Name,
           email: Email,
           password1: Password,
           password2: ConfirmPassword,
@@ -60,7 +59,11 @@ function Register() {
       if (error.response) {
         // 서버가 응답을 반환하지만 2xx 상태 코드가 아닌 경우
         console.error("Error response from server:", error.response.data);
-      } else if (error.request) {
+        const getValues = Object.values(error.response.data)
+        const arrayString = getValues.join('\n');
+        alert(arrayString);
+      } 
+      else if (error.request) {
         // 서버로의 요청이 전송되지 않은 경우
         console.error(
           "No response received from server. Request might not have been sent."
@@ -120,8 +123,8 @@ function Register() {
             <Input
               className="border p-2 rounded"
               type="text"
-              value={Name}
-              onChange={onNameHandler}
+              // value={Name}
+              // onChange={onNameHandler}
             />
           </div>
           <div className="flex justify-between">
