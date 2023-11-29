@@ -35,7 +35,7 @@ function Search() {
             {movies.map((movie, index) => (
               <div
                 key={index}
-                className="sm:w-1/2 md:w-1/2 lg:w-[24%] xl:w-[24%]  hover:scale-105"
+                className="w-[23.5%]  sm:w-1/2 md:w-1/2 lg:w-[24%] xl:w-[23.5%]  hover:scale-105"
               >
                 <Link to={`/detail/${movie.name}`} className="">
                   <img
