@@ -44,7 +44,7 @@ function Register() {
   const registerSend = async () => {
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8000/accounts/dj-rest-auth/registration/",
+        "http://13.125.242.196/accounts/registration/",
         {
           email: Email,
           password1: Password,

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ApiService from "../api/ApiService";
 import { FaStar } from "react-icons/fa6";
-
+import { Link } from "react-router-dom";
 
 function MyReview() {
     const [reviewList, setReviewList] = useState([]);
@@ -49,7 +49,9 @@ function MyReview() {
                     <hr className="text-center mb-4"></hr>
                     <div className="m-auto" >
                         <div className="block mt-3">
+                        <Link to={`/detail/${a.vodname}`} className="text-black">
                             <div className="text-2xl inline-block w-80 float-left text-left font-medium">{a.vodname}</div>
+                            </Link>
                             <div className="text-end">
                                 <div className="inline-block mb-[3px]">
                                     <p className="text-xl inline-block mr-2">평점</p>

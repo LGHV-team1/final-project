@@ -88,13 +88,13 @@ function Header2() {
             <a href="/main" className=" text-white no-underline mr-2">
               홈
             </a>
-            <a href="#" className=" text-white no-underline mr-2">
+            <a href="/movie" className=" text-white no-underline mr-2">
               영화
             </a>
-            <a href="#" className=" text-white no-underline mr-2">
+            <a href="/tv" className=" text-white no-underline mr-2">
               TV
             </a>
-            <a href="#" className=" text-white no-underline mr-2">
+            <a href="/kids" className=" text-white no-underline mr-2">
               키즈
             </a>
           </div>
