@@ -1,5 +1,7 @@
 import json,os,urllib
 from json import JSONDecodeError
+
+import dj_rest_auth.views
 from django.core import serializers
 from django.http import HttpResponseRedirect,JsonResponse,HttpResponse
 from django.contrib.sites import requests
@@ -7,8 +9,10 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from dj_rest_auth.registration.views import SocialLoginView
 from rest_framework import generics, mixins, status
+from rest_framework.decorators import api_view
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import AllowAny
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import AccessToken, RefreshToken
 from allauth.account.models import EmailConfirmation, EmailConfirmationHMAC
@@ -345,6 +349,13 @@ class NaverLogin(SocialLoginView):
     adapter_class = naver_view.NaverOAuth2Adapter
     callback_url = NAVER_REDIRECT_URI
     client_class = OAuth2Client
+
+@api_view(['DELETE'])
+def delete_user(request):
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    request.user.delete()
+    return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 class ConfirmEmailView(APIView):
     permission_classes = [AllowAny]
