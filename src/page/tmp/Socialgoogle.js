@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {React, useEffect } from 'react';
 import {Cookies} from 'react-cookie';
-import BGimg from './images/background.png'
+import BGimg from '../../images/background.png'
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/Button.js";
 import GoogleLoginButton from "../../components/GoogleButton.js";

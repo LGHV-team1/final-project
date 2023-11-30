@@ -4,7 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Link } from "react-router-dom";
 
-function MiniSlide({images}) {
+function MiniSlide({images, className, slidesToShowNum = 5, slidesToScrollNum =1, }) {
     const BASE_URL = "https://image.tmdb.org/t/p/w300"
     const BASE_URL_NO = "https://i.ibb.co/7pYHFY3"
     
@@ -28,8 +28,8 @@ function MiniSlide({images}) {
     dots: true,
     infinite: false,
     speed: 500,
-    slidesToShow: 5,
-    slidesToScroll: 1,
+    slidesToShow: {slidesToShowNum},
+    slidesToScroll: {slidesToScrollNum},
     nextArrow: <Arrowright />,
     prevArrow: <Arrowleft />,
   };
