@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { useLocation, Link } from "react-router-dom";
 import noImage from "../images/noimage.png";
+import Helload from "../components/Helload";
 function Search() {
   const searchValue = useSelector((state) => state.search.value);
 
@@ -25,7 +26,11 @@ function Search() {
     }
   };
   if (searchValue === "") {
-    return <h1 className="mx-44 mt-5">검색어를 입력해주세요</h1>;
+    return (
+    <div className="mx-44 mt-5">
+      <h1>검색어를 입력해주세요</h1>
+      <Helload/>
+    </div>)
   } else {
     return (
       <div className="mx-44 mt-5">
