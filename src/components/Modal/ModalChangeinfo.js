@@ -110,7 +110,7 @@ function ModalChangeinfo({ setModalOpen}){
                 닫기
             </button>
             <div className="my-11">
-            <h2 className="text-center">내 정보 수정</h2>
+                <h2 className="text-center">내 정보 수정</h2>
             </div>
             <div className="inline-block">
                 <form className="mb-3 flex items-center ">

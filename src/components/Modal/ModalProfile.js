@@ -6,6 +6,7 @@ import profile3 from "../../images/profileimg/profile_man.png"
 import profile4 from "../../images/profileimg/profile_woman.png"
 import { Cookies } from "react-cookie";
 import axios from "axios";
+import Button from '../Button';
 function ModalProfile({ setModalOpen}){
     const cookies = new Cookies();
     const [selectedImage, setSelectedImage] = useState(null);
@@ -68,9 +69,10 @@ function ModalProfile({ setModalOpen}){
                     <img src={profile4} alt="프로필사진" width="150px" />
                 </button>
             </div>
-            <button className={styles.submit} onClick={changeProfile}>
-                변경
-            </button>
+            <Button 
+                    className={"border mt-3 py-2 w-[45%] bg-my-color  hover:bg-my-color/70 text-white  rounded px-4"} 
+                    label={"프로필 사진 변경"}
+                    onClick={changeProfile}/>
         </div>
     );
 }
