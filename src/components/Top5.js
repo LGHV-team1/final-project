@@ -4,10 +4,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Link } from "react-router-dom";
 
-function MiniSlide({images}) {
-    const BASE_URL = "https://image.tmdb.org/t/p/w300"
-    const BASE_URL_NO = "https://i.ibb.co/7pYHFY3"
-    
+function Top5({ images }) {
+
     const Arrowright = ({onClick}) => (
         <div style={{ position: 'absolute', top: '50%', transform: 'translateY(-50%)', right: '-30px', cursor: 'pointer'}} onClick={onClick}>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
@@ -24,23 +22,23 @@ function MiniSlide({images}) {
     );
 
    const settings = {
-    arrow: false,
-    dots: true,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 5,
+    dots: true,          // 캐러셀 밑에 ... 을 표시할지
+    infinite: true,      // 슬라이드가 끝까지 가면 다시 처음으로 반복
+    autoplay: true,      // 자동 재생
+    autoplaySpeed: 3000, // 자동 재생 속도
+    slidesToShow: 1,     // 한 번에 보여줄 슬라이드 개수
     slidesToScroll: 1,
     nextArrow: <Arrowright />,
     prevArrow: <Arrowleft />,
   };
     return (
         <div>
-            <Slider {...settings} className="text-center w-[97%] m-auto">
+            <Slider {...settings} >
                 {images.map((a) => (
                     <div key={a.id} className="relative">
                         <div className="img-body">
-                            <Link to={`/detail/${a.vodname}`} className="">
-                            <img src={a.vodimage === "/noimage.png" ? `${BASE_URL_NO}${a.vodimage}` : `${BASE_URL}${a.vodimage}`} alt={a.vodname} style={{objectFit:"cover", width:"190px", height:"280px"}} />
+                        <Link to={`/detail/${a.vodname}`} className="">
+                            <img src={a.img} alt={a.vodname} style={{objectFit:"cover", width:"1100px", height:"500px"}} />
                             </Link>
                         </div>
                     </div>))}
@@ -48,4 +46,4 @@ function MiniSlide({images}) {
         </div>
     )
 }
-export default MiniSlide;
+export default Top5;

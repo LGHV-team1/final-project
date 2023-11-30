@@ -3,11 +3,11 @@ import {React, useEffect } from 'react';
 import {Cookies} from 'react-cookie';
 import BGimg from './images/background.png'
 import { Link, useNavigate } from "react-router-dom";
-import Button from "./components/Button.js";
-import GoogleLoginButton from "./components/GoogleButton.js";
-import KakaoButton from "./components/KakaoButton.js";
-import NaverButton from "./components/NaverButton.js";
-import Input from "./components/Input.js";
+import Button from "../../components/Button.js";
+import GoogleLoginButton from "../../components/GoogleButton.js";
+import KakaoButton from "../../components/KakaoButton.js";
+import NaverButton from "../../components/NaverButton.js";
+import Input from "../../components/Input.js";
 
 function Socialgoogle() {
     const cookies = new Cookies();

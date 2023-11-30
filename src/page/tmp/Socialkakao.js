@@ -3,17 +3,19 @@ import {React, useEffect } from 'react';
 import {Cookies} from 'react-cookie';
 import BGimg from './images/background.png'
 import { Link, useNavigate } from "react-router-dom";
-import Button from "./components/Button.js";
-import GoogleLoginButton from "./components/GoogleButton.js";
-import KakaoButton from "./components/KakaoButton.js";
-import NaverButton from "./components/NaverButton.js";
-import Input from "./components/Input.js";
+import Button from "../../components/Button.js";
+import GoogleLoginButton from "../../components/GoogleButton.js";
+import KakaoButton from "../../components/KakaoButton.js";
+import NaverButton from "../../components/NaverButton.js";
+import Input from "../../components/Input.js";
 
-function Socialnaver() {
+
+function Socialkakao() {
     const cookies = new Cookies();
     const code = cookies.get('code')
     const access_token = cookies.get('access_token')
     const loginerror = cookies.get('loginerror')
+
     const data = {
         "access_token" : access_token,
         "code" : code
@@ -23,9 +25,8 @@ function Socialnaver() {
             cookies.remove('loginerror')
             window.location.href = "/login"
             alert("일반회원가입으로 가입된 이메일입니다.");
-
         }
-        else if (loginerror === "not_naver"){
+        else if (loginerror === "not_kakao"){
             cookies.remove('loginerror')
             window.location.href = "/login"
             alert("다른 소셜로그인으로 가입된 이메일입니다.");
@@ -36,7 +37,7 @@ function Socialnaver() {
             alert("로그인 에러 다시 실행해주세요.");
         }
         else {
-        axios.post("http://127.0.0.1:8000/accounts/naver/login/finish/", data, { withCredentials: true })
+        axios.post("http://127.0.0.1:8000/accounts/kakao/login/finish/", data, { withCredentials: true })
         .then( response => {
             console.log(response)
             const token = response.data.key
@@ -46,9 +47,10 @@ function Socialnaver() {
             window.location.href = "/main"
         })}
     })
+    
 
     return(
-    <body>
+        <body>
         <div style={{position:"absolute"}} >
         <img  src={BGimg} alt="background"/>
         </div>
@@ -100,4 +102,4 @@ function Socialnaver() {
       </body>
     )
 }
-export default Socialnaver
+export default Socialkakao

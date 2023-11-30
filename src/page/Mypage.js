@@ -3,18 +3,19 @@ import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/Button.js";
 import { BsBookmarkHeartFill } from "react-icons/bs";
 import { BsPencilSquare } from "react-icons/bs";
-import MiniSlide from '../components/MiniSlide.js';
+import MyWish from '../components/MyWish.js';
 import MyReview from "../components/MyReview.js"
 import styled from "styled-components";
 import ApiService from "../api/ApiService.js";
-import profile1 from "../images/profile_boy.png"
-import profile2 from "../images/profile_girl.png"
-import profile3 from "../images/profile_man.png"
-import profile4 from "../images/profile_woman.png"
+import profile1 from "../images/profileimg/profile_boy.png"
+import profile2 from "../images/profileimg/profile_girl.png"
+import profile3 from "../images/profileimg/profile_man.png"
+import profile4 from "../images/profileimg/profile_woman.png"
 import ModalProfile from "../components/Modal/ModalProfile.js";
 import ModalChangeinfo from "../components/Modal/ModalChangeinfo.js";
 import { Cookies } from "react-cookie";
 import axios from "axios";
+
 const IconWrap = styled.div`
     svg {
       font-size: 30px;
@@ -47,7 +48,6 @@ export default function Mypage() {
   };
   let [userinfo, setUserinfo] = useState({
     email : '',
-    username : '',
     user_profile : ''
   });
 
@@ -88,6 +88,26 @@ export default function Mypage() {
       })
       .catch((err) => console.log(err));
   };
+
+  const deleteUser = async () => {
+    const isConfirmed = window.confirm("회원탈퇴 하시겠습니까?");
+      if (isConfirmed) {
+        axios.delete("http://127.0.0.1:8000/accounts/deleteuser/", config)
+            .then((response) => { 
+              console.log("계정이 삭제되었습니다.", response);
+              alert("계정이 삭제되었습니다.");
+              localStorage.removeItem("jwtToken");
+              navigate("/");
+            })
+          .catch ((error) => {
+            console.error("계정 삭제 중 오류가 발생했습니다.", error);}) 
+      }
+      else {
+        alert("끝까지 함께합시다.");
+        navigate("/mypage");
+      }
+    }
+
   return (
     <div>
       <div className="max-w-[400px] w-[400px] mx-auto bg-white p-4 text-center ">
@@ -111,7 +131,7 @@ export default function Mypage() {
               </div>
             </IconWrap>
             <div className="text-center mt-3">
-              <MiniSlide/>
+              <MyWish/>
             </div>
         </div>
 
@@ -126,7 +146,7 @@ export default function Mypage() {
             <div className="text-center">
               <MyReview/>
             </div>
-          <hr/>
+          
         </div>
         <div className="max-w-[200px] w-[400px] mx-auto m-7 text-center">
         <Button
@@ -147,6 +167,7 @@ export default function Mypage() {
               "border mt-2 py-2 w-full bg-my-color  hover:bg-my-color/70 text-white  rounded px-4"
             }
             label={"회원 탈퇴"}
+            onClick={deleteUser}
           />
         </div>
         </div>
