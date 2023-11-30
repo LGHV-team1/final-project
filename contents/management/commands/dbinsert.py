@@ -28,6 +28,7 @@ class Command(BaseCommand):
                     Category,
                     vod_name,
                     running_time,
+                    rename,
                     count
                 ) = row
                 director=director.split(",")[0]
@@ -42,6 +43,7 @@ class Command(BaseCommand):
                     director=director,
                     runningtime=running_time,
                     count=count,
+                    name_no_space=rename
                 )
                 
                 vod_list.append(vod)

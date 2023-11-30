@@ -78,11 +78,12 @@ INSTALLED_APPS = [
     'corsheaders',
     'contents',
     'reviews',
-    'wishlists'
+    'wishlists',
+    'recommends'
 ]
 
 
-SITE_ID = 2
+SITE_ID = 1
 
 
 MIDDLEWARE = [

@@ -25,12 +25,12 @@ class SearchVods(APIView):
 
 class SearchVodsDetail(APIView):
 	permission_classes=[IsAuthenticatedOrReadOnly]
-	def get_object(self,vodname):
-		return Vod.objects.get(name=vodname)
+	def get_object(self,vodid):
+		return Vod.objects.get(id=vodid)
 		 
 		
-	def get(self,request,vodname):
-		vod=self.get_object(vodname)
+	def get(self,request,vodid):
+		vod=self.get_object(vodid)
 		serializer = VodDetailSerializer(vod, context={'request': request})
 		return Response(serializer.data)
 	
@@ -61,6 +61,20 @@ class SearchVodsDetail(APIView):
 				return Response(serializer.data, status=status.HTTP_201_CREATED)
 				
 			return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+		
+class VodTop5(APIView):
+	permission_classes = [IsAuthenticatedOrReadOnly]
+	def get(self,request,category):
+		top_vods=Vod.objects.filter(category=category).order_by('-count')[:5]
+		serializer=VodListSerializer(top_vods,many=True)
+		return Response(serializer.data,status=status.HTTP_200_OK)
+
+
+
+
+
+
+
 
 class VodReviews(APIView):
 	permission_classes=[IsAuthenticatedOrReadOnly]
