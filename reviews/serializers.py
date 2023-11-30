@@ -11,10 +11,18 @@ class ReviewshowSerializer(serializers.ModelSerializer):
         fields = ("id","payload","rating","username")
 
 
-class ReviewSerializer(serializers.ModelSerializer):
+class MypageReviewSerializer(serializers.ModelSerializer):
     username = serializers.CharField(source='user.email')
     vodname = serializers.CharField(source='contents.name')
     class Meta:
         model = Review
         fields = "__all__"
+
+class ReviewSerializer(serializers.ModelSerializer):
+    
+    
+    class Meta:
+        model = Review
+        fields = "__all__"
+    
     
