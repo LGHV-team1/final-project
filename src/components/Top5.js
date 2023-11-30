@@ -32,7 +32,7 @@ const StyledSlider = styled(Slider)`
           top: auto;
           left: auto;
           right: auto;
-          background: #a50035;
+          background: white;
           border-radius: 100%;
           color: transparent;
           
