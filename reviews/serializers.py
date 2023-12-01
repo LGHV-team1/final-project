@@ -5,7 +5,6 @@ from contents.models import Vod
 
 class ReviewshowSerializer(serializers.ModelSerializer):
     username = serializers.CharField(source='user.email')
-
     class Meta:
         model = Review
         fields = ("id","payload","rating","username")

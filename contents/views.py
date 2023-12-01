@@ -24,6 +24,16 @@ class SearchVods(APIView):
         else:
             return Response({"error": "검색어를 제공해야 합니다."}, status=400)
 
+class SearchVodsByChoseong(APIView):
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    def get(self, request, vodname):
+        if vodname:
+            vodname_no_space = vodname.replace(' ', '')
+            vods = Vod.objects.filter(choseong__icontains=vodname_no_space)
+            serializer = VodListSerializer(vods, many=True)
+            return Response(serializer.data)
+        else:
+            return Response({'error': '검색어를 제공해야 합니다.'}, status=400)
 
 class SearchVodsDetail(APIView):
     permission_classes = [IsAuthenticatedOrReadOnly]

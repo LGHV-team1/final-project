@@ -12,7 +12,9 @@ class Vod(models.Model):
     imgpath = models.CharField(max_length=100, null=True)
     name_no_space = models.CharField(max_length=255,editable=False)
     backgroundimgpath=models.CharField(max_length=100,null=True)
-    count = models.IntegerField(null=True) 
+    count = models.IntegerField(null=True)
+    choseong = models.CharField(max_length=255,null=True)
+
 
     def __str__(self) -> str:
         return self.name
