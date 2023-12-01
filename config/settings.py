@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
-import os,json,sys
+import os, json, sys
 from django.core.exceptions import ImproperlyConfigured
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -22,12 +22,16 @@ SECRET_PATH = os.path.join(ROOT_DIR, ".footprint_secret")
 SECRET_BASE_FILE = os.path.join(BASE_DIR, "secrets.json")
 
 secrets = json.loads(open(SECRET_BASE_FILE).read())
+
+
 def get_secret(setting, secrets=secrets):
     try:
         return secrets[setting]
     except KeyError:
         error_msg = "Set the {} environment variable".format(setting)
         raise ImproperlyConfigured(error_msg)
+
+
 KAKAO_REST_API_KEY = get_secret("KAKAO_REST_API_KEY")
 KAKAO_REDIRECT_URI = get_secret("KAKAO_REDIRECT_URI")
 GOOGLE_REDIRECT_URI = get_secret("GOOGLE_REDIRECT_URI")
@@ -36,11 +40,11 @@ GOOGLE_CLIENT_PW = get_secret("GOOGLE_CLIENT_PW")
 NAVER_CLIENT_ID = get_secret("NAVER_CLIENT_ID")
 NAVER_CLIENT_PW = get_secret("NAVER_CLIENT_PW")
 NAVER_REDIRECT_URI = get_secret("NAVER_REDIRECT_URI")
-SECRET_KEY=get_secret("SECRET_KEY")
+SECRET_KEY = get_secret("SECRET_KEY")
 EMAIL_USER = get_secret("EMAIL_HOST_USER")
 EMAIL_PASSWORD = get_secret("EMAIL_HOST_PASSWORD")
 
-SECRET_KEY=SECRET_KEY
+SECRET_KEY = SECRET_KEY
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -49,8 +53,8 @@ SECRET_KEY=SECRET_KEY
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = ['http://localhost:3000', 'http://127.0.0.1:3000']
+ALLOWED_HOSTS = ["*"]
+CSRF_TRUSTED_ORIGINS = ["http://localhost:3000", "http://127.0.0.1:3000"]
 
 # Application definition
 
@@ -75,11 +79,11 @@ INSTALLED_APPS = [
     "allauth.socialaccount.providers.google",
     "allauth.socialaccount.providers.kakao",
     "allauth.socialaccount.providers.naver",
-    'corsheaders',
-    'contents',
-    'reviews',
-    'wishlists',
-    'recommends'
+    "corsheaders",
+    "contents",
+    "reviews",
+    "wishlists",
+    "recommends",
 ]
 
 
@@ -87,7 +91,7 @@ SITE_ID = 1
 
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -120,7 +124,7 @@ TEMPLATES = [
 WSGI_APPLICATION = "config.wsgi.application"
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
-CORS_ORIGIN_WHITELIST = ['http://127.0.0.1:3000' ,'http://localhost:3000']
+CORS_ORIGIN_WHITELIST = ["http://127.0.0.1:3000", "http://localhost:3000"]
 CORS_ALLOW_CREDENTIALS = True
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
@@ -176,8 +180,11 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "accounts.User"
 REST_AUTH = {
-    'USER_DETAILS_SERIALIZER': 'accounts.serializers.CustomUserDetailsSerializer',
+    "USER_DETAILS_SERIALIZER": "accounts.serializers.CustomUserDetailsSerializer",
+    'REGISTER_SERIALIZER': 'accounts.serializers.CustomRegisterSerializer',
 }
+ACCOUNT_ADAPTER = 'accounts.adapters.CustomAccountAdapter'
+
 AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",  # <- 디폴트 모델 백엔드
     "allauth.account.auth_backends.AuthenticationBackend",  # <- 추가
@@ -187,15 +194,13 @@ REST_FRAMEWORK = {
     # 'DEFAULT_PERMISSION_CLASSES': (
     #     'rest_framework.permissions.IsAuthenticated',
     # ),
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.TokenAuthentication',
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework.authentication.TokenAuthentication",
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+        "dj_rest_auth.jwt_auth.JWTCookieAuthentication",
     ),
 }
-
-
 
 
 REST_USE_JWT = True
@@ -216,7 +221,7 @@ EMAIL_PORT = "587"
 EMAIL_USE_TLS = True
 # TLS 보안 방법
 
-EMAIL_HOST_USER =EMAIL_USER
+EMAIL_HOST_USER = EMAIL_USER
 EMAIL_HOST_PASSWORD = EMAIL_PASSWORD
 # 발신할 이메일
 # 발신할 메일의 비밀번호
@@ -228,7 +233,7 @@ ACCOUNT_USER_MODEL_USERNAME_FIELD = None  # username 필드 사용 x
 ACCOUNT_EMAIL_REQUIRED = True  # email 필드 사용 o
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
-#ACCOUNT_USERNAME_REQUIRED = False  # username 필드 사용 x
+# ACCOUNT_USERNAME_REQUIRED = False  # username 필드 사용 x
 ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True  # 링크 클릭하면 활성화
