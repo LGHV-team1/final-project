@@ -2,24 +2,22 @@ import React, { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setCategory } from "../redux/categorySlice";
+import { getCategoryValue } from "../hook/useCategory";
 export default function Dropdown({ categoryName, categoryList, link }) {
-  const [showDropdown, setShowDropdown] = useState(false);
   const leaveTimeout = useRef(null);
   const navigate = useNavigate();
+  const [showDropdown, setShowDropdown] = useState(false);
+  
   const gotoCategory = () => {
-    navigate(`${link}`)
-  }
-  const dispatch = useDispatch();
-  const clickCategory = (item) => {
-    dispatch(setCategory(item))
-  }
+    navigate(`${link}`);
+  };
+
   const handleMouseEnter = () => {
     if (leaveTimeout.current) {
       clearTimeout(leaveTimeout.current);
     }
     setShowDropdown(true);
   };
-  
   const handleMouseLeave = () => {
     leaveTimeout.current = setTimeout(() => {
       setShowDropdown(false);
@@ -33,6 +31,7 @@ export default function Dropdown({ categoryName, categoryList, link }) {
       }
     };
   }, []);
+
   return (
     <div
       className="relative inline-block text-left"
@@ -60,13 +59,24 @@ export default function Dropdown({ categoryName, categoryList, link }) {
           tabIndex="-1"
         >
           <div className="pt-3 pl-2">
-            {categoryList.map((item) => (
-              <div  className="py-2">
-                <Link onClick={()=>clickCategory(item)} to={`/${link}?category=${item}`} className="ml-2 text-gray-100 no-underline hover:text-my-color">
-                  {item}
-                </Link>
-              </div>
-            ))}
+            {categoryList.map((item) => {
+              // 각 항목에 대한 URL을 즉시 계산
+              const dynamicUrl = `/${link}?category=${getCategoryValue(
+                link,
+                item
+              )}`;
+
+              return (
+                <div className="py-2" key={item}>
+                  <Link
+                    to={dynamicUrl}
+                    className="ml-2 text-gray-100 no-underline hover:text-my-color"
+                  >
+                    {item}
+                  </Link>
+                </div>
+              );
+            })}
           </div>
         </div>
       )}

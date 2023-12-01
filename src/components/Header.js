@@ -39,7 +39,6 @@ function Header2() {
   const tvCategory = [
     "우리동네",
     "스포츠",
-    "기타",
     "라이프",
     "다큐",
     "TV애니메이션",
@@ -47,9 +46,10 @@ function Header2() {
     "TV 연예/오락",
     "TV 시사/교양",
     "공연/음악",
+    "기타"
   ];
 
-  const kidCategory = ["기타", "애니메이션", "오락", "학습"];
+  const kidCategory = [ "애니메이션", "오락", "학습" ,"기타"];
   useEffect(() => {
     return () => {
       debouncedFetch.cancel();

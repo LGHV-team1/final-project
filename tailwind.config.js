@@ -13,6 +13,9 @@ module.exports = {
       colors: {
         "my-color": "#C62A5B",
       },
+      zIndex: {
+        '1000': '1000', // 더 높은 z-index 값 추가
+      }
     },
   },
   

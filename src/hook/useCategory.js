@@ -1,8 +1,8 @@
 import React from "react";
 
-export const useCategory = (category,bigCategory) => {
+export const getCategoryValue = (category,bigCategory) => {
     const categories = {
-    movie: {
+    "movie": {
         "SF/환타지" : "fantasy",
         "공포/스릴러": "thriller",
         "다큐멘터리": "documentary",
@@ -20,7 +20,7 @@ export const useCategory = (category,bigCategory) => {
         "기타": "etc",
     },
 
-    tv:{
+    "tv":{
         "우리동네": "Neighborhood",
         "스포츠": "Sports",
         "기타": "etc",
@@ -33,7 +33,7 @@ export const useCategory = (category,bigCategory) => {
         "공연/음악": "Music"
     },
 
-    kidsCategory : {
+    "kids": {
         "기타": "etc",
         "애니메이션": "animation",
         "오락": "entertainment",
