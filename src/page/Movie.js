@@ -14,8 +14,8 @@ function Movie() {
   console.log(category);
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  const searchWord = searchParams.get("searchWord");
-  console.log(searchWord)
+  const categoryWord = searchParams.get("category");
+  console.log(categoryWord)
   const bgArr = [
     { id: 1, img: mvimg1, vodname: "범죄도시3" },
     { id: 2, img: mvimg2, vodname: "러브 포 세일" },
@@ -24,7 +24,7 @@ function Movie() {
     { id: 5, img: mvimg5, vodname: "비공식작전" },
   ];
 
-  if (category === undefined) {
+  if (categoryWord === null) {
     return (
       <div className="max-w-[1100px] w-[1100px] mx-auto text-center my-10">
         <div className="mb-20">

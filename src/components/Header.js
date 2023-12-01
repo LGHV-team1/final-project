@@ -19,7 +19,7 @@ function Header2() {
     debouncedFetch(e.target.value);
   };
   const movieCategory = [
-    "SF/환타지",
+    "SF/환타지", 
     "공포/스릴러",
     "다큐멘터리",
     "단편",
@@ -39,7 +39,7 @@ function Header2() {
   const tvCategory = [
     "우리동네",
     "스포츠",
-    "미분류",
+    "기타",
     "라이프",
     "다큐",
     "TV애니메이션",

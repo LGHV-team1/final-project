@@ -6,7 +6,7 @@ export default function Dropdown({ categoryName, categoryList, link }) {
   const [showDropdown, setShowDropdown] = useState(false);
   const leaveTimeout = useRef(null);
   const navigate = useNavigate();
-  const gotoMovie = () => {
+  const gotoCategory = () => {
     navigate(`${link}`)
   }
   const dispatch = useDispatch();
@@ -46,7 +46,7 @@ export default function Dropdown({ categoryName, categoryList, link }) {
           id="menu-button"
           aria-expanded={showDropdown}
           aria-haspopup={showDropdown}
-          onClick={gotoMovie}
+          onClick={gotoCategory}
         >
           {categoryName}
         </button>
@@ -62,7 +62,7 @@ export default function Dropdown({ categoryName, categoryList, link }) {
           <div className="pt-3 pl-2">
             {categoryList.map((item) => (
               <div  className="py-2">
-                <Link onClick={()=>clickCategory(item)} to={`/${link}?searchWord=${item}`} className="ml-2 text-gray-100 no-underline hover:text-my-color">
+                <Link onClick={()=>clickCategory(item)} to={`/${link}?category=${item}`} className="ml-2 text-gray-100 no-underline hover:text-my-color">
                   {item}
                 </Link>
               </div>
