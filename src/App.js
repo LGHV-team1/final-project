@@ -40,7 +40,6 @@ function App() {
           <Route path="/socialn" element={<><Socialnaver /></>} />
           <Route path="/socialg" element={<><Socialgoogle /></>} />
           <Route path="/search" element={<><Search /></>} />
-
         </Routes>
       </div>
       <Footer />

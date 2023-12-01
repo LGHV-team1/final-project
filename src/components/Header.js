@@ -1,6 +1,6 @@
-import React, { Component, useState, useRef, useEffect} from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { debounce } from 'lodash';
+import { debounce } from "lodash";
 import logo from "../images/CI_White.png";
 import Button from "./Button";
 import { Cookies } from "react-cookie";
@@ -8,6 +8,7 @@ import ApiService from "../api/ApiService";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setSearchValue } from "../redux/searchSlice";
+import Dropdown from "./Dropdown";
 
 function Header2() {
   const searchInputRef = useRef(null); // 입력창 참조 생성
@@ -17,7 +18,38 @@ function Header2() {
     dispatch(setSearchValue(e.target.value));
     debouncedFetch(e.target.value);
   };
+  const movieCategory = [
+    "SF/환타지", 
+    "공포/스릴러",
+    "다큐멘터리",
+    "단편",
+    "드라마",
+    "로맨틱코미디",
+    "멜로",
+    "무협",
+    "뮤지컬",
+    "서부",
+    "애니메이션",
+    "액션/어드벤쳐",
+    "역사",
+    "코미디",
+    "기타",
+  ];
 
+  const tvCategory = [
+    "우리동네",
+    "스포츠",
+    "라이프",
+    "다큐",
+    "TV애니메이션",
+    "TV드라마",
+    "TV 연예/오락",
+    "TV 시사/교양",
+    "공연/음악",
+    "기타"
+  ];
+
+  const kidCategory = [ "애니메이션", "오락", "학습" ,"기타"];
   useEffect(() => {
     return () => {
       debouncedFetch.cancel();
@@ -84,19 +116,13 @@ function Header2() {
             <img className="my-1" src={logo} alt="logo" width="200px" />
           </a>
 
-          <div className="flex justify-center sorts-contents gap-3">
-            <a href="/main" className=" text-white no-underline mr-2">
+          <div className="flex justify-center items-center sorts-contents gap-3">
+            <a href="/main" className=" text-white no-underline">
               홈
             </a>
-            <a href="/movie" className=" text-white no-underline mr-2">
-              영화
-            </a>
-            <a href="/tv" className=" text-white no-underline mr-2">
-              TV
-            </a>
-            <a href="/kids" className=" text-white no-underline mr-2">
-              키즈
-            </a>
+            <Dropdown categoryName={"영화"} categoryList={movieCategory} link={"movie"}/>
+            <Dropdown categoryName={"TV"} categoryList={tvCategory} link={"tv"}/>
+            <Dropdown categoryName={"키즈"} categoryList={kidCategory} link={"kids"} />
           </div>
         </div>
 

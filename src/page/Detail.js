@@ -17,9 +17,10 @@ function Detail() {
   const [wish, setWish] = useState(false);
   const [originalWish, setOriginalWish] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  console.log(name)
   const getData = async () => {
     try {
-      const url = `http://13.125.242.196/contents/${name}/detail/`;
+      const url = `http://loadbalancer-464990516.ap-northeast-2.elb.amazonaws.com/contents/${name}/detail/`;
       const response = await axios.get(url);
       const data = response.data;
       setMovie(data); // 먼저 movie 상태를 설정
@@ -89,8 +90,8 @@ function Detail() {
               backgroundSize: "cover",
             }}
           >
-            <div className=" absolute bottom-10 left-44  text-white ">
-              <span className=" text-6xl pb-3">{movie.name}</span>
+            <div className=" absolute bottom-10 left-44  text-white " style={{ textShadow: "2px 2px 4px black" }}>
+              <span className=" text-6xl pb-3" >{movie.name}</span>
               <div className="pb-2 text-2xl ">
                 {movie.bigcategory}
                 <br />
@@ -243,7 +244,7 @@ function Detail() {
             <hr />
             <div ref={inputForm}>
               <Review />
-              <ViewReview name={name}/>
+              <ViewReview name={name  }/>
             </div>
           </div>
         </div>

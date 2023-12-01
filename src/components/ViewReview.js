@@ -32,7 +32,7 @@ function ViewReview(props) {
         return stars;
     }
     useEffect(() => {
-        axios.get(`http://127.0.0.1:8000/contents/${props.name}/review/`)
+        axios.get(`http://loadbalancer-464990516.ap-northeast-2.elb.amazonaws.com/contents/${props.name}/review/`)
         .then(response => {
             setVODReviewList(response.data.reverse());
             console.log(response.data)
