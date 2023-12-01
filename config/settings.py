@@ -15,6 +15,7 @@ from datetime import timedelta
 import os, json, sys
 from django.core.exceptions import ImproperlyConfigured
 import pymysql
+
 pymysql.install_as_MySQLdb()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -45,8 +46,8 @@ NAVER_REDIRECT_URI = get_secret("NAVER_REDIRECT_URI")
 SECRET_KEY = get_secret("SECRET_KEY")
 EMAIL_USER = get_secret("EMAIL_HOST_USER")
 EMAIL_PASSWORD = get_secret("EMAIL_HOST_PASSWORD")
-AWS_DB_PASSWORD=get_secret("AWS_DB_PASSWORD")
-AWS_DB_HOST=get_secret("AWS_DB_HOST")
+AWS_DB_PASSWORD = get_secret("AWS_DB_PASSWORD")
+AWS_DB_HOST = get_secret("AWS_DB_HOST")
 
 SECRET_KEY = SECRET_KEY
 # Quick-start development settings - unsuitable for production
@@ -103,6 +104,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -128,27 +130,21 @@ TEMPLATES = [
 WSGI_APPLICATION = "config.wsgi.application"
 SESSION_COOKIE_SECURE = False
 CSRF_COOKIE_SECURE = False
-SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
 SESSION_COOKIE_AGE = 1209600  # 2주 (초 단위)
-SESSION_COOKIE_HTTPONLY = True
-SESSION_COOKIE_DOMAIN = '.loadbalancer-464990516.ap-northeast-2.elb.amazonaws.com'
-SESSION_COOKIE_PATH = '/'
 CORS_ORIGIN_WHITELIST = ["http://127.0.0.1:3000", "http://localhost:3000"]
 CORS_ALLOW_CREDENTIALS = True
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql', # engine: mysql
-        'NAME' : 'LGHV', # DB Name
-        'USER' : 'admin', # DB User
-        'PASSWORD' : AWS_DB_PASSWORD, # Password
-        'HOST': AWS_DB_HOST, # 생성한 데이터베이스 엔드포인트
-        'PORT': '3306', # 데이터베이스 포트
-        'OPTIONS':{
-            'init_command' : "SET sql_mode='STRICT_TRANS_TABLES'"
-        }
+    "default": {
+        "ENGINE": "django.db.backends.mysql",  # engine: mysql
+        "NAME": "LGHV",  # DB Name
+        "USER": "admin",  # DB User
+        "PASSWORD": AWS_DB_PASSWORD,  # Password
+        "HOST": AWS_DB_HOST,  # 생성한 데이터베이스 엔드포인트
+        "PORT": "3306",  # 데이터베이스 포트
+        "OPTIONS": {"init_command": "SET sql_mode='STRICT_TRANS_TABLES'"},
     }
 }
 
@@ -187,7 +183,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
+STATIC_ROOT= os.path.join(BASE_DIR,'static/')
+
+    
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -197,9 +198,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 AUTH_USER_MODEL = "accounts.User"
 REST_AUTH = {
     "USER_DETAILS_SERIALIZER": "accounts.serializers.CustomUserDetailsSerializer",
-    'REGISTER_SERIALIZER': 'accounts.serializers.CustomRegisterSerializer',
+    "REGISTER_SERIALIZER": "accounts.serializers.CustomRegisterSerializer",
 }
-ACCOUNT_ADAPTER = 'accounts.adapters.CustomAccountAdapter'
+ACCOUNT_ADAPTER = "accounts.adapters.CustomAccountAdapter"
 
 AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",  # <- 디폴트 모델 백엔드

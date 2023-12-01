@@ -19,7 +19,7 @@ class SearchVods(APIView):
     def get(self, request, vodname):
         if vodname:
             vodname_no_space = vodname.replace(" ", "")
-            combined_queryset = Vod.objects.filter(Q(name_no_space__icontains=vodname_no_space) | Q(actors__icontains=vodname_no_space)).distinct()
+            combined_queryset = Vod.objects.filter(Q(name_no_space__icontains=vodname_no_space) | Q(searchactors__icontains=vodname_no_space)).distinct()
             serializer = VodListSerializer(combined_queryset, many=True)
             return Response(serializer.data)
         else:
