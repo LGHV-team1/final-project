@@ -77,7 +77,7 @@ class VodTop5(APIView):
     def get(self, request, Bigcategory):
         category={"tv":"TV프로그램","movie":"영화","kids":"키즈"}
         category=category[Bigcategory]
-        top_vods = Vod.objects.filter(category=category).order_by("-count")[:5]
+        top_vods = Vod.objects.filter(category=category).order_by("-count")[:10]
         serializer = VodListSerializer(top_vods, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
