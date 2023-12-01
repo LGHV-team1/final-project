@@ -29,7 +29,6 @@ function Tv() {
             <p>TV 인기 TOP5</p>
           </div>
         <div className="text-center mt-3">
-          <Top5 images={bgArr}/>
         </div>
     </div>
   </div>

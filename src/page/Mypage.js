@@ -36,10 +36,10 @@ const IconWrap = styled.div`
 export default function Mypage() {
   const navigate = useNavigate();
   const cookies = new Cookies();
+  const csrftoken = cookies.get("csrftoken");
   const [modal1Open, setModal1Open] = useState(false);
   const [modal2Open, setModal2Open] = useState(false);
   const [profilepic, setProfilepic] = useState(profile1);
-  const csrftoken = cookies.get("csrftoken");
   const showModal1 = () => {
     setModal1Open(true);
   };
@@ -113,13 +113,20 @@ export default function Mypage() {
       <div className="max-w-[400px] w-[400px] mx-auto bg-white p-4 text-center ">
         <img src={profilepic} alt="프로필사진" width="50%" className='m-auto'></img>
         <div className="flex flex-col py-8">
-          <div>{userinfo.email} 님 안녕하세요</div>
+          <div className="text-lg">{userinfo.email} 님 안녕하세요</div>
         </div>
+        <div className="max-w-[200px] w-[200px] mx-auto m-7 text-center">
           <Button
             label={"프로필 사진 변경"}
             onClick={showModal1}
-            className={"border rounded p-1 hover:bg-transparent text-black"}
+            className={"border mt-2 py-2 w-full bg-my-color  hover:bg-my-color/70 text-white  rounded px-4"}
           />{modal1Open && <ModalProfile setModalOpen={setModal1Open} />}
+          <Button
+            label={"회원정보 수정"}
+            onClick={showModal2}
+            className={"border mt-2 py-2 w-full bg-my-color  hover:bg-my-color/70 text-white  rounded px-4"}
+          />{modal2Open && <ModalChangeinfo setModalOpen={setModal2Open} />}
+          </div>
       </div>
       <div className="max-w-[1000px] w-[1000px] mx-auto text-center my-10"> 
         <div className='mb-20'>
@@ -149,12 +156,6 @@ export default function Mypage() {
           
         </div>
         <div className="max-w-[200px] w-[400px] mx-auto m-7 text-center">
-        <Button
-            label={"회원정보 수정"}
-            onClick={showModal2}
-            className={"border mt-2 py-2 w-full bg-my-color  hover:bg-my-color/70 text-white  rounded px-4"}
-          />{modal2Open && <ModalChangeinfo setModalOpen={setModal2Open} />}
-
           <Button
             className={
               "border mt-2 py-2 w-full bg-my-color  hover:bg-my-color/70 text-white  rounded px-4"
