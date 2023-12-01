@@ -26,10 +26,10 @@ class CustomUserDetailsSerializer(serializers.ModelSerializer):
 class CustomRegisterSerializer(RegisterSerializer):
     # 기본 설정 필드: username, password, email
     # 추가 설정 필드: stbnum
-    stbnumber = serializers.IntegerField()
+    stbnumber = serializers.IntegerField(default=0)
 
     def get_cleaned_data(self):
         data = super().get_cleaned_data()
-        data['stbnumber'] = self.validated_data.get('stbnumber',0)
+        data['stbnumber'] = self.validated_data.get('stbnumber')
 
         return data

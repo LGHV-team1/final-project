@@ -2,8 +2,7 @@ name: gitaction-Server
 on:
   push:
     branches: ["Deploy/Server"]
-  pull_request:
-    branches: ["Deploy/Server"]
+    
 
 permissions:
   id-token: write

@@ -14,6 +14,8 @@ from pathlib import Path
 from datetime import timedelta
 import os, json, sys
 from django.core.exceptions import ImproperlyConfigured
+import pymysql
+pymysql.install_as_MySQLdb()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -43,6 +45,8 @@ NAVER_REDIRECT_URI = get_secret("NAVER_REDIRECT_URI")
 SECRET_KEY = get_secret("SECRET_KEY")
 EMAIL_USER = get_secret("EMAIL_HOST_USER")
 EMAIL_PASSWORD = get_secret("EMAIL_HOST_PASSWORD")
+AWS_DB_PASSWORD=get_secret("AWS_DB_PASSWORD")
+AWS_DB_HOST=get_secret("AWS_DB_HOST")
 
 SECRET_KEY = SECRET_KEY
 # Quick-start development settings - unsuitable for production
@@ -51,7 +55,7 @@ SECRET_KEY = SECRET_KEY
 # SECURITY WARNING: keep the secret key used in production secret!
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 CSRF_TRUSTED_ORIGINS = ["http://localhost:3000", "http://127.0.0.1:3000"]
@@ -122,17 +126,24 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "config.wsgi.application"
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
 CORS_ORIGIN_WHITELIST = ["http://127.0.0.1:3000", "http://localhost:3000"]
 CORS_ALLOW_CREDENTIALS = True
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    'default': {
+        'ENGINE': 'django.db.backends.mysql', # engine: mysql
+        'NAME' : 'LGHV', # DB Name
+        'USER' : 'admin', # DB User
+        'PASSWORD' : AWS_DB_PASSWORD, # Password
+        'HOST': AWS_DB_HOST, # 생성한 데이터베이스 엔드포인트
+        'PORT': '3306', # 데이터베이스 포트
+        'OPTIONS':{
+            'init_command' : "SET sql_mode='STRICT_TRANS_TABLES'"
+        }
     }
 }
 
