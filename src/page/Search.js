@@ -4,6 +4,11 @@ import axios from "axios";
 import { useLocation, Link } from "react-router-dom";
 import noImage from "../images/noimage.png";
 import Helload from "../components/Helload";
+
+const isChoseongOnly = (string) => {
+  return /^[ㄱ-ㅎ]+$/g.test(string);
+};
+
 function Search() {
   const searchValue = useSelector((state) => state.search.value);
 
@@ -16,7 +21,11 @@ function Search() {
 
   const getData = async () => {
     try {
-      const url = `http://13.125.242.196/contents/${searchValue}`;
+      const url = isChoseongOnly(searchValue)
+        ? `http://127.0.0.1:8000/contents/search/${searchValue}`
+        : `http://13.125.242.196/contents/${searchValue}`;
+
+      //const url = `http://13.125.242.196/contents/${searchValue}`;
       const response = await axios.get(url);
       const data = response.data;
       setMovie(data);
