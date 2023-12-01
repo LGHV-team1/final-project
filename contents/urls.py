@@ -6,6 +6,7 @@ urlpatterns = [
     path("<str:vodname>", SearchVods.as_view()),
     path("<int:vodid>/detail/",SearchVodsDetail.as_view()),
     path("<str:vodid>/review/",VodReviews.as_view()),
-    path("<str:category>/popular/",VodTop5.as_view()),
-    path("category/<str:Bigcategory>/<str:Smallcategory>/",CategorySearch.as_view()),
+    path("category/<str:Bigcategory>/",VodTop5.as_view()),
+    path("category/<str:Bigcategory>/<str:Smallcategory>",CategorySearch.as_view()),
+    
 ]
