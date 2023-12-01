@@ -36,7 +36,7 @@ class Command(BaseCommand):
                 vod = Vod(
                     name=vod_name,
                     description=Summary,
-                    actors=actors,
+                    searchactors=actors,
                     bigcategory=BigCategory,
                     smallcategory=SmallCategory,
                     category=Category,
@@ -81,7 +81,7 @@ class Command(BaseCommand):
 
             # 인물 사진 가져오기.
             
-            actors = list(row.actors.split(","))[0:4]
+            actors = list(row.searchactors.split(","))[0:4]
             actor_list=[]
             for actor in actors:
                 actor_dict = {}
@@ -99,9 +99,9 @@ class Command(BaseCommand):
                 else:
                     actor_dict["image"] = "/noimage.png"
                 actor_list.append(actor_dict)
-            row.actorsimage = actor_list
+            row.actors = actor_list
             print(row.imgpath)
-            print(row.actorsimage)
+            print(row.actors)
             row.save()
         self.stdout.write(self.style.SUCCESS("Image paths updated successfully"))
 
