@@ -128,6 +128,11 @@ TEMPLATES = [
 WSGI_APPLICATION = "config.wsgi.application"
 SESSION_COOKIE_SECURE = False
 CSRF_COOKIE_SECURE = False
+SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
+SESSION_COOKIE_AGE = 1209600  # 2주 (초 단위)
+SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_DOMAIN = '.loadbalancer-464990516.ap-northeast-2.elb.amazonaws.com'
+SESSION_COOKIE_PATH = '/'
 CORS_ORIGIN_WHITELIST = ["http://127.0.0.1:3000", "http://localhost:3000"]
 CORS_ALLOW_CREDENTIALS = True
 # Database

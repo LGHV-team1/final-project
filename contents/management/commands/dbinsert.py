@@ -99,9 +99,9 @@ class Command(BaseCommand):
                 else:
                     actor_dict["image"] = "/noimage.png"
                 actor_list.append(actor_dict)
-            row.actors = actor_list
+            row.actorsimage = actor_list
             print(row.imgpath)
-            print(row.actors)
+            print(row.actorsimage)
             row.save()
         self.stdout.write(self.style.SUCCESS("Image paths updated successfully"))
 
