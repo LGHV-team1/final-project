@@ -12,7 +12,7 @@ class Command(BaseCommand):
     }
 
     def dbinsert(self, *args, **options):
-        with open("./data/vod_list_final.csv", encoding="utf-8") as f:
+        with open("./data/vod_final.csv", encoding="utf-8") as f:
             reader = csv.reader(f)
             next(reader)  # Skip header
             vod_list = []
@@ -28,6 +28,7 @@ class Command(BaseCommand):
                     Category,
                     vod_name,
                     running_time,
+                    rename,
                     count
                 ) = row
                 director=director.split(",")[0]
@@ -42,6 +43,7 @@ class Command(BaseCommand):
                     director=director,
                     runningtime=running_time,
                     count=count,
+                    name_no_space=rename
                 )
                 
                 vod_list.append(vod)
