@@ -3,11 +3,17 @@ import axios from "axios";
 import ApiService from "../api/ApiService";
 import { FaStar } from "react-icons/fa6";
 import { Link } from "react-router-dom";
-
+import { Cookies } from "react-cookie";
 function MyReview() {
     const [reviewList, setReviewList] = useState([]);
+    const [editingReviewId, setEditingReviewId] = useState(null);
+    const [editedPayload, setEditedPayload] = useState("");  // 수정된 페이로드를 저장하는 상태
+    const [editedRating, setEditedRating] = useState(0);
+    const cookies = new Cookies();
+    const csrftoken = cookies.get("csrftoken");
     const FilledStar = () => <FaStar className="fill-my-color text-3xl inline-block mb-2" />;
     const EmptyStar = () => <FaStar className="fill-gray-400 text-3xl inline-block mb-2" />;
+
     function renderStars(rating) {
         let stars = [];
         for (let i = 0; i < rating; i++) {
@@ -24,11 +30,43 @@ function MyReview() {
             setReviewList(response.data.reverse());
             console.log(response.data)
         })
-    }, []);
+    }, [reviewList.id]);
+
+    const startEditing = (review) => {
+        setEditingReviewId(review.id);
+        setEditedPayload(review.payload);
+        setEditedRating(review.rating);
+    };
+
+    const handlePayloadChange = (event) => {
+        setEditedPayload(event.target.value);
+    };
+    const handleRatingChange = (event) => {
+        setEditedRating(event.target.value);
+    };
+    const config = {
+        headers: {
+          "X-CSRFToken": csrftoken,
+        },
+      };
+    const saveEditedReview = (id) => {
+        axios.put(`http://127.0.0.1:8000/review/myreview/${id}`, {
+            payload : editedPayload,
+            rating: editedRating
+        }, config)
+        .then(function (response) {
+            // handle success
+            alert("수정되었습니다")
+            window.location.replace("/mypage")
+            setEditingReviewId(null);
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+    }
     
-    let reviewcount = reviewList.length;
     const deleteReview = (id) => {
-        axios.delete(`http://localhost:8000/review/myreview/delete/${id}`)
+        axios.delete(`http://127.0.0.1:8000/review/myreview/${id}`,config)
             .then(function (response) {
                 // handle success
                 alert("삭제 완료")
@@ -38,9 +76,10 @@ function MyReview() {
                 console.log(error);
             })
         }
+
     return(
         <div className="text-center mb-3">
-            <div className="block text-end mb-1" >총 {reviewcount}건</div>
+            <div className="block text-end mb-1" >총 {reviewList.length}건</div>
             {reviewList.length === 0 ? (
                 <p>작성한 리뷰가 없습니다.</p>
             ) 
@@ -56,19 +95,40 @@ function MyReview() {
                                 <div className="inline-block mb-[3px]">
                                     <p className="text-xl inline-block mr-2">평점</p>
                                     <p className="inline-block mr-2">{renderStars(a.rating)}</p>
-                                    <p className="text-xl inline-block mr-5"> {a.rating}점</p>
+                                    {editingReviewId === a.id ? (
+                                        <select value={editedRating} onChange={handleRatingChange} className="inline-block mr-2 p-1 border border-gray-300 rounded-lg bg-gray-50 sm:text-lg">
+                                        {[1, 2, 3, 4, 5].map((num) => (
+                                            <option key={num} value={num}>{num}</option>
+                                        ))}
+                                     </select>
+                                    ) : (
+                                    <p className="text-xl inline-block mr-5"> {a.rating}점</p>)}
                                 </div>
                                 <div className="inline-block">
-                                    <button className="border-solid border-[1px] rounded-lg px-2 py-1 mr-1">수정</button>
-                                    <button className="border-solid border-[1px] rounded-lg px-2 py-1">삭제</button>
+                                
+                                    {editingReviewId === a.id ? (
+                                        <button className="border-solid border-[1px] rounded-lg px-2 py-1 mr-1" onClick={() => saveEditedReview(a.id)}>저장</button>
+                                    ) : (
+                                        <button className="border-solid border-[1px] rounded-lg px-2 py-1 mr-1" onClick={() => startEditing(a)}>수정</button>
+                                    )}
+                                    <button className="border-solid border-[1px] rounded-lg px-2 py-1" onClick={() => deleteReview(a.id)}>삭제</button>
                                 </div>
                             </div>
                         </div>
-                    
                         <div className="text-left">
-                            <p className="text-lg inline-block">{a.payload}</p>
-                        </div>
-
+                            {editingReviewId === a.id ? (
+                                <div>
+                                <textarea
+                                    type="text"
+                                    rows="3"
+                                    value={editedPayload}
+                                    onChange={handlePayloadChange}
+                                    class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-lg"
+                                />
+                                </div>
+                            ) : (
+                            
+                                <p className="text-lg inline-block">{a.payload}</p>)}</div>
                     </div>
                 </div>
             )

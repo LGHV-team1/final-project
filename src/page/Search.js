@@ -3,6 +3,12 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { useLocation, Link } from "react-router-dom";
 import noImage from "../images/noimage.png";
+import Helload from "../components/Helload";
+
+const isChoseongOnly = (string) => {
+  return /^[ㄱ-ㅎ]+$/g.test(string);
+};
+
 function Search() {
   const searchValue = useSelector((state) => state.search.value);
 
@@ -15,7 +21,11 @@ function Search() {
 
   const getData = async () => {
     try {
-      const url = `http://13.125.242.196/contents/${searchValue}`;
+      const url = isChoseongOnly(searchValue)
+        ? `http://127.0.0.1:8000/contents/search/${searchValue}`
+        : `http://13.125.242.196/contents/${searchValue}`;
+
+      //const url = `http://13.125.242.196/contents/${searchValue}`;
       const response = await axios.get(url);
       const data = response.data;
       setMovie(data);
@@ -25,7 +35,11 @@ function Search() {
     }
   };
   if (searchValue === "") {
-    return <h1 className="mx-44 mt-5">검색어를 입력해주세요</h1>;
+    return (
+    <div className="mx-44 mt-5">
+      <h1>검색어를 입력해주세요</h1>
+      <Helload/>
+    </div>)
   } else {
     return (
       <div className="mx-44 mt-5">

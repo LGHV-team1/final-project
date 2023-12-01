@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 import Spinner from "../components/Spinner";
 import noImagePs from "../images/noimageps.png";
 import Modal from "../components/Modal";
+import ViewReview from "../components/ViewReview";
 
 function Detail() {
   const { name } = useParams();
@@ -242,6 +243,7 @@ function Detail() {
             <hr />
             <div ref={inputForm}>
               <Review />
+              <ViewReview name={name}/>
             </div>
           </div>
         </div>
