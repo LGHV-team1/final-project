@@ -7,7 +7,7 @@ export default function Dropdown({ categoryName, categoryList, link }) {
   const leaveTimeout = useRef(null);
   const navigate = useNavigate();
   const [showDropdown, setShowDropdown] = useState(false);
-  
+  const dispatch = useDispatch();
   const gotoCategory = () => {
     navigate(`${link}`);
   };

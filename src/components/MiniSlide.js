@@ -46,7 +46,7 @@ function MiniSlide({
   );
 
   const settings = {
-    arrow: false,
+    arrow: true,
     dots: true,
     infinite: false,
     speed: 500,
@@ -77,18 +77,18 @@ function MiniSlide({
                   }}
                 />
               </Link>
-              <h1
+              {/* <h1
                 className="absolute bottom-[-5%] left-[1%] italic z-1000 shadow-2xl font-bold text-white text-6xl"
                 style={{ WebkitTextStroke: "0.001px black" }}
               >
                 {idx + 1}
-              </h1>
-              {/* <h1
-                className="absolute bottom-[-2%] left-[1%] z-1000 shadow-2xl font-bold text-white text-6xl"
+              </h1> */}
+              <h1
+                className="absolute bottom-[-5%] left-[1%] italic z-1000 shadow-2xl font-bold text-white text-6xl"
                 style={{ textShadow: "2px 2px 4px black" }}
               >
                 {idx + 1}
-              </h1> */}
+              </h1>
             </div>
           </div>
         ))}

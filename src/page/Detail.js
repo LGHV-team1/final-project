@@ -9,20 +9,22 @@ import Spinner from "../components/Spinner";
 import noImagePs from "../images/noimageps.png";
 import Modal from "../components/Modal";
 import ViewReview from "../components/ViewReview";
-
+import ApiService from "../api/ApiService";
 function Detail() {
+  const { BASE_URL: URL } = ApiService;
   const { name } = useParams();
   const [movie, setMovie] = useState({});
   const [loading, setLoading] = useState(true);
   const [wish, setWish] = useState(false);
   const [originalWish, setOriginalWish] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  console.log(name)
+  console.log(name);
   const getData = async () => {
     try {
-      const url = `http://loadbalancer-464990516.ap-northeast-2.elb.amazonaws.com/contents/${name}/detail/`;
+      const url = `${URL}contents/${name}/detail/`;
       const response = await axios.get(url);
       const data = response.data;
+      console.log(url)
       setMovie(data); // 먼저 movie 상태를 설정
       setWish(data.is_liked);
       setOriginalWish(data.is_liked); // 그 다음에 wish 상태를 설정
@@ -90,8 +92,11 @@ function Detail() {
               backgroundSize: "cover",
             }}
           >
-            <div className=" absolute bottom-10 left-44  text-white " style={{ textShadow: "2px 2px 4px black" }}>
-              <span className=" text-6xl pb-3" >{movie.name}</span>
+            <div
+              className=" absolute bottom-10 left-44  text-white "
+              style={{ textShadow: "2px 2px 4px black" }}
+            >
+              <span className=" text-6xl pb-3">{movie.name}</span>
               <div className="pb-2 text-2xl ">
                 {movie.bigcategory}
                 <br />
@@ -195,7 +200,6 @@ function Detail() {
                           width="2.5em"
                           onClick={() => setShowModal(true)}
                         >
-                          
                           <path d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" />
                         </svg>
                         <div className="text-center">예고편 보기</div>
@@ -244,7 +248,7 @@ function Detail() {
             <hr />
             <div ref={inputForm}>
               <Review />
-              <ViewReview name={name  }/>
+              <ViewReview name={name} />
             </div>
           </div>
         </div>
