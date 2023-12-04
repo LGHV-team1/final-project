@@ -1,7 +1,7 @@
 import axios from "axios";
 axios.defaults.withCredentials = true; 
 class ApiService {
-    BASE_URL = "http://127.0.0.1:8000"
+    BASE_URL = "http://loadbalancer-1038287892.ap-northeast-2.elb.amazonaws.com/"
         
     getUserInfo(){
         return axios.get(`${this.BASE_URL}/accounts/dj-rest-auth/user/`)
