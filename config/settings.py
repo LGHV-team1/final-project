@@ -139,7 +139,7 @@ CORS_ALLOW_CREDENTIALS = True
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",  # engine: mysql
-        "NAME": "LGHV",  # DB Name
+        "NAME": "LGHellovision",  # DB Name
         "USER": "admin",  # DB User
         "PASSWORD": AWS_DB_PASSWORD,  # Password
         "HOST": AWS_DB_HOST,  # 생성한 데이터베이스 엔드포인트
@@ -147,7 +147,12 @@ DATABASES = {
         "OPTIONS": {"init_command": "SET sql_mode='STRICT_TRANS_TABLES'"},
     }
 }
-
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
