@@ -3,17 +3,14 @@ import { useLocation } from "react-router-dom";
 import axios from "axios";
 import MiniSlide from "../components/MiniSlide";
 import ApiService from "../api/ApiService";
-import { useSelector } from "react-redux";
-import ShowData from "../components/ShowData";
+import SortData from "../components/SortData";
 function Movie() {
   const { BASE_URL: URL } = ApiService;
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const categoryWord = searchParams.get("category");
   const [movie, setMovie] = useState([]);
-  const [visibleMovie, setVisibleMovie] = useState([]);
-  const itemsPerpage = 20;
-  const detailcategory = useSelector((state) => state.category.value);
+  const [loading, setLoading] = useState(true);
   const getData = async () => {
     let url;
     if (categoryWord === null) {
@@ -26,7 +23,7 @@ function Movie() {
       const data = response.data;
       console.log(data);
       setMovie(data);
-      setVisibleMovie(data.slice(0, itemsPerpage));
+      setLoading(false);
     } catch (err) {
       console.error(err);
     }
@@ -34,14 +31,6 @@ function Movie() {
   useEffect(() => {
     getData();
   }, [categoryWord]);
-
-  const handleShowMoreMovie = () => {
-    const newDataToShow = movie.slice(
-      visibleMovie.length,
-      visibleMovie.length + itemsPerpage
-    );
-    setVisibleMovie([...visibleMovie, ...newDataToShow]);
-  };
 
   if (categoryWord === null) {
     return (
@@ -56,7 +45,11 @@ function Movie() {
       </div>
     );
   } else {
-    return <ShowData data={visibleMovie} handleShow={handleShowMoreMovie} />;
+    return (
+      <div className="mx-44">
+        {loading === true ? <div>loading</div> : <SortData data={movie} />}
+      </div>
+    );
   }
 }
 

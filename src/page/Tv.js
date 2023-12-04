@@ -4,16 +4,14 @@ import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import ApiService from "../api/ApiService";
-import ShowData from "../components/ShowData";
+import SortData from "../components/SortData";
 function Tv() {
   const { BASE_URL: URL } = ApiService;
-  const detailcategory = useSelector((state) => state.category.value);
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const categoryWord = searchParams.get("category");
   const [tv, setTv] = useState([]);
-  const [visibleTv, setVisibleTv] = useState([]);
-  const itemsPerpage = 20;
+  const [loading, setLoading] = useState(true);
   const getData = async () => {
     let url;
     if (categoryWord === null) {
@@ -26,7 +24,7 @@ function Tv() {
       const data = response.data;
       console.log(data);
       setTv(data);
-      setVisibleTv(data.slice(0, itemsPerpage));
+      setLoading(false)
     } catch (err) {
       console.error(err);
     }
@@ -34,14 +32,6 @@ function Tv() {
   useEffect(() => {
     getData();
   }, [categoryWord]);
-
-  const handleShowMoreTv = () => {
-    const newDataToShow = tv.slice(
-      visibleTv.length,
-      visibleTv.length + itemsPerpage
-    );
-    setVisibleTv([...visibleTv, ...newDataToShow]);
-  };
 
   if (categoryWord === null) {
     return (
@@ -56,7 +46,11 @@ function Tv() {
       </div>
     );
   } else {
-    return <ShowData data={visibleTv} handleShow={handleShowMoreTv} />;
+    return (
+      <div className="mx-44">
+        {loading === true ? <div>loading</div> : <SortData data={tv} />}
+      </div>
+    );
   }
 }
 

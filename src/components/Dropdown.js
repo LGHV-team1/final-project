@@ -71,6 +71,9 @@ export default function Dropdown({ categoryName, categoryList, link }) {
                   <Link
                     to={dynamicUrl}
                     className="ml-2 text-gray-100 no-underline hover:text-my-color"
+                    onClick={() => {
+                      dispatch(setCategory(item))
+                    }}
                   >
                     {item}
                   </Link>
