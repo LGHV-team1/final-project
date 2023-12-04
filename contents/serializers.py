@@ -11,7 +11,7 @@ from reviews.models import Review
 class VodListSerializer(ModelSerializer):
     class Meta:
         model = Vod
-        fields = ("id","name", "smallcategory","imgpath")
+        fields = ("id","name", "smallcategory", "imgpath", "count")
 
 
 class VodDetailSerializer(ModelSerializer):
