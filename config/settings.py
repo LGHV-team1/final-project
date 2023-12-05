@@ -62,7 +62,7 @@ ALLOWED_HOSTS = ["*"]
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
-    "https://www.hellorvdworld.com/",
+    "https://www.hellorvdworld.com",
 ]
 
 # Application definition
@@ -78,6 +78,7 @@ INSTALLED_APPS = [
     "accounts",
     "rest_framework",
     "rest_framework_simplejwt",
+    'rest_framework_simplejwt.token_blacklist',
     "rest_framework.authtoken",
     # dj-rest-auth
     "dj_rest_auth",
@@ -132,13 +133,13 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "config.wsgi.application"
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
 SESSION_COOKIE_AGE = 1209600  # 2주 (초 단위)
 CORS_ORIGIN_WHITELIST = [
     "http://127.0.0.1:3000",
     "http://localhost:3000",
-    "https://www.hellorvdworld.com/",
+    "https://www.hellorvdworld.com",
 ]
 CORS_ALLOW_CREDENTIALS = True
 # Database
