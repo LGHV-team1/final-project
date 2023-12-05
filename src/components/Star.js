@@ -47,7 +47,7 @@ export default function Star({ AVR_RATE = 3 }) {
           );
         })}
       </div>
-      <div>별점 {AVR_RATE}</div>
+      <div>평점 {AVR_RATE}</div>
     </div>
   );
 }
