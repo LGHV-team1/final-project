@@ -7,7 +7,7 @@ class ApiService {
         baseURL: this.BASE_URL,
         withCredentials: true,
         headers: {
-            'Authorization': `Token ${localStorage.getItem('jwtToken')}`,
+            'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`,
         }
     });
 

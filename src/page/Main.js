@@ -8,11 +8,11 @@ import mainimg5 from '../images/MainTop/top5최강배달꾼.jpg'
 
 function Main() {
     const bgArr = [
-      { id: 1, img: mainimg1, vodname: "연인" },
-      { id: 2, img: mainimg2, vodname: "범죄도시3" },
-      { id: 3, img: mainimg3, vodname: "런닝맨" },
-      { id: 4, img: mainimg4, vodname: "꼬리에 꼬리를 무는 그날 이야기" },
-      { id: 5, img: mainimg5, vodname: "최강 배달꾼" },
+      { id: 1166, img: mainimg1, vodname: "연인" },
+      { id: 2537, img: mainimg2, vodname: "범죄도시3" },
+      { id: 296, img: mainimg3, vodname: "런닝맨" },
+      { id: 8, img: mainimg4, vodname: "꼬리에 꼬리를 무는 그날 이야기" },
+      { id: 754, img: mainimg5, vodname: "최강 배달꾼" },
       ];
   return (
     <div className="mx-44 mt-5 text-center"> 

@@ -37,10 +37,10 @@ function Socialkakao() {
             alert("로그인 에러 다시 실행해주세요.");
         }
         else {
-        axios.post("http://127.0.0.1:8000/accounts/kakao/login/finish/", data, { withCredentials: true })
+        axios.post(`${URL}accounts/kakao/login/finish/`, data, { withCredentials: true })
         .then( response => {
             console.log(response)
-            const token = response.data.key
+            const token = response.data.access
             cookies.remove('access_token')
             cookies.remove('code')
             localStorage.setItem("jwtToken", token);

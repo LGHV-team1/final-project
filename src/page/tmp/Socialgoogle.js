@@ -8,8 +8,9 @@ import GoogleLoginButton from "../../components/GoogleButton.js";
 import KakaoButton from "../../components/KakaoButton.js";
 import NaverButton from "../../components/NaverButton.js";
 import Input from "../../components/Input.js";
-
+import ApiService from '../../api/ApiService.js';
 function Socialgoogle() {
+  const { BASE_URL: URL } = ApiService;
     const cookies = new Cookies();
     const code = cookies.get('code')
     const access_token = cookies.get('access_token')
@@ -36,10 +37,10 @@ function Socialgoogle() {
             alert("로그인 에러 다시 실행해주세요.");
         }
         else {
-        axios.post("http://127.0.0.1:8000/accounts/google/login/finish/", data, { withCredentials: true })
+        axios.post(`${URL}accounts/google/login/finish/`, data, { withCredentials: true })
         .then( response => {
             console.log(response)
-            const token = response.data.key
+            const token = response.data.access
             cookies.remove('access_token')
             cookies.remove('code')
             localStorage.setItem("jwtToken", token);

@@ -75,34 +75,31 @@ export default function Mypage() {
   // }, [userinfo]);
 
   useEffect(() => {
-    ApiService.getUserInfo({ withCredentials: true })
-      .then((res) => {
-        console.log(res.data);
-        // 현재 상태와 다를 때만 상태 업데이트
-        if (userinfo.email !== res.data.email || userinfo.user_profile !== res.data.user_profile) {
-          setUserinfo(res.data);
-          switch (res.data.user_profile) {
-            case 1:
-              setProfilepic(profile2);
-              break;
-            case 2:
-              setProfilepic(profile3);
-              break;
-            case 3:
-              setProfilepic(profile4);
-              break;
-            default:
-              setProfilepic(profile1);
-          }
-        }
-      });
+    ApiService.getUserInfo( 
+      { withCredentials: true }
+    )
+    .then((res)=> {
+      setUserinfo(res.data);
+      switch (userinfo.user_profile) {
+        case 1:
+          setProfilepic(profile2);
+          break;
+        case 2:
+          setProfilepic(profile3);
+          break;
+        case 3:
+          setProfilepic(profile4);
+          break;
+        default:
+          setProfilepic(profile1);
+      }
+    })
   }, [userinfo]);
-
-  
 
   const config = {
     headers: {
       "X-CSRFToken": csrftoken,
+      'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`,
     },
   };
   const goToLogout = () => {
