@@ -5,6 +5,7 @@ import { FaStar } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { Cookies } from "react-cookie";
 function MyReview() {
+    const { BASE_URL: URL } = ApiService;
     const [reviewList, setReviewList] = useState([]);
     const [editingReviewId, setEditingReviewId] = useState(null);
     const [editedPayload, setEditedPayload] = useState("");  // 수정된 페이로드를 저장하는 상태
@@ -50,7 +51,7 @@ function MyReview() {
         },
       };
     const saveEditedReview = (id) => {
-        axios.put(`http://127.0.0.1:8000/review/myreview/${id}`, {
+        axios.put(`${URL}review/myreview/${id}`, {
             payload : editedPayload,
             rating: editedRating
         }, config)
@@ -66,7 +67,7 @@ function MyReview() {
     }
     
     const deleteReview = (id) => {
-        axios.delete(`http://127.0.0.1:8000/review/myreview/${id}`,config)
+        axios.delete(`${URL}review/myreview/${id}`,config)
             .then(function (response) {
                 // handle success
                 alert("삭제 완료")
@@ -88,7 +89,7 @@ function MyReview() {
                     <hr className="text-center mb-4"></hr>
                     <div className="m-auto" >
                         <div className="block mt-3">
-                        <Link to={`/detail/${a.vodname}`} className="text-black">
+                        <Link to={`/detail/${a.contents}`} className="text-black">
                             <div className="text-2xl inline-block w-80 float-left text-left font-medium">{a.vodname}</div>
                             </Link>
                             <div className="text-end">

@@ -7,7 +7,9 @@ import profile4 from "../../images/profileimg/profile_woman.png"
 import { Cookies } from "react-cookie";
 import axios from "axios";
 import Button from '../Button';
+import ApiService from '../../api/ApiService';
 function ModalProfile({ setModalOpen}){
+    const { BASE_URL: URL } = ApiService;
     const cookies = new Cookies();
     const [selectedImage, setSelectedImage] = useState(null);
     const [profilenumber, setProfilenumber] = useState(0);
@@ -32,12 +34,13 @@ function ModalProfile({ setModalOpen}){
     const config = {
         headers: {
           "X-CSRFToken": csrftoken,
+          'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`,
         },
       };
     const changeProfile = async () => {
         try {
           const response = await axios.put(
-            "http://127.0.0.1:8000/accounts/dj-rest-auth/user/",
+            `${URL}accounts/dj-rest-auth/user/`,
             {
                 user_profile: profilenumber
             },

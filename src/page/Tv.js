@@ -38,7 +38,7 @@ function Tv() {
       <div className=" mx-44  ">
         <div className="">
           <div className="">
-            <p>TV 인기 TOP5</p>
+          <h1 className="my-10">TV 인기 TOP5</h1>
             <MiniSlide data={tv} />
           </div>
           <div className="text-center mt-3"></div>
