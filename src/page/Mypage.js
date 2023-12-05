@@ -34,6 +34,7 @@ const IconWrap = styled.div`
 `;
 
 export default function Mypage() {
+  const { BASE_URL: URL } = ApiService;
   const navigate = useNavigate();
   const cookies = new Cookies();
   const csrftoken = cookies.get("csrftoken");
@@ -80,7 +81,7 @@ export default function Mypage() {
   };
   const goToLogout = () => {
     axios
-      .post("http://127.0.0.1:8000/accounts/dj-rest-auth/logout/", {}, config)
+      .post(`${URL}accounts/dj-rest-auth/logout/`, {}, config)
       .then((response) => {
         localStorage.removeItem("jwtToken");
         alert("로그아웃 되었습니다.");
@@ -92,7 +93,7 @@ export default function Mypage() {
   const deleteUser = async () => {
     const isConfirmed = window.confirm("회원탈퇴 하시겠습니까?");
       if (isConfirmed) {
-        axios.delete("http://127.0.0.1:8000/accounts/deleteuser/", config)
+        axios.delete(`${URL}accounts/deleteuser/`, config)
             .then((response) => { 
               console.log("계정이 삭제되었습니다.", response);
               alert("계정이 삭제되었습니다.");
@@ -109,7 +110,7 @@ export default function Mypage() {
     }
 
   return (
-    <div>
+    <div className="mx-44 mt-5">
       <div className="max-w-[400px] w-[400px] mx-auto bg-white p-4 text-center ">
         <img src={profilepic} alt="프로필사진" width="50%" className='m-auto'></img>
         <div className="flex flex-col py-8">
@@ -128,7 +129,7 @@ export default function Mypage() {
           />{modal2Open && <ModalChangeinfo setModalOpen={setModal2Open} />}
           </div>
       </div>
-      <div className="max-w-[1000px] w-[1000px] mx-auto text-center my-10"> 
+      <div className="mx-auto text-center my-10"> 
         <div className='mb-20'>
           <hr style={{ height: '3px', backgroundColor: '#000', marginBottom:"3%"}}></hr>
             <IconWrap>

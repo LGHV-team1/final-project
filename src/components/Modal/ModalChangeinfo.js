@@ -6,6 +6,7 @@ import ApiService from "../../api/ApiService.js";
 import Button from "../Button.js";
 
 function ModalChangeinfo({ setModalOpen}){
+    const { BASE_URL: URL } = ApiService;
     const cookies = new Cookies();
     const [Password, setPassword] = useState("");
     const [ConfirmPassword, setConfirmPassword] = useState("");
@@ -37,6 +38,7 @@ function ModalChangeinfo({ setModalOpen}){
     const config = {
         headers: {
           "X-CSRFToken": csrftoken,
+          'Authorization': `Token ${localStorage.getItem('jwtToken')}`,
         },
       };
     
@@ -44,7 +46,7 @@ function ModalChangeinfo({ setModalOpen}){
         try {
             console.log(NewStb)
           const response = await axios.put(
-            "http://127.0.0.1:8000/accounts/dj-rest-auth/user/",
+            `${URL}accounts/dj-rest-auth/user/`,
             {
                 stbnumber: NewStb
             },
@@ -52,7 +54,7 @@ function ModalChangeinfo({ setModalOpen}){
           );
           alert('셋톱박스 번호가 수정되었습니다')
           console.log(response)
-          //window.location.href = "/mypage"
+          window.location.href = "/mypage"
         } catch (error) {
             if (error.response) {
                 // 서버가 응답을 반환하지만 2xx 상태 코드가 아닌 경우
@@ -75,7 +77,7 @@ function ModalChangeinfo({ setModalOpen}){
     const changePassword = async () => {
         try {
           const response = await axios.post(
-            "http://127.0.0.1:8000/accounts/dj-rest-auth/password/change/",
+            `${URL}accounts/dj-rest-auth/password/change/`,
             {
                 new_password1: Password,
                 new_password2: ConfirmPassword
@@ -84,7 +86,7 @@ function ModalChangeinfo({ setModalOpen}){
           );
           console.log(response);
           alert('비밀번호가 수정되었습니다')
-          //window.location.href = "/mypage"
+          window.location.href = "/mypage"
         } catch (error) {
             if (error.response) {
                 // 서버가 응답을 반환하지만 2xx 상태 코드가 아닌 경우

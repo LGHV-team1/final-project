@@ -7,8 +7,9 @@ import NaverButton from "../components/NaverButton.js";
 import Input from "../components/Input.js";
 import axios from "axios";
 import BGimg from "../images/background.png";
-
+import ApiService from "../api/ApiService.js";
 function Login() {
+  const { BASE_URL: URL } = ApiService;
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ function Login() {
   const login = async () => {
     try {
       const response = await axios.post(
-        "http://13.125.242.196/accounts/dj-rest-auth/login/",
+        `${URL}accounts/dj-rest-auth/login/`,
         {
           email: Email,
           password: Password,
