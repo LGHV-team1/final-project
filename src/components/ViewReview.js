@@ -5,6 +5,7 @@ import { FaStar } from "react-icons/fa6";
 import { Cookies } from "react-cookie";
 import { useParams } from 'react-router-dom';
 function ViewReview(props) {
+    const {BASE_URL:URL} = ApiService;
     const [VODreviewList, setVODReviewList] = useState([]);
     const cookies = new Cookies();
     const csrftoken = cookies.get("csrftoken");
@@ -32,7 +33,7 @@ function ViewReview(props) {
         return stars;
     }
     useEffect(() => {
-        axios.get(`http://loadbalancer-464990516.ap-northeast-2.elb.amazonaws.com/contents/${props.name}/review/`)
+        axios.get(`${URL}contents/${props.name}/review/`)
         .then(response => {
             setVODReviewList(response.data.reverse());
             console.log(response.data)

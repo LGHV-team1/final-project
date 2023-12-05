@@ -12,7 +12,7 @@ function Login() {
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
   const navigate = useNavigate();
-  
+  console.log(Email)
   const onEmailHandler = (event) => {
     setEmail(event.currentTarget.value);
   };

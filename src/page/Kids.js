@@ -1,24 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useLocation, } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useParams, useLocation } from "react-router-dom";
 import axios from "axios";
 import MiniSlide from "../components/MiniSlide";
 import ApiService from "../api/ApiService";
-import ShowData from "../components/ShowData";
+import SortData from "../components/SortData";
 function Kids() {
   const { BASE_URL: URL } = ApiService;
-  const [loading, setLoading] = useState(true);
-  const detailcategory = useSelector((state) => state.category.value);
-  const { category } = useParams();
-  console.log(detailcategory);
-  console.log(category);
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const categoryWord = searchParams.get("category");
+  const [loading, setLoading] = useState(true);
   const [kids, setKids] = useState([]);
-  const [visibleKids, setVisibleKids] = useState([]);
-  const itemsPerpage = 20;
-
   const getData = async () => {
     let url;
     if (categoryWord === null) {
@@ -32,22 +24,13 @@ function Kids() {
       console.log(data);
       setKids(data);
       setLoading(false);
-      setVisibleKids(data.slice(0, itemsPerpage));
     } catch (err) {
       console.error(err);
     }
   };
   useEffect(() => {
     getData();
-  }, [categoryWord]);
-
-  const handleShowMoreKids = () => {
-    const newDataToShow = kids.slice(
-      visibleKids.length,
-      visibleKids.length + itemsPerpage
-    );
-    setVisibleKids([...visibleKids, ...newDataToShow]);
-  };
+  }, [categoryWord]); // 카테고리가 변경될 때만 데이터를 가져오기
 
   if (categoryWord === null) {
     return (
@@ -63,7 +46,9 @@ function Kids() {
     );
   } else {
     return (
-      <ShowData data={visibleKids} handleShow={handleShowMoreKids} />
+      <div className="mx-44">
+        {loading === true ? <div>loading</div> : <SortData data={kids} />}
+      </div>
     );
   }
 }
