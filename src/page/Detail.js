@@ -10,8 +10,11 @@ import noImagePs from "../images/noimageps.png";
 import Modal from "../components/Modal";
 import ViewReview from "../components/ViewReview";
 import ApiService from "../api/ApiService";
-import dark from "../images/dark.png"
+import dark from "../images/dark.png";
+import { useNavigate, useLocation } from "react-router-dom";
 function Detail() {
+  const navigate = useNavigate();
+  const location = useLocation();
   const { BASE_URL: URL } = ApiService;
   const { name } = useParams();
   const [movie, setMovie] = useState({});
@@ -19,16 +22,24 @@ function Detail() {
   const [wish, setWish] = useState(false);
   const [originalWish, setOriginalWish] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const config = {
+    headers: {
+      Authorization: `Token ${localStorage.getItem("jwtToken")}`,
+    },
+  };
   console.log(name);
   const getData = async () => {
     try {
       const url = `${URL}contents/${name}/detail/`;
-      const response = await axios.get(url);
+      const response = await axios.get(url, config, { withCredentials: true });
       const data = response.data;
-      console.log(url)
       setMovie(data); // 먼저 movie 상태를 설정
+      setOriginalWish(data.is_liked);
       setWish(data.is_liked);
-      setOriginalWish(data.is_liked); // 그 다음에 wish 상태를 설정
+      console.log(data);
+      console.log("wish", wish);
+      console.log("original wish", originalWish);
+      // 그 다음에 wish 상태를 설정
       setLoading(false);
     } catch (err) {
       console.error(err);
@@ -40,24 +51,39 @@ function Detail() {
   }, []);
 
   useEffect(() => {
-    // 페이지 이동을 감지하는 함수
-    const handleRouteChange = () => {
+    const handleRouteChange = async () => {
       if (wish !== originalWish) {
-        console.log("상태가 변경되었습니다. POST 요청을 수행합니다.");
-        // 여기에 POST 요청을 수행하는 코드를 추가하세요.
+        try {
+          const response = await axios.post(
+            `${URL}contents/${name}/detail/`,
+            {},
+            config
+          );
+          console.log(response);
+        } catch (error) {
+          if (error.response) {
+            console.error("Error response from server:", error.response.data);
+            const getValues = Object.values(error.response.data);
+            const arrayString = getValues.join("\n");
+            alert(arrayString);
+          } else {
+            // 네트워크 또는 기타 오류
+            console.error("Error:", error);
+          }
+        }
       }
     };
 
-    // 컴포넌트가 언마운트될 때 실행될 반환 함수
+    // 컴포넌트 언마운트 시 실행
     return () => {
       handleRouteChange();
     };
-  }, [wish]);
+  }, [wish]); // originalWish도 종속성 배열에 추가
 
   const handleWish = () => {
-    setWish((current) => !current);
-    console.log(wish);
+    setWish((currentWish) => !currentWish);
   };
+
   const copyURL = async () => {
     try {
       await navigator.clipboard.writeText(window.location.href);
@@ -92,7 +118,8 @@ function Detail() {
               backgroundImage: `url(${backgroundImageUrl})`,
               backgroundSize: "cover",
             }}
-          ><img src={dark} className="absolute bottom-0"></img>
+          >
+            <img src={dark} className="absolute bottom-0"></img>
             <div
               className=" absolute bottom-10 left-44  text-white "
               style={{ textShadow: "2px 2px 4px black" }}
@@ -120,7 +147,7 @@ function Detail() {
               <div>
                 <div className="mb-4 ">
                   <div className="flex justify-between  items-center">
-                    <Star AVR_RATE={2.5} />
+                    <Star AVR_RATE={movie.avg_rate} />
                     <div className="flex gap-3">
                       {wish === false ? (
                         <div className="flex flex-col items-center  hover:scale-105">
@@ -129,7 +156,7 @@ function Detail() {
                             viewBox="0 0 16 16"
                             height="2.5em"
                             width="2.5em"
-                            onClick={handleWish}
+                            onClick={() => handleWish(wish)}
                             className="scale-90"
                           >
                             <path d="M8 2.748l-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 01.176-.17C12.72-3.042 23.333 4.867 8 15z" />
@@ -143,7 +170,7 @@ function Detail() {
                             viewBox="0 0 16 16"
                             height="2.5em"
                             width="2.5em"
-                            onClick={handleWish}
+                            onClick={() => handleWish(wish)}
                             className="scale-90"
                           >
                             <path

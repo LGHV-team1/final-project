@@ -37,7 +37,7 @@ function Login() {
         },
         { withCredentials: true }
       );
-      const token = response.data.key;
+      const token = response.data.access;
       console.log('로그인 성공:', response);
       console.log(token);
       localStorage.setItem("jwtToken", token);

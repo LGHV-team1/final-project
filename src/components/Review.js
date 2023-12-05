@@ -3,13 +3,15 @@ import Rank from "./Rank";
 import Button from "./Button";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import { useParams} from "react-router-dom";
+import { useParams } from "react-router-dom";
+import ApiService from "../api/ApiService";
 export default function Review() {
-  const {name} = useParams();
+  const { BASE_URL: URL } = ApiService;
+  const { name } = useParams();
   const [review, setReview] = useState("");
   const [reviewScore, setReviewScore] = useState(0);
   const rankValue = useSelector((state) => state.rank.value);
-  console.log(rankValue)
+  console.log(rankValue);
   const handleScoreChange = useCallback(
     (newScore) => {
       setReviewScore(newScore);
@@ -20,21 +22,22 @@ export default function Review() {
     setReview(e.target.value);
   };
 
-  const sendReview = async (e) => { 
-    e.preventDefault();
+  const sendReview = async (e) => {
+   
     try {
-      const url = `http://13.125.242.196/contents/${name}/review/`;
+      const url = `${URL}contents/${name}/review/`;
       const token = localStorage.getItem("jwtToken");
-      console.log(review, rankValue)
+      console.log(review, rankValue);
+      console.log(token)
       const response = await axios.post(
         url,
-        { 
+        {
           payload: review,
           rating: rankValue,
         },
         {
           headers: {
-            Authorization: token,
+            'Authorization': `Token ${localStorage.getItem('jwtToken')}`
           },
         }
       );

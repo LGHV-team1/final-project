@@ -11,7 +11,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        "my-color": "#C62A5B",
+        "my-color": "#A50034",
       },
       zIndex: {
         '1000': '1000', // 더 높은 z-index 값 추가

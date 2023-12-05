@@ -34,13 +34,13 @@ function Register() {
     // if (emailCheck(e) === false) {
     //   return alert("이메일형식에 맞춰서 써주세요");
     // }
-    // if (!Email || !Name || !Password || !ConfirmPassword) {
+    // if (!Email || !Password || !ConfirmPassword) {
     //   return alert("모든 항목을 입력해주세요.");
     // }
     // if (Password !== ConfirmPassword) {
     //   return alert("비밀번호가 일치하지 않습니다.");
     // }
-    registerSend();
+      registerSend();
   };
 
   const registerSend = async () => {
@@ -51,7 +51,7 @@ function Register() {
           email: Email,
           password1: Password,
           password2: ConfirmPassword,
-          stbnumber: STB
+          stbnumber: Number(STB),
         }
       );
 
@@ -62,11 +62,10 @@ function Register() {
       if (error.response) {
         // 서버가 응답을 반환하지만 2xx 상태 코드가 아닌 경우
         console.error("Error response from server:", error.response.data);
-        const getValues = Object.values(error.response.data)
-        const arrayString = getValues.join('\n');
+        const getValues = Object.values(error.response.data);
+        const arrayString = getValues.join("\n");
         alert(arrayString);
-      } 
-      else if (error.request) {
+      } else if (error.request) {
         // 서버로의 요청이 전송되지 않은 경우
         console.error(
           "No response received from server. Request might not have been sent."

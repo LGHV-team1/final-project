@@ -59,11 +59,11 @@ function MiniSlide({
     <div>
       <Slider {...settings} className="text-center ">
         {data.map((a, idx) => (
-          <div key={a.id} className="relative">
-            <div className="img-body pb-2 ">
+          <div key={a.id} className="relative ">
+            <div className="img-body pb-3  ">
               <Link to={`/detail/${a.id}`} className="">
                 <img
-                  className="rounded"
+                  className="rounded transition transform duration-500 ease-in-out hover:scale-105"
                   src={
                     a.vodimage === "/noimage.png"
                       ? `${BASE_URL_NO}${a.vodimage}`

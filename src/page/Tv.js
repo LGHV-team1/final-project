@@ -33,6 +33,7 @@ function Tv() {
     getData();
   }, [categoryWord]);
 
+  
   if (categoryWord === null) {
     return (
       <div className=" mx-44  ">
