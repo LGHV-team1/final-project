@@ -2,8 +2,8 @@ name: CI/CD AWS S3
 # 동작 이벤트 트리거
 on:
   push:
-    branches:
-      - [Deploy/Front]
+    branches: ["Deploy/Front"]
+
 
 # 실제 수행 동작
 jobs:
