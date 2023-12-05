@@ -56,13 +56,13 @@ SECRET_KEY = SECRET_KEY
 # SECURITY WARNING: keep the secret key used in production secret!
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
-    "https://d2116txqhe0yto.cloudfront.net",
+    "https://www.hellorvdworld.com/",
 ]
 
 # Application definition
@@ -138,7 +138,7 @@ SESSION_COOKIE_AGE = 1209600  # 2주 (초 단위)
 CORS_ORIGIN_WHITELIST = [
     "http://127.0.0.1:3000",
     "http://localhost:3000",
-    "https://d2116txqhe0yto.cloudfront.net",
+    "https://www.hellorvdworld.com/",
 ]
 CORS_ALLOW_CREDENTIALS = True
 # Database
