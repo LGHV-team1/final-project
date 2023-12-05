@@ -72,11 +72,12 @@ export default function Mypage() {
           setProfilepic(profile1);
       }
     })
-  }, [userinfo.user_profile]);
+  }, [userinfo]);
 
   const config = {
     headers: {
       "X-CSRFToken": csrftoken,
+      'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`,
     },
   };
   const goToLogout = () => {
