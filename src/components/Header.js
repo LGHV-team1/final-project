@@ -11,6 +11,7 @@ import { setSearchValue } from "../redux/searchSlice";
 import Dropdown from "./Dropdown";
 
 function Header2() {
+  const { BASE_URL: URL } = ApiService;
   const searchInputRef = useRef(null); // 입력창 참조 생성
   const dispatch = useDispatch();
   const search = useSelector((state) => state.search.value);
@@ -100,7 +101,7 @@ function Header2() {
   };
   const goToLogout = () => {
     axios
-      .post("http://127.0.0.1:8000/accounts/dj-rest-auth/logout/", {}, config)
+      .post(`${URL}accounts/dj-rest-auth/logout/`, {}, config)
       .then((response) => {
         localStorage.removeItem("jwtToken");
         alert("로그아웃 되었습니다.");

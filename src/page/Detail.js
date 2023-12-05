@@ -10,6 +10,7 @@ import noImagePs from "../images/noimageps.png";
 import Modal from "../components/Modal";
 import ViewReview from "../components/ViewReview";
 import ApiService from "../api/ApiService";
+import dark from "../images/dark.png"
 function Detail() {
   const { BASE_URL: URL } = ApiService;
   const { name } = useParams();
@@ -91,7 +92,7 @@ function Detail() {
               backgroundImage: `url(${backgroundImageUrl})`,
               backgroundSize: "cover",
             }}
-          >
+          ><img src={dark} className="absolute bottom-0"></img>
             <div
               className=" absolute bottom-10 left-44  text-white "
               style={{ textShadow: "2px 2px 4px black" }}

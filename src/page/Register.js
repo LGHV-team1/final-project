@@ -4,9 +4,11 @@ import Input from "../components/Input.js";
 import { useState } from "react";
 import axios from "axios";
 import BGimg from "../images/background.png";
+import ApiService from "../api/ApiService.js";
 function Register() {
+  const { BASE_URL: URL } = ApiService;
   const [Email, setEmail] = useState("");
-  const [Name, setName] = useState("");
+  const [STB, setSTB] = useState("");
   const [Password, setPassword] = useState("");
   const [ConfirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
@@ -18,8 +20,8 @@ function Register() {
   const onEmailHandler = (event) => {
     setEmail(event.currentTarget.value);
   };
-  const onNameHandler = (event) => {
-    setName(event.currentTarget.value);
+  const onSTBHandler = (event) => {
+    setSTB(event.currentTarget.value);
   };
   const onPasswordHandler = (event) => {
     setPassword(event.currentTarget.value);
@@ -44,11 +46,12 @@ function Register() {
   const registerSend = async () => {
     try {
       const response = await axios.post(
-        "http://13.125.242.196/accounts/dj-rest-auth/registration/",
+        `${URL}accounts/dj-rest-auth/registration/`,
         {
           email: Email,
           password1: Password,
           password2: ConfirmPassword,
+          stbnumber: STB
         }
       );
 
@@ -123,8 +126,8 @@ function Register() {
             <Input
               className="border p-2 rounded"
               type="text"
-              // value={Name}
-              // onChange={onNameHandler}
+              value={STB}
+              onChange={onSTBHandler}
             />
           </div>
           <div className="flex justify-between">
