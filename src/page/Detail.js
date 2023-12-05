@@ -24,7 +24,7 @@ function Detail() {
   const [showModal, setShowModal] = useState(false);
   const config = {
     headers: {
-      Authorization: `Token ${localStorage.getItem("jwtToken")}`,
+      Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
     },
   };
   console.log(name);
