@@ -12,7 +12,7 @@ class Command(BaseCommand):
     }
 
     def dbinsert(self, *args, **options):
-        with open("./data/vod_final.csv", encoding="utf-8") as f:
+        with open("./data/vod_add_id.csv", encoding="utf-8") as f:
             reader = csv.reader(f)
             next(reader)  # Skip header
             vod_list = []
@@ -26,14 +26,16 @@ class Command(BaseCommand):
                     BigCategory,
                     SmallCategory,
                     Category,
+                    rename,
+                    count,
                     vod_name,
                     running_time,
-                    rename,
-                    count
+                    vod_id
                 ) = row
                 director=director.split(",")[0]
                 actors = actors.replace("-", "")
                 vod = Vod(
+                    id=vod_id,
                     name=vod_name,
                     description=Summary,
                     searchactors=actors,
