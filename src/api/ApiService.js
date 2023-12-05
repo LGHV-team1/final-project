@@ -1,7 +1,7 @@
 import axios from "axios";
 axios.defaults.withCredentials = true; 
 class ApiService {
-    BASE_URL = "http://loadbalancer-1038287892.ap-northeast-2.elb.amazonaws.com/"
+    BASE_URL = "http://loadbalancer-1865644812.ap-northeast-2.elb.amazonaws.com/"
     
     axiosInstance = axios.create({
         baseURL: this.BASE_URL,
