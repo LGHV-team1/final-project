@@ -56,12 +56,12 @@ function Search() {
                 <Link to={`/detail/${movie.id}`} className="">
                   <img
                     src={`https://image.tmdb.org/t/p/w500/${movie.imgpath}`}
-                    className=" rounded-md w-full shadow-[0px_0px_1px_3px_rgba(0,0,0,0.3)]"
+                    className="rounded-md w-full shadow-[0px_0px_0px_3px_rgba(0,0,0,0.3)] "
                     onError={(e) => (e.currentTarget.src = noImage)}
                     style={{ height: "400px" }}
                     />
                 </Link>
-                <div className="text-gray-600 text-[18px]">{movie.name}</div>
+                <div className="text-gray-600 text-[18px] mt-2 text-center">{movie.name}</div>
               </div>
             ))}
           </div>

@@ -37,7 +37,7 @@ function Kids() {
       <div className=" mx-44  ">
         <div className="">
           <div className="">
-            <h1 className="my-10">영화 인기 TOP5</h1>
+            <h1 className="my-10">키즈 인기 TOP5</h1>
             <MiniSlide data={kids} />
           </div>
           <div className="text-center mt-3"></div>
