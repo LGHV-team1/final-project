@@ -97,6 +97,7 @@ function Header2() {
   const config = {
     headers: {
       "X-CSRFToken": csrftoken,
+      'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`,
     },
   };
   const goToLogout = () => {

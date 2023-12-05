@@ -4,7 +4,10 @@ import Button from "./Button";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { useParams} from "react-router-dom";
+import ApiService from "../api/ApiService";
+
 export default function Review() {
+  const { BASE_URL: URL } = ApiService;
   const {name} = useParams();
   const [review, setReview] = useState("");
   const [reviewScore, setReviewScore] = useState(0);
@@ -23,8 +26,7 @@ export default function Review() {
   const sendReview = async (e) => { 
     e.preventDefault();
     try {
-      const url = `http://13.125.242.196/contents/${name}/review/`;
-      const token = localStorage.getItem("jwtToken");
+      const url = `${URL}contents/${name}/review/`;
       console.log(review, rankValue)
       const response = await axios.post(
         url,
@@ -34,7 +36,7 @@ export default function Review() {
         },
         {
           headers: {
-            Authorization: token,
+            'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`,
           },
         }
       );

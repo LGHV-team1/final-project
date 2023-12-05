@@ -38,7 +38,7 @@ function ModalChangeinfo({ setModalOpen}){
     const config = {
         headers: {
           "X-CSRFToken": csrftoken,
-          'Authorization': `Token ${localStorage.getItem('jwtToken')}`,
+          'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`,
         },
       };
     
