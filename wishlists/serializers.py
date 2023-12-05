@@ -15,6 +15,7 @@ class WishlistDetailSerializer(WishlistSerializer):
 class ShowWishlistSerializer(serializers.ModelSerializer):
     vodname = serializers.CharField(source='vod.name')
     vodimage = serializers.CharField(source='vod.imgpath')
+    vod_id=serializers.IntegerField(source='vod.id')
     class Meta:
         model = Wishlist
-        fields = ('vodname','vodimage')
+        fields = ('vodname','vodimage','vod_id')

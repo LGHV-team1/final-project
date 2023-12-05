@@ -59,7 +59,11 @@ SECRET_KEY = SECRET_KEY
 DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
-CSRF_TRUSTED_ORIGINS = ["http://localhost:3000", "http://127.0.0.1:3000"]
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "https://d2116txqhe0yto.cloudfront.net",
+]
 
 # Application definition
 
@@ -128,10 +132,14 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "config.wsgi.application"
-SESSION_COOKIE_SECURE = False
-CSRF_COOKIE_SECURE = False
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_AGE = 1209600  # 2주 (초 단위)
-CORS_ORIGIN_WHITELIST = ["http://127.0.0.1:3000", "http://localhost:3000"]
+CORS_ORIGIN_WHITELIST = [
+    "http://127.0.0.1:3000",
+    "http://localhost:3000",
+    "https://d2116txqhe0yto.cloudfront.net",
+]
 CORS_ALLOW_CREDENTIALS = True
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
@@ -189,10 +197,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "/static/"
-STATIC_ROOT= os.path.join(BASE_DIR,'static/')
-
-    
-
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 
 
 # Default primary key field type
@@ -204,6 +209,8 @@ AUTH_USER_MODEL = "accounts.User"
 REST_AUTH = {
     "USER_DETAILS_SERIALIZER": "accounts.serializers.CustomUserDetailsSerializer",
     "REGISTER_SERIALIZER": "accounts.serializers.CustomRegisterSerializer",
+    "USE_JWT": True,
+    "JWT_AUTH_HTTPONLY": False,
 }
 ACCOUNT_ADAPTER = "accounts.adapters.CustomAccountAdapter"
 
@@ -228,7 +235,7 @@ REST_FRAMEWORK = {
 REST_USE_JWT = True
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(hours=2),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
     "ROTATE_REFRESH_TOKENS": False,
     "BLACKLIST_AFTER_ROTATION": True,

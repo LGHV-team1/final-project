@@ -72,13 +72,13 @@ class SearchVodsDetail(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class VodTop5(APIView):
+class VodTop10(APIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get(self, request, Bigcategory):
         category={"tv":"TV프로그램","movie":"영화","kids":"키즈"}
         category=category[Bigcategory]
-        top_vods = Vod.objects.filter(category=category).order_by("-count")[:5]
+        top_vods = Vod.objects.filter(category=category).order_by("-count")[:10]
         serializer = VodListSerializer(top_vods, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
