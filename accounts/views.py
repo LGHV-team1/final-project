@@ -71,7 +71,7 @@ def kakaoCallback(request, *args, **kwargs):
         # 있는데 카카오계정이 아니어도 에러
         if social_user.provider != 'kakao':
             err_msg = 'not_kakao'
-            response = HttpResponseRedirect('https://www.hellorvdworld/socialk')
+            response = HttpResponseRedirect('https://www.hellorvdworld.com/socialk')
             response.set_cookie('loginerror', err_msg)
             return response
 
