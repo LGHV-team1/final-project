@@ -106,7 +106,7 @@ $$R_{ec}=V_oD$$
 <br><br>
 
 # 🏛️ 전체 서비스 아키텍처 (CI/CD)
-<p align="center"><img src="https://github.com/JMboy713/LG_final-project/assets/110653633/5e006c8b-f6ec-4500-a643-89e1ddcf7bf3.png" /><br><br></p>
+<p align="center"><img src="https://github.com/LGHV-team1/final-project/assets/110653633/eec43dc0-a83e-49f8-bf5e-f8b33f6a7e78.png" /><br><br></p>
 
 <br>
 
