@@ -37,11 +37,12 @@ function Login() {
         },
         { withCredentials: true }
       );
-      const token = response.data.access;
+      const aceess = response.data.access;
+      const refresh = response.data.refresh;
       console.log('로그인 성공:', response);
-      console.log(token);
-      localStorage.setItem("jwtToken", token);
-      navigate("/main");
+      localStorage.setItem("jwtToken", aceess);
+      localStorage.setItem("refresh", refresh);
+      navigate("/home");
     } catch (error) {
       // API 호출 중 에러가 발생한 경우
       if (error.response) {
@@ -55,9 +56,12 @@ function Login() {
   };
 
   return (
-    <body>
+   <body
+    className="bg-black "
+    style={{ backgroundImage: `url(${BGimg})`, backgroundSize: "cover", backgroundRepeat: "no-repeat", height:"100vh" }}
+  >
       <div style={{position:"absolute"}} >
-      <img  src={BGimg} alt="background"/>
+      
       </div>
       <div className="max-w-[400px] w-[400px] mx-auto bg-transparent p-4 rounded position-relative">
         <form onSubmit={onLogin}>

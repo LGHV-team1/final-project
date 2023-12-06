@@ -12,7 +12,7 @@ export default function Review() {
   const [review, setReview] = useState("");
   const [reviewScore, setReviewScore] = useState(0);
   const rankValue = useSelector((state) => state.rank.value);
-  console.log(rankValue)
+  console.log(rankValue);
   const handleScoreChange = useCallback(
     (newScore) => {
       setReviewScore(newScore);
@@ -23,24 +23,12 @@ export default function Review() {
     setReview(e.target.value);
   };
 
-  const sendReview = async (e) => { 
-    e.preventDefault();
+  const sendReview = async (e) => {
+   
     try {
       const url = `${URL}contents/${name}/review/`;
       console.log(review, rankValue)
-      const response = await axios.post(
-        url,
-        { 
-          payload: review,
-          rating: rankValue,
-        },
-        {
-          headers: {
-            'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`,
-          },
-        }
-      );
-
+      const response = await ApiService.postReview(name, review, rankValue);
       console.log(response.data);
       setReview("");
       setReviewScore(0);

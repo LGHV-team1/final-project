@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import ApiService from "../api/ApiService";
 import SortData from "../components/SortData";
+
 function Tv() {
   const { BASE_URL: URL } = ApiService;
   const location = useLocation();
@@ -13,14 +14,14 @@ function Tv() {
   const [tv, setTv] = useState([]);
   const [loading, setLoading] = useState(true);
   const getData = async () => {
-    let url;
-    if (categoryWord === null) {
-      url = `${URL}contents/category/tv/`; // url에 값을 할당
-    } else {
-      url = `${URL}contents/category/tv/${categoryWord}`; // url에 값을 할당
-    }
     try {
-      const response = await axios.get(url);
+      let response;
+      if (categoryWord === null) {
+        response = await ApiService.getTv1(); // getKids1 메서드 호출
+      } else {
+        response = await ApiService.getTv2(categoryWord); // getKids2 메서드에 categoryWord 전달
+      }
+    
       const data = response.data;
       console.log(data);
       setTv(data);
@@ -33,6 +34,7 @@ function Tv() {
     getData();
   }, [categoryWord]);
 
+  
   if (categoryWord === null) {
     return (
       <div className=" mx-44  ">
@@ -43,6 +45,7 @@ function Tv() {
           </div>
           <div className="text-center mt-3"></div>
         </div>
+      
       </div>
     );
   } else {

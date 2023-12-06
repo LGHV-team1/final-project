@@ -33,7 +33,7 @@ function ViewReview(props) {
         return stars;
     }
     useEffect(() => {
-        axios.get(`${URL}contents/${props.name}/review/`)
+        ApiService.getVodReview(props.name)
         .then(response => {
             setVODReviewList(response.data.reverse());
             console.log(response.data)

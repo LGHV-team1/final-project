@@ -39,11 +39,13 @@ function Socialnaver() {
         axios.post(`${URL}accounts/naver/login/finish/`, data, { withCredentials: true })
         .then( response => {
             console.log(response)
-            const token = response.data.access
+            const access = response.data.access
+            const refresh = response.data.refresh
             cookies.remove('access_token')
             cookies.remove('code')
-            localStorage.setItem("jwtToken", token);
-            window.location.href = "/main"
+            localStorage.setItem("jwtToken", access);
+            localStorage.setItem("refresh", refresh);
+            window.location.href = "/home"
         })}
     })
 

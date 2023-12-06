@@ -4,14 +4,14 @@ import axios from "axios";
 import { useLocation, Link } from "react-router-dom";
 import noImage from "../images/noimage.png";
 import Helload from "../components/Helload";
-import ApiService from '../api/ApiService';
+import ApiService from "../api/ApiService";
 
 const isChoseongOnly = (string) => {
   return /^[ㄱ-ㅎ]+$/g.test(string);
 };
 
 function Search() {
-  const {BASE_URL: URL} = ApiService;
+  const { BASE_URL: URL } = ApiService;
   const searchValue = useSelector((state) => state.search.value);
 
   const [movies, setMovie] = useState([]);
@@ -23,11 +23,12 @@ function Search() {
 
   const getData = async () => {
     try {
-      const url = isChoseongOnly(searchValue)
-        ? `${URL}contents/search/${searchValue}`
-        : `${URL}contents/${searchValue}`;
-      //const url = `http://13.125.242.196/contents/${searchValue}`;
-      const response = await axios.get(url);
+      let response;
+      if (isChoseongOnly(searchValue)) {
+        response = await ApiService.getSearch1(searchValue); // getKids1 메서드 호출
+      } else {
+        response = await ApiService.getSearch2(searchValue); // getKids2 메서드에 categoryWord 전달
+      }
       const data = response.data;
       setMovie(data);
       console.log(data);
@@ -51,17 +52,22 @@ function Search() {
             {movies.map((movie, index) => (
               <div
                 key={index}
-                className="w-[18.5%]  sm:w-1/2 md:w-1/2 lg:w-[18.5%] xl:w-[18.5%] mb-5 transition transform duration-500 ease-in-out hover:scale-105"
-                              >
-                <Link to={`/detail/${movie.id}`} className="">
+                className="w-[18.5%]  sm:w-1/2 md:w-1/2 lg:w-[18.5%] xl:w-[18.5%] mb-5 transition transform duration-500 ease-in-out "
+              >
+                <Link
+                  to={`/detail/${movie.id}`}
+                  className="rounded-lg overflow-hidden block"
+                >
                   <img
                     src={`https://image.tmdb.org/t/p/w500/${movie.imgpath}`}
-                    className="rounded-md w-full shadow-[0px_0px_0px_3px_rgba(0,0,0,0.3)] "
+                    className="rounded-md w-full shadow-[0px_0px_0px_3px_rgba(0,0,0,0.3)] transition transform duration-500 ease-in-out hover:scale-110 "
                     onError={(e) => (e.currentTarget.src = noImage)}
                     style={{ height: "400px" }}
-                    />
+                  />
                 </Link>
-                <div className="text-gray-600 text-[18px] mt-2 text-center">{movie.name}</div>
+                <div className="text-gray-600 text-[18px] mt-2 text-center">
+                  {movie.name}
+                </div>
               </div>
             ))}
           </div>

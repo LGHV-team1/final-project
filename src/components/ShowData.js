@@ -11,7 +11,7 @@ function ShowData({ data, handleShow }) {
             key={idx}
             className="w-[18.5%]  sm:w-1/2 md:w-1/2 lg:w-[18.5%] xl:w-[18.5%] mb-5 transition transform duration-500 ease-in-out hover:scale-105"
           >
-            <Link to={`/detail/${item.id}`} className="">
+            <Link to={`/detail/${item.id}`} className="text-center">
               <img
                 src={`https://image.tmdb.org/t/p/w500/${item.imgpath}`}
                 className=" rounded-md w-full shadow-[0px_0px_1px_3px_rgba(0,0,0,0.3)]"
@@ -19,7 +19,7 @@ function ShowData({ data, handleShow }) {
                 style={{ height: "400px" }}
               />
             </Link>
-            <div className="text-gray-600 text-[18px]">{item.name}</div>
+            <div className="text-gray-600 text-[18px] text-center">{item.name}</div>
           </div>
         ))}
       </div>
