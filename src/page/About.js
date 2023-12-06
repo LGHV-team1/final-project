@@ -11,7 +11,7 @@ function About() {
         <div className="mx-44 mt-5 text-center">
             <div className="mb-5">
                 <h1>웹 사이트 소개</h1>
-                <p> 안녕하세요! 저희는 오볼추팀입니다. <br/>
+                <p> 안녕하세요! 저희는 Rec=VoD팀입니다. <br/>
                 이 웹사이트는 LG헬로비전 DX DATA SCHOOL 1기 프로젝트로 <br/>
                 VOD를 추천하는 서비스를 제공합니다.</p>
 
