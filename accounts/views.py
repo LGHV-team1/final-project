@@ -71,24 +71,24 @@ def kakaoCallback(request, *args, **kwargs):
         # 있는데 카카오계정이 아니어도 에러
         if social_user.provider != 'kakao':
             err_msg = 'not_kakao'
-            response = HttpResponseRedirect('http://127.0.0.1:3000/socialk')
+            response = HttpResponseRedirect('https://www.hellorvdworld/socialk')
             response.set_cookie('loginerror', err_msg)
             return response
 
         # 이미 kakao로 제대로 가입된 유저 => 로그인 & 해당 유저의 jwt 발급
         data = {'access_token': access_token, 'code': code}
-        accept = requests.post("http://127.0.0.1:8000/accounts/kakao/login/finish/", data=data)
+        accept = requests.post("https://server.hellorvdworld.com/accounts/kakao/login/finish/", data=data)
         accept_status = accept.status_code
         # 뭔가 중간에 문제가 생기면 에러
         if accept_status != 200:
             err_msg = 'failed to signin'
-            response = HttpResponseRedirect('http://127.0.0.1:3000/socialk')
+            response = HttpResponseRedirect('https://www.hellorvdworld.com/socialk')
             response.set_cookie('loginerror', err_msg)
             return response
         else :
             accept_json = accept.json()
             print(accept_json)
-            response = HttpResponseRedirect('http://127.0.0.1:3000/socialk')
+            response = HttpResponseRedirect('https://www.hellorvdworld.com/socialk')
             response.set_cookie('access_token', access_token)
             response.set_cookie('code', code)
             return response
@@ -97,19 +97,19 @@ def kakaoCallback(request, *args, **kwargs):
         # 전달받은 이메일로 기존에 가입된 유저가 아예 없으면 => 새로 회원가입 & 해당 유저의 jwt 발급
 
         data = {'access_token': access_token, 'code': code}
-        accept = requests.post("http://127.0.0.1:8000/accounts/kakao/login/finish/", data=data)
+        accept = requests.post("https://server.hellorvdworld.com/accounts/kakao/login/finish/", data=data)
         accept_status = accept.status_code
 
         # 뭔가 중간에 문제가 생기면 에러
         if accept_status != 200:
             err_msg = 'failed to signin'
-            response = HttpResponseRedirect('http://127.0.0.1:3000/socialk')
+            response = HttpResponseRedirect('https://www.hellorvdworld.com/socialk')
             response.set_cookie('loginerror', err_msg)
             return response
         else :
             accept_json = accept.json()
             print(accept_json)
-            response = HttpResponseRedirect('http://127.0.0.1:3000/socialk')
+            response = HttpResponseRedirect('https://www.hellorvdworld.com/socialk')
             response.set_cookie('access_token', access_token)
             response.set_cookie('code', code)
             return response
@@ -117,7 +117,7 @@ def kakaoCallback(request, *args, **kwargs):
     except SocialAccount.DoesNotExist:
         # User는 있는데 SocialAccount가 없을 때 (=일반회원으로 가입된 이메일일때)
         err_msg = 'not_social'
-        response = HttpResponseRedirect('http://127.0.0.1:3000/socialk')
+        response = HttpResponseRedirect('https://www.hellorvdworld.com/socialk')
         response.set_cookie('loginerror', err_msg)
         return response
 
@@ -182,25 +182,25 @@ def googleCallback(request):
         # 있는데 구글계정이 아니어도 에러
         if social_user.provider != 'google':
             err_msg = 'not_google'
-            response = HttpResponseRedirect('http://127.0.0.1:3000/socialg')
+            response = HttpResponseRedirect('https://www.hellorvdworld.com/socialg')
             response.set_cookie('loginerror', err_msg)
             return response
 
         # 이미 Google로 제대로 가입된 유저 => 로그인 & 해당 우저의 jwt 발급
         data = {'access_token': access_token, 'code': code}
-        accept = requests.post("http://127.0.0.1:8000/accounts/google/login/finish/", data=data)
+        accept = requests.post("https://server.hellorvdworld/accounts/google/login/finish/", data=data)
         accept_status = accept.status_code
         # 뭔가 중간에 문제가 생기면 에러
         if accept_status != 200:
             err_msg = 'failed to signin'
-            response = HttpResponseRedirect('http://127.0.0.1:3000/socialg')
+            response = HttpResponseRedirect('https://www.hellorvdworld.com/socialg')
             response.set_cookie('loginerror', err_msg)
             return response
 
         else :
             accept_json = accept.json()
             print(accept_json)
-            response = HttpResponseRedirect('http://127.0.0.1:3000/socialg')
+            response = HttpResponseRedirect('https://www.hellorvdworld.com/socialg')
             response.set_cookie('access_token', access_token)
             response.set_cookie('code', code)
             return response
@@ -208,19 +208,19 @@ def googleCallback(request):
     except User.DoesNotExist:
         # 전달받은 이메일로 기존에 가입된 유저가 아예 없으면 => 새로 회원가입 & 해당 유저의 jwt 발급
         data = {'access_token': access_token, 'code': code}
-        accept = requests.post("http://127.0.0.1:8000/accounts/google/login/finish/", data=data)
+        accept = requests.post("https://server.hellorvdworld.com/accounts/google/login/finish/", data=data)
         accept_status = accept.status_code
 
         # 뭔가 중간에 문제가 생기면 에러
         if accept_status != 200:
             err_msg = 'failed to signin'
-            response = HttpResponseRedirect('http://127.0.0.1:3000/socialg')
+            response = HttpResponseRedirect('https://www.hellorvdworld.com/socialg')
             response.set_cookie('loginerror', err_msg)
             return response
         else:
             accept_json = accept.json()
             print(accept_json)
-            response = HttpResponseRedirect('http://127.0.0.1:3000/socialg')
+            response = HttpResponseRedirect('https://www.hellorvdworld.com/socialg')
             response.set_cookie('access_token', access_token)
             response.set_cookie('code', code)
             return response
@@ -228,7 +228,7 @@ def googleCallback(request):
     except SocialAccount.DoesNotExist:
         # User는 있는데 SocialAccount가 없을 때 (=일반회원으로 가입된 이메일일때)
         err_msg = 'not_social'
-        response = HttpResponseRedirect('http://127.0.0.1:3000/socialg')
+        response = HttpResponseRedirect('https://www.hellorvdworld.com/socialg')
         response.set_cookie('loginerror', err_msg)
         return response
 
@@ -293,26 +293,26 @@ def naverCallback(request, *args, **kwargs):
         # 있는데 네이버계정이 아니어도 에러
         if social_user.provider != 'naver':
             err_msg = 'not_naver'
-            response = HttpResponseRedirect('http://127.0.0.1:3000/socialn')
+            response = HttpResponseRedirect('https://www.hellorvdworld.com/socialn')
             response.set_cookie('loginerror', err_msg)
             return response
 
         # 이미 naver로 제대로 가입된 유저 => 로그인 & 해당 우저의 jwt 발급
         data = {'access_token': access_token, 'code': code}
-        accept = requests.post("http://127.0.0.1:8000/accounts/naver/login/finish/", data=data)
+        accept = requests.post("https://server.hellorvdworld.com/accounts/naver/login/finish/", data=data)
         accept_status = accept.status_code
 
         # 뭔가 중간에 문제가 생기면 에러
         if accept_status != 200:
             err_msg = 'failed to signin'
-            response = HttpResponseRedirect('http://127.0.0.1:3000/socialn')
+            response = HttpResponseRedirect('https://www.hellorvdworld.com/socialn')
             response.set_cookie('loginerror', err_msg)
             return response
 
         else:
             accept_json = accept.json()
             print(accept_json)
-            response = HttpResponseRedirect('http://127.0.0.1:3000/socialn')
+            response = HttpResponseRedirect('https://www.hellorvdworld.com/socialn')
             response.set_cookie('access_token', access_token)
             response.set_cookie('code', code)
             return response
@@ -320,20 +320,20 @@ def naverCallback(request, *args, **kwargs):
     except User.DoesNotExist:
         # 전달받은 이메일로 기존에 가입된 유저가 아예 없으면 => 새로 회원가입 & 해당 유저의 jwt 발급
         data = {'access_token': access_token, 'code': code}
-        accept = requests.post("http://127.0.0.1:8000/accounts/naver/login/finish/", data=data)
+        accept = requests.post("https://server.hellorvdworld.com/accounts/naver/login/finish/", data=data)
         accept_status = accept.status_code
 
         # 뭔가 중간에 문제가 생기면 에러
         if accept_status != 200:
             err_msg = 'failed to signin'
-            response = HttpResponseRedirect('http://127.0.0.1:3000/socialn')
+            response = HttpResponseRedirect('https://www.hellorvdworld.com/socialn')
             response.set_cookie('loginerror', err_msg)
             return response
 
         else:
             accept_json = accept.json()
             print(accept_json)
-            response = HttpResponseRedirect('http://127.0.0.1:3000/socialn')
+            response = HttpResponseRedirect('https://www.hellorvdworld.com/socialn')
             response.set_cookie('access_token', access_token)
             response.set_cookie('code', code)
             return response
@@ -341,7 +341,7 @@ def naverCallback(request, *args, **kwargs):
     except SocialAccount.DoesNotExist:
         # User는 있는데 SocialAccount가 없을 때 (=일반회원으로 가입된 이메일일때)
         err_msg = 'not_social'
-        response = HttpResponseRedirect('http://127.0.0.1:3000/socialn')
+        response = HttpResponseRedirect('https://www.hellorvdworld.com/socialn')
         response.set_cookie('loginerror', err_msg)
         return response
 
