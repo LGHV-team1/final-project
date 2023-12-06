@@ -16,6 +16,7 @@ import Search from "./page/Search.js";
 import Movie from "./page/Movie.js";
 import Tv from "./page/Tv.js";
 import Kids from "./page/Kids.js";
+import About from "./page/About.js";
 // import AppRoute from "./routes/AppRoute.js";
 // function App() {
 //   return (
@@ -40,6 +41,7 @@ function App() {
           <Route path="/socialn" element={<><Socialnaver /></>} />
           <Route path="/socialg" element={<><Socialgoogle /></>} />
           <Route path="/search" element={<><Search /></>} />
+          <Route path="/about" element={<><About /></>} />
         </Routes>
       </div>
       <Footer />
