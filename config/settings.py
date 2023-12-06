@@ -140,6 +140,7 @@ CORS_ORIGIN_WHITELIST = [
     "http://127.0.0.1:3000",
     "http://localhost:3000",
     "https://www.hellorvdworld.com",
+    "https://server.hellorvdworld.com",
 ]
 CORS_ALLOW_CREDENTIALS = True
 # Database
@@ -267,8 +268,8 @@ ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True  # 링크 클릭하면 활성화
-ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = "http://127.0.0.1:3000/login"
-ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = "http://127.0.0.1:3000/login"
+ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = "https://www.hellorvdworld.com/login"
+ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = "https://www.hellorvdworld.com/login"
 # 이메일에 자동으로 표시되는 사이트 정보
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
 
