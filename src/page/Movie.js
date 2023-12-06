@@ -12,14 +12,14 @@ function Movie() {
   const [movie, setMovie] = useState([]);
   const [loading, setLoading] = useState(true);
   const getData = async () => {
-    let url;
-    if (categoryWord === null) {
-      url = `${URL}contents/category/movie/`; // url에 값을 할당
-    } else {
-      url = `${URL}contents/category/movie/${categoryWord}`; // url에 값을 할당
-    }
+
     try {
-      const response = await axios.get(url);
+      let response;
+      if (categoryWord === null) {
+        response = await ApiService.getMovie1(); // getKids1 메서드 호출
+      } else {
+        response = await ApiService.getMovie1(categoryWord); // getKids2 메서드에 categoryWord 전달
+      }
       const data = response.data;
       console.log(data);
       setMovie(data);

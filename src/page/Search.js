@@ -23,11 +23,12 @@ function Search() {
 
   const getData = async () => {
     try {
-      const url = isChoseongOnly(searchValue)
-        ? `${URL}contents/search/${searchValue}`
-        : `${URL}contents/${searchValue}`;
-      //const url = `http://13.125.242.196/contents/${searchValue}`;
-      const response = await axios.get(url);
+      let response;
+      if (isChoseongOnly(searchValue)) {
+        response = await ApiService.getSearch1(searchValue); // getKids1 메서드 호출
+      } else {
+        response = await ApiService.getSearch2(searchValue); // getKids2 메서드에 categoryWord 전달
+      }
       const data = response.data;
       setMovie(data);
       console.log(data);

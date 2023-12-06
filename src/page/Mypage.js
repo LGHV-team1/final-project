@@ -111,10 +111,11 @@ export default function Mypage() {
     },
   };
   const goToLogout = () => {
-    axios
-      .post(`${URL}accounts/dj-rest-auth/logout/`, {}, config)
+    const refreshToken = localStorage.getItem('refresh');
+    ApiService.logout(refreshToken)
       .then((response) => {
         localStorage.removeItem("jwtToken");
+        localStorage.removeItem("refresh");
         alert("로그아웃 되었습니다.");
         navigate("/");
       })
@@ -124,8 +125,7 @@ export default function Mypage() {
   const deleteUser = async () => {
     const isConfirmed = window.confirm("회원탈퇴 하시겠습니까?");
     if (isConfirmed) {
-      axios
-        .delete(`${URL}accounts/deleteuser/`, config)
+      ApiService.deleteUser()
         .then((response) => {
           console.log("계정이 삭제되었습니다.", response);
           alert("계정이 삭제되었습니다.");

@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { debounce } from "lodash";
-import logo from "../images/CI_White.png";
+import logo from "../images/tmplogo.png";
 import Button from "./Button";
 import { Cookies } from "react-cookie";
 import ApiService from "../api/ApiService";
@@ -101,10 +101,11 @@ function Header2() {
     },
   };
   const goToLogout = () => {
-    axios
-      .post(`${URL}accounts/dj-rest-auth/logout/`, {}, config)
+    const refreshToken = localStorage.getItem('refresh');
+    ApiService.logout(refreshToken)
       .then((response) => {
         localStorage.removeItem("jwtToken");
+        localStorage.removeItem("refresh");
         alert("로그아웃 되었습니다.");
         navigate("/");
       })
@@ -119,7 +120,7 @@ function Header2() {
           </a>
 
           <div className="flex justify-center items-center sorts-contents gap-3">
-            <a href="/main" className=" text-white no-underline">
+            <a href="/home" className=" text-white no-underline">
               홈
             </a>
             <Dropdown categoryName={"영화"} categoryList={movieCategory} link={"movie"}/>

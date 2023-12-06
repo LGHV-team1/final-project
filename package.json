@@ -10,6 +10,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "ajax": "^0.0.4",
+    "atob": "^2.1.2",
     "axios": "^1.6.0",
     "bootstrap": "^5.3.2",
     "flowbite": "^2.2.0",
