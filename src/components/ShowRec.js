@@ -25,8 +25,7 @@ function ShowRec({algorithmNum}) {
     getData();
   }, []);
   return (
-    <div className='my-24'>
-      <h1 className='mb-3'>알고리즘{algorithmNum}번 추천</h1>
+    <div className='mb-24 mt-5'>
       <RecMiniSlide data={vodData} />
  
     </div>
