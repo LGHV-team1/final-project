@@ -165,7 +165,7 @@ function Header2() {
               <input
                 ref={searchInputRef}
                 className=" outline-none rounded"
-                placeholder="제목, 배우, 감독을 검색해보세요."
+                placeholder="제목, 배우를 검색해보세요."
                 type="text"
                 onChange={handleInputChange}
                 onKeyUp={handleInputEnter}
