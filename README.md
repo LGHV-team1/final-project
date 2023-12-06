@@ -48,7 +48,7 @@ $$R_{ec}=V_oD$$
 |:---:|:---:|:---:|:---:|:---:|:---:|
 |<img src="https://github.com/JMboy713/LG_final-project/assets/110653633/ef7ac8e2-d151-444a-af64-29f26edce1d0.jpg" >|<img src="https://github.com/JMboy713/LG_final-project/assets/110653633/c60e0377-3989-4a2c-9278-61b2c65bd6fb.jpg" >|<img src="https://github.com/JMboy713/LG_final-project/assets/110653633/99d92c90-dad3-45cc-8f64-7d7230c5626e.jpg" width="400" height="148">|<img src="https://github.com/JMboy713/LG_final-project/assets/110653633/05fc4d36-07de-42da-bbc5-0295cedcf15c.jpg" >|<img src="https://github.com/JMboy713/LG_final-project/assets/110653633/2c10b34e-2903-471b-bebd-d860a824dccb.jpg" width="700" height="150">|<img src="https://github.com/JMboy713/LG_final-project/assets/110653633/43e1cc04-1cf0-4176-b2f6-31e46ee4c91e.jpg" >|
 |Data Analysis|Data Analysis|Backend,CI/CD|Front-end|Front-end,Back-end|Data Analysis|
-|강아지 귀여웡|엄마 뱃속으로 다시 들어가고 싶네요|hiphop은 계란이다 🥚|0과 1로 사람을 만들 수 있을까요?|Music is my life~|새로운 사용자의 소개|
+|-|-|-|-|-|-|
 
 # 🛠 기술 스택
 
