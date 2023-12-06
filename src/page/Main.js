@@ -5,7 +5,7 @@ import mainimg2 from '../images/MainTop/top2범죄도시.jpg'
 import mainimg3 from '../images/MainTop/top3런닝맨.jpg'
 import mainimg4 from '../images/MainTop/top4꼬꼬무.jpg'
 import mainimg5 from '../images/MainTop/top5최강배달꾼.jpg'
-
+import ShowRec from "../components/ShowRec"
 function Main() {
     const bgArr = [
       { id: 1166, img: mainimg1, vodname: "연인" },
@@ -23,6 +23,9 @@ function Main() {
           <Top5 images={bgArr}/>
         </div>
     </div>
+    <ShowRec algorithmNum={1}/>
+    <ShowRec algorithmNum={2}/>
+    <ShowRec algorithmNum={"otheruser"}/>
   </div>
 
   )

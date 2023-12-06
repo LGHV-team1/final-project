@@ -6,7 +6,7 @@ function SortData({ data }) {
   const [vodData, setVodData] = useState([]);
   const [visiblevodData, setVisiblevodData] = useState([]);
   const itemsPerpage = 20;
-  const [order, setOrder] = useState("name");
+  const [order, setOrder] = useState("");
   const detailCategory = useSelector((state) => state.category.value);
   console.log(data);
   useEffect(() => {
@@ -78,19 +78,22 @@ function SortData({ data }) {
   };
 
   return (
-    <div>
-    <div className="flex items-center">
+    <>
+      <div className="flex items-center justify-between">
+        <div>
         <h1>{detailCategory}</h1>
-      <Button onClick={() => handleRandomdata("name")} label={"이름순"} />
-      <Button onClick={() => handleRandomdata("count")} label={"인기순"} />
-      <Button onClick={() => handleRandomdata("random")} label={"랜덤"} />
-      </div>
-      <ShowData
+        </div>
         
-        data={visiblevodData}
-        handleShow={handleShowMorevodData}
-      />
-    </div>
+        <div className="flex ">
+          <Button onClick={() => handleRandomdata("name")} label={"이름순"} />
+          <Button onClick={() => handleRandomdata("count")} label={"인기순"} />
+          <Button onClick={() => handleRandomdata("random")} label={"랜덤"} />
+        </div>
+      </div>
+      <div>
+        <ShowData data={visiblevodData} handleShow={handleShowMorevodData} />
+      </div>
+    </>
   );
 }
 

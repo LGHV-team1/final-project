@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import ApiService from "../api/ApiService";
 import SortData from "../components/SortData";
+
 function Tv() {
   const { BASE_URL: URL } = ApiService;
   const location = useLocation();
@@ -33,6 +34,7 @@ function Tv() {
     getData();
   }, [categoryWord]);
 
+  
   if (categoryWord === null) {
     return (
       <div className=" mx-44  ">
@@ -43,6 +45,7 @@ function Tv() {
           </div>
           <div className="text-center mt-3"></div>
         </div>
+      
       </div>
     );
   } else {
