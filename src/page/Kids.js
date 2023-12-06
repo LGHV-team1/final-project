@@ -12,14 +12,13 @@ function Kids() {
   const [loading, setLoading] = useState(true);
   const [kids, setKids] = useState([]);
   const getData = async () => {
-    let url;
-    if (categoryWord === null) {
-      url = `${URL}contents/category/kids/`; // url에 값을 할당
-    } else {
-      url = `${URL}contents/category/kids/${categoryWord}`; // url에 값을 할당
-    }
     try {
-      const response = await axios.get(url);
+      let response;
+        if (categoryWord === null) {
+          response = await ApiService.getKids1(); // getKids1 메서드 호출
+        } else {
+          response = await ApiService.getKids2(categoryWord); // getKids2 메서드에 categoryWord 전달
+        }
       const data = response.data;
       console.log(data);
       setKids(data);

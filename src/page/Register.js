@@ -93,7 +93,7 @@ function Register() {
             회원가입
           </h2>
           <div className="flex flex-col py-2">
-            <label className="text-white">Email</label>
+            <label className="text-white">Email <p className="inline text-pink-400 text-xs">* 필수</p></label>
             <Input
               className="border p-2 rounded"
               type="text"
@@ -103,7 +103,7 @@ function Register() {
             />
           </div>
           <div className="flex flex-col py-2">
-            <label className="text-white">Password</label>
+            <label className="text-white">Password <p className="inline text-pink-400 text-xs">* 필수</p></label>
             <Input
               className="border p-2 rounded"
               type="password"
@@ -112,7 +112,7 @@ function Register() {
             />
           </div>
           <div className="flex flex-col py-2">
-            <label className="text-white">Password 확인</label>
+            <label className="text-white">Password 확인 <p className="inline text-pink-400 text-xs">* 필수</p></label>
             <Input
               className="border p-2 rounded"
               type="password"
@@ -121,7 +121,7 @@ function Register() {
             />
           </div>
           <div className="flex flex-col pt-2">
-            <label className="text-white">셋톱박스 번호</label>
+            <label className="text-white">셋톱박스 번호 <p className="inline text-pink-400 text-xs">선택</p></label>
             <Input
               className="border p-2 rounded"
               type="text"

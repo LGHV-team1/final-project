@@ -51,10 +51,7 @@ function MyReview() {
         },
       };
     const saveEditedReview = (id) => {
-        axios.put(`${URL}review/myreview/${id}`, {
-            payload : editedPayload,
-            rating: editedRating
-        }, config)
+        ApiService.changeReview(id, editedPayload, editedRating)
         .then(function (response) {
             // handle success
             alert("수정되었습니다")
@@ -67,7 +64,7 @@ function MyReview() {
     }
     
     const deleteReview = (id) => {
-        axios.delete(`${URL}review/myreview/${id}`,config)
+        ApiService.deleteReview(id)
             .then(function (response) {
                 // handle success
                 alert("삭제 완료")

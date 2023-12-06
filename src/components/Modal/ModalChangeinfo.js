@@ -45,13 +45,7 @@ function ModalChangeinfo({ setModalOpen}){
     const changeStb = async () => {
         try {
             console.log(NewStb)
-          const response = await axios.put(
-            `${URL}accounts/dj-rest-auth/user/`,
-            {
-                stbnumber: NewStb
-            },
-            config
-          );
+          const response = await ApiService.changeSTB(NewStb)
           alert('셋톱박스 번호가 수정되었습니다')
           console.log(response)
           window.location.href = "/mypage"
@@ -76,14 +70,7 @@ function ModalChangeinfo({ setModalOpen}){
 
     const changePassword = async () => {
         try {
-          const response = await axios.post(
-            `${URL}accounts/dj-rest-auth/password/change/`,
-            {
-                new_password1: Password,
-                new_password2: ConfirmPassword
-            },
-            config
-          );
+          const response = await ApiService.changePW(Password, ConfirmPassword);
           console.log(response);
           alert('비밀번호가 수정되었습니다')
           window.location.href = "/mypage"

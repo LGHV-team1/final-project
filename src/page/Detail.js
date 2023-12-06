@@ -30,8 +30,7 @@ function Detail() {
   console.log(name);
   const getData = async () => {
     try {
-      const url = `${URL}contents/${name}/detail/`;
-      const response = await axios.get(url, config, { withCredentials: true });
+      const response = await ApiService.getVodDetail(name)
       const data = response.data;
       setMovie(data); // 먼저 movie 상태를 설정
       setOriginalWish(data.is_liked);
@@ -54,11 +53,7 @@ function Detail() {
     const handleRouteChange = async () => {
       if (wish !== originalWish) {
         try {
-          const response = await axios.post(
-            `${URL}contents/${name}/detail/`,
-            {},
-            config
-          );
+          const response = await ApiService.postWish()
           console.log(response);
         } catch (error) {
           if (error.response) {

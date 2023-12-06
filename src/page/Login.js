@@ -37,11 +37,12 @@ function Login() {
         },
         { withCredentials: true }
       );
-      const token = response.data.access;
+      const aceess = response.data.access;
+      const refresh = response.data.refresh;
       console.log('로그인 성공:', response);
-      console.log(token);
-      localStorage.setItem("jwtToken", token);
-      navigate("/main");
+      localStorage.setItem("jwtToken", aceess);
+      localStorage.setItem("refresh", refresh);
+      navigate("/home");
     } catch (error) {
       // API 호출 중 에러가 발생한 경우
       if (error.response) {

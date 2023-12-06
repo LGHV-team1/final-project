@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import ApiService from '../api/ApiService'
 import { useEffect } from 'react'
-import MiniSlide from './MiniSlide'
+import RecMiniSlide from './RecMiniSlide'
 function ShowRec({algorithmNum}) {
   const {BASE_URL: URL} = ApiService
   const [vodData, setvodData] = useState([])
@@ -12,7 +12,8 @@ function ShowRec({algorithmNum}) {
   const getData = async () => {
     let url = `${URL}recommend/${algorithmNum}/`;
     try {
-      const response = await axios.get(url,config,{ withCredentials: true } );
+      const response = await ApiService.getRec(algorithmNum)
+      //axios.get(url,config,{ withCredentials: true } );
       const data = response.data;
       console.log(data);
       setvodData(data)
@@ -24,9 +25,9 @@ function ShowRec({algorithmNum}) {
     getData();
   }, []);
   return (
-    <div className='my-10'>
-      <h1>알고리즘{algorithmNum}번 추천</h1>
-      <MiniSlide data={vodData} />
+    <div className='my-24'>
+      <h1 className='mb-3'>알고리즘{algorithmNum}번 추천</h1>
+      <RecMiniSlide data={vodData} />
  
     </div>
      )

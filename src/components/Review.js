@@ -28,19 +28,7 @@ export default function Review() {
     try {
       const url = `${URL}contents/${name}/review/`;
       console.log(review, rankValue)
-      const response = await axios.post(
-        url,
-        {
-          payload: review,
-          rating: rankValue,
-        },
-        {
-          headers: {
-            'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`,
-          },
-        }
-      );
-
+      const response = await ApiService.postReview(name, review, rankValue);
       console.log(response.data);
       setReview("");
       setReviewScore(0);

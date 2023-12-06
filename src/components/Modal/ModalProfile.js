@@ -39,13 +39,7 @@ function ModalProfile({ setModalOpen}){
       };
     const changeProfile = async () => {
         try {
-          const response = await axios.put(
-            `${URL}accounts/dj-rest-auth/user/`,
-            {
-                user_profile: profilenumber
-            },
-            config
-          );
+          const response = await ApiService.changePPic(profilenumber)
           setModalOpen(false);
           window.location.href = "/mypage"
         } catch (error) {
