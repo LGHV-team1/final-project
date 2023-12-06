@@ -17,7 +17,7 @@ const Footer = () => {
       <img src={LGHVlogo} alt="hellovisionlogo" width="200px" style={{display:'inline', float:"left", marginTop:"5px"}}/>
       <img src={RAPA} alt="rapalogo" width="200px" style={{display:'inline', float:"left", marginLeft:"20px", marginTop:"2px"}}/>
       <img src={Cable} alt="rapalogo" width="120px" style={{display:'inline', float:"left", marginLeft:"20px"}}/>
-      <span class="text-white float-right">&copy; Rec=Vod</span>
+      <span class="text-white float-right">&copy;Rec=Vod</span>
     </div>
         
     </div>
