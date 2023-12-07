@@ -78,7 +78,7 @@ INSTALLED_APPS = [
     "accounts",
     "rest_framework",
     "rest_framework_simplejwt",
-    'rest_framework_simplejwt.token_blacklist',
+    "rest_framework_simplejwt.token_blacklist",
     "rest_framework.authtoken",
     # dj-rest-auth
     "dj_rest_auth",
@@ -140,7 +140,6 @@ CORS_ORIGIN_WHITELIST = [
     "http://127.0.0.1:3000",
     "http://localhost:3000",
     "https://www.hellorvdworld.com",
-    "https://server.hellorvdworld.com",
 ]
 CORS_ALLOW_CREDENTIALS = True
 # Database
@@ -186,7 +185,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = "ko-kr"
+LANGUAGE_CODE = "en-us"
 
 TIME_ZONE = "Asia/Seoul"
 
@@ -213,6 +212,7 @@ REST_AUTH = {
     "REGISTER_SERIALIZER": "accounts.serializers.CustomRegisterSerializer",
     "USE_JWT": True,
     "JWT_AUTH_HTTPONLY": False,
+    "LOGIN_SERIALIZER": "accounts.serializers.CustomLoginSerializer",
 }
 ACCOUNT_ADAPTER = "accounts.adapters.CustomAccountAdapter"
 
@@ -268,8 +268,8 @@ ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True  # 링크 클릭하면 활성화
-ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = "https://www.hellorvdworld.com/login"
-ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = "https://www.hellorvdworld.com/login"
+ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = "http://127.0.0.1:3000/login"
+ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = "http://127.0.0.1:3000/login"
 # 이메일에 자동으로 표시되는 사이트 정보
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
 
