@@ -9,11 +9,13 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setSearchValue } from "../redux/searchSlice";
 import Dropdown from "./Dropdown";
+import DarkButton from "./DarkButton";
 
 function Header2() {
   const { BASE_URL: URL } = ApiService;
   const searchInputRef = useRef(null); // 입력창 참조 생성
   const dispatch = useDispatch();
+  
   const search = useSelector((state) => state.search.value);
   const handleInputChange = (e) => {
     dispatch(setSearchValue(e.target.value));
@@ -29,7 +31,6 @@ function Header2() {
     "멜로",
     "무협",
     "뮤지컬",
-    "서부",
     "애니메이션",
     "액션/어드벤쳐",
     "역사",
@@ -93,6 +94,7 @@ function Header2() {
   };
   const goToSearch = () => {
     navigate("/search");
+
   };
   const config = {
     headers: {
@@ -164,7 +166,7 @@ function Header2() {
               </svg>
               <input
                 ref={searchInputRef}
-                className=" outline-none rounded"
+                className=" outline-none rounded transition-opacity duration-1000 ease-in-out opacity-100"
                 placeholder="제목, 배우를 검색해보세요."
                 type="text"
                 onChange={handleInputChange}
@@ -203,6 +205,7 @@ function Header2() {
           )}
         </div>
       </div>
+      <DarkButton />
       <div className="p-0 text-xs">a</div>
     </nav>
   );
