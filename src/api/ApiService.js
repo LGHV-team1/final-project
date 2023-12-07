@@ -120,7 +120,8 @@ class ApiService {
         });
     }
     postWish(name){
-        return this.axiosInstance.post(`contents/${name}/detail/`, {} );
+        return this.axiosInstance.post(`contents/${name}/detail/`);
+        
     }
     changeSTB(newSTB) {
         return this.axiosInstance.put('accounts/dj-rest-auth/user/', {

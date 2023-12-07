@@ -12,6 +12,7 @@ import Input from "../../components/Input.js";
 
 function Socialkakao() {
     const cookies = new Cookies();
+    const navigate = useNavigate();
     const code = cookies.get('code')
     const access_token = cookies.get('access_token')
     const loginerror = cookies.get('loginerror')
@@ -46,7 +47,7 @@ function Socialkakao() {
             cookies.remove('code')
             localStorage.setItem("jwtToken", access);
             localStorage.setItem("refresh", refresh);
-            window.location.href = "/home"
+            navigate("/home");
         })}
     })
     
