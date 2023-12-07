@@ -18,7 +18,7 @@ function Movie() {
       if (categoryWord === null) {
         response = await ApiService.getMovie1(); // getKids1 메서드 호출
       } else {
-        response = await ApiService.getMovie1(categoryWord); // getKids2 메서드에 categoryWord 전달
+        response = await ApiService.getMovie2(categoryWord); // getKids2 메서드에 categoryWord 전달
       }
       const data = response.data;
       console.log(data);
