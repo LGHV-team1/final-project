@@ -39,6 +39,7 @@ class ApiService {
                             console.log(response)
                             localStorage.setItem('jwtToken', token);
                             config.headers['Authorization'] = `Bearer ${token}`;
+                            config.headers['X-CSRFToken'] = csrftoken;
                         } catch (error) {
                             console.error('Error refreshing token:', error);
                             // 여기에 토큰 갱신 실패 시 처리 로직을 추가할 수 있습니다.
@@ -121,7 +122,7 @@ class ApiService {
     }
     postWish(name){
         return this.axiosInstance.post(`contents/${name}/detail/`);
-        
+
     }
     changeSTB(newSTB) {
         return this.axiosInstance.put('accounts/dj-rest-auth/user/', {
