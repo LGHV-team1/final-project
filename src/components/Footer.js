@@ -11,13 +11,13 @@ const Footer = () => {
       <li class="nav-item"><a href="/movie" class="nav-link px-2 text-white">영화</a></li>
       <li class="nav-item"><a href="/tv" class="nav-link px-2 text-white">TV</a></li>
       <li class="nav-item"><a href="/kids" class="nav-link px-2 text-white">키즈</a></li>
-      <li class="nav-item"><a href="/" class="nav-link px-2 text-white">About</a></li>
+      <li class="nav-item"><a href="/about" class="nav-link px-2 text-white">About</a></li>
     </ul>
     <div>
       <img src={LGHVlogo} alt="hellovisionlogo" width="200px" style={{display:'inline', float:"left", marginTop:"5px"}}/>
       <img src={RAPA} alt="rapalogo" width="200px" style={{display:'inline', float:"left", marginLeft:"20px", marginTop:"2px"}}/>
       <img src={Cable} alt="rapalogo" width="120px" style={{display:'inline', float:"left", marginLeft:"20px"}}/>
-      <span class="text-white float-right">&copy; 오볼추</span>
+      <span class="text-white float-right">&copy;Rec=Vod</span>
     </div>
         
     </div>

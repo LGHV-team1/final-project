@@ -1,4 +1,3 @@
-import hellotv from "../images/hellotv.png"
 import ad1 from "../images/Ad/광고1.jpg"
 import ad2 from "../images/Ad/광고2.jpg"
 import ad3 from "../images/Ad/광고3.jpg"
