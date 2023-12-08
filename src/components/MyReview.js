@@ -56,7 +56,7 @@ function MyReview() {
             // handle success
             alert("수정되었습니다")
             console.log(response)
-            //window.location.replace("/mypage")
+            window.location.replace("/mypage")
             setEditingReviewId(null);
         })
         .catch(function (error) {
