@@ -47,7 +47,6 @@ function MyWish() {
         ApiService.getMywish()
         .then(response => {
             setWishList(response.data);
-            console.log(response.data)
         })
     }, [wishList]);
 

@@ -8,9 +8,10 @@ import GoogleLoginButton from "../../components/GoogleButton.js";
 import KakaoButton from "../../components/KakaoButton.js";
 import NaverButton from "../../components/NaverButton.js";
 import Input from "../../components/Input.js";
-
+import ApiService from '../../api/ApiService.js';
 
 function Socialkakao() {
+    const { BASE_URL: URL } = ApiService;
     const cookies = new Cookies();
     const navigate = useNavigate();
     const code = cookies.get('code')
