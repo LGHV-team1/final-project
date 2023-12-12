@@ -1,15 +1,15 @@
 import React, { useState, useRef, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Outlet, Link } from "react-router-dom";
 import { debounce } from "lodash";
 import logo from "../images/tmplogo.png";
-import Button from "./Button";
+import Button from "../components/Button";
 import { Cookies } from "react-cookie";
 import ApiService from "../api/ApiService";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setSearchValue } from "../redux/searchSlice";
-import Dropdown from "./Dropdown";
-import DarkButton from "./DarkButton";
+import Dropdown from "../components/Dropdown";
+import DarkButton from "../components/DarkButton";
 
 function Header2() {
   const { BASE_URL: URL } = ApiService;
@@ -115,16 +115,16 @@ function Header2() {
   };
   return (
     <nav className="sticky top-0 z-10 ">
-      <div className=" pt-10 pb-8 mx-44  flex h-16 justify-between border-b border-gray-300">
+      <div className=" pt-10 pb-8 mx-44  flex h-16 justify-between border-b border-gray-600">
         <div className="flex items-center gap-10 ">
           <a href="/">
             <img className="my-1" src={logo} alt="logo" width="200px" />
           </a>
 
-          <div className="flex justify-center items-center sorts-contents gap-3">
-            <a href="/home" className=" text-white no-underline">
+          <div className="flex justify-center items-center sorts-contents gap-3 ">
+            <Link to="/home" className=" text-gray-400 no-underline hover:text-my-color">
               홈
-            </a>
+            </Link>
             <Dropdown categoryName={"영화"} categoryList={movieCategory} link={"movie"}/>
             <Dropdown categoryName={"TV"} categoryList={tvCategory} link={"tv"}/>
             <Dropdown categoryName={"키즈"} categoryList={kidCategory} link={"kids"} />
@@ -137,8 +137,8 @@ function Header2() {
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
-                fill="#FFFFFF"
-                className="p-1 cursor-pointer"
+                fill="#BDBDBD"
+                className="p-1 cursor-pointer hover:scale-105"
                 width="2em"
                 onClick={goToSearch}
               >
@@ -154,7 +154,7 @@ function Header2() {
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
-                fill="currentColor"
+                fill="gray-400"
                 className="p-1"
                 width="2em"
               >
@@ -179,12 +179,12 @@ function Header2() {
           {localStorage.getItem("jwtToken") === null ? (
             <div>
               <Button
-                className=" mr-5 cursor-pointer text-white "
+                className=" mr-5 cursor-pointer text-gray-400 "
                 onClick={goToLoginForm}
                 label={"로그인"}
               />
               <Button
-                className=" h-8 px-2 border border-gray-300 rounded-md cursor-pointer text-white "
+                className=" h-8 px-2 border border-gray-300 rounded-md cursor-pointer text-gray-400 "
                 onClick={goToSignupForm}
                 label={"회원가입"}
               />
@@ -192,12 +192,12 @@ function Header2() {
           ) : (
             <div>
               <Button
-                className=" mr-5 cursor-pointer text-white "
+                className=" mr-5 cursor-pointer text-gray-400 hover:text-my-color "
                 onClick={goToLogout}
                 label={"로그아웃"}
               />
               <Button
-                className=" h-8 px-2 border border-gray-300 rounded-md cursor-pointer text-white "
+                className=" h-8 px-2  rounded-md cursor-pointer text-gray-400 hover:text-my-color"
                 onClick={goToMypage}
                 label={"마이페이지"}
               />
@@ -205,8 +205,6 @@ function Header2() {
           )}
         </div>
       </div>
-      <DarkButton />
-      <div className="p-0 text-xs">a</div>
     </nav>
   );
 }

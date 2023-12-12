@@ -12,7 +12,9 @@ function First() {
   const goToLoginForm = () => {
     navigate("/login");
   };
-
+  const goToSignForm = () => {
+    navigate("/register")
+  }
   useEffect(() => {
     const typingInterval = setInterval(() => {
       if (count === completionWord.length) {
@@ -35,7 +37,6 @@ function First() {
 
   return (
     <body
-      className="bg-black "
       style={{
         backgroundImage: `url(${BGimg})`,
         backgroundSize: "cover",
@@ -63,14 +64,18 @@ function First() {
           label={"로그인"}
           onClick={goToLoginForm}
         />
-
+        <Button
+          className="py-2 bg-my-color  text-white  hover:bg-my-color/70 rounded px-4 ml-3"
+          label={"회원가입"}
+          onClick={goToSignForm}
+        />
       </div>
     </body>
   );
 }
 const style = {
   position: "absolute",
-  top: "50%",
+  top: "40%",
   left: "50%",
   transform: "translate( -50%,-15%)",
   color: "white",

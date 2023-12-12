@@ -158,7 +158,7 @@ function Detail() {
             <div className="w-3/4">
               <div>
                 <div className="mb-4 ">
-                  <div className="flex justify-between  items-center">
+                  <div className="flex justify-between  items-center text-gray-200">
                     <Star AVR_RATE={movie.avg_rate} />
                     <div className="flex gap-3">
                       {wish === false ? (
@@ -251,7 +251,7 @@ function Detail() {
                 <hr />
                 <div className="flex">
                   {/* 줄거리 */}
-                  <div className="w-3/5 pr-3 border-r border-solid border-gray-300">
+                  <div className="w-3/5 pr-3 border-r border-solid border-gray-300 text-gray-200">
                     <h3>줄거리</h3>
                     <p className="mt-2 ">
                       {movie.description && movie.description.length < 300
@@ -260,14 +260,13 @@ function Detail() {
                     </p>
                   </div>
                   {/* 출연진 */}
-                  <div className="w-2/5  pl-3">
-                    <div className="mb-2">
+                  <div className="w-2/5  pl-3 text-gray-200 ">
+                    <div className=" mb-16">
                       <h3>감독</h3>
                       {movie.director}
                     </div>
-
                     <h3>출연</h3>
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-2 ">
                       {movie.actors.map((item) => (
                         <div className="w-[23%] flex flex-col items-center rounded shadow-md">
                           <img
