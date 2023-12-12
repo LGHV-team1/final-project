@@ -49,7 +49,7 @@ class CustomLoginSerializer(serializers.Serializer):
         email = attrs.get('email')
         password = attrs.get('password')
         try: 
-            emaildata=User.objects.get(email=email)
+            User.objects.get(email=email)
         except ObjectDoesNotExist:
             raise AuthenticationFailed("이메일이 없습니다.")
         
@@ -68,5 +68,6 @@ class CustomLoginSerializer(serializers.Serializer):
 
         # 성공적으로 인증된 경우, 마지막 로그인 시간 업데이트
         update_last_login(None, user)
-
+        
+        attrs['user'] = user
         return attrs
