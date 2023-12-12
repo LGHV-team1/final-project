@@ -8,10 +8,12 @@ import GoogleLoginButton from "../../components/GoogleButton.js";
 import KakaoButton from "../../components/KakaoButton.js";
 import NaverButton from "../../components/NaverButton.js";
 import Input from "../../components/Input.js";
-
+import ApiService from '../../api/ApiService.js';
 
 function Socialkakao() {
+    const { BASE_URL: URL } = ApiService;
     const cookies = new Cookies();
+    const navigate = useNavigate();
     const code = cookies.get('code')
     const access_token = cookies.get('access_token')
     const loginerror = cookies.get('loginerror')
@@ -46,7 +48,7 @@ function Socialkakao() {
             cookies.remove('code')
             localStorage.setItem("jwtToken", access);
             localStorage.setItem("refresh", refresh);
-            window.location.href = "/home"
+            navigate("/home");
         })}
     })
     

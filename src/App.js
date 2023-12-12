@@ -17,6 +17,8 @@ import Movie from "./page/Movie.js";
 import Tv from "./page/Tv.js";
 import Kids from "./page/Kids.js";
 import About from "./page/About.js";
+import PrivateRouter from "./PrivateRouter.js";
+import LoginRouter from "./LoginRouter.js";
 // import AppRoute from "./routes/AppRoute.js";
 // function App() {
 //   return (
@@ -29,19 +31,23 @@ function App() {
       <Header2 />
       
         <Routes>
-          <Route path="/"element={<><First/></>}/>
+          <Route element={<PrivateRouter/>}>
+            <Route path="/Home" element={<><Home /></>} />
+            <Route path="/movie" element={<><Movie /></>} />
+            <Route path="/tv" element={<><Tv /></>} />
+            <Route path="/kids" element={<><Kids /></>} />
+            <Route path="/detail/:name" element={<><Detail/></>} />
+            <Route path="/mypage" element={<><Mypage /></>} />
+            <Route path="/search" element={<><Search /></>} />
+          </Route>
+          <Route element={<LoginRouter/>}>
+            <Route path="/"element={<><First/></>}/>
+          </Route>
           <Route path="/login"element={<><Login /></>}/>
           <Route path="/register" element={<><Register /></>}/>
-          <Route path="/Home" element={<><Home /></>} />
-          <Route path="/movie" element={<><Movie /></>} />
-          <Route path="/tv" element={<><Tv /></>} />
-          <Route path="/kids" element={<><Kids /></>} />
-          <Route path="/detail/:name" element={<><Detail/></>} />
-          <Route path="/mypage" element={<><Mypage /></>} />
           <Route path="/socialk" element={<><Socialkakao /></>} />
           <Route path="/socialn" element={<><Socialnaver /></>} />
           <Route path="/socialg" element={<><Socialgoogle /></>} />
-          <Route path="/search" element={<><Search /></>} />
           <Route path="/about" element={<><About /></>} />
         </Routes>
       
