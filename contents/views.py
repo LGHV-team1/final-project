@@ -9,21 +9,93 @@ from reviews.serializers import ReviewSerializer, ReviewshowSerializer
 from wishlists.models import Wishlist
 from wishlists.serializers import WishlistSerializer
 from wishlists.utils import delete_wishlist
-from django.db.models import Q
+from pymongo import MongoClient
+from config import settings
+
 
 
 
 class SearchVods(APIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
-
     def get(self, request, vodname):
         if vodname:
             vodname_no_space = vodname.replace(" ", "")
-            combined_queryset = Vod.objects.filter(Q(name_no_space__icontains=vodname_no_space) | Q(searchactors__icontains=vodname_no_space)).distinct()
-            serializer = VodListSerializer(combined_queryset, many=True)
-            return Response(serializer.data)
+            ip=settings.EC2_IP
+            pw=settings.MONGO_PW
+            client = MongoClient(f'mongodb://hellovision:{pw}@{ip}', 27017)
+            db = client.LGHV
+            collection = db.contents
+
+            # 대소문자 구분 없는 검색을 위한 regex 쿼리
+            regex_query = {'$regex': vodname_no_space, '$options': 'i'}
+            query = {'name_no_space': regex_query}
+
+            # 쿼리 실행
+            vods = collection.find(query)
+
+            # 결과를 Python 리스트로 변환
+            vod_list = list(vods)
+
+            # 결과를 JSON 형태로 변환하여 응답
+            # 여기서는 직렬화 방법을 직접 구현해야 합니다.
+            # 예시를 위해 간단히 dictionary로 변환하는 코드를 작성합니다.
+            vod_data = [self.serialize_vod(vod) for vod in vod_list]
+            return Response(vod_data)
         else:
             return Response({"error": "검색어를 제공해야 합니다."}, status=400)
+
+    def serialize_vod(self, vod):
+        # VOD 객체를 직렬화하는 메서드
+        # 여기서 필요한 필드를 선택하여 dictionary 형태로 반환
+        return {
+            'id':vod['id'],
+            'name': vod['name'],
+            'smallcategory':vod['smallcategory'],
+            'imgpath':vod['imgpath'],
+            'count':vod['count']
+        }
+    
+class Searchactors(APIView):
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    def get(self, request, actor):
+        if actor:
+            actor_no_space = actor.replace(" ", "")
+            ip=settings.EC2_IP
+            pw=settings.MONGO_PW
+            client = MongoClient(f'mongodb://hellovision:{pw}@{ip}', 27017)
+            db = client.LGHV
+            collection = db.contents
+
+            # 대소문자 구분 없는 검색을 위한 regex 쿼리
+            regex_query = {'$regex': actor_no_space, '$options': 'i'}
+            query =  {'searchactors': regex_query}   
+
+            # 쿼리 실행
+            vods = collection.find(query)
+
+            # 결과를 Python 리스트로 변환
+            vod_list = list(vods)
+
+            # 결과를 JSON 형태로 변환하여 응답
+            # 여기서는 직렬화 방법을 직접 구현해야 합니다.
+            # 예시를 위해 간단히 dictionary로 변환하는 코드를 작성합니다.
+            vod_data = [self.serialize_vod(vod) for vod in vod_list]
+            return Response(vod_data)
+        else:
+            return Response({"error": "검색어를 제공해야 합니다."}, status=400)
+
+    def serialize_vod(self, vod):
+        # VOD 객체를 직렬화하는 메서드
+        # 여기서 필요한 필드를 선택하여 dictionary 형태로 반환
+        return {
+            'id':vod['id'],
+            'name': vod['name'],
+            'smallcategory':vod['smallcategory'],
+            'imgpath':vod['imgpath'],
+            'count':vod['count']
+        }
+
+
 
 class SearchVodsByChoseong(APIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
