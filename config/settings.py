@@ -79,7 +79,7 @@ INSTALLED_APPS = [
     "accounts",
     "rest_framework",
     "rest_framework_simplejwt",
-    'rest_framework_simplejwt.token_blacklist',
+    "rest_framework_simplejwt.token_blacklist",
     "rest_framework.authtoken",
     # dj-rest-auth
     "dj_rest_auth",
@@ -144,7 +144,6 @@ CORS_ORIGIN_WHITELIST = [
     "http://127.0.0.1:3000",
     "http://localhost:3000",
     "https://www.hellorvdworld.com",
-    "https://server.hellorvdworld.com",
 ]
 CORS_ALLOW_CREDENTIALS = True
 # Database
@@ -217,6 +216,7 @@ REST_AUTH = {
     "REGISTER_SERIALIZER": "accounts.serializers.CustomRegisterSerializer",
     "USE_JWT": True,
     "JWT_AUTH_HTTPONLY": False,
+    "LOGIN_SERIALIZER": "accounts.serializers.CustomLoginSerializer",
 }
 ACCOUNT_ADAPTER = "accounts.adapters.CustomAccountAdapter"
 
