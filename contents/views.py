@@ -11,74 +11,61 @@ from wishlists.serializers import WishlistSerializer
 from wishlists.utils import delete_wishlist
 from pymongo import MongoClient
 from config import settings
-
-
+import json
 
 
 class SearchVods(APIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
+    
     def get(self, request, vodname):
+        ip = settings.EC2_IP
+        pw = settings.MONGO_PW
+        client = MongoClient(f"mongodb://hellovision:{pw}@{ip}", 27017)
+        db = client.LGHV
+        vods_collection = db.contents
         if vodname:
             vodname_no_space = vodname.replace(" ", "")
-            ip=settings.EC2_IP
-            pw=settings.MONGO_PW
-            client = MongoClient(f'mongodb://hellovision:{pw}@{ip}', 27017)
-            db = client.LGHV
-            collection = db.contents
-
             # 대소문자 구분 없는 검색을 위한 regex 쿼리
-            regex_query = {'$regex': vodname_no_space, '$options': 'i'}
-            query = {'name_no_space': regex_query}
+            regex_query = {"$regex": vodname_no_space, "$options": "i"}
+            query = {"name_no_space": regex_query}
 
-            # 쿼리 실행
-            vods = collection.find(query)
-
-            # 결과를 Python 리스트로 변환
+            vods = vods_collection.find(query)
             vod_list = list(vods)
-
-            # 결과를 JSON 형태로 변환하여 응답
-            # 여기서는 직렬화 방법을 직접 구현해야 합니다.
-            # 예시를 위해 간단히 dictionary로 변환하는 코드를 작성합니다.
             vod_data = [self.serialize_vod(vod) for vod in vod_list]
             return Response(vod_data)
         else:
             return Response({"error": "검색어를 제공해야 합니다."}, status=400)
 
     def serialize_vod(self, vod):
-        # VOD 객체를 직렬화하는 메서드
-        # 여기서 필요한 필드를 선택하여 dictionary 형태로 반환
         return {
-            'id':vod['id'],
-            'name': vod['name'],
-            'smallcategory':vod['smallcategory'],
-            'imgpath':vod['imgpath'],
-            'count':vod['count']
+            "id": vod["id"],
+            "name": vod["name"],
+            "smallcategory": vod["smallcategory"],
+            "imgpath": vod["imgpath"],
+            "count": vod["count"],
         }
-    
+
+
 class Searchactors(APIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
+    
     def get(self, request, actor):
+        ip = settings.EC2_IP
+        pw = settings.MONGO_PW
+        client = MongoClient(f"mongodb://hellovision:{pw}@{ip}", 27017)
+        db = client.LGHV
+        vods_collection = db.contents
         if actor:
             actor_no_space = actor.replace(" ", "")
-            ip=settings.EC2_IP
-            pw=settings.MONGO_PW
-            client = MongoClient(f'mongodb://hellovision:{pw}@{ip}', 27017)
-            db = client.LGHV
-            collection = db.contents
+            
 
             # 대소문자 구분 없는 검색을 위한 regex 쿼리
-            regex_query = {'$regex': actor_no_space, '$options': 'i'}
-            query =  {'searchactors': regex_query}   
-
+            regex_query = {"$regex": actor_no_space, "$options": "i"}
+            query = {"searchactors": regex_query}
             # 쿼리 실행
-            vods = collection.find(query)
-
+            vods = vods_collection.find(query)
             # 결과를 Python 리스트로 변환
             vod_list = list(vods)
-
-            # 결과를 JSON 형태로 변환하여 응답
-            # 여기서는 직렬화 방법을 직접 구현해야 합니다.
-            # 예시를 위해 간단히 dictionary로 변환하는 코드를 작성합니다.
             vod_data = [self.serialize_vod(vod) for vod in vod_list]
             return Response(vod_data)
         else:
@@ -86,38 +73,133 @@ class Searchactors(APIView):
 
     def serialize_vod(self, vod):
         # VOD 객체를 직렬화하는 메서드
-        # 여기서 필요한 필드를 선택하여 dictionary 형태로 반환
         return {
-            'id':vod['id'],
-            'name': vod['name'],
-            'smallcategory':vod['smallcategory'],
-            'imgpath':vod['imgpath'],
-            'count':vod['count']
+            "id": vod["id"],
+            "name": vod["name"],
+            "smallcategory": vod["smallcategory"],
+            "imgpath": vod["imgpath"],
+            "count": vod["count"],
         }
-
 
 
 class SearchVodsByChoseong(APIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
+    
     def get(self, request, vodname):
+        ip = settings.EC2_IP
+        pw = settings.MONGO_PW
+        client = MongoClient(f"mongodb://hellovision:{pw}@{ip}", 27017)
+        db = client.LGHV
+        vods_collection = db.contents
         if vodname:
-            vodname_no_space = vodname.replace(' ', '')
-            vods = Vod.objects.filter(choseong__icontains=vodname_no_space)
-            serializer = VodListSerializer(vods, many=True)
-            return Response(serializer.data)
+            vodname_no_space = vodname.replace(" ", "")
+            # 대소문자 구분 없는 검색을 위한 regex 쿼리
+            regex_query = {"$regex": vodname_no_space, "$options": "i"}
+            query = {"choseong": regex_query}
+
+            # 쿼리 실행
+            vods = vods_collection.find(query)
+            vod_list = list(vods)
+            vod_data = [self.serialize_vod(vod) for vod in vod_list]
+            return Response(vod_data)
         else:
-            return Response({'error': '검색어를 제공해야 합니다.'}, status=400)
+            return Response({"error": "검색어를 제공해야 합니다."}, status=400)
+
+    def serialize_vod(self, vod):
+        # VOD 객체를 직렬화하는 메서드
+        # 여기서 필요한 필드를 선택하여 dictionary 형태로 반환
+        return {
+            "id": vod["id"],
+            "name": vod["name"],
+            "smallcategory": vod["smallcategory"],
+            "imgpath": vod["imgpath"],
+            "count": vod["count"],
+        }
+
 
 class SearchVodsDetail(APIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
-
+    ip = settings.EC2_IP
+    pw = settings.MONGO_PW
+    client = MongoClient(f"mongodb://hellovision:{pw}@{ip}", 27017)
+    db = client.LGHV
+    vods_collection = db.contents
+    wishlist_collection=db.wishlists
+    reviews_collection=db.reviews
+    user_collection=db.users
     def get_object(self, vodid):
-        return Vod.objects.get(id=vodid)
+        return self.vods_collection.find_one({"id": vodid})
 
     def get(self, request, vodid):
         vod = self.get_object(vodid)
-        serializer = VodDetailSerializer(vod, context={"request": request})
-        return Response(serializer.data)
+        if vod is None:
+            return Response(
+                {"error": "해당 vod가 존재하지 않습니다."}, status=status.HTTP_404_NOT_FOUND
+            )
+
+        # 여기서 직렬화 방식을 구현해야 합니다.
+        serialized_vod = self.serialize_vod(vod,request)
+        return Response(serialized_vod)
+
+    def serialize_vod(self, vod,request):
+        serialized_data = {
+            "id": vod["id"],
+            "name": vod["name"],
+            "description": vod["description"],
+            "bigcategory": vod["bigcategory"],
+            "smallcategory": vod["smallcategory"],
+            "category": vod["category"],
+            "actors": vod["actors"],
+            "director": vod["director"],
+            "runningtime": vod["runningtime"],
+            "imgpath": vod["imgpath"],
+            "backgroundimgpath": vod["backgroundimgpath"],
+            "count": vod["count"],
+        }
+        if "actors" in serialized_data and isinstance(serialized_data["actors"], str):
+            try:
+                # json으로 변경 가능시 json으로 변경
+                serialized_data["actors"] = json.loads(serialized_data["actors"])
+            except json.JSONDecodeError:
+                # JSON 변환 실패 시, 기본값으로 처리
+                serialized_data["actors"] = []
+
+        # 'is_liked' 필드 계산
+        user = request.user
+        if user.is_authenticated:
+            serialized_data['is_liked'] = self.wishlist_collection.find_one({"user_id": user.id, "vod_id": vod['id']}) is not None
+        else:
+            serialized_data['is_liked'] = False
+
+        pipeline = [
+            {"$match": {"contents_id": vod["id"]}},
+            {"$group": {"_id": "$contents_id", "avg_rating": {"$avg": "$rating"}}},
+        ]
+        avg_result = list(self.reviews_collection.aggregate(pipeline))
+        
+
+        # 평균 평점 추가
+        if avg_result:
+            serialized_data["avg_rate"] = avg_result[0]["avg_rating"]
+        else:
+            serialized_data["avg_rate"] = 0
+
+        # 리뷰 가져오기
+        reviews = self.reviews_collection.find({"contents_id": vod['id']})
+        serialized_reviews = []
+        for review in reviews:
+            user=self.user_collection.find_one({"id":review['user_id']})
+            serialized_review = {
+                "payload": review.get("payload", ""),
+                "rating": review.get("rating", 0),
+                "username":user.get("email")
+            }
+            serialized_reviews.append(serialized_review)
+        serialized_data['review'] = serialized_reviews
+
+
+
+        return serialized_data
 
     def post(self, request, vodid):
         vod = self.get_object(vodid)
@@ -146,28 +228,71 @@ class SearchVodsDetail(APIView):
 
 class VodTop10(APIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
+    ip = settings.EC2_IP
+    pw = settings.MONGO_PW
+    client = MongoClient(f"mongodb://hellovision:{pw}@{ip}", 27017)
+    db = client.LGHV
+    vods_collection = db.contents
 
     def get(self, request, Bigcategory):
-        category={"tv":"TV프로그램","movie":"영화","kids":"키즈"}
-        category=category[Bigcategory]
-        top_vods = Vod.objects.filter(category=category).order_by("-count")[:10]
-        serializer = VodListSerializer(top_vods, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        category_map = {"tv": "TV프로그램", "movie": "영화", "kids": "키즈"}
+        category = category_map[Bigcategory]
+        top_vods = self.vods_collection.find({"category": category}).sort("count", -1).limit(10)
+        serialized_vods = [self.serialize_vod(vod) for vod in top_vods]
+        return Response(serialized_vods, status=status.HTTP_200_OK)
+    
+    def serialize_vod(self, vod):
+        # VOD 객체를 직렬화하는 메서드
+        # 여기서 필요한 필드를 선택하여 dictionary 형태로 반환
+        return {
+            "id": vod["id"],
+            "name": vod["name"],
+            "smallcategory": vod["smallcategory"],
+            "imgpath": vod["imgpath"],
+            "count": vod["count"],
+        }
 
 
 class VodReviews(APIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
-
+    ip = settings.EC2_IP
+    pw = settings.MONGO_PW
+    client = MongoClient(f"mongodb://hellovision:{pw}@{ip}", 27017)
+    db = client.LGHV
+    vods_collection = db.contents
+    wishlist_collection=db.wishlists
+    reviews_collection=db.reviews
+    user_collection=db.users
     def get_object(self, vodid):
-        return Vod.objects.get(id=vodid)
+        return self.vods_collection.find_one({"id": vodid})
 
     def get(self, request, vodid):
         vod = self.get_object(vodid)
-        serializer = ReviewshowSerializer(
-            vod.reviews.all(),
-            many=True,
-        )
-        return Response(serializer.data)
+        
+        serialized_vod = self.serialize_vod(vod)
+        return Response(serialized_vod)
+    def serialize_vod(self, vod):
+        reviews = self.reviews_collection.find({"contents_id": vod['id']})
+        serialized_reviews = []
+        for review in reviews:
+            user=self.user_collection.find_one({"id":review['user_id']})
+            serialized_review = {
+                "payload": review.get("payload", ""),
+                "rating": review.get("rating", 0),
+                "username":user.get("email")
+            }
+            serialized_reviews.append(serialized_review)
+
+        return serialized_reviews
+
+
+    # def get(self, request, vodid):
+    #     vod = self.get_object(vodid)
+    #     serializer = ReviewshowSerializer(
+    #         vod.reviews.all(),
+    #         many=True,
+    #     )
+    #     return Response(serializer.data)
 
     def post(self, request, vodid):
         existing_review = Review.objects.filter(
@@ -225,6 +350,12 @@ class VodReviews(APIView):
 
 
 class CategorySearch(APIView):
+    ip = settings.EC2_IP
+    pw = settings.MONGO_PW
+    client = MongoClient(f"mongodb://hellovision:{pw}@{ip}", 27017)
+    db = client.LGHV
+    vods_collection = db.contents
+
     def get(self, request, Bigcategory, Smallcategory):
         movie_category = {
             "fantasy": "SF/환타지",
@@ -263,20 +394,30 @@ class CategorySearch(APIView):
         }
 
         if Bigcategory == "tv":
-            decoded_category=tv_category[Smallcategory]
-            vods = Vod.objects.filter(category="TV프로그램", bigcategory=decoded_category)
-            serializer = VodListSerializer(vods, many=True)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            decoded_category = tv_category[Smallcategory]
+            vods = self.vods_collection.find({"category": "TV프로그램","bigcategory":decoded_category})
+            serialized_vods = [self.serialize_vod(vod) for vod in vods]
+            return Response(serialized_vods, status=status.HTTP_200_OK)
+
         elif Bigcategory == "movie":
-            decoded_category=movie_category[Smallcategory]
-            vods = Vod.objects.filter(category="영화", smallcategory=decoded_category)
-            serializer = VodListSerializer(vods, many=True)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            decoded_category = movie_category[Smallcategory]
+            vods = self.vods_collection.find({"category": "영화","smallcategory":decoded_category})
+            serialized_vods = [self.serialize_vod(vod) for vod in vods]
+            return Response(serialized_vods, status=status.HTTP_200_OK)
+            
         elif Bigcategory == "kids":
-            decoded_category=kids_category[Smallcategory]
-            vods = Vod.objects.filter(category="키즈", smallcategory=decoded_category)
-            serializer = VodListSerializer(vods, many=True)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            decoded_category = kids_category[Smallcategory]
+            vods = self.vods_collection.find({"category": "키즈","smallcategory":decoded_category})
+            serialized_vods = [self.serialize_vod(vod) for vod in vods]
+            return Response(serialized_vods, status=status.HTTP_200_OK)
 
         else:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+            return Response(status=status.HTTP_404_NOT_FOUND)        
+    def serialize_vod(self, vod):
+        return {
+            "id": vod["id"],
+            "name": vod["name"],
+            "smallcategory": vod["smallcategory"],
+            "imgpath": vod["imgpath"],
+            "count": vod["count"],
+        }
