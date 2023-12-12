@@ -41,7 +41,7 @@ function Helload() {
         prevArrow: <Arrowleft />,
       };
         return (
-            <div className="mt-[15%]">
+            <div className="mt-[7%]">
                 <Slider {...settings} >
                     {AdList.map((a) => (
                         <div key={a.id} className="relative">

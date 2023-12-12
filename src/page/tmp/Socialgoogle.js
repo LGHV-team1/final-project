@@ -10,8 +10,9 @@ import NaverButton from "../../components/NaverButton.js";
 import Input from "../../components/Input.js";
 import ApiService from '../../api/ApiService.js';
 function Socialgoogle() {
-  const { BASE_URL: URL } = ApiService;
+    const { BASE_URL: URL } = ApiService;
     const cookies = new Cookies();
+    const navigate = useNavigate();
     const code = cookies.get('code')
     const access_token = cookies.get('access_token')
     const loginerror = cookies.get('loginerror')
@@ -46,7 +47,7 @@ function Socialgoogle() {
             cookies.remove('code')
             localStorage.setItem("jwtToken", access);
             localStorage.setItem("refresh", refresh);
-            window.location.href = "/home"
+            navigate("/home");
         })}
     })
 
