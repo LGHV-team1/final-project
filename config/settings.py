@@ -63,6 +63,7 @@ CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
     "https://www.hellorvdworld.com",
+    "https://server.hellorvdworld.com",
 ]
 
 # Application definition
@@ -78,7 +79,7 @@ INSTALLED_APPS = [
     "accounts",
     "rest_framework",
     "rest_framework_simplejwt",
-    'rest_framework_simplejwt.token_blacklist',
+    "rest_framework_simplejwt.token_blacklist",
     "rest_framework.authtoken",
     # dj-rest-auth
     "dj_rest_auth",
@@ -133,14 +134,16 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "config.wsgi.application"
-SESSION_COOKIE_SECURE = False
-CSRF_COOKIE_SECURE = False
+CSRF_COOKIE_DOMAIN = '.hellorvdworld.com'
+CSRF_COOKIE_PATH = '/'
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_SAMESITE = 'None'
 SESSION_COOKIE_AGE = 1209600  # 2주 (초 단위)
 CORS_ORIGIN_WHITELIST = [
     "http://127.0.0.1:3000",
     "http://localhost:3000",
     "https://www.hellorvdworld.com",
-    "https://server.hellorvdworld.com",
 ]
 CORS_ALLOW_CREDENTIALS = True
 # Database
@@ -213,6 +216,7 @@ REST_AUTH = {
     "REGISTER_SERIALIZER": "accounts.serializers.CustomRegisterSerializer",
     "USE_JWT": True,
     "JWT_AUTH_HTTPONLY": False,
+    "LOGIN_SERIALIZER": "accounts.serializers.CustomLoginSerializer",
 }
 ACCOUNT_ADAPTER = "accounts.adapters.CustomAccountAdapter"
 
