@@ -30,7 +30,7 @@ class ApiService {
         this.axiosInstance.interceptors.request.use(
             async config => {
                 let token = localStorage.getItem('jwtToken');
-                const csrftoken = cookies.get("csrftoken");
+                const csrftoken = this.cookies.get("csrftoken");
                 config.headers['X-CSRFToken'] = csrftoken;
                 if (token && this.isTokenExpired(token)) {
                     const refreshToken = localStorage.getItem('refresh');
