@@ -6,6 +6,7 @@ class ApiService {
     axiosInstance = axios.create({
         baseURL: this.BASE_URL,
         withCredentials: true,
+        
     });
 
     isTokenExpired(token) {
@@ -21,6 +22,7 @@ class ApiService {
     }
 
     constructor() {
+        this.cookies = new Cookies();
         this.initializeRequestInterceptor();
     }
 
@@ -28,8 +30,8 @@ class ApiService {
         this.axiosInstance.interceptors.request.use(
             async config => {
                 let token = localStorage.getItem('jwtToken');
-                const cookies = new Cookies();
                 const csrftoken = cookies.get("csrftoken");
+                config.headers['X-CSRFToken'] = csrftoken;
                 if (token && this.isTokenExpired(token)) {
                     const refreshToken = localStorage.getItem('refresh');
                     if (refreshToken) {
@@ -39,7 +41,6 @@ class ApiService {
                             console.log(response)
                             localStorage.setItem('jwtToken', token);
                             config.headers['Authorization'] = `Bearer ${token}`;
-                            config.headers['X-CSRFToken'] = csrftoken;
                         } catch (error) {
                             console.error('Error refreshing token:', error);
                             // 여기에 토큰 갱신 실패 시 처리 로직을 추가할 수 있습니다.
@@ -47,7 +48,6 @@ class ApiService {
                     }
                 } else {
                     config.headers['Authorization'] = `Bearer ${token}`;
-                    config.headers['X-CSRFToken'] = csrftoken;
                 }
                 return config;
             },
