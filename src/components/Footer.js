@@ -4,7 +4,7 @@ import RAPA from "../images/rapalogo.png"
 import Cable from "../images/cable.png"
 const Footer = () => {
     return (
-  <footer class="py-3 bg-black mt-auto position-relative h-[150px]">
+  <footer class="py-3 mt-auto position-relative h-[150px] border-t border-white">
     <div class="mx-44 ">
     <ul class="nav justify-content-center border-bottom pb-3 mb-3">
       <li class="nav-item"><a href="/home" class="nav-link px-2 text-white">홈</a></li>

@@ -24,13 +24,13 @@ function Detail() {
   const [showModal, setShowModal] = useState(false);
   const config = {
     headers: {
-      Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
+      Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
     },
   };
   console.log(name);
   const getData = async () => {
     try {
-      const response = await ApiService.getVodDetail(name)
+      const response = await ApiService.getVodDetail(name);
       const data = response.data;
       setMovie(data); // 먼저 movie 상태를 설정
       setOriginalWish(data.is_liked);
@@ -53,7 +53,7 @@ function Detail() {
     const handleRouteChange = async () => {
       if (wish !== originalWish) {
         try {
-          const response = await ApiService.postWish()
+          const response = await ApiService.postWish();
           console.log(response);
         } catch (error) {
           if (error.response) {
@@ -108,19 +108,36 @@ function Detail() {
       ) : (
         <div>
           <div
-            className="relative py-80 bg-cover bg-center bg-no-repeat "
+            className="relative py-80 bg-cover bg-center bg-no-repeat z-10"
             style={{
               backgroundImage: `url(${backgroundImageUrl})`,
               backgroundSize: "cover",
+              zIndex:"9",
+              backgroundColor: "transparent"
             }}
           >
-            <img src={dark} className="absolute bottom-0"></img>
             <div
-              className=" absolute bottom-10 left-44  text-white "
+              className="absolute top-0 left-0 right-0 bottom-0 z-0"
+             
+            >
+              <img
+                src={dark}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                 
+                }}
+              />
+            </div>
+            <div
+              className="bg-transparent absolute bottom-10 left-44  text-white "
               style={{ textShadow: "2px 2px 4px black" }}
             >
-              <span className=" text-6xl pb-3">{movie.name}</span>
-              <div className="pb-2 text-2xl ">
+              <span className="bg-transparent text-6xl pb-3 ">
+                {movie.name}
+              </span>
+              <div className="bg-transparent pb-2 text-2xl ">
                 {movie.bigcategory}
                 <br />
                 {movie.smallcategory}

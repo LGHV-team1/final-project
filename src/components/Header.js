@@ -114,8 +114,8 @@ function Header2() {
       .catch((err) => console.log(err));
   };
   return (
-    <nav className="sticky top-0 bg-black z-10 ">
-      <div className=" pt-10 pb-8 mx-44 w-4/5 flex h-16 justify-between border-b border-gray-300">
+    <nav className="sticky top-0 z-10 ">
+      <div className=" pt-10 pb-8 mx-44  flex h-16 justify-between border-b border-gray-300">
         <div className="flex items-center gap-10 ">
           <a href="/">
             <img className="my-1" src={logo} alt="logo" width="200px" />

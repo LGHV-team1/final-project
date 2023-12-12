@@ -43,7 +43,7 @@ function MiniSlide({
       </svg>
     </div>
   );
-
+      
   const settings = {
     arrow: true,
     dots: false,
@@ -53,16 +53,45 @@ function MiniSlide({
     slidesToScroll: slidesToScrollNum,
     nextArrow: <Arrowright />,
     prevArrow: <Arrowleft />,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      }
+    ]
   };
   return (
     <div>
-      <Slider {...settings} className="text-center ">
+      <Slider {...settings} className="text-center">
         {data.map((a, idx) => (
-          <div key={a.id} className="relative mb-2 ">
-            <div className="img-body pb-2  ">
-              <Link to={`/detail/${a.id}`} className="rounded-lg overflow-hidden block">
+          <div key={a.id} className="relative mb-3 rounded-lg">
+            <div className=" pb-2 rounded-lg">
+              <Link
+                to={`/detail/${a.id}`}
+                className="rounded-lg overflow-hidden block pr-3 "
+              >
                 <img
-                  className="rounded transition transform duration-500 ease-in-out hover:scale-110"
+                  className="rounded-lg overflow-hidden block transition transform duration-500 ease-in-out hover:scale-110"
                   src={
                     a.imgpath === "/noimage.png"
                       ? `${BASE_URL_NO}${a.imgpath}`
@@ -71,8 +100,8 @@ function MiniSlide({
                   alt={a.vodname}
                   style={{
                     objectFit: "cover",
-                    width: "230px",
-                    height: "350px",
+                    width: "300px",
+                    height: "450px",
                   }}
                 />
               </Link>
@@ -83,7 +112,7 @@ function MiniSlide({
                 {idx + 1}
               </h1> */}
               <h1
-                className="absolute bottom-[-5%] left-[1%] italic z-1000 shadow-2xl font-bold text-white text-6xl"
+                className="absolute bottom-[-5%] left-[1%] italic z-1000 shadow-2xl font-bold text-white text-6xl bg-transparent"
                 style={{ textShadow: "2px 2px 4px black" }}
               >
                 {idx + 1}

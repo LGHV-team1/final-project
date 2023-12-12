@@ -25,8 +25,9 @@ import About from "./page/About.js";
 function App() {
   return (
     <Router>
-      <Header2 />
       <div style={style}>
+      <Header2 />
+      
         <Routes>
           <Route path="/"element={<><First/></>}/>
           <Route path="/login"element={<><Login /></>}/>
@@ -43,13 +44,15 @@ function App() {
           <Route path="/search" element={<><Search /></>} />
           <Route path="/about" element={<><About /></>} />
         </Routes>
-      </div>
+      
       <Footer />
+      </div>
     </Router>
 
   );
 }
 const style ={
   minHeight:'100vh',
+  backgroundColor: "#151515",
 }
 export default App;
