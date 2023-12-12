@@ -53,7 +53,7 @@ function Detail() {
     const handleRouteChange = async () => {
       if (wish !== originalWish) {
         try {
-          const response = await ApiService.postWish()
+          const response = await ApiService.postWish(name)
           console.log(response);
         } catch (error) {
           if (error.response) {

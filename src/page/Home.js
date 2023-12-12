@@ -25,7 +25,7 @@ function Home() {
     </div>
     <h1>알고리즘 1번 추천</h1>
     <ShowRec algorithmNum={1}/>
-    <h1>알고리즘 1번 추천</h1>
+    <h1>알고리즘 2번 추천</h1>
     <ShowRec algorithmNum={2}/>
     <h1 >다른 유저 추천</h1>
     <ShowRec algorithmNum={"otheruser"}/>

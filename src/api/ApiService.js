@@ -6,6 +6,7 @@ class ApiService {
     axiosInstance = axios.create({
         baseURL: this.BASE_URL,
         withCredentials: true,
+        
     });
 
     isTokenExpired(token) {
@@ -21,6 +22,7 @@ class ApiService {
     }
 
     constructor() {
+        this.cookies = new Cookies();
         this.initializeRequestInterceptor();
     }
 
@@ -28,8 +30,8 @@ class ApiService {
         this.axiosInstance.interceptors.request.use(
             async config => {
                 let token = localStorage.getItem('jwtToken');
-                const cookies = new Cookies();
                 const csrftoken = cookies.get("csrftoken");
+                config.headers['X-CSRFToken'] = csrftoken;
                 if (token && this.isTokenExpired(token)) {
                     const refreshToken = localStorage.getItem('refresh');
                     if (refreshToken) {
@@ -46,7 +48,6 @@ class ApiService {
                     }
                 } else {
                     config.headers['Authorization'] = `Bearer ${token}`;
-                    config.headers['X-CSRFToken'] = csrftoken;
                 }
                 return config;
             },
@@ -120,7 +121,8 @@ class ApiService {
         });
     }
     postWish(name){
-        return this.axiosInstance.post(`contents/${name}/detail/`, {} );
+        return this.axiosInstance.post(`contents/${name}/detail/`);
+
     }
     changeSTB(newSTB) {
         return this.axiosInstance.put('accounts/dj-rest-auth/user/', {
