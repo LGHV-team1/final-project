@@ -63,6 +63,7 @@ CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
     "https://www.hellorvdworld.com",
+    "https://server.hellorvdworld.com",
 ]
 
 # Application definition
@@ -133,8 +134,11 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "config.wsgi.application"
-SESSION_COOKIE_SECURE = False
-CSRF_COOKIE_SECURE = False
+CSRF_COOKIE_DOMAIN = '.hellorvdworld.com'
+CSRF_COOKIE_PATH = '/'
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_SAMESITE = 'None'
 SESSION_COOKIE_AGE = 1209600  # 2주 (초 단위)
 CORS_ORIGIN_WHITELIST = [
     "http://127.0.0.1:3000",
