@@ -48,6 +48,11 @@ EMAIL_USER = get_secret("EMAIL_HOST_USER")
 EMAIL_PASSWORD = get_secret("EMAIL_HOST_PASSWORD")
 AWS_DB_PASSWORD = get_secret("AWS_DB_PASSWORD")
 AWS_DB_HOST = get_secret("AWS_DB_HOST")
+EC2_IP=get_secret("EC2_IP")
+MONGO_PW=get_secret("MongoPW")
+
+
+
 
 SECRET_KEY = SECRET_KEY
 # Quick-start development settings - unsuitable for production
@@ -76,7 +81,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.sites",
     "django.contrib.staticfiles",
-    "accounts",
+    "accounts.apps.AccountsConfig",
     "rest_framework",
     "rest_framework_simplejwt",
     "rest_framework_simplejwt.token_blacklist",
