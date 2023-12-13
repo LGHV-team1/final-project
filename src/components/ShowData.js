@@ -9,12 +9,12 @@ function ShowData({ data, handleShow }) {
         {data.map((item, idx) => (
           <div
             key={idx}
-            className="w-[18.5%]  sm:w-1/2 md:w-1/2 lg:w-[18.5%] xl:w-[18.5%] mb-5 transition transform duration-500 ease-in-out hover:scale-105"
+            className="w-[18.5%]  sm:w-1/2 md:w-1/2 lg:w-[18.5%] xl:w-[18.5%] mb-5"
           >
-            <Link to={`/detail/${item.id}`} className="text-center">
+            <Link to={`/detail/${item.id}`} className="rounded-lg overflow-hidden block">
               <img
                 src={`https://image.tmdb.org/t/p/w500/${item.imgpath}`}
-                className=" rounded-md w-full shadow-[0px_0px_1px_3px_rgba(0,0,0,0.3)]"
+                className="rounded transition transform duration-500 ease-in-out hover:scale-110"
                 onError={(e) => (e.currentTarget.src = noImage)}
                 style={{ height: "400px" }}
               />

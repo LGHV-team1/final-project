@@ -19,7 +19,7 @@ function About() {
             <hr
             style={{
               height: "3px",
-              backgroundColor: "#000",
+              backgroundColor: "#999",
               marginBottom: "3%",
             }}
           ></hr>

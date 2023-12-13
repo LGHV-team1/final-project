@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import axios from "axios";
-import { useLocation, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import noImage from "../images/noimage.png";
 import Helload from "../components/Helload";
 import ApiService from "../api/ApiService";
@@ -11,7 +10,6 @@ const isChoseongOnly = (string) => {
 };
 
 function Search() {
-  const { BASE_URL: URL } = ApiService;
   const searchValue = useSelector((state) => state.search.value);
   const [visiblevodData1, setVisiblevodData1] = useState([]);
   const [visiblevodData2, setVisiblevodData2] = useState([]);
@@ -73,7 +71,7 @@ function Search() {
 
   if (searchValue === "") {
     return (
-      <div className="mx-44 mt-5">
+      <div className="mx-44 mt-5 text-gray-300">
         <h1>검색어를 입력해주세요</h1>
         <Helload />
       </div>

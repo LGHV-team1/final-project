@@ -95,7 +95,7 @@ function MyReview() {
                                 <div className="text-3xl inline-block w-80 float-left text-left font-medium">{a.vodname}</div>
                             </Link>
                             <div className="text-end">
-                                <div className="inline-block mb-[3px]">
+                                <div className="inline-block mb-[3px] text-gray-200 ">
                                     <p className="text-xl inline-block mr-2">평점</p>
                                     <p className="inline-block mr-2">{renderStars(a.rating)}</p>
                                     {editingReviewId === a.id ? (
@@ -107,7 +107,7 @@ function MyReview() {
                                     ) : (
                                     <p className="text-xl inline-block mr-5"> {a.rating}점</p>)}
                                 </div>
-                                <div className="inline-block">
+                                <div className="inline-block text-gray-200">
                                 
                                     {editingReviewId === a.id ? (
                                         <button className="border-solid border-[1px] rounded-lg px-2 py-1 mr-1" onClick={() => saveEditedReview(a.id)}>저장</button>
@@ -118,7 +118,7 @@ function MyReview() {
                                 </div>
                             </div>
                         </div>
-                        <div className="text-left">
+                        <div className="text-left text-gray-200">
                             {editingReviewId === a.id ? (
                                 <div>
                                 <textarea

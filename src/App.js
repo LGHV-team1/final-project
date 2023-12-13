@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./index.css";
-import Header2 from "./components/Header.js";
-import Footer from "./components/Footer.js";
+import Header2 from "./layout/Header.js";
+import Footer from "./layout/Footer.js";
 import Login from "./page/Login.js";
 import Register from "./page/Register.js";
 import React from "react";
@@ -19,6 +19,8 @@ import Kids from "./page/Kids.js";
 import About from "./page/About.js";
 import PrivateRouter from "./PrivateRouter.js";
 import LoginRouter from "./LoginRouter.js";
+import MainLayout from "./layout/MainLayout.js";
+import SubLayout from "./layout/SubLayout.js";
 // import AppRoute from "./routes/AppRoute.js";
 // function App() {
 //   return (
@@ -27,35 +29,39 @@ import LoginRouter from "./LoginRouter.js";
 function App() {
   return (
     <Router>
-      <Header2 />
       <div style={style}>
-        <Routes>
-          <Route element={<PrivateRouter/>}>
-            <Route path="/Home" element={<><Home /></>} />
-            <Route path="/movie" element={<><Movie /></>} />
-            <Route path="/tv" element={<><Tv /></>} />
-            <Route path="/kids" element={<><Kids /></>} />
-            <Route path="/detail/:name" element={<><Detail/></>} />
-            <Route path="/mypage" element={<><Mypage /></>} />
-            <Route path="/search" element={<><Search /></>} />
-          </Route>
-          <Route element={<LoginRouter/>}>
-            <Route path="/"element={<><First/></>}/>
-          </Route>
-          <Route path="/login"element={<><Login /></>}/>
-          <Route path="/register" element={<><Register /></>}/>
-          <Route path="/socialk" element={<><Socialkakao /></>} />
-          <Route path="/socialn" element={<><Socialnaver /></>} />
-          <Route path="/socialg" element={<><Socialgoogle /></>} />
-          <Route path="/about" element={<><About /></>} />
-        </Routes>
-      </div>
-      <Footer />
-    </Router>
-
+      <Routes>
+        <Route element={<PrivateRouter/>}>
+          <Route element={<MainLayout />}>
+          <Route path="/Home" element={<><Home /></>} />
+          <Route path="/movie" element={<><Movie /></>} />
+          <Route path="/tv" element={<><Tv /></>} />
+          <Route path="/kids" element={<><Kids /></>} />
+          <Route path="/detail/:name" element={<><Detail/></>} />
+          <Route path="/mypage" element={<><Mypage /></>} />
+          <Route path="/search" element={<><Search /></>} />
+        </Route>
+        </Route>
+        <Route element={<SubLayout/>}>
+        <Route element={<LoginRouter/>}>
+          <Route path="/"element={<><First/></>}/>
+        </Route>
+        <Route path="/login"element={<><Login /></>}/>
+        <Route path="/register" element={<><Register /></>}/>
+        <Route path="/socialk" element={<><Socialkakao /></>} />
+        <Route path="/socialn" element={<><Socialnaver /></>} />
+        <Route path="/socialg" element={<><Socialgoogle /></>} />
+        <Route path="/about" element={<><About /></>} />
+        </Route>
+      </Routes>
+    
+ 
+    </div>
+  </Router>
   );
 }
 const style ={
   minHeight:'100vh',
+  backgroundColor: "#151515",
 }
 export default App;

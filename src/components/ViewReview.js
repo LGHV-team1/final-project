@@ -41,8 +41,8 @@ function ViewReview(props) {
     }, [VODreviewList.id]);
 
     return(
-        <div className="text-center mb-10">
-            <div className="block text-end mb-1" >총 {VODreviewList.length}건</div>
+        <div className="text-center mb-10 text-gray-200">
+            <div className="block text-end mb-1 " >총 {VODreviewList.length}건</div>
             {VODreviewList.length === 0 ? (
                 <p>작성된 리뷰가 없습니다.</p>
             ) 
