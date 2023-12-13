@@ -79,6 +79,8 @@ def kakaoCallback(request, *args, **kwargs):
         data = {'access_token': access_token, 'code': code}
         accept = requests.post("https://server.hellorvdworld.com/accounts/kakao/login/finish/", data=data)
         accept_status = accept.status_code
+        logindata = accept.json()
+
         # 뭔가 중간에 문제가 생기면 에러
         if accept_status != 200:
             err_msg = 'failed to signin'
@@ -89,8 +91,8 @@ def kakaoCallback(request, *args, **kwargs):
             accept_json = accept.json()
             print(accept_json)
             response = HttpResponseRedirect('https://www.hellorvdworld.com/socialk')
-            response.set_cookie('access_token', access_token)
-            response.set_cookie('code', code)
+            response.set_cookie('loginjwt', logindata['access'])
+            response.set_cookie('loginrefresh', logindata['refresh'])
             return response
 
     except User.DoesNotExist:
@@ -99,7 +101,7 @@ def kakaoCallback(request, *args, **kwargs):
         data = {'access_token': access_token, 'code': code}
         accept = requests.post("https://server.hellorvdworld.com/accounts/kakao/login/finish/", data=data)
         accept_status = accept.status_code
-
+        logindata = accept.json()
         # 뭔가 중간에 문제가 생기면 에러
         if accept_status != 200:
             err_msg = 'failed to signin'
@@ -110,8 +112,8 @@ def kakaoCallback(request, *args, **kwargs):
             accept_json = accept.json()
             print(accept_json)
             response = HttpResponseRedirect('https://www.hellorvdworld.com/socialk')
-            response.set_cookie('access_token', access_token)
-            response.set_cookie('code', code)
+            response.set_cookie('loginjwt', logindata['access'])
+            response.set_cookie('loginrefresh', logindata['refresh'])
             return response
 
     except SocialAccount.DoesNotExist:
@@ -190,6 +192,7 @@ def googleCallback(request):
         data = {'access_token': access_token, 'code': code}
         accept = requests.post("https://server.hellorvdworld/accounts/google/login/finish/", data=data)
         accept_status = accept.status_code
+        logindata = accept.json()
         # 뭔가 중간에 문제가 생기면 에러
         if accept_status != 200:
             err_msg = 'failed to signin'
@@ -201,8 +204,8 @@ def googleCallback(request):
             accept_json = accept.json()
             print(accept_json)
             response = HttpResponseRedirect('https://www.hellorvdworld.com/socialg')
-            response.set_cookie('access_token', access_token)
-            response.set_cookie('code', code)
+            response.set_cookie('loginjwt', logindata['access'])
+            response.set_cookie('loginrefresh', logindata['refresh'])
             return response
 
     except User.DoesNotExist:
@@ -210,7 +213,7 @@ def googleCallback(request):
         data = {'access_token': access_token, 'code': code}
         accept = requests.post("https://server.hellorvdworld.com/accounts/google/login/finish/", data=data)
         accept_status = accept.status_code
-
+        logindata = accept.json()
         # 뭔가 중간에 문제가 생기면 에러
         if accept_status != 200:
             err_msg = 'failed to signin'
@@ -221,8 +224,8 @@ def googleCallback(request):
             accept_json = accept.json()
             print(accept_json)
             response = HttpResponseRedirect('https://www.hellorvdworld.com/socialg')
-            response.set_cookie('access_token', access_token)
-            response.set_cookie('code', code)
+            response.set_cookie('loginjwt', logindata['access'])
+            response.set_cookie('loginrefresh', logindata['refresh'])
             return response
 
     except SocialAccount.DoesNotExist:
@@ -301,7 +304,7 @@ def naverCallback(request, *args, **kwargs):
         data = {'access_token': access_token, 'code': code}
         accept = requests.post("https://server.hellorvdworld.com/accounts/naver/login/finish/", data=data)
         accept_status = accept.status_code
-
+        logindata = accept.json()
         # 뭔가 중간에 문제가 생기면 에러
         if accept_status != 200:
             err_msg = 'failed to signin'
@@ -313,8 +316,8 @@ def naverCallback(request, *args, **kwargs):
             accept_json = accept.json()
             print(accept_json)
             response = HttpResponseRedirect('https://www.hellorvdworld.com/socialn')
-            response.set_cookie('access_token', access_token)
-            response.set_cookie('code', code)
+            response.set_cookie('loginjwt', logindata['access'])
+            response.set_cookie('loginrefresh', logindata['refresh'])
             return response
 
     except User.DoesNotExist:
@@ -322,7 +325,7 @@ def naverCallback(request, *args, **kwargs):
         data = {'access_token': access_token, 'code': code}
         accept = requests.post("https://server.hellorvdworld.com/accounts/naver/login/finish/", data=data)
         accept_status = accept.status_code
-
+        logindata=accept.json()
         # 뭔가 중간에 문제가 생기면 에러
         if accept_status != 200:
             err_msg = 'failed to signin'
@@ -334,8 +337,8 @@ def naverCallback(request, *args, **kwargs):
             accept_json = accept.json()
             print(accept_json)
             response = HttpResponseRedirect('https://www.hellorvdworld.com/socialn')
-            response.set_cookie('access_token', access_token)
-            response.set_cookie('code', code)
+            response.set_cookie('loginjwt', logindata['access'])
+            response.set_cookie('loginrefresh', logindata['refresh'])
             return response
 
     except SocialAccount.DoesNotExist:
