@@ -142,8 +142,8 @@ export default function Mypage() {
   };
 
   return (
-    <div className="mx-44 mt-5">
-      <div className="max-w-[400px] w-[400px] mx-auto bg-white p-4 text-center ">
+    <div className="mx-28 mt-5">
+      <div className="  max-w-[400px] w-[400px] mx-auto bg-bg-color p-4 text-center rounded-lg">
         <img
           src={profilepic}
           alt="프로필사진"
@@ -151,7 +151,7 @@ export default function Mypage() {
           className="m-auto"
         ></img>
         <div className="flex flex-col py-8">
-          <div className="text-lg">{userinfo.email} 님 안녕하세요</div>
+          <div className="text-lg text-gray-300">{userinfo.email} 님 안녕하세요</div>
         </div>
         <div className="max-w-[200px] w-[200px] mx-auto m-7 text-center">
           <Button
@@ -177,12 +177,12 @@ export default function Mypage() {
           <hr
             style={{
               height: "3px",
-              backgroundColor: "#000",
+              backgroundColor: "#757575",
               marginBottom: "3%",
             }}
           ></hr>
           <IconWrap>
-            <div className="text-center">
+            <div className="text-center text-gray-200">
               <BsBookmarkHeartFill color="#FF66B2" />
               <p>위시리스트 </p>
             </div>
@@ -196,9 +196,10 @@ export default function Mypage() {
           <hr
             style={{
               height: "3px",
-              backgroundColor: "#000",
+              backgroundColor: "#757575",
               marginBottom: "3%",
             }}
+            
           ></hr>
           <IconWrap>
             <div className="text-center text-gray-200">

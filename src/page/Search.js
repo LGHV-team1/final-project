@@ -71,22 +71,22 @@ function Search() {
 
   if (searchValue === "") {
     return (
-      <div className="mx-44 mt-5 text-gray-300">
+      <div className="mx-28 mt-5 text-gray-300">
         <h1>검색어를 입력해주세요</h1>
         <Helload />
       </div>
     );
   } else {
     return (
-      <div className="mx-44 mt-5">
+      <div className="mx-28  mt-5 text-gray-300">
         <h1>검색 결과 : {searchValue}</h1>
-          <div className="mt-5">
+          <div className="mt-5 font-bold">
             <h3>제목 검색</h3>
             {movies.length === 0 ? (
                <p className="text-lg"> 제목 검색 결과가 없습니다</p> )
              : <ShowData data={visiblevodData1} handleShow={handleShowMorevodData1} /> }
           </div>
-          <div className="my-5 pb-10">
+          <div className="my-5 pb-10 font-bold">
           <h3>인물 검색</h3>
             {actormovies.length === 0 ? (
               <p className="text-lg"> 인물 검색 결과가 없습니다</p> ) 

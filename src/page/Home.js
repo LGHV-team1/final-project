@@ -18,7 +18,7 @@ function Home() {
     <div className="mx-28 mt-5 text-gray-300 font-bold">
       <div className="mb-20">
         <div className="mt-3">
-          <p className=" text-3xl">⭐인기 Top5⭐</p>
+          <p className=" text-3xl my-5">⭐인기 Top5⭐</p>
           <Top5 images={bgArr} />
         </div>
       </div>
@@ -26,7 +26,7 @@ function Home() {
       <ShowRec algorithmNum={1} />
       <p className=" text-3xl">알고리즘 2번 추천</p>
       <ShowRec algorithmNum={2} />
-      <p className=" text-3xl">다른 유저 추천</p>
+      <p className=" text-3xl">다른 유저의 추천 목록을 보여드립니다~🤔</p>
       <ShowRec algorithmNum={"otheruser"} />
     </div>
   );

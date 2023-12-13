@@ -9,17 +9,17 @@ function ShowData({ data, handleShow }) {
         {data.map((item, idx) => (
           <div
             key={idx}
-            className="w-[18.5%]  sm:w-1/2 md:w-1/2 lg:w-[18.5%] xl:w-[18.5%] mb-5"
+            className=" sm:w-1/2 md:w-1/2 lg:w-[18.5%] xl:w-[15.3%] mb-5"
           >
             <Link to={`/detail/${item.id}`} className="rounded-lg overflow-hidden block">
               <img
                 src={`https://image.tmdb.org/t/p/w500/${item.imgpath}`}
                 className="rounded transition transform duration-500 ease-in-out hover:scale-110"
                 onError={(e) => (e.currentTarget.src = noImage)}
-                style={{ height: "400px" }}
+                style={{ height: "350px" }}
               />
             </Link>
-            <div className="text-gray-600 text-[18px] text-center">{item.name}</div>
+            <div className="text-gray-300 text-[18px] text-center">{item.name}</div>
           </div>
         ))}
       </div>

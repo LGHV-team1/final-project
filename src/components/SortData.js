@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 function SortData({ data }) {
   const [vodData, setVodData] = useState([]);
   const [visiblevodData, setVisiblevodData] = useState([]);
-  const itemsPerpage = 20;
+  const itemsPerpage = 24;
   const [order, setOrder] = useState("");
   const detailCategory = useSelector((state) => state.category.value);
   console.log(data);
@@ -80,8 +80,8 @@ function SortData({ data }) {
   return (
     <>
       <div className="flex items-center justify-between">
-        <div>
-        <h1>{detailCategory}</h1>
+        <div className="text-gray-300">
+        <h1 className="my-5">{detailCategory}</h1>
         </div>
         
         <div className="flex ">

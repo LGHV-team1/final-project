@@ -4,12 +4,13 @@
 const colors = require("tailwindcss/colors");
 
 module.exports = {
-  darkMode: 'class',
+  darkMode: "class",
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
       colors: {
         "my-color": "#A50034",
+        "bg-color": "#151515",
       },
       zIndex: {
         1000: "1000", // 더 높은 z-index 값 추가
