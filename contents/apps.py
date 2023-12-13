@@ -20,13 +20,13 @@ class ContentsConfig(AppConfig):
             port=3306,
             user="admin",
             passwd=settings.AWS_DB_PASSWORD,
-            db="LGHV",
+            db="LGHellovision",
             charset="utf8",
         )
         ip = settings.EC2_IP
         pw = settings.MONGO_PW
         conn = MongoClient(f"mongodb://hellovision:{pw}@{ip}", 27017)
-        print(conn)
+        
         # 데이터베이스 설정
         db = conn.LGHV
         collect = db.contents
@@ -36,23 +36,23 @@ class ContentsConfig(AppConfig):
         cursor.execute("select * from contents_vod")
         # 전체 데이터를 가져와서 튜플의 튜플로 생성
         data = cursor.fetchall()
-        for user in data:
+        for content in data:
             doc = {
-                "id": user[0],
-                "name": user[1],
-                "description": user[2],
-                "bigcategory": user[3],
-                "smallcategory": user[4],
-                "category": user[5],
-                "searchactors": user[6],
-                "actors": user[7],
-                "director": user[8],
-                "runningtime": user[9],
-                "imgpath": user[10],
-                "name_no_space": user[11],
-                "backgroundimgpath": user[12],
-                "count": user[13],
-                "choseong": user[14],
+                "id": content[0],
+                "name": content[1],
+                "description": content[2],
+                "bigcategory": content[3],
+                "smallcategory": content[4],
+                "category": content[5],
+                "searchactors": content[6],
+                "actors": content[7],
+                "director": content[8],
+                "runningtime": content[9],
+                "imgpath": content[10],
+                "name_no_space": content[11],
+                "backgroundimgpath": content[12],
+                "count": content[13],
+                "choseong": content[14],
             }
             collect.insert_one(doc)
         con.close()

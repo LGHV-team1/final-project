@@ -213,17 +213,17 @@ class SearchVodsDetail(APIView):
             serialized_data["avg_rate"] = 0
 
         # 리뷰 가져오기
-        reviews = self.reviews_collection.find({"contents_id": vod['id']})
-        serialized_reviews = []
-        for review in reviews:
-            user=self.user_collection.find_one({"id":review['user_id']})
-            serialized_review = {
-                "payload": review.get("payload", ""),
-                "rating": review.get("rating", 0),
-                "username":user.get("email")
-            }
-            serialized_reviews.append(serialized_review)
-        serialized_data['review'] = serialized_reviews
+        # reviews = self.reviews_collection.find({"contents_id": vod['id']})
+        # serialized_reviews = []
+        # for review in reviews:
+        #     user=self.user_collection.find_one({"id":review['user_id']})
+        #     serialized_review = {
+        #         "payload": review.get("payload", ""),
+        #         "rating": review.get("rating", 0),
+        #         "username":user.get("email")
+        #     }
+        #     serialized_reviews.append(serialized_review)
+        # serialized_data['review'] = serialized_reviews
 
 
 
@@ -319,6 +319,7 @@ class VodReviews(APIView):
         for review in reviews:
             user=self.user_collection.find_one({"id":review['user_id']})
             serialized_review = {
+                "id":review.get("id"),
                 "payload": review.get("payload", ""),
                 "rating": review.get("rating", 0),
                 "username":user.get("email")

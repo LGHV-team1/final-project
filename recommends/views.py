@@ -28,9 +28,9 @@ class MainRecommend1(APIView):
 				raise Exception("No recommendation found")
 			vod_ids = [recommend.get(f'rec{i}') for i in range(1, 11)]
 			# VOD 객체 조회
-			print(vod_ids)
+			
 			vod_objects = list(self.vod_collection.find({"id": {"$in": vod_ids}}))
-			print(vod_objects)
+			
 			vod_serialized = [self.serialize_vod(vod) for vod in vod_objects]
 			return Response(vod_serialized, status=status.HTTP_200_OK)
 
@@ -101,10 +101,7 @@ class MainRecommend2(APIView):
 			if not recommend:
 				raise Exception("No recommendation found")
 			vod_ids = [recommend.get(f'rec{i}') for i in range(1, 11)]
-			# VOD 객체 조회
-			print(vod_ids)
 			vod_objects = list(self.vod_collection.find({"id": {"$in": vod_ids}}))
-			print(vod_objects)
 			vod_serialized = [self.serialize_vod(vod) for vod in vod_objects]
 			return Response(vod_serialized, status=status.HTTP_200_OK)
 

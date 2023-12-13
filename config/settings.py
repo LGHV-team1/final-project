@@ -51,6 +51,9 @@ AWS_DB_HOST = get_secret("AWS_DB_HOST")
 EC2_IP=get_secret("EC2_IP")
 MONGO_PW=get_secret("MongoPW")
 
+
+
+
 SECRET_KEY = SECRET_KEY
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -154,7 +157,7 @@ CORS_ALLOW_CREDENTIALS = True
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",  # engine: mysql
-        "NAME": "LGHV",  # DB Name
+        "NAME": "LGHellovision",  # DB Name
         "USER": "admin",  # DB User
         "PASSWORD": AWS_DB_PASSWORD,  # Password
         "HOST": AWS_DB_HOST,  # 생성한 데이터베이스 엔드포인트

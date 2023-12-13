@@ -16,13 +16,13 @@ class ReviewsConfig(AppConfig):
             port=3306,
             user="admin",
             passwd=settings.AWS_DB_PASSWORD,
-            db="LGHV",
+            db="LGHellovision",
             charset="utf8",
         )
         ip=settings.EC2_IP
         pw=settings.MONGO_PW
         conn = MongoClient(f'mongodb://hellovision:{pw}@{ip}', 27017)
-        print(conn)
+        
         # 데이터베이스 설정
         db = conn.LGHV
         collect = db.reviews
@@ -86,16 +86,37 @@ class MessageConsumer:
                     collect.insert_one(doc)
                     
                     conn.close()
+                elif result['task']=="put":
+                    review = result["data"]
+                    review_id=review["id"]
+                    update_fields={}
+                    if "payload" in review:
+                        update_fields["payload"]=review["payload"]
+                    if "rating" in review:
+                        update_fields["rating"]=review["rating"]
+
+                    if update_fields:
+                        ip = settings.EC2_IP
+                        pw = settings.MONGO_PW
+                        conn = MongoClient(f"mongodb://hellovision:{pw}@{ip}", 27017)
+                        db = conn.LGHV
+                        collect=db.reviews
+
+                        collect.update_one({"id":review_id},{"$set": update_fields})
+                        conn.close()
+                    else:
+                        print("NO valid fields to update")
+
                 elif result['task']=='delete':
                     ip = settings.EC2_IP
                     pw = settings.MONGO_PW
                     conn = MongoClient(f"mongodb://hellovision:{pw}@{ip}", 27017)
                     db = conn.LGHV
                     collect=db.reviews
-                    wishlist_id = result["data"]
-                    if wishlist_id:
+                    review_id = result["data"]
+                    if review_id:
                         # ObjectId로 변환하여 삭제 작업을 수행합니다.
-                        collect.delete_one({"id": wishlist_id})
+                        collect.delete_one({"id": review_id})
                     else:
                         print("No valid wishlist_id provided for delete operation.")
                     conn.close()

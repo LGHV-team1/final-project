@@ -13,13 +13,13 @@ class AccountsConfig(AppConfig):
             port=3306,
             user="admin",
             passwd=settings.AWS_DB_PASSWORD,
-            db="LGHV",
+            db="LGHellovision",
             charset="utf8",
         )
         ip=settings.EC2_IP
         pw=settings.MONGO_PW
         conn = MongoClient(f'mongodb://hellovision:{pw}@{ip}', 27017)
-        print(conn)
+        
         # 데이터베이스 설정
         db = conn.LGHV
         collect = db.users
