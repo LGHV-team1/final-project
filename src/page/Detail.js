@@ -24,13 +24,13 @@ function Detail() {
   const [showModal, setShowModal] = useState(false);
   const config = {
     headers: {
-      Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
+      Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
     },
   };
   console.log(name);
   const getData = async () => {
     try {
-      const response = await ApiService.getVodDetail(name)
+      const response = await ApiService.getVodDetail(name);
       const data = response.data;
       setMovie(data); // 먼저 movie 상태를 설정
       setOriginalWish(data.is_liked);
@@ -108,19 +108,36 @@ function Detail() {
       ) : (
         <div>
           <div
-            className="relative py-80 bg-cover bg-center bg-no-repeat "
+            className="relative py-80 bg-cover bg-center bg-no-repeat z-10"
             style={{
               backgroundImage: `url(${backgroundImageUrl})`,
               backgroundSize: "cover",
+              zIndex:"9",
+              backgroundColor: "transparent"
             }}
           >
-            <img src={dark} className="absolute bottom-0"></img>
             <div
-              className=" absolute bottom-10 left-44  text-white "
+              className="absolute top-0 left-0 right-0 bottom-0 z-0"
+             
+            >
+              <img
+                src={dark}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                 
+                }}
+              />
+            </div>
+            <div
+              className="bg-transparent absolute bottom-10 left-44  text-white "
               style={{ textShadow: "2px 2px 4px black" }}
             >
-              <span className=" text-6xl pb-3">{movie.name}</span>
-              <div className="pb-2 text-2xl ">
+              <span className="bg-transparent text-6xl pb-3 ">
+                {movie.name}
+              </span>
+              <div className="bg-transparent pb-2 text-2xl ">
                 {movie.bigcategory}
                 <br />
                 {movie.smallcategory}
@@ -130,7 +147,7 @@ function Detail() {
             </div>
           </div>
 
-          <div className="flex mx-44 mt-10 mb-10 gap-10 ">
+          <div className="flex mx-28 mt-10 mb-10 gap-10 ">
             <div className="w-1/4">
               <img
                 src={`https://image.tmdb.org/t/p/original/${movie.imgpath}`}
@@ -141,7 +158,7 @@ function Detail() {
             <div className="w-3/4">
               <div>
                 <div className="mb-4 ">
-                  <div className="flex justify-between  items-center">
+                  <div className="flex justify-between  items-center text-gray-200">
                     <Star AVR_RATE={movie.avg_rate} />
                     <div className="flex gap-3">
                       {wish === false ? (
@@ -234,7 +251,7 @@ function Detail() {
                 <hr />
                 <div className="flex">
                   {/* 줄거리 */}
-                  <div className="w-3/5 pr-3 border-r border-solid border-gray-300">
+                  <div className="w-3/5 pr-3 border-r border-solid border-gray-300 text-gray-200">
                     <h3>줄거리</h3>
                     <p className="mt-2 ">
                       {movie.description && movie.description.length < 300
@@ -243,14 +260,13 @@ function Detail() {
                     </p>
                   </div>
                   {/* 출연진 */}
-                  <div className="w-2/5  pl-3">
-                    <div className="mb-2">
+                  <div className="w-2/5  pl-3 text-gray-200 ">
+                    <div className=" mb-16">
                       <h3>감독</h3>
                       {movie.director}
                     </div>
-
                     <h3>출연</h3>
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-2 ">
                       {movie.actors.map((item) => (
                         <div className="w-[23%] flex flex-col items-center rounded shadow-md">
                           <img
@@ -258,7 +274,7 @@ function Detail() {
                             className=" rounded-t"
                             onError={(e) => (e.currentTarget.src = noImagePs)}
                           />
-                          {item.name}
+                          {item.name.length < 6 ? item.name : `${item.name.slice(0,7)}..`}
                         </div>
                       ))}
                     </div>
@@ -267,7 +283,7 @@ function Detail() {
               </div>
             </div>
           </div>
-          <div className="mx-44">
+          <div className="mx-28">
             <hr />
             <div ref={inputForm}>
               <Review />

@@ -13,13 +13,9 @@ function Socialgoogle() {
     const { BASE_URL: URL } = ApiService;
     const cookies = new Cookies();
     const navigate = useNavigate();
-    const code = cookies.get('code')
-    const access_token = cookies.get('access_token')
     const loginerror = cookies.get('loginerror')
-    const data = {
-        "access_token" : access_token,
-        "code" : code
-    }
+    const loginjwt = cookies.get("loginjwt")
+    const loginrefresh = cookies.get("loginrefresh")
     useEffect( ()=> {
         if (loginerror === "not_social") {
             cookies.remove('loginerror')
@@ -37,18 +33,14 @@ function Socialgoogle() {
             window.location.href = "/login"
             alert("로그인 에러 다시 실행해주세요.");
         }
-        else {
-        axios.post(`${URL}accounts/google/login/finish/`, data, { withCredentials: true })
-        .then( response => {
-            console.log(response)
-            const access = response.data.access
-            const refresh = response.data.refresh
-            cookies.remove('access_token')
-            cookies.remove('code')
-            localStorage.setItem("jwtToken", access);
-            localStorage.setItem("refresh", refresh);
-            navigate("/home");
-        })}
+        else if(loginjwt)
+        {
+          cookies.remove('loginjwt')
+          cookies.remove('loginrefresh')
+          localStorage.setItem("jwtToken", loginjwt);
+          localStorage.setItem("refresh", loginrefresh);
+          navigate("/home");
+      }
     })
 
     return(

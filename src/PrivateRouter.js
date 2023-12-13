@@ -9,7 +9,7 @@ function PrivateRouter() {
     }
     else {
         alert("로그인을 하세요")
-        return <Navigate to="/" />;
+        return <Navigate to="/login" />;
     }
 }
 

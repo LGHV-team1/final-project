@@ -158,7 +158,7 @@ export default function Mypage() {
             label={"프로필 사진 변경"}
             onClick={showModal1}
             className={
-              "border mt-2 py-2 w-full bg-my-color  hover:bg-my-color/70 text-white  rounded px-4"
+              "mt-2 py-2 w-full bg-my-color  hover:bg-my-color/70 text-white  rounded px-4"
             }
           />
           {modal1Open && <ModalProfile setModalOpen={setModal1Open} />}
@@ -166,7 +166,7 @@ export default function Mypage() {
             label={"회원정보 수정"}
             onClick={showModal2}
             className={
-              "border mt-2 py-2 w-full bg-my-color  hover:bg-my-color/70 text-white  rounded px-4"
+              "mt-2 py-2 w-full bg-my-color  hover:bg-my-color/70 text-white  rounded px-4"
             }
           />
           {modal2Open && <ModalChangeinfo setModalOpen={setModal2Open} />}
@@ -201,7 +201,7 @@ export default function Mypage() {
             }}
           ></hr>
           <IconWrap>
-            <div className="text-center">
+            <div className="text-center text-gray-200">
               <BsPencilSquare color="#3399FF" />
               <p>나의 리뷰 </p>
             </div>
@@ -213,14 +213,14 @@ export default function Mypage() {
         <div className="max-w-[200px] w-[400px] mx-auto m-7 text-center">
           <Button
             className={
-              "border mt-2 py-2 w-full bg-my-color  hover:bg-my-color/70 text-white  rounded px-4"
+              "mt-2 py-2 w-full bg-my-color  hover:bg-my-color/70 text-white  rounded px-4"
             }
             label={"로그아웃"}
             onClick={goToLogout}
           />
           <Button
             className={
-              "border mt-2 py-2 w-full bg-my-color  hover:bg-my-color/70 text-white  rounded px-4"
+              "mt-2 py-2 w-full bg-my-color  hover:bg-my-color/70 text-white  rounded px-4"
             }
             label={"회원 탈퇴"}
             onClick={deleteUser}

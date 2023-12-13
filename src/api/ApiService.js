@@ -114,6 +114,10 @@ class ApiService {
     getSearch2(searchword){
         return this.axiosInstance.get(`contents/${searchword}`);
     }
+    getSearch3(searchword){
+        return this.axiosInstance.get(`contents/search/actor/${searchword}`);
+    }
+
     postReview(name, review, rankValue){
         return this.axiosInstance.post(`contents/${name}/review/`, {
             payload: review,

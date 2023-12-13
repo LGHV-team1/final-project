@@ -8,7 +8,7 @@ import img6 from "../images/About/효심.jpg"
 function About() {
 
     return(
-        <div className="mx-44 mt-5 text-center">
+        <div className="mx-44 mt-5 text-center pb-11">
             <div className="mb-5">
                 <h1>웹 사이트 소개</h1>
                 <p> 안녕하세요! 저희는 Rec=VoD팀입니다. <br/>
@@ -19,18 +19,40 @@ function About() {
             <hr
             style={{
               height: "3px",
-              backgroundColor: "#000",
+              backgroundColor: "#999",
               marginBottom: "3%",
             }}
           ></hr>
-            <div>
+            <div className="mb-10">
                 <h1>팀 소개</h1>
-                <img src={img1} alt="도현" width="200px" className="mr-2 inline-block"></img>
-                <img src={img2} alt="수정" width="200px" className="mr-2 inline-block"></img>
-                <img src={img3} alt="준호" width="200px" className="mr-2 inline-block"></img>
-                <img src={img4} alt="지민" width="200px" className="mr-2 inline-block"></img>
-                <img src={img5} alt="한경" width="200px" className="mr-2 inline-block"></img>
-                <img src={img6} alt="효심" width="200px" className="mr-2 inline-block"></img>
+                <div className="mt-3">
+                    <div className="text-center inline-block">
+                        <img src={img1} alt="도현" width="200px" className="mr-2 mb-2 inline-block"></img>
+                        <p>김도현<br/>Data Analysis</p>
+                    </div>
+                    <div className="text-center inline-block">
+                        <img src={img2} alt="수정" width="200px" className="mr-2 mb-2 inline-block"></img>
+                        <p>김수정<br/>Data Analysis</p>
+                    </div>
+                    <div className="text-center inline-block">
+                        <img src={img3} alt="준호" width="200px" className="mr-2 mb-2 inline-block"></img>
+                        <p>송준호<br/>Data Analysis</p>
+                    </div>
+                </div>
+                <div>
+                    <div className="text-center inline-block">
+                        <img src={img4} alt="지민" width="200px" className="mr-2 mb-2 inline-block"></img>
+                        <p>김지민<br/>Back-end, CI/CD</p>
+                    </div>
+                    <div className="text-center inline-block">
+                        <img src={img5} alt="한경" width="200px" className="mr-2 mb-2 inline-block"></img>
+                        <p>김한경<br/>Front-end</p>
+                    </div>
+                    <div className="text-center inline-block">
+                        <img src={img6} alt="효심" width="200px" className="mr-2 mb-2 inline-block"></img>
+                        <p>박효심<br/>Front-end, Back-end</p>
+                    </div>
+                </div>
             </div>
 
 

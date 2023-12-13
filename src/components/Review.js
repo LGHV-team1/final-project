@@ -39,19 +39,19 @@ export default function Review() {
 
   return (
     <form onSubmit={sendReview} className=" rounded">
-      <div className="w-full mb-4 border border-gray-200 rounded-px-4 bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
-        <div className="p-4 bg-white rounded-t-lg dark:bg-gray-800">
+      <div className="w-full mb-4 border border-gray-200 rounded-lg bg-gray-200 dark:bg-gray-700 dark:border-gray-600">
+        <div className="p-4 bg-gray-500-t-lg ">
           <textarea
             id="comment"
             rows="4"
-            className="w-full   text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
+            className="w-full text-black  focus:ring-gray-300 bg-gray-200 dark:placeholder-black"
             placeholder="이 작품에 대한 생각을 자유롭게 작성해주세요..."
             required
             onChange={onHandlerReview}
             value={review}
           ></textarea>
         </div>
-        <div className="flex items-center justify-between px-3 py-2 border-t dark:border-gray-600">
+        <div className="flex items-center justify-between px-3 py-2 border-t border-black ">
           <Button
             type="submit"
             label={"리뷰 작성"}

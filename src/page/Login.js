@@ -56,13 +56,14 @@ function Login() {
   };
 
   return (
-   <body
-    className="bg-black "
-    style={{ backgroundImage: `url(${BGimg})`, backgroundSize: "cover", backgroundRepeat: "no-repeat", height:"100vh" }}
+    <body
+    style={{
+      backgroundImage: `url(${BGimg})`,
+      backgroundSize: "cover",
+      backgroundRepeat: "no-repeat",
+      height: "100vh",
+    }}
   >
-      <div style={{position:"absolute"}} >
-      
-      </div>
       <div className="max-w-[400px] w-[400px] mx-auto bg-transparent p-4 rounded position-relative">
         <form onSubmit={onLogin}>
           <h2 className="text-5xl font-bold text-center text-white py-5">로그인</h2>

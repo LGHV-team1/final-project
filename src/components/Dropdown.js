@@ -21,7 +21,7 @@ export default function Dropdown({ categoryName, categoryList, link }) {
   const handleMouseLeave = () => {
     leaveTimeout.current = setTimeout(() => {
       setShowDropdown(false);
-    }, 50); // 500ms 후에 드롭다운을 숨깁니다.
+    }, 100); // 500ms 후에 드롭다운을 숨깁니다.
   };
 
   useEffect(() => {
@@ -41,7 +41,7 @@ export default function Dropdown({ categoryName, categoryList, link }) {
       <div>
         <button
           type="button"
-          className="inline-flex w-full justify-center gap-x-1.5 rounded-md   text-white shadow-sm ring-1 ring-inset  hover:scale-105"
+          className="inline-flex w-full justify-center gap-x-1.5 rounded-md   text-gray-400 shadow-sm ring-1 ring-inset  hover:scale-105 hover:text-my-color"
           id="menu-button"
           aria-expanded={showDropdown}
           aria-haspopup={showDropdown}
@@ -52,7 +52,7 @@ export default function Dropdown({ categoryName, categoryList, link }) {
       </div>
       {showDropdown && ( // 조건부 렌더링
         <div
-          className="absolute z-10 w-40  rounded-md bg-black opacity-90 shadow-lg "
+          className="absolute z-10 w-40  rounded-md bg-black opacity-90 shadow-lg  "
           role="menu"
           aria-orientation="vertical"
           aria-labelledby="menu-button"
@@ -70,7 +70,7 @@ export default function Dropdown({ categoryName, categoryList, link }) {
                 <div className="py-2" key={item}>
                   <Link
                     to={dynamicUrl}
-                    className="ml-2 text-gray-100 no-underline hover:text-my-color"
+                    className="ml-2 text-gray-400 no-underline hover:text-my-color"
                     onClick={() => {
                       dispatch(setCategory(item))
                     }}

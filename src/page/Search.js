@@ -1,44 +1,77 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import axios from "axios";
-import { useLocation, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import noImage from "../images/noimage.png";
 import Helload from "../components/Helload";
 import ApiService from "../api/ApiService";
-
+import ShowData from "../components/ShowData";
 const isChoseongOnly = (string) => {
   return /^[ㄱ-ㅎ]+$/g.test(string);
 };
 
 function Search() {
-  const { BASE_URL: URL } = ApiService;
   const searchValue = useSelector((state) => state.search.value);
-
+  const [visiblevodData1, setVisiblevodData1] = useState([]);
+  const [visiblevodData2, setVisiblevodData2] = useState([]);
+  const itemsPerpage = 10;
   const [movies, setMovie] = useState([]);
+  const [actormovies, setActorMovie] = useState([]);
   useEffect(() => {
     if (searchValue) {
       getData();
+      // setVisiblevodData1(movies.slice(0, itemsPerpage));
+      // setVisiblevodData2(actormovies.slice(0, itemsPerpage));
     }
   }, [searchValue]);
+
+  useEffect(() => {
+    setVisiblevodData1(movies.slice(0, itemsPerpage));
+  }, [movies]);
+
+  useEffect(() => {
+    setVisiblevodData2(actormovies.slice(0, itemsPerpage));
+  }, [actormovies]);
+
+
 
   const getData = async () => {
     try {
       let response;
+      let responseactor;
       if (isChoseongOnly(searchValue)) {
-        response = await ApiService.getSearch1(searchValue); // getKids1 메서드 호출
+        response = await ApiService.getSearch1(searchValue); //초성검색
       } else {
-        response = await ApiService.getSearch2(searchValue); // getKids2 메서드에 categoryWord 전달
+        response = await ApiService.getSearch2(searchValue); //제목검색
+        responseactor = await ApiService.getSearch3(searchValue); //인물검색
       }
-      const data = response.data;
-      setMovie(data);
-      console.log(data);
+      setMovie(response.data);
+      setActorMovie(responseactor.data);
+      console.log(response.data)
+      console.log(responseactor.data)
     } catch (err) {
       console.error(err);
     }
   };
+
+  const handleShowMorevodData1 = () => {
+    const newDataToShow = movies.slice(
+      visiblevodData1.length,
+      visiblevodData1.length + itemsPerpage
+    );
+    setVisiblevodData1([...visiblevodData1, ...newDataToShow]);
+  };
+  const handleShowMorevodData2 = () => {
+    const newDataToShow = actormovies.slice(
+      visiblevodData2.length,
+      visiblevodData2.length + itemsPerpage
+    );
+    setVisiblevodData2([...visiblevodData2, ...newDataToShow]);
+  };
+
+
   if (searchValue === "") {
     return (
-      <div className="mx-44 mt-5">
+      <div className="mx-44 mt-5 text-gray-300">
         <h1>검색어를 입력해주세요</h1>
         <Helload />
       </div>
@@ -46,32 +79,20 @@ function Search() {
   } else {
     return (
       <div className="mx-44 mt-5">
-        <h1>
-          검색 결과: {searchValue}
-          <div className="flex flex-wrap gap-4 my-5">
-            {movies.map((movie, index) => (
-              <div
-                key={index}
-                className="w-[18.5%]  sm:w-1/2 md:w-1/2 lg:w-[18.5%] xl:w-[18.5%] mb-5 transition transform duration-500 ease-in-out "
-              >
-                <Link
-                  to={`/detail/${movie.id}`}
-                  className="rounded-lg overflow-hidden block"
-                >
-                  <img
-                    src={`https://image.tmdb.org/t/p/w500/${movie.imgpath}`}
-                    className="rounded-md w-full shadow-[0px_0px_0px_3px_rgba(0,0,0,0.3)] transition transform duration-500 ease-in-out hover:scale-110 "
-                    onError={(e) => (e.currentTarget.src = noImage)}
-                    style={{ height: "400px" }}
-                  />
-                </Link>
-                <div className="text-gray-600 text-[18px] mt-2 text-center">
-                  {movie.name}
-                </div>
-              </div>
-            ))}
+        <h1>검색 결과 : {searchValue}</h1>
+          <div className="mt-5">
+            <h3>제목 검색</h3>
+            {movies.length === 0 ? (
+               <p className="text-lg"> 제목 검색 결과가 없습니다</p> )
+             : <ShowData data={visiblevodData1} handleShow={handleShowMorevodData1} /> }
           </div>
-        </h1>
+          <div className="my-5 pb-10">
+          <h3>인물 검색</h3>
+            {actormovies.length === 0 ? (
+              <p className="text-lg"> 인물 검색 결과가 없습니다</p> ) 
+             : <ShowData data={visiblevodData2} handleShow={handleShowMorevodData2} /> }
+          </div>
+
       </div>
     );
   }
