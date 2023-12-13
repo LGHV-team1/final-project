@@ -126,7 +126,7 @@ function MyReview() {
                                     rows="3"
                                     value={editedPayload}
                                     onChange={handlePayloadChange}
-                                    class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-lg"
+                                    class="block w-[79%] p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-lg"
                                 />
                                 </div>
                             ) : (
