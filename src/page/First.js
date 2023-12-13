@@ -64,11 +64,7 @@ function First() {
           label={"로그인"}
           onClick={goToLoginForm}
         />
-        <Button
-          className="py-2 bg-my-color  text-white  hover:bg-my-color/70 rounded px-4 ml-3"
-          label={"회원가입"}
-          onClick={goToSignForm}
-        />
+        
       </div>
     </body>
   );

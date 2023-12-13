@@ -20,6 +20,7 @@ import About from "./page/About.js";
 import PrivateRouter from "./PrivateRouter.js";
 import LoginRouter from "./LoginRouter.js";
 import MainLayout from "./layout/MainLayout.js";
+import SubLayout from "./layout/SubLayout.js";
 // import AppRoute from "./routes/AppRoute.js";
 // function App() {
 //   return (
@@ -29,8 +30,6 @@ function App() {
   return (
     <Router>
       <div style={style}>
- 
-    
       <Routes>
         <Route element={<PrivateRouter/>}>
           <Route element={<MainLayout />}>
@@ -43,6 +42,7 @@ function App() {
           <Route path="/search" element={<><Search /></>} />
         </Route>
         </Route>
+        <Route element={<SubLayout/>}>
         <Route element={<LoginRouter/>}>
           <Route path="/"element={<><First/></>}/>
         </Route>
@@ -52,6 +52,7 @@ function App() {
         <Route path="/socialn" element={<><Socialnaver /></>} />
         <Route path="/socialg" element={<><Socialgoogle /></>} />
         <Route path="/about" element={<><About /></>} />
+        </Route>
       </Routes>
     
  

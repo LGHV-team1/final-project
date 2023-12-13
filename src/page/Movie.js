@@ -34,10 +34,10 @@ function Movie() {
 
   if (categoryWord === null) {
     return (
-      <div className=" mx-44  ">
+      <div className=" mx-28  ">
         <div className="">
           <div className="">
-            <h1 className="my-10">영화 인기 TOP5</h1>
+          <p className=" text-4xl text-gray-300 my-5">⭐영화 Top5⭐</p>
             <MiniSlide data={movie} />
           </div>
           <div className="text-center mt-3"></div>
@@ -46,7 +46,7 @@ function Movie() {
     );
   } else {
     return (
-      <div className="mx-44">
+      <div className="mx-28">
         {loading === true ? <div>loading</div> : <SortData data={movie} />}
       </div>
     );

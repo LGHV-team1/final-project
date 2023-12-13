@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import axios from "axios";
-import { useLocation, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import noImage from "../images/noimage.png";
 import Helload from "../components/Helload";
 import ApiService from "../api/ApiService";
@@ -11,7 +10,6 @@ const isChoseongOnly = (string) => {
 };
 
 function Search() {
-  const { BASE_URL: URL } = ApiService;
   const searchValue = useSelector((state) => state.search.value);
 
   const [movies, setMovie] = useState([]);
@@ -38,21 +36,21 @@ function Search() {
   };
   if (searchValue === "") {
     return (
-      <div className="mx-44 mt-5">
+      <div className="mx-44 mt-5 text-gray-300">
         <h1>검색어를 입력해주세요</h1>
         <Helload />
       </div>
     );
   } else {
     return (
-      <div className="mx-44 mt-5">
+      <div className=" mx-28 mt-5 text-gray-300">
         <h1>
           검색 결과: {searchValue}
           <div className="flex flex-wrap gap-4 my-5">
             {movies.map((movie, index) => (
               <div
                 key={index}
-                className="w-[18.5%]  sm:w-1/2 md:w-1/2 lg:w-[18.5%] xl:w-[18.5%] mb-5 transition transform duration-500 ease-in-out "
+                className="sm:w-1/2 md:w-1/2 lg:w-[16.5%] xl:w-[15%] mb-5 transition transform duration-500 ease-in-out "
               >
                 <Link
                   to={`/detail/${movie.id}`}
@@ -62,10 +60,10 @@ function Search() {
                     src={`https://image.tmdb.org/t/p/w500/${movie.imgpath}`}
                     className="rounded-md w-full shadow-[0px_0px_0px_3px_rgba(0,0,0,0.3)] transition transform duration-500 ease-in-out hover:scale-110 "
                     onError={(e) => (e.currentTarget.src = noImage)}
-                    style={{ height: "400px" }}
+                    style={{ height: "350px" }}
                   />
                 </Link>
-                <div className="text-gray-600 text-[18px] mt-2 text-center">
+                <div className="text-gray-300 text-[18px] mt-2 text-center">
                   {movie.name}
                 </div>
               </div>

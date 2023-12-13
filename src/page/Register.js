@@ -83,10 +83,14 @@ function Register() {
     }
   };
   return (
-    <body>
-      <div style={{ position: "absolute" }}>
-        <img src={BGimg} alt="background" />
-      </div>
+    <body
+    style={{
+      backgroundImage: `url(${BGimg})`,
+      backgroundSize: "cover",
+      backgroundRepeat: "no-repeat",
+      height: "100vh",
+    }}
+  >
       <div className="max-w-[400px] w-[400px] mx-auto bg-transparent p-4 rounded position-relative">
         <form onSubmit={onRegister}>
           <h2 className="text-5xl font-bold text-center text-white py-5 ">

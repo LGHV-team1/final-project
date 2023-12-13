@@ -8,8 +8,8 @@ import img6 from "../images/About/효심.jpg"
 function About() {
 
     return(
-        <div className="mx-44 mt-5 text-center">
-            <div className="mb-5">
+        <div className="mx-28 mt-5 text-center" style={{height:"100vh"}}>
+            <div className="mb-5 text-gray-200">
                 <h1>웹 사이트 소개</h1>
                 <p> 안녕하세요! 저희는 Rec=VoD팀입니다. <br/>
                 이 웹사이트는 LG헬로비전 DX DATA SCHOOL 1기 프로젝트로 <br/>
@@ -19,12 +19,12 @@ function About() {
             <hr
             style={{
               height: "3px",
-              backgroundColor: "#000",
+              backgroundColor: "#999",
               marginBottom: "3%",
             }}
           ></hr>
-            <div>
-                <h1>팀 소개</h1>
+            <div className="text-gray-200">
+                <h1 className="my-5">팀 소개</h1>
                 <img src={img1} alt="도현" width="200px" className="mr-2 inline-block"></img>
                 <img src={img2} alt="수정" width="200px" className="mr-2 inline-block"></img>
                 <img src={img3} alt="준호" width="200px" className="mr-2 inline-block"></img>

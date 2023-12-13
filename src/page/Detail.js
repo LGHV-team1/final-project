@@ -147,7 +147,7 @@ function Detail() {
             </div>
           </div>
 
-          <div className="flex mx-44 mt-10 mb-10 gap-10 ">
+          <div className="flex mx-28 mt-10 mb-10 gap-10 ">
             <div className="w-1/4">
               <img
                 src={`https://image.tmdb.org/t/p/original/${movie.imgpath}`}
@@ -274,7 +274,7 @@ function Detail() {
                             className=" rounded-t"
                             onError={(e) => (e.currentTarget.src = noImagePs)}
                           />
-                          {item.name}
+                          {item.name.length < 6 ? item.name : `${item.name.slice(0,7)}..`}
                         </div>
                       ))}
                     </div>
@@ -283,7 +283,7 @@ function Detail() {
               </div>
             </div>
           </div>
-          <div className="mx-44">
+          <div className="mx-28">
             <hr />
             <div ref={inputForm}>
               <Review />

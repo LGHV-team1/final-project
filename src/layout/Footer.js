@@ -2,11 +2,11 @@ import 'bootstrap/dist/css/bootstrap.css';
 import LGHVlogo from "../images/CI_White.png";
 import RAPA from "../images/rapalogo.png"
 import Cable from "../images/cable.png"
-import { Link, Outlet } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 const Footer = () => {
     return (
   <footer class="py-3 mt-auto position-relative h-[100px] border-t border-gray-600">
-    <div class="mx-44 ">
+    <div class="mx-28 ">
   
     <div className='flex justify-between'>
       <div className='flex gap-5'>

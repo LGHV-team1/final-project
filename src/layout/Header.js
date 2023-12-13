@@ -1,28 +1,26 @@
-import React, { useState, useRef, useEffect } from "react";
-import { useNavigate, useLocation, Outlet, Link } from "react-router-dom";
+import React, { useRef, useEffect } from "react";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import { debounce } from "lodash";
 import logo from "../images/tmplogo.png";
 import Button from "../components/Button";
 import { Cookies } from "react-cookie";
 import ApiService from "../api/ApiService";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setSearchValue } from "../redux/searchSlice";
 import Dropdown from "../components/Dropdown";
-import DarkButton from "../components/DarkButton";
 
 function Header2() {
   const { BASE_URL: URL } = ApiService;
   const searchInputRef = useRef(null); // 입력창 참조 생성
   const dispatch = useDispatch();
-  
+
   const search = useSelector((state) => state.search.value);
   const handleInputChange = (e) => {
     dispatch(setSearchValue(e.target.value));
     debouncedFetch(e.target.value);
   };
   const movieCategory = [
-    "SF/환타지", 
+    "SF/환타지",
     "공포/스릴러",
     "다큐멘터리",
     "단편",
@@ -48,10 +46,10 @@ function Header2() {
     "TV 연예/오락",
     "TV 시사/교양",
     "공연/음악",
-    "기타"
+    "기타",
   ];
 
-  const kidCategory = [ "애니메이션", "오락", "학습" ,"기타"];
+  const kidCategory = ["애니메이션", "오락", "학습", "기타"];
   useEffect(() => {
     return () => {
       debouncedFetch.cancel();
@@ -94,16 +92,15 @@ function Header2() {
   };
   const goToSearch = () => {
     navigate("/search");
-
   };
   const config = {
     headers: {
       "X-CSRFToken": csrftoken,
-      'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`,
+      Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
     },
   };
   const goToLogout = () => {
-    const refreshToken = localStorage.getItem('refresh');
+    const refreshToken = localStorage.getItem("refresh");
     ApiService.logout(refreshToken)
       .then((response) => {
         localStorage.removeItem("jwtToken");
@@ -115,19 +112,34 @@ function Header2() {
   };
   return (
     <nav className="sticky top-0 z-10 ">
-      <div className=" pt-10 pb-8 mx-44  flex h-16 justify-between border-b border-gray-600">
+      <div className=" pt-10 pb-8 mx-28  flex h-16 justify-between border-b border-gray-600">
         <div className="flex items-center gap-10 ">
-          <a href="/">
-            <img className="my-1" src={logo} alt="logo" width="200px" />
-          </a>
+          <Link to="/">
+            <img className="my-1" src={logo} alt="logo" width="100px" />
+          </Link>
 
           <div className="flex justify-center items-center sorts-contents gap-3 ">
-            <Link to="/home" className=" text-gray-400 no-underline hover:text-my-color">
+            <Link
+              to="/home"
+              className=" text-gray-400 no-underline hover:text-my-color"
+            >
               홈
             </Link>
-            <Dropdown categoryName={"영화"} categoryList={movieCategory} link={"movie"}/>
-            <Dropdown categoryName={"TV"} categoryList={tvCategory} link={"tv"}/>
-            <Dropdown categoryName={"키즈"} categoryList={kidCategory} link={"kids"} />
+            <Dropdown
+              categoryName={"영화"}
+              categoryList={movieCategory}
+              link={"movie"}
+            />
+            <Dropdown
+              categoryName={"TV"}
+              categoryList={tvCategory}
+              link={"tv"}
+            />
+            <Dropdown
+              categoryName={"키즈"}
+              categoryList={kidCategory}
+              link={"kids"}
+            />
           </div>
         </div>
 
