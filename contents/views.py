@@ -19,12 +19,22 @@ class SearchVods(APIView):
     def get(self, request, vodname):
         if vodname:
             vodname_no_space = vodname.replace(" ", "")
-            combined_queryset = Vod.objects.filter(Q(name_no_space__icontains=vodname_no_space) | Q(searchactors__icontains=vodname_no_space)).distinct()
+            combined_queryset = Vod.objects.filter(name_no_space__icontains=vodname_no_space)
             serializer = VodListSerializer(combined_queryset, many=True)
             return Response(serializer.data)
         else:
             return Response({"error": "검색어를 제공해야 합니다."}, status=400)
 
+class Searchactors(APIView):
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    def get(self, request, actor):
+        if actor:
+            vodname_no_space = actor.replace(" ", "")
+            combined_queryset = Vod.objects.filter(searchactors__icontains=vodname_no_space)
+            serializer = VodListSerializer(combined_queryset, many=True)
+            return Response(serializer.data)
+        else:
+            return Response({"error": "검색어를 제공해야 합니다."}, status=400)
 class SearchVodsByChoseong(APIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
     def get(self, request, vodname):
