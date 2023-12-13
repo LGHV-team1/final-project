@@ -1,8 +1,9 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:590166514721:task-definition/vod_task:2",
+    "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:590166514721:task-definition/vod_task:42",
     "containerDefinitions": [
         {
             "name": "vod_container",
+            "image": "590166514721.dkr.ecr.ap-northeast-2.amazonaws.com/lg_final_project:b01d8d767229600901c169e36c5675a5ee026c8d",
             "cpu": 0,
             "portMappings": [
                 {
@@ -15,10 +16,8 @@
             ],
             "essential": true,
             "environment": [],
-            "environmentFiles": [],
             "mountPoints": [],
             "volumesFrom": [],
-            "ulimits": [],
             "logConfiguration": {
                 "logDriver": "awslogs",
                 "options": {
@@ -28,18 +27,29 @@
                     "awslogs-stream-prefix": "ecs"
                 },
                 "secretOptions": []
+            },
+            "healthCheck": {
+                "command": [
+                    "CMD-SHELL python manage.py runserver"
+                ],
+                "interval": 30,
+                "timeout": 60,
+                "retries": 3
             }
         }
     ],
     "family": "vod_task",
     "executionRoleArn": "arn:aws:iam::590166514721:role/ecsTaskExecutionRole",
     "networkMode": "awsvpc",
-    "revision": 2,
+    "revision": 42,
     "volumes": [],
     "status": "ACTIVE",
     "requiresAttributes": [
         {
             "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.24"
         },
         {
             "name": "ecs.capability.execution-role-awslogs"
@@ -49,6 +59,9 @@
         },
         {
             "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
+        },
+        {
+            "name": "ecs.capability.container-health-check"
         },
         {
             "name": "ecs.capability.execution-role-ecr-pull"
@@ -71,13 +84,13 @@
     "requiresCompatibilities": [
         "FARGATE"
     ],
-    "cpu": "512",
+    "cpu": "1024",
     "memory": "2048",
     "runtimePlatform": {
         "cpuArchitecture": "X86_64",
         "operatingSystemFamily": "LINUX"
     },
-    "registeredAt": "2023-11-29T00:34:13.172Z",
+    "registeredAt": "2023-12-13T08:59:19.386Z",
     "registeredBy": "arn:aws:iam::590166514721:root",
     "tags": []
 }
