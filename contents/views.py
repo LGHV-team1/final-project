@@ -9,10 +9,35 @@ from reviews.serializers import ReviewSerializer, ReviewshowSerializer
 from wishlists.models import Wishlist
 from wishlists.serializers import WishlistSerializer
 from wishlists.utils import delete_wishlist
+from kafka import KafkaProducer
 from pymongo import MongoClient
 from config import settings
 import json
 
+class MessageProducer:
+    def __init__(self,broker,topic):
+        self.broker=broker
+        self.topic=topic
+        self.producer=KafkaProducer(
+            bootstrap_servers=self.broker,
+            value_serializer=lambda x: json.dumps(x).encode("utf-8"),
+            acks=0,
+            api_version=(2,5,0),
+            key_serializer=str.encode,
+            retries=3,
+
+        )
+    def send_message(self, msg, auto_close=True):
+        try:
+            print(self.producer)
+            future = self.producer.send(self.topic, value=msg, key="key")
+            self.producer.flush() # 비우는 작업
+            if auto_close:
+                self.producer.close()
+            future.get(timeout=2)
+            return {"status_code": 200, "error": None}
+        except Exception as exc:
+            raise exc
 
 class SearchVods(APIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
@@ -128,10 +153,13 @@ class SearchVodsDetail(APIView):
     reviews_collection=db.reviews
     user_collection=db.users
     def get_object(self, vodid):
+        return Vod.objects.get(id=vodid)
+    
+    def get_object_mongo(self, vodid):
         return self.vods_collection.find_one({"id": vodid})
 
     def get(self, request, vodid):
-        vod = self.get_object(vodid)
+        vod = self.get_object_mongo(vodid)
         if vod is None:
             return Response(
                 {"error": "해당 vod가 존재하지 않습니다."}, status=status.HTTP_404_NOT_FOUND
@@ -211,6 +239,12 @@ class SearchVodsDetail(APIView):
             wishlist_id = wishlist.id
             # 찜 삭제
             delete_wishlist(wishlist_id, request.user)
+            broker = ["localhost:9092"]
+            topic = "rvdcontents"
+            pd = MessageProducer(broker, topic)
+            #전송할 메시지 생성
+            msg = {"task": "delete", "data": wishlist_id}
+            res = pd.send_message(msg)
             return Response(status=status.HTTP_204_NO_CONTENT)
         else:
             wishlist_data = {
@@ -221,6 +255,14 @@ class SearchVodsDetail(APIView):
             serializer = WishlistSerializer(data=wishlist_data)
             if serializer.is_valid():
                 serializer.save()
+                # Kafka를 통한 메세지 전송
+                broker = ["localhost:9092"]
+                topic = "rvdcontents"
+                pd = MessageProducer(broker, topic)
+                #전송할 메시지 생성
+                msg = {"task": "insert", "data": serializer.data}
+                res = pd.send_message(msg)
+                print(res)
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
 
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -293,7 +335,7 @@ class VodReviews(APIView):
     #         many=True,
     #     )
     #     return Response(serializer.data)
-
+    """ # 마이페이지에서만 수정 가능.
     def post(self, request, vodid):
         existing_review = Review.objects.filter(
             user=request.user, contents__id=vodid
@@ -347,6 +389,7 @@ class VodReviews(APIView):
         # Delete the review
         review.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+        """
 
 
 class CategorySearch(APIView):

@@ -6,11 +6,51 @@ from .models import MainRecommend
 from contents.models import Vod
 from contents.serializers import VodListSerializer
 from random import choice
+from pymongo import MongoClient
+import json
+from config import settings
 
 
 class MainRecommend1(APIView):
 	permission_classes=[IsAuthenticated]
-    
+	ip = settings.EC2_IP
+	pw = settings.MONGO_PW
+	client = MongoClient(f"mongodb://hellovision:{pw}@{ip}", 27017)
+	db = client.LGHV
+	rec_collection = db.recommends
+	vod_collection = db.contents
+
+	def get(self, request):
+		user = request.user.stbnumber
+		try:
+			recommend = self.rec_collection.find_one({"stbnum": user, "method": 1})
+			if not recommend:
+				raise Exception("No recommendation found")
+			vod_ids = [recommend.get(f'rec{i}') for i in range(1, 11)]
+			# VOD 객체 조회
+			print(vod_ids)
+			vod_objects = list(self.vod_collection.find({"id": {"$in": vod_ids}}))
+			print(vod_objects)
+			vod_serialized = [self.serialize_vod(vod) for vod in vod_objects]
+			return Response(vod_serialized, status=status.HTTP_200_OK)
+
+		except Exception as e:
+			# 기본 추천 처리
+			recommend = self.rec_collection.find_one({"stbnum": 1, "method": 1})
+			vod_ids = [recommend.get(f'rec{i}') for i in range(1, 11)]
+			vod_objects = list(self.vod_collection.find({"id": {"$in": vod_ids}}))
+			vod_serialized = [self.serialize_vod(vod) for vod in vod_objects]
+			return Response(vod_serialized, status=status.HTTP_202_ACCEPTED)
+
+	def serialize_vod(self, vod):
+		return {
+			"id": vod["id"],
+			"name": vod["name"],
+			"smallcategory": vod["smallcategory"],
+			"imgpath": vod["imgpath"],
+			"count": vod["count"],
+		}
+"""
 	def get(self,request):
 		user=request.user.stbnumber
 		try:
@@ -26,53 +66,98 @@ class MainRecommend1(APIView):
 			# 직렬화된 VOD 데이터를 응답으로 반환
 			return Response(vod_serializer.data,status=status.HTTP_200_OK)
 		except MainRecommend.DoesNotExist:
-			return Response(status=status.HTTP_400_BAD_REQUEST)
+			recommend=MainRecommend.objects.get(stbnum=1,method=1)
+			serializer=MainRecommendSerializer(recommend)
+			# MainRecommend 객체에서 각 VOD ID 가져오기
+			vod_ids = [serializer.data[f'rec{i}'] for i in range(1, 11)]
+
+			# 각 ID에 해당하는 VOD 객체 조회 및 직렬화
+			vod_objects = Vod.objects.filter(id__in=vod_ids)
+			vod_serializer = VodListSerializer(vod_objects, many=True)
+
+			# 직렬화된 VOD 데이터를 응답으로 반환
+			return Response(vod_serializer.data,status=status.HTTP_202_ACCEPTED)
+	"""
+			
 			
 	
 		
 
 
 class MainRecommend2(APIView):
+
 	permission_classes=[IsAuthenticated]
-    
-	def get(self,request):
-		user=request.user.stbnumber
-		recommend=MainRecommend.objects.get(stbnum=user,method=2)
-		serializer=MainRecommendSerializer(recommend)
-		# MainRecommend 객체에서 각 VOD ID 가져오기
-		vod_ids = [serializer.data[f'rec{i}'] for i in range(1, 11)]
+	ip = settings.EC2_IP
+	pw = settings.MONGO_PW
+	client = MongoClient(f"mongodb://hellovision:{pw}@{ip}", 27017)
+	db = client.LGHV
+	rec_collection = db.recommends
+	vod_collection = db.contents
 
-		# 각 ID에 해당하는 VOD 객체 조회 및 직렬화
-		vod_objects = Vod.objects.filter(id__in=vod_ids)
-		vod_serializer = VodListSerializer(vod_objects, many=True)
+	def get(self, request):
+		user = request.user.stbnumber
+		try:
+			recommend = self.rec_collection.find_one({"stbnum": user, "method": 2})
+			if not recommend:
+				raise Exception("No recommendation found")
+			vod_ids = [recommend.get(f'rec{i}') for i in range(1, 11)]
+			# VOD 객체 조회
+			print(vod_ids)
+			vod_objects = list(self.vod_collection.find({"id": {"$in": vod_ids}}))
+			print(vod_objects)
+			vod_serialized = [self.serialize_vod(vod) for vod in vod_objects]
+			return Response(vod_serialized, status=status.HTTP_200_OK)
 
-		# 직렬화된 VOD 데이터를 응답으로 반환
-		return Response(vod_serializer.data,status=status.HTTP_200_OK)
+		except Exception as e:
+			# 기본 추천 처리
+			recommend = self.rec_collection.find_one({"stbnum": 1, "method": 2})
+			vod_ids = [recommend.get(f'rec{i}') for i in range(1, 11)]
+			vod_objects = list(self.vod_collection.find({"id": {"$in": vod_ids}}))
+			vod_serialized = [self.serialize_vod(vod) for vod in vod_objects]
+			return Response(vod_serialized, status=status.HTTP_202_ACCEPTED)
+
+	def serialize_vod(self, vod):
+		return {
+			"id": vod["id"],
+			"name": vod["name"],
+			"smallcategory": vod["smallcategory"],
+			"imgpath": vod["imgpath"],
+			"count": vod["count"],
+		}
 	
 class RandomRecommend(APIView):
+	ip = settings.EC2_IP
+	pw = settings.MONGO_PW
+	client = MongoClient(f"mongodb://hellovision:{pw}@{ip}", 27017)
+	db = client.LGHV
+	rec_collection = db.recommends
+	vod_collection = db.contents
 	def get(self, request):
-		# 현재 요청한 사용자 제외한 모든 사용자 ID 목록 가져오기
-		all_user_ids = MainRecommend.objects.exclude(stbnum=request.user.stbnumber).values_list('stbnum', flat=True)
-
+        # 현재 요청한 사용자 제외한 모든 사용자 ID 목록 가져오기
+		current_user_id = request.user.stbnumber
+		all_user_ids = self.rec_collection.distinct("stbnum", {"stbnum": {"$ne": current_user_id}})
 		# 무작위 사용자 ID 선택
 		if all_user_ids:
 			random_user_id = choice(all_user_ids)
 		else:
-			# 무작위 선택할 사용자가 없는 경우, 에러 처리
 			return Response({"error": "No other users found"}, status=status.HTTP_404_NOT_FOUND)
-
+		
 		# 선택된 사용자의 추천 데이터 조회
-		recommend = MainRecommend.objects.get(stbnum=random_user_id, method=1)
-		serializer = MainRecommendSerializer(recommend)
+		recommend = self.rec_collection.find_one({"stbnum": random_user_id, "method": 1})
+		vod_ids = [recommend[f'rec{i}'] for i in range(1, 11)]
+		vod_objects = list(self.vod_collection.find({"id": {"$in": vod_ids}}))
 
-		# MainRecommend 객체에서 각 VOD ID 가져오기
-		vod_ids = [serializer.data[f'rec{i}'] for i in range(1, 11)]
+		serialized_vods = [self.serialize_vod(vod) for vod in vod_objects]
+		return Response(serialized_vods, status=status.HTTP_200_OK)
 
-		# 각 ID에 해당하는 VOD 객체 조회 및 직렬화
-		vod_objects = Vod.objects.filter(id__in=vod_ids)
-		vod_serializer = VodListSerializer(vod_objects, many=True)
-
-		# 직렬화된 VOD 데이터를 응답으로 반환
-		return Response(vod_serializer.data, status=status.HTTP_200_OK)
+	def serialize_vod(self, vod):
+		return {
+			"id": vod["id"],
+			"name": vod["name"],
+			"smallcategory": vod["smallcategory"],
+			"imgpath": vod["imgpath"],
+			"count": vod["count"],
+		}
+		
 
 			
