@@ -239,8 +239,8 @@ class SearchVodsDetail(APIView):
             wishlist_id = wishlist.id
             # 찜 삭제
             delete_wishlist(wishlist_id, request.user)
-            broker = ["localhost:9092"]
-            topic = "rvdcontents"
+            broker = ["1.220.201.108:9092"]
+            topic = "rvdwishlist"
             pd = MessageProducer(broker, topic)
             #전송할 메시지 생성
             msg = {"task": "delete", "data": wishlist_id}
@@ -256,8 +256,8 @@ class SearchVodsDetail(APIView):
             if serializer.is_valid():
                 serializer.save()
                 # Kafka를 통한 메세지 전송
-                broker = ["localhost:9092"]
-                topic = "rvdcontents"
+                broker = ["1.220.201.108:9092"]
+                topic = "rvdwishlist"
                 pd = MessageProducer(broker, topic)
                 #전송할 메시지 생성
                 msg = {"task": "insert", "data": serializer.data}
@@ -335,7 +335,7 @@ class VodReviews(APIView):
     #         many=True,
     #     )
     #     return Response(serializer.data)
-    """ # 마이페이지에서만 수정 가능.
+    
     def post(self, request, vodid):
         existing_review = Review.objects.filter(
             user=request.user, contents__id=vodid
@@ -357,10 +357,17 @@ class VodReviews(APIView):
         # Save the review instance
         if review.is_valid():
             review_instance = review.save()
+            broker = ["1.220.201.108:9092"]
+            topic = "rvdreview"
+            pd = MessageProducer(broker, topic)
+            #전송할 메시지 생성
+            msg = {"task": "insert", "data": ReviewSerializer(review_instance).data}
+            res = pd.send_message(msg)
+            print(res)
             return Response(ReviewSerializer(review_instance).data, status=201)
         else:
             return Response(review.errors, status=status.HTTP_400_BAD_REQUEST)
-
+    """ # 마이페이지에서만 수정 가능.
     def put(self, request, vodid):
         vod = self.get_object(vodid)
         try:
