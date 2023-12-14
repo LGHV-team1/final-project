@@ -27,29 +27,28 @@ class ReviewsConfig(AppConfig):
             # 데이터베이스 설정
             db = conn.LGHV
             collect = db.reviews
-            with conn.start_session() as mongo_session:
-                collect.delete_many({})
-                cursor = con.cursor()
-                # 데이터 읽어오는 SQL 실행
-                cursor.execute("select * from reviews_review")
-                # 전체 데이터를 가져와서 튜플의 튜플로 생성
-                data = cursor.fetchall()
-                for review in data:
-                        doc = {
-                            "id": review[0],
-                            "payload": review[1],
-                            "rating": review[2],
-                            "contents_id": review[3],
-                            "user_id": review[4],
-                            
-                        }
-                        collect.insert_one(doc,session=mongo_session)
-                con.close()
-                broker = ["1.220.201.108:9092"]
-                topic = "rvdreview"
-                consumer = MessageConsumer(broker, topic)
-                t = threading.Thread(target=consumer.receive_message)
-                t.start()
+            cursor = con.cursor()
+            # 데이터 읽어오는 SQL 실행
+            cursor.execute("select * from reviews_review")
+            # 전체 데이터를 가져와서 튜플의 튜플로 생성
+            data = cursor.fetchall()
+            for review in data:
+                review_id=review[0]
+                if not collect.find_one({"id": review_id}):
+                    doc = {
+                        "id": review[0],
+                        "payload": review[1],
+                        "rating": review[2],
+                        "contents_id": review[3],
+                        "user_id": review[4],
+                    }
+                    collect.insert_one(doc)
+            con.close()
+            broker = ["1.220.201.108:9092"]
+            topic = "rvdreview"
+            consumer = MessageConsumer(broker, topic)
+            t = threading.Thread(target=consumer.receive_message)
+            t.start()
 
 
 class MessageConsumer:
