@@ -96,10 +96,10 @@ INSTALLED_APPS = [
     "allauth.socialaccount.providers.kakao",
     "allauth.socialaccount.providers.naver",
     "corsheaders",
-    "contents",
-    "reviews",
-    "wishlists",
-    "recommends",
+    "contents.apps.ContentsConfig",
+    "reviews.apps.ReviewsConfig",
+    "wishlists.apps.WishlistsConfig",
+    "recommends.apps.RecommendsConfig",
 ]
 
 

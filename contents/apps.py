@@ -13,6 +13,7 @@ from bson import ObjectId
 class ContentsConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
     name = "contents"
+    ready_executed = False
 
     def ready(self) -> None:
         con = pymysql.connect(
@@ -58,4 +59,5 @@ class ContentsConfig(AppConfig):
                 }
                 collect.insert_one(doc)
         con.close()
-            
+        self.ready_executed = True
+
