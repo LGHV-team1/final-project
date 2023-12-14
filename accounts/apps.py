@@ -24,19 +24,19 @@ class AccountsConfig(AppConfig):
             # 데이터베이스 설정
             db = conn.LGHV
             collect = db.users
-            with conn.start_session() as mongo_session:
-                collect.delete_many({})
-                cursor = con.cursor()
-                # 데이터 읽어오는 SQL 실행
-                cursor.execute("select * from accounts_user")
-                # 전체 데이터를 가져와서 튜플의 튜플로 생성
-                data = cursor.fetchall()
-                for user in data:
-                        doc = {
-                            "id": user[0],
-                            "email": user[7],
-                        }
-                        collect.insert_one(doc,session=mongo_session)
-                con.close()
+            cursor = con.cursor()
+            # 데이터 읽어오는 SQL 실행
+            cursor.execute("select * from accounts_user")
+            # 전체 데이터를 가져와서 튜플의 튜플로 생성
+            data = cursor.fetchall()
+            for user in data:
+                user_id=user[0]
+                if not collect.find_one({"id": user_id}):
+                    doc = {
+                        "id": user[0],
+                        "email": user[7],
+                    }
+                    collect.insert_one(doc)
+            con.close()
 
 

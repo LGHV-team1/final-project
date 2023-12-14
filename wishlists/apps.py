@@ -26,27 +26,27 @@ class WishlistsConfig(AppConfig):
             # 데이터베이스 설정
             db = conn.LGHV
             collect = db.wishlists
-            with conn.start_session() as mongo_session:
-                collect.delete_many({})
-                cursor = con.cursor()
-                # 데이터 읽어오는 SQL 실행
-                cursor.execute("select * from wishlists_wishlist")
-                # 전체 데이터를 가져와서 튜플의 튜플로 생성
-                data = cursor.fetchall()
-                for wish in data:
+            cursor = con.cursor()
+            # 데이터 읽어오는 SQL 실행
+            cursor.execute("select * from wishlists_wishlist")
+            # 전체 데이터를 가져와서 튜플의 튜플로 생성
+            data = cursor.fetchall()
+            for wish in data:
+                wish_id=wish[0]
+                if not collect.find_one({"id": wish_id}):
                     doc = {
                         "id": wish[0],
                         "created_at": wish[1],
                         "user_id": wish[2],
                         "vod_id": wish[3],
                     }
-                    collect.insert_one(doc,session=mongo_session)
-                con.close()
-                broker = ["1.220.201.108:9092"]
-                topic = "rvdwishlist"
-                consumer = MessageConsumer(broker, topic)
-                t = threading.Thread(target=consumer.receive_message)
-                t.start()
+                    collect.insert_one(doc)
+            con.close()
+            broker = ["1.220.201.108:9092"]
+            topic = "rvdwishlist"
+            consumer = MessageConsumer(broker, topic)
+            t = threading.Thread(target=consumer.receive_message)
+            t.start()
 
 
 class MessageConsumer:
