@@ -33,13 +33,13 @@ function Socialkakao() {
             window.location.href = "/login"
             alert("로그인 에러 다시 실행해주세요.");
         }
-        else if(loginjwt)
+        else
         {
-            cookies.remove('loginjwt')
-            cookies.remove('loginrefresh')
-            localStorage.setItem("jwtToken", loginjwt);
-            localStorage.setItem("refresh", loginrefresh);
-            navigate("/home");
+          localStorage.setItem("jwtToken", loginjwt);
+          localStorage.setItem("refresh", loginrefresh);
+          cookies.remove('loginjwt')
+          cookies.remove('loginrefresh')
+          navigate("/home");
         }
     })
     

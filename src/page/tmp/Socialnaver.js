@@ -35,10 +35,10 @@ function Socialnaver() {
         }
         else if(loginjwt)
           {
-            cookies.remove('loginjwt')
-            cookies.remove('loginrefresh')
             localStorage.setItem("jwtToken", loginjwt);
             localStorage.setItem("refresh", loginrefresh);
+            cookies.remove('loginjwt')
+            cookies.remove('loginrefresh')
             navigate("/home");
         }
     })
