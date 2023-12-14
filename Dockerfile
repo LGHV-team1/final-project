@@ -1,5 +1,5 @@
 # ARM64 아키텍처용 Python 베이스 이미지를 사용
-FROM python
+FROM python:3.11
 
 # 필요한 시스템 패키지 설치
 RUN apt-get update \
