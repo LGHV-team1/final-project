@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from "react";
 import MiniSlide from "../components/MiniSlide";
 import { useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
-import axios from "axios";
 import ApiService from "../api/ApiService";
 import SortData from "../components/SortData";
 
 function Tv() {
-  const { BASE_URL: URL } = ApiService;
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const categoryWord = searchParams.get("category");

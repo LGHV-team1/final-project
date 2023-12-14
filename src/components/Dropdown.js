@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setCategory } from "../redux/categorySlice";
 import { getCategoryValue } from "../hook/useCategory";
 export default function Dropdown({ categoryName, categoryList, link }) {

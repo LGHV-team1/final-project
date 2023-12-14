@@ -1,18 +1,15 @@
 import React, {useEffect, useState} from "react";
 import styles from './ModalChangeinfo.module.css';
-import { Cookies } from "react-cookie";
-import axios from "axios";
 import ApiService from "../../api/ApiService.js";
 import Button from "../Button.js";
 
 function ModalChangeinfo({ setModalOpen}){
-    const { BASE_URL: URL } = ApiService;
-    const cookies = new Cookies();
+
     const [Password, setPassword] = useState("");
     const [ConfirmPassword, setConfirmPassword] = useState("");
     const [NewStb, setNewStb] = useState(0);
     const closeModal = () => {setModalOpen(false);};
-    const csrftoken = cookies.get("csrftoken");
+
     const [userinfo, setUserinfo] = useState({
         email : '',
         stbnumber : ''
@@ -35,12 +32,7 @@ function ModalChangeinfo({ setModalOpen}){
     const onConfirmPasswordHandler = (event) => {
     setConfirmPassword(event.currentTarget.value);
     };
-    const config = {
-        headers: {
-          "X-CSRFToken": csrftoken,
-          'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`,
-        },
-      };
+    
     
     const changeStb = async () => {
         try {

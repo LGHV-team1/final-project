@@ -1,4 +1,3 @@
-import React from "react";
 
 export const getCategoryValue = (category,bigCategory) => {
     const categories = {

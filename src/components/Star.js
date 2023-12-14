@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import { useState, useEffect } from "react";
 
 const ARRAY = [0, 1, 2, 3, 4];
@@ -40,7 +39,7 @@ export default function Star({ AVR_RATE = 3 }) {
                 <use
                   clipPath={`url(#${item}StarClip)`}
                   xlinkHref={`#${item}Star`}
-                  fill="#C62A5B"
+                  fill="#A50034"
                 />
               </svg>
             </span>

@@ -1,7 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./index.css";
-import Header2 from "./layout/Header.js";
-import Footer from "./layout/Footer.js";
 import Login from "./page/Login.js";
 import Register from "./page/Register.js";
 import React from "react";
@@ -42,6 +40,7 @@ function App() {
           <Route path="/search" element={<><Search /></>} />
         </Route>
         </Route>
+        <Route path="/about" element={<><About /></>} />
         <Route element={<SubLayout/>}>
         <Route element={<LoginRouter/>}>
           <Route path="/"element={<><First/></>}/>
@@ -51,7 +50,6 @@ function App() {
         <Route path="/socialk" element={<><Socialkakao /></>} />
         <Route path="/socialn" element={<><Socialnaver /></>} />
         <Route path="/socialg" element={<><Socialgoogle /></>} />
-        <Route path="/about" element={<><About /></>} />
         </Route>
       </Routes>
     

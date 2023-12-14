@@ -2,7 +2,6 @@ import React, { useEffect, useState, useRef } from "react";
 import Review from "../components/Review";
 import noImage from "../images/noimage.png";
 import noImageBG from "../images/no_img.jpg";
-import axios from "axios";
 import Star from "../components/Star";
 import { useParams } from "react-router-dom";
 import Spinner from "../components/Spinner";
@@ -11,22 +10,15 @@ import Modal from "../components/Modal";
 import ViewReview from "../components/ViewReview";
 import ApiService from "../api/ApiService";
 import dark from "../images/dark.png";
-import { useNavigate, useLocation } from "react-router-dom";
+
 function Detail() {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const { BASE_URL: URL } = ApiService;
   const { name } = useParams();
   const [movie, setMovie] = useState({});
   const [loading, setLoading] = useState(true);
   const [wish, setWish] = useState(false);
   const [originalWish, setOriginalWish] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const config = {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
-    },
-  };
+  
   console.log(name);
   const getData = async () => {
     try {
@@ -122,6 +114,7 @@ function Detail() {
             >
               <img
                 src={dark}
+                alt="배경"
                 style={{
                   width: "100%",
                   height: "100%",
@@ -153,6 +146,7 @@ function Detail() {
                 src={`https://image.tmdb.org/t/p/original/${movie.imgpath}`}
                 onError={(e) => (e.currentTarget.src = noImage)}
                 className=" shadow-xl rounded"
+                alt="포스터"
               />
             </div>
             <div className="w-3/4">
@@ -178,7 +172,7 @@ function Detail() {
                       ) : (
                         <div className="flex flex-col items-center hover:scale-105">
                           <svg
-                            fill="#C62A5B"
+                            fill="#A50034"
                             viewBox="0 0 16 16"
                             height="2.5em"
                             width="2.5em"
@@ -273,6 +267,7 @@ function Detail() {
                             src={`https://image.tmdb.org/t/p/original/${item.image}`}
                             className=" rounded-t"
                             onError={(e) => (e.currentTarget.src = noImagePs)}
+                            alt="배우사진"
                           />
                           {item.name.length < 6 ? item.name : `${item.name.slice(0,7)}..`}
                         </div>

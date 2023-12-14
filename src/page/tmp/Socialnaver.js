@@ -1,4 +1,3 @@
-import axios from 'axios';
 import {React, useEffect } from 'react';
 import {Cookies} from 'react-cookie';
 import BGimg from '../../images/background.png'
@@ -8,9 +7,8 @@ import GoogleLoginButton from "../../components/GoogleButton.js";
 import KakaoButton from "../../components/KakaoButton.js";
 import NaverButton from "../../components/NaverButton.js";
 import Input from "../../components/Input.js";
-import ApiService from '../../api/ApiService.js';
+
 function Socialnaver() {
-    const { BASE_URL: URL } = ApiService;
     const cookies = new Cookies();
     const navigate = useNavigate();
     const loginerror = cookies.get('loginerror')

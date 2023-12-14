@@ -12,11 +12,6 @@ function Register() {
   const [Password, setPassword] = useState("");
   const [ConfirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
-  const emailRegEx =
-    /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/i;
-  const emailCheck = (username) => {
-    return emailRegEx.test(username); //형식에 맞을 경우, true 리턴
-  };
   const onEmailHandler = (event) => {
     setEmail(event.currentTarget.value);
   };
@@ -31,16 +26,7 @@ function Register() {
   };
   const onRegister = (e) => {
     e.preventDefault();
-    // if (emailCheck(e) === false) {
-    //   return alert("이메일형식에 맞춰서 써주세요");
-    // }
-    // if (!Email || !Password || !ConfirmPassword) {
-    //   return alert("모든 항목을 입력해주세요.");
-    // }
-    // if (Password !== ConfirmPassword) {
-    //   return alert("비밀번호가 일치하지 않습니다.");
-    // }
-      registerSend();
+    registerSend();
   };
 
   const registerSend = async () => {
@@ -84,20 +70,22 @@ function Register() {
   };
   return (
     <body
-    style={{
-      backgroundImage: `url(${BGimg})`,
-      backgroundSize: "cover",
-      backgroundRepeat: "no-repeat",
-      height: "100vh",
-    }}
-  >
+      style={{
+        backgroundImage: `url(${BGimg})`,
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        height: "100vh",
+      }}
+    >
       <div className="max-w-[400px] w-[400px] mx-auto bg-transparent p-4 rounded position-relative">
         <form onSubmit={onRegister}>
           <h2 className="text-5xl font-bold text-center text-white py-5 ">
             회원가입
           </h2>
           <div className="flex flex-col py-2">
-            <label className="text-white">Email <p className="inline text-pink-400 text-xs">* 필수</p></label>
+            <label className="text-white">
+              Email <p className="inline text-pink-400 text-xs">* 필수</p>
+            </label>
             <Input
               className="border p-2 rounded"
               type="text"
@@ -107,7 +95,9 @@ function Register() {
             />
           </div>
           <div className="flex flex-col py-2">
-            <label className="text-white">Password <p className="inline text-pink-400 text-xs">* 필수</p></label>
+            <label className="text-white">
+              Password <p className="inline text-pink-400 text-xs">* 필수</p>
+            </label>
             <Input
               className="border p-2 rounded"
               type="password"
@@ -116,7 +106,10 @@ function Register() {
             />
           </div>
           <div className="flex flex-col py-2">
-            <label className="text-white">Password 확인 <p className="inline text-pink-400 text-xs">* 필수</p></label>
+            <label className="text-white">
+              Password 확인{" "}
+              <p className="inline text-pink-400 text-xs">* 필수</p>
+            </label>
             <Input
               className="border p-2 rounded"
               type="password"
@@ -125,7 +118,9 @@ function Register() {
             />
           </div>
           <div className="flex flex-col pt-2">
-            <label className="text-white">셋톱박스 번호 <p className="inline text-pink-400 text-xs">선택</p></label>
+            <label className="text-white">
+              셋톱박스 번호 <p className="inline text-pink-400 text-xs">선택</p>
+            </label>
             <Input
               className="border p-2 rounded"
               type="text"

@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import ApiService from "../api/ApiService";
 import { FaStar } from "react-icons/fa6";
 import { Link } from "react-router-dom";
-import { Cookies } from "react-cookie";
+
 function MyReview() {
   const BASE_URL = "https://image.tmdb.org/t/p/original";
   const BASE_URL_NO = "https://i.ibb.co/7pYHFY3";
@@ -97,6 +96,7 @@ function MyReview() {
                     height: "300px",
                   }}
                   className=" hover:opacity-50 rounded-md"
+                  alt="영화포스터"
                 />
               </Link>
             </div>

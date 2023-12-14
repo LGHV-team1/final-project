@@ -1,7 +1,6 @@
 import React from "react";
 import BGimg from "../images/background.png";
 import { useNavigate } from "react-router-dom";
-import HelloAD from "../components/Helload";
 import Button from "../components/Button";
 import { useState, useEffect } from "react";
 function First() {
@@ -12,9 +11,6 @@ function First() {
   const goToLoginForm = () => {
     navigate("/login");
   };
-  const goToSignForm = () => {
-    navigate("/register")
-  }
   useEffect(() => {
     const typingInterval = setInterval(() => {
       if (count === completionWord.length) {
@@ -60,7 +56,6 @@ function First() {
         <h3> 지금 바로 로그인해서 확인하세요 </h3>
         <br></br>
         <Button
-          className="py-2 bg-my-color  text-white  hover:bg-my-color/70 rounded px-4"
           label={"로그인"}
           onClick={goToLoginForm}
         />
