@@ -62,7 +62,6 @@ function Socialkakao() {
                 className="border p-2 rounded"
                 type="text"
                 placeholder="example@xxx.com"
-                value={Email}
                 
               />
             </div>
@@ -71,7 +70,6 @@ function Socialkakao() {
               <Input
                 className="border p-2 rounded"
                 type="password"
-                value={Password}
                 
               />
             </div>
