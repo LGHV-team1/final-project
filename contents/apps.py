@@ -37,23 +37,25 @@ class ContentsConfig(AppConfig):
         # 전체 데이터를 가져와서 튜플의 튜플로 생성
         data = cursor.fetchall()
         for content in data:
-            doc = {
-                "id": content[0],
-                "name": content[1],
-                "description": content[2],
-                "bigcategory": content[3],
-                "smallcategory": content[4],
-                "category": content[5],
-                "searchactors": content[6],
-                "actors": content[7],
-                "director": content[8],
-                "runningtime": content[9],
-                "imgpath": content[10],
-                "name_no_space": content[11],
-                "backgroundimgpath": content[12],
-                "count": content[13],
-                "choseong": content[14],
-            }
-            collect.insert_one(doc)
+            content_id = content[0]
+            if not collect.find_one({"id": content_id}):
+                doc = {
+                    "id": content[0],
+                    "name": content[1],
+                    "description": content[2],
+                    "bigcategory": content[3],
+                    "smallcategory": content[4],
+                    "category": content[5],
+                    "searchactors": content[6],
+                    "actors": content[7],
+                    "director": content[8],
+                    "runningtime": content[9],
+                    "imgpath": content[10],
+                    "name_no_space": content[11],
+                    "backgroundimgpath": content[12],
+                    "count": content[13],
+                    "choseong": content[14],
+                }
+                collect.insert_one(doc)
         con.close()
-        
+            

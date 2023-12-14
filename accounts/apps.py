@@ -30,10 +30,12 @@ class AccountsConfig(AppConfig):
         # 전체 데이터를 가져와서 튜플의 튜플로 생성
         data = cursor.fetchall()
         for user in data:
-            doc = {
-                "id": user[0],
-                "email": user[7],
-            }
-            collect.insert_one(doc)
+            user_id = user[0]
+            if not collect.find_one({"id": user_id}):
+                doc = {
+                    "id": user[0],
+                    "email": user[7],
+                }
+                collect.insert_one(doc)
         con.close()
 
