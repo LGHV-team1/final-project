@@ -44,13 +44,17 @@ function Socialkakao() {
     })
     
 
-    return(
-        <body>
-        <div style={{position:"absolute"}} >
-        <img  src={BGimg} alt="background"/>
-        </div>
+    return (
+      <body
+      style={{
+        backgroundImage: `url(${BGimg})`,
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        height: "100vh",
+      }}
+    >
         <div className="max-w-[400px] w-[400px] mx-auto bg-transparent p-4 rounded position-relative">
-          <form>
+          <form >
             <h2 className="text-5xl font-bold text-center text-white py-5">로그인</h2>
             <div className="flex flex-col py-2">
               <label className="text-white">Email</label>
@@ -58,7 +62,8 @@ function Socialkakao() {
                 className="border p-2 rounded"
                 type="text"
                 placeholder="example@xxx.com"
-
+                value={Email}
+                
               />
             </div>
             <div className="flex flex-col py-2">
@@ -66,7 +71,8 @@ function Socialkakao() {
               <Input
                 className="border p-2 rounded"
                 type="password"
-
+                value={Password}
+                
               />
             </div>
             <Button
@@ -95,6 +101,6 @@ function Socialkakao() {
           </div>
         </div>
       </body>
-    )
+    );
 }
 export default Socialkakao
