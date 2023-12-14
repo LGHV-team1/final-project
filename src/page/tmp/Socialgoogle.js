@@ -33,7 +33,7 @@ function Socialgoogle() {
             window.location.href = "/login"
             alert("로그인 에러 다시 실행해주세요.");
         }
-        else if(loginjwt)
+        else
         {
           localStorage.setItem("jwtToken", loginjwt);
           localStorage.setItem("refresh", loginrefresh);
