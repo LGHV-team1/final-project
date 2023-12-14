@@ -31,7 +31,6 @@ class ContentsConfig(AppConfig):
         # 데이터베이스 설정
         db = conn.LGHV
         collect = db.contents
-        collect.delete_many({})
         cursor = con.cursor()
         # 데이터 읽어오는 SQL 실행
         cursor.execute("select * from contents_vod")
