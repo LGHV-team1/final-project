@@ -13,10 +13,10 @@ function Socialgoogle() {
     const { BASE_URL: URL } = ApiService;
     const cookies = new Cookies();
     const navigate = useNavigate();
-    const loginerror = cookies.get('loginerror')
-    const loginjwt = cookies.get("loginjwt")
-    const loginrefresh = cookies.get("loginrefresh")
     useEffect( ()=> {
+      const loginerror = cookies.get('loginerror');
+      const loginjwt = cookies.get('loginjwt');
+      const loginrefresh = cookies.get('loginrefresh');
         if (loginerror === "not_social") {
             cookies.remove('loginerror')
             window.location.href = "/login"
@@ -33,8 +33,7 @@ function Socialgoogle() {
             window.location.href = "/login"
             alert("로그인 에러 다시 실행해주세요.");
         }
-        else
-        {
+        else if (loginjwt && loginrefresh) {
           localStorage.setItem("jwtToken", loginjwt);
           localStorage.setItem("refresh", loginrefresh);
           cookies.remove('loginjwt')
