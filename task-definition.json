@@ -1,9 +1,9 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:590166514721:task-definition/vod_task:46",
+    "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:590166514721:task-definition/vod_task:49",
     "containerDefinitions": [
         {
             "name": "vod_container",
-            "image": "590166514721.dkr.ecr.ap-northeast-2.amazonaws.com/lg_final_project:f08a2082f567ffe088ef6875d7550c5a18793ae3",
+            "image": "590166514721.dkr.ecr.ap-northeast-2.amazonaws.com/lg_final_project:eeeb172e1198fdfd0fab11036380be693d7e102d",
             "cpu": 0,
             "portMappings": [
                 {
@@ -27,30 +27,18 @@
                     "awslogs-stream-prefix": "ecs"
                 },
                 "secretOptions": []
-            },
-            "healthCheck": {
-                "command": [
-                    "CMD-SHELL",
-                    "python manage.py runserver"
-                ],
-                "interval": 60,
-                "timeout": 60,
-                "retries": 3
             }
         }
     ],
     "family": "vod_task",
     "executionRoleArn": "arn:aws:iam::590166514721:role/ecsTaskExecutionRole",
     "networkMode": "awsvpc",
-    "revision": 46,
+    "revision": 49,
     "volumes": [],
     "status": "ACTIVE",
     "requiresAttributes": [
         {
             "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
-        },
-        {
-            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.24"
         },
         {
             "name": "ecs.capability.execution-role-awslogs"
@@ -60,9 +48,6 @@
         },
         {
             "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
-        },
-        {
-            "name": "ecs.capability.container-health-check"
         },
         {
             "name": "ecs.capability.execution-role-ecr-pull"
@@ -85,13 +70,13 @@
     "requiresCompatibilities": [
         "FARGATE"
     ],
-    "cpu": "2048",
-    "memory": "4096",
+    "cpu": "1024",
+    "memory": "2048",
     "runtimePlatform": {
         "cpuArchitecture": "X86_64",
         "operatingSystemFamily": "LINUX"
     },
-    "registeredAt": "2023-12-14T04:51:49.918Z",
+    "registeredAt": "2023-12-14T05:43:57.129Z",
     "registeredBy": "arn:aws:iam::590166514721:root",
     "tags": []
 }
