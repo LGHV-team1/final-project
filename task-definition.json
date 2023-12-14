@@ -1,9 +1,9 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:590166514721:task-definition/vod_task:42",
+    "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:590166514721:task-definition/vod_task:46",
     "containerDefinitions": [
         {
             "name": "vod_container",
-            "image": "590166514721.dkr.ecr.ap-northeast-2.amazonaws.com/lg_final_project:b01d8d767229600901c169e36c5675a5ee026c8d",
+            "image": "590166514721.dkr.ecr.ap-northeast-2.amazonaws.com/lg_final_project:f08a2082f567ffe088ef6875d7550c5a18793ae3",
             "cpu": 0,
             "portMappings": [
                 {
@@ -30,9 +30,10 @@
             },
             "healthCheck": {
                 "command": [
-                    "CMD-SHELL python manage.py runserver"
+                    "CMD-SHELL",
+                    "python manage.py runserver"
                 ],
-                "interval": 30,
+                "interval": 60,
                 "timeout": 60,
                 "retries": 3
             }
@@ -41,7 +42,7 @@
     "family": "vod_task",
     "executionRoleArn": "arn:aws:iam::590166514721:role/ecsTaskExecutionRole",
     "networkMode": "awsvpc",
-    "revision": 42,
+    "revision": 46,
     "volumes": [],
     "status": "ACTIVE",
     "requiresAttributes": [
@@ -84,13 +85,13 @@
     "requiresCompatibilities": [
         "FARGATE"
     ],
-    "cpu": "1024",
-    "memory": "2048",
+    "cpu": "2048",
+    "memory": "4096",
     "runtimePlatform": {
         "cpuArchitecture": "X86_64",
         "operatingSystemFamily": "LINUX"
     },
-    "registeredAt": "2023-12-13T08:59:19.386Z",
+    "registeredAt": "2023-12-14T04:51:49.918Z",
     "registeredBy": "arn:aws:iam::590166514721:root",
     "tags": []
 }
