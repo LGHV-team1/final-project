@@ -37,7 +37,7 @@ function Tv() {
   
   if (categoryWord === null) {
     return (
-      <div className=" mx-28 ">
+      <div className=" mx-28 h-[100vh] ">
         <div className="">
           <div className="">
           <p className=" text-4xl text-gray-300 my-5">⭐Tv Top10⭐</p>

@@ -96,7 +96,7 @@ function MyReview() {
                     width: "200px",
                     height: "300px",
                   }}
-                  className=" hover:opacity-50"
+                  className=" hover:opacity-50 rounded-md"
                 />
               </Link>
             </div>

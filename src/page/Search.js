@@ -13,7 +13,7 @@ function Search() {
   const searchValue = useSelector((state) => state.search.value);
   const [visiblevodData1, setVisiblevodData1] = useState([]);
   const [visiblevodData2, setVisiblevodData2] = useState([]);
-  const itemsPerpage = 10;
+  const itemsPerpage = 12;
   const [movies, setMovie] = useState([]);
   const [actormovies, setActorMovie] = useState([]);
   useEffect(() => {
