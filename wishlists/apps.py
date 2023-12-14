@@ -33,13 +33,15 @@ class WishlistsConfig(AppConfig):
         # 전체 데이터를 가져와서 튜플의 튜플로 생성
         data = cursor.fetchall()
         for wish in data:
-            doc = {
-                "id": wish[0],
-                "created_at": wish[1],
-                "user_id": wish[2],
-                "vod_id": wish[3],
-            }
-            collect.insert_one(doc)
+            wish_id=wish[0]
+            if not collect.find_one({"id":wish_id}):
+                doc = {
+                    "id": wish[0],
+                    "created_at": wish[1],
+                    "user_id": wish[2],
+                    "vod_id": wish[3],
+                }
+                collect.insert_one(doc)
         con.close()
         broker = ["1.220.201.108:9092"]
         topic = "rvdwishlist"
