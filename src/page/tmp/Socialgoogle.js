@@ -61,7 +61,7 @@ function Socialgoogle() {
                 className="border p-2 rounded"
                 type="text"
                 placeholder="example@xxx.com"
-                value={Email}
+ 
                 
               />
             </div>
@@ -70,7 +70,7 @@ function Socialgoogle() {
               <Input
                 className="border p-2 rounded"
                 type="password"
-                value={Password}
+
                 
               />
             </div>
