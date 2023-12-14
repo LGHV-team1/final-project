@@ -69,7 +69,7 @@ function MyWish() {
                ( wishList.map((a) => (
                     <div key={a.id} className="relative">
                         <div className="img-body">
-                        <Link to={`/detail/${a.vod_id}`} className="">
+                        <Link to={`/detail/${a.vod_id}`} className="hover:opacity-50">
                             <img
                             className="rounded"
                             src={
