@@ -31,20 +31,22 @@ class RecommendsConfig(AppConfig):
         # 전체 데이터를 가져와서 튜플의 튜플로 생성
         data = cursor.fetchall()
         for rec in data:
-            doc = {
-                "id": rec[0],
-                "stbnum": rec[1],
-                "rec1": rec[3],
-                "rec2": rec[5],
-                "rec3": rec[6],
-                "rec4":rec[7],
-                "rec5": rec[8],
-                "rec6": rec[9],
-                "rec7": rec[10],
-                "rec8": rec[11],
-                "rec9": rec[12],
-                "rec10": rec[4],
-                "method":rec[2],
-            }
-            collect.insert_one(doc)
+            rec_id =rec[0]
+            if not collect.find_one({"id": rec_id}):
+                doc = {
+                    "id": rec[0],
+                    "stbnum": rec[1],
+                    "rec1": rec[3],
+                    "rec2": rec[5],
+                    "rec3": rec[6],
+                    "rec4":rec[7],
+                    "rec5": rec[8],
+                    "rec6": rec[9],
+                    "rec7": rec[10],
+                    "rec8": rec[11],
+                    "rec9": rec[12],
+                    "rec10": rec[4],
+                    "method":rec[2],
+                }
+                collect.insert_one(doc)
         con.close()
