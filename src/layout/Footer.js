@@ -15,7 +15,7 @@ const Footer = () => {
       <img src={Cable} alt="rapalogo" width="120px" style={{display:'inline', float:"left", marginLeft:"20px"}}/>
       </div>
       <div >
-      <Link className="nav-item no-underline text-gray-400 pr-10" to="/about" >&copy;Rec=Vod</Link>
+      <Link className="nav-item no-underline text-gray-400 pr-10 hover:text-my-color" to="/about" >&copy;Rec=Vod</Link>
 
       </div>
     </div>

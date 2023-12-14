@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 function MiniSlide({
   data,
   className,
-  slidesToShowNum = 5,
+  slidesToShowNum = 6,
   slidesToScrollNum = 1,
 }) {
   const BASE_URL = "https://image.tmdb.org/t/p/w500";
@@ -88,10 +88,10 @@ function MiniSlide({
             <div className=" pb-2 rounded-lg">
               <Link
                 to={`/detail/${a.id}`}
-                className="rounded-lg overflow-hidden block pr-3 "
+                className="rounded-lg block pr-3 "
               >
                 <img
-                  className="rounded-lg overflow-hidden block transition transform duration-500 ease-in-out hover:scale-110"
+                  className="rounded-lg block transition transform duration-500 ease-in-out hover:opacity-50"
                   src={
                     a.imgpath === "/noimage.png"
                       ? `${BASE_URL_NO}${a.imgpath}`
@@ -99,9 +99,9 @@ function MiniSlide({
                   }
                   alt={a.vodname}
                   style={{
-                    objectFit: "cover",
-                    width: "300px",
-                    height: "450px",
+                    objectFit: "object-fill",
+                    width: "230px",
+                      height: "350px",
                   }}
                 />
               </Link>

@@ -30,6 +30,7 @@
     "recoil": "^0.7.7",
     "slick-carousel": "^1.8.1",
     "styled-components": "^6.1.1",
+    "swiper": "^11.0.5",
     "tw-elements-react": "^1.0.0-alpha1",
     "web-vitals": "^2.1.4"
   },

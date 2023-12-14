@@ -3,14 +3,12 @@ import axios from 'axios'
 import ApiService from '../api/ApiService'
 import { useEffect } from 'react'
 import RecMiniSlide from './RecMiniSlide'
+
 function ShowRec({algorithmNum}) {
-  const {BASE_URL: URL} = ApiService
+
   const [vodData, setvodData] = useState([])
-  const config = {headers: {
-    'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`,
-  }}
   const getData = async () => {
-    let url = `${URL}recommend/${algorithmNum}/`;
+    
     try {
       const response = await ApiService.getRec(algorithmNum)
       //axios.get(url,config,{ withCredentials: true } );
@@ -27,7 +25,6 @@ function ShowRec({algorithmNum}) {
   return (
     <div className='mb-24 mt-5'>
       <RecMiniSlide data={vodData} />
- 
     </div>
      )
 }

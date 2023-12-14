@@ -5,12 +5,11 @@ import { useSelector } from "react-redux";
 function SortData({ data }) {
   const [vodData, setVodData] = useState([]);
   const [visiblevodData, setVisiblevodData] = useState([]);
-  const itemsPerpage = 20;
+  const itemsPerpage = 24;
   const [order, setOrder] = useState("");
+  const [isShow, setIsShow] = useState(true);
   const detailCategory = useSelector((state) => state.category.value);
-  console.log(data);
   useEffect(() => {
-    // Redux 스토어에서 데이터를 가져와서 컴포넌트의 상태를 초기화
     setVodData(data);
     setVisiblevodData(data.slice(0, itemsPerpage));
   }, [data]);
@@ -32,6 +31,15 @@ function SortData({ data }) {
     });
   }, [order, detailCategory]);
 
+  useEffect(() => {
+    // 남은 데이터가 없을 경우 isShow를 false로 설정
+    if ((vodData.length - visiblevodData.length) <= 0) {
+      setIsShow(false);
+    } else {
+      setIsShow(true);
+    }
+  }, [visiblevodData, vodData]);
+  
   const sortedData = (data, order) => {
     if (
       !order ||
@@ -69,21 +77,38 @@ function SortData({ data }) {
     }
   };
 
+  // const handleShowMorevodData = () => {
+  //   const remainingDataLength = vodData.length - visiblevodData.length;
+
+  //   if (remainingDataLength <= itemsPerpage) {
+  //     setIsShow(false);
+  //   } else {
+  //     const newDataToShow = vodData.slice(
+  //       visiblevodData.length,
+  //       visiblevodData.length + itemsPerpage
+  //     );
+  //     setVisiblevodData([...visiblevodData, ...newDataToShow]);
+  //   }
+  // };
+
   const handleShowMorevodData = () => {
     const newDataToShow = vodData.slice(
       visiblevodData.length,
       visiblevodData.length + itemsPerpage
     );
-    setVisiblevodData([...visiblevodData, ...newDataToShow]);
+  
+    setVisiblevodData(prev => [...prev, ...newDataToShow]);
   };
 
+  console.log(visiblevodData.length);
+  console.log(vodData.length);
   return (
     <>
       <div className="flex items-center justify-between">
-        <div>
-        <h1>{detailCategory}</h1>
+        <div className="text-gray-300">
+          <h1 className="my-5">{detailCategory}</h1>
         </div>
-        
+
         <div className="flex ">
           <Button onClick={() => handleRandomdata("name")} label={"이름순"} />
           <Button onClick={() => handleRandomdata("count")} label={"인기순"} />
@@ -91,7 +116,11 @@ function SortData({ data }) {
         </div>
       </div>
       <div>
-        <ShowData data={visiblevodData} handleShow={handleShowMorevodData} />
+        <ShowData
+          data={visiblevodData}
+          handleShow={handleShowMorevodData}
+          isShow={isShow}
+        />
       </div>
     </>
   );
