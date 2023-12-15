@@ -224,6 +224,19 @@ class SearchVodsDetail(APIView):
         #     }
         #     serialized_reviews.append(serialized_review)
         # serialized_data['review'] = serialized_reviews
+        
+        # 같은 장르 비디오 가져오기
+        # reviews = self.vod_collection.find({"contents_id": vod['id']})
+        # serialized_reviews = []
+        # for review in reviews:
+        #     user=self.user_collection.find_one({"id":review['user_id']})
+        #     serialized_review = {
+        #         "payload": review.get("payload", ""),
+        #         "rating": review.get("rating", 0),
+        #         "username":user.get("email")
+        #     }
+        #     serialized_reviews.append(serialized_review)
+        # serialized_data['review'] = serialized_reviews
 
 
 
@@ -231,41 +244,48 @@ class SearchVodsDetail(APIView):
 
     def post(self, request, vodid):
         vod = self.get_object(vodid)
-
+        wish=request.data['wish']
+        print(wish)
         wishlist = Wishlist.objects.filter(user=request.user, vod_id=vod.id).first()
         # 찜 추가 or 삭제 확인
 
-        if wishlist:
-            wishlist_id = wishlist.id
-            # 찜 삭제
-            delete_wishlist(wishlist_id, request.user)
-            broker = ["1.220.201.108:9092"]
-            topic = "rvdwishlist"
-            pd = MessageProducer(broker, topic)
-            #전송할 메시지 생성
-            msg = {"task": "delete", "data": wishlist_id}
-            res = pd.send_message(msg)
-            return Response(status=status.HTTP_204_NO_CONTENT)
-        else:
-            wishlist_data = {
-                "user": request.user.id,
-                "vod": vod.id,
-            }
-
-            serializer = WishlistSerializer(data=wishlist_data)
-            if serializer.is_valid():
-                serializer.save()
-                # Kafka를 통한 메세지 전송
+        if not wish:
+            if wishlist:
+                wishlist_id = wishlist.id
+                # 찜 삭제
+                delete_wishlist(wishlist_id, request.user)
                 broker = ["1.220.201.108:9092"]
                 topic = "rvdwishlist"
                 pd = MessageProducer(broker, topic)
                 #전송할 메시지 생성
-                msg = {"task": "insert", "data": serializer.data}
+                msg = {"task": "delete", "data": wishlist_id}
                 res = pd.send_message(msg)
-                print(res)
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
+                return Response(status=status.HTTP_204_NO_CONTENT)
+            else:
+                return Response(status=status.HTTP_202_ACCEPTED)
+        else:
+            if wishlist:
+                return Response(status=status.HTTP_202_ACCEPTED)
+            else:
+                wishlist_data = {
+                    "user": request.user.id,
+                    "vod": vod.id,
+                }
 
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+                serializer = WishlistSerializer(data=wishlist_data)
+                if serializer.is_valid():
+                    serializer.save()
+                    # Kafka를 통한 메세지 전송
+                    broker = ["1.220.201.108:9092"]
+                    topic = "rvdwishlist"
+                    pd = MessageProducer(broker, topic)
+                    #전송할 메시지 생성
+                    msg = {"task": "insert", "data": serializer.data}
+                    res = pd.send_message(msg)
+                    print(res)
+                    return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class VodTop10(APIView):
@@ -464,6 +484,81 @@ class CategorySearch(APIView):
 
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)        
+    def serialize_vod(self, vod):
+        return {
+            "id": vod["id"],
+            "name": vod["name"],
+            "smallcategory": vod["smallcategory"],
+            "imgpath": vod["imgpath"],
+            "count": vod["count"],
+        }
+    
+
+
+class CategorySearchTOP5(APIView):
+    ip = settings.EC2_IP
+    pw = settings.MONGO_PW
+    client = MongoClient(f"mongodb://hellovision:{pw}@{ip}", 27017)
+    db = client.LGHV
+    vods_collection = db.contents
+
+    def get(self, request, searchcategory):
+        movie_category = {
+            "fantasy": "SF/환타지",
+            "thriller": "공포/스릴러",
+            "documentary": "다큐멘터리",
+            "shortfilm": "단편",
+            "drama": "드라마",
+            "RoCo": "로맨틱코미디",
+            "melo": "멜로",
+            "martial": "무협",
+            "musical": "뮤지컬",
+            "western": "서부",
+            "animation": "애니메이션",
+            "action": "액션/어드벤쳐",
+            "history": "역사",
+            "comedy": "코미디",
+            "etc": "기타",
+        }
+        kids_category = {
+            "etc": "기타",
+            "animation": "애니메이션",
+            "entertainment": "오락",
+            "study": "학습",
+        }
+        tv_category = {
+            "Neighborhood": "우리동네",
+            "Sports": "스포츠",
+            "etc": "미분류",
+            "Life": "라이프",
+            "Documentary": "다큐",
+            "Animation": "TV애니메이션",
+            "Drama": "TV드라마",
+            "Entertainment": "TV 연예/오락",
+            "Education": "TV 시사/교양",
+            "Music": "공연/음악",
+        }
+        categorylist=list(searchcategory.split(","))
+        print(categorylist)
+        serialized_vods=[]
+        for i in categorylist:
+            Bigcategory,Smallcategory=i.split("*")
+            print(Bigcategory,Smallcategory)
+            if Bigcategory == "tv":
+                decoded_category = tv_category[Smallcategory]
+                vods = self.vods_collection.find({"category": "TV프로그램","bigcategory":decoded_category}).sort("count",-1).limit(5)
+                serialized_vods.append([self.serialize_vod(vod) for vod in vods])
+            elif Bigcategory == "movie":
+                decoded_category = movie_category[Smallcategory]
+                vods = self.vods_collection.find({"category": "영화","smallcategory":decoded_category}).sort("count",-1).limit(5)
+                serialized_vods.append([self.serialize_vod(vod) for vod in vods])
+            elif Bigcategory == "kids":
+                decoded_category = kids_category[Smallcategory]
+                vods = self.vods_collection.find({"category": "키즈","smallcategory":decoded_category}).sort("count",-1).limit(5)
+                serialized_vods.append([self.serialize_vod(vod) for vod in vods])
+            else:
+                return Response(status=status.HTTP_404_NOT_FOUND)        
+        return Response(serialized_vods, status=status.HTTP_200_OK)
     def serialize_vod(self, vod):
         return {
             "id": vod["id"],

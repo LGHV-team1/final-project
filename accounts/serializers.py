@@ -26,7 +26,7 @@ class UserSerializer(serializers.ModelSerializer):
 class CustomUserDetailsSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('email', 'user_profile', 'stbnumber')  # 필요한 필드를 여기에 포함시킵니다.
+        fields = ('email', 'user_profile', 'stbnumber','prefer_contents')  # 필요한 필드를 여기에 포함시킵니다.
         read_only_fields = ('email',)  # 이메일은 읽기 전용으로 설정할 수 있습니다.
 
 class CustomRegisterSerializer(RegisterSerializer):
