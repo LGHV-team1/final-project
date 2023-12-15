@@ -67,11 +67,9 @@ class ApiService {
             password: password
         });
     }
-
     getPrefer(prefer){
         return this.axiosInstance.get(`/contents/Firstuser/${prefer}`);
     }
-
     getUserInfo() {
         return this.axiosInstance.get('accounts/dj-rest-auth/user/');
     }
@@ -148,13 +146,11 @@ class ApiService {
             user_profile: profilenum
         });
     }
-
     changePrefer(prefer) {
         return this.axiosInstance.put('accounts/dj-rest-auth/user/', {
             prefer_contents: prefer
         });
     }
-
     changePW(pw1, pw2){
         return this.axiosInstance.post('accounts/dj-rest-auth/password/change/', {
             new_password1: pw1,
