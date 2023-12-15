@@ -10,7 +10,7 @@ function ShowData({ data, handleShow, isShow = true }) {
         {data.map((item, idx) => (
           <div
             key={idx}
-            className=" sm:w-1/2 md:w-1/2 lg:w-[18.5%] xl:w-[15.3%] mb-5"
+            className=" sm:w-[30%] md:w-[30%] lg:w-[20%] xl:w-[15%] mb-5"
           >
             <Link
               to={`/detail/${item.id}`}
