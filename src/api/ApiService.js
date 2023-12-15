@@ -67,6 +67,11 @@ class ApiService {
             password: password
         });
     }
+
+    getPrefer(prefer){
+        return this.axiosInstance.get(`/contents/Firstuser/${prefer}`);
+    }
+
     getUserInfo() {
         return this.axiosInstance.get('accounts/dj-rest-auth/user/');
     }
@@ -137,6 +142,12 @@ class ApiService {
     changePPic(profilenum) {
         return this.axiosInstance.put('accounts/dj-rest-auth/user/', {
             user_profile: profilenum
+        });
+    }
+
+    changePrefer(prefer) {
+        return this.axiosInstance.put('accounts/dj-rest-auth/user/', {
+            prefer_contents: prefer
         });
     }
 

@@ -19,6 +19,8 @@ import PrivateRouter from "./PrivateRouter.js";
 import LoginRouter from "./LoginRouter.js";
 import MainLayout from "./layout/MainLayout.js";
 import SubLayout from "./layout/SubLayout.js";
+import SelectCategory from "./page/SelectCategory.js";
+import SelectContents from "./page/SelectContents.js";
 // import AppRoute from "./routes/AppRoute.js";
 // function App() {
 //   return (
@@ -39,6 +41,8 @@ function App() {
             <Route path="/detail/:name" element={<><Detail/></>} />
             <Route path="/mypage" element={<><Mypage /></>} />
             <Route path="/search" element={<><Search /></>} />
+            <Route path="/selectcategory" element={<><SelectCategory /></>} />
+            <Route path="/selectcontents" element={<><SelectContents /></>} />
           </Route>
         </Route>
         
@@ -52,7 +56,6 @@ function App() {
           <Route path="/socialn" element={<><Socialnaver /></>} />
           <Route path="/socialg" element={<><Socialgoogle /></>} />
           <Route path="/about" element={<><About /></>} />
-
         </Route>
       </Routes>
     
