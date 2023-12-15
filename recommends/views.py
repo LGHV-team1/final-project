@@ -156,16 +156,17 @@ class RandomRecommend(APIView):
 			"count": vod["count"],
 		}
 		
-# class timerecommend(APIView):
-# 	permission_classes=[IsAuthenticated]
-# 	ip = settings.EC2_IP
-# 	pw = settings.MONGO_PW
-# 	client = MongoClient(f"mongodb://hellovision:{pw}@{ip}", 27017)
-# 	db = client.LGHV
-# 	timerec_collection = db.timerecommends
-# 	vod_collection = db.contents
+class timerecommend(APIView):
+	permission_classes=[IsAuthenticated]
+	ip = settings.EC2_IP
+	pw = settings.MONGO_PW
+	client = MongoClient(f"mongodb://hellovision:{pw}@{ip}", 27017)
+	db = client.LGHV
+	timerec_collection = db.timerecommends
+	vod_collection = db.contents
 
-# 	def get(self, request):
+	def get(self, request):
+		return Response(status=status.HTTP_200_OK)
 # 		current_time = datetime.now()
 
 # 		# Calculate if today is a weekday (True) or a weekend (False)
