@@ -10,7 +10,6 @@ function ShowRec({algorithmNum}) {
     
     try {
       const response = await ApiService.getRec(algorithmNum)
-      //axios.get(url,config,{ withCredentials: true } );
       const data = response.data;
       console.log(data);
       setvodData(data)

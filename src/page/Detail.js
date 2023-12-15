@@ -9,7 +9,7 @@ import noImagePs from "../images/noimageps.png";
 import Modal from "../components/Modal";
 import ViewReview from "../components/ViewReview";
 import ApiService from "../api/ApiService";
-import dark from "../images/dark.png";
+import useDebounce from "../hook/useDebounce";
 
 function Detail() {
   const { name } = useParams();
@@ -18,8 +18,8 @@ function Detail() {
   const [wish, setWish] = useState(false);
   const [originalWish, setOriginalWish] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  
-  console.log(name);
+  const debounceWish = useDebounce(wish, 1000);
+  console.log("debounce", debounceWish);
   const getData = async () => {
     try {
       const response = await ApiService.getVodDetail(name);
@@ -27,9 +27,8 @@ function Detail() {
       setMovie(data); // 먼저 movie 상태를 설정
       setOriginalWish(data.is_liked);
       setWish(data.is_liked);
-      console.log(data);
-      console.log("wish", wish);
-      console.log("original wish", originalWish);
+      console.log("처음 wish", wish);
+      console.log("처음 original wish", originalWish);
       // 그 다음에 wish 상태를 설정
       setLoading(false);
     } catch (err) {
@@ -41,36 +40,32 @@ function Detail() {
     getData();
   }, []);
 
-  useEffect(() => {
-    const handleRouteChange = async () => {
-      if (wish !== originalWish) {
-        try {
-          const response = await ApiService.postWish(name)
-          console.log(response);
-        } catch (error) {
-          if (error.response) {
-            console.error("Error response from server:", error.response.data);
-            const getValues = Object.values(error.response.data);
-            const arrayString = getValues.join("\n");
-            alert(arrayString);
-          } else {
-            // 네트워크 또는 기타 오류
-            console.error("Error:", error);
-          }
-        }
+  const sendWish = async () => {
+    try {
+      const response = await ApiService.postWish(name, debounceWish);
+      console.log(response);
+    } catch (error) {
+      if (error.response) {
+        console.error("Error response from server:", error.response.data);
+        const getValues = Object.values(error.response.data);
+        const arrayString = getValues.join("\n");
+        alert(arrayString);
+      } else {
+        // 네트워크 또는 기타 오류
+        console.error("Error:", error);
       }
-    };
+    }
+  };
 
-    // 컴포넌트 언마운트 시 실행
-    return () => {
-      handleRouteChange();
-    };
-  }, [wish]); // originalWish도 종속성 배열에 추가
+  useEffect(() => {
+    sendWish();
+    console.log("시간이 지나서", debounceWish);
+  }, [debounceWish]);
 
   const handleWish = () => {
     setWish((currentWish) => !currentWish);
   };
-
+  console.log("현재", wish);
   const copyURL = async () => {
     try {
       await navigator.clipboard.writeText(window.location.href);
@@ -92,7 +87,7 @@ function Detail() {
   const onMoveToReview = () => {
     inputForm.current.scrollIntoView({ behavior: "smooth", block: "start" });
   };
-  console.log(wish);
+
   return (
     <>
       {loading ? (
@@ -102,27 +97,13 @@ function Detail() {
           <div
             className="relative py-80 bg-cover bg-center bg-no-repeat z-10"
             style={{
-              backgroundImage: `url(${backgroundImageUrl})`,
+              backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0.6)), url(${backgroundImageUrl})`,
               backgroundSize: "cover",
-              zIndex:"9",
-              backgroundColor: "transparent"
+              zIndex: "9",
+              backgroundColor: "transparent",
             }}
           >
-            <div
-              className="absolute top-0 left-0 right-0 bottom-0 z-0"
-             
-            >
-              <img
-                src={dark}
-                alt="배경"
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                 
-                }}
-              />
-            </div>
+           
             <div
               className="bg-transparent absolute bottom-10 left-44  text-white "
               style={{ textShadow: "2px 2px 4px black" }}
@@ -139,7 +120,6 @@ function Detail() {
               </div>
             </div>
           </div>
-
           <div className="flex mx-28 mt-10 mb-10 gap-10 ">
             <div className="w-1/4">
               <img
@@ -269,7 +249,9 @@ function Detail() {
                             onError={(e) => (e.currentTarget.src = noImagePs)}
                             alt="배우사진"
                           />
-                          {item.name.length < 6 ? item.name : `${item.name.slice(0,7)}..`}
+                          {item.name.length < 6
+                            ? item.name
+                            : `${item.name.slice(0, 7)}..`}
                         </div>
                       ))}
                     </div>
