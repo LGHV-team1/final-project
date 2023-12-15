@@ -124,8 +124,12 @@ class ApiService {
             rating: rankValue,
         });
     }
-    postWish(name){
-        return this.axiosInstance.post(`contents/${name}/detail/`);
+    postWish(name, wish){
+        return this.axiosInstance.post(`contents/${name}/detail/`,
+        {
+            wish: wish,
+        }
+        );
 
     }
     changeSTB(newSTB) {
