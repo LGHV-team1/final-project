@@ -226,17 +226,17 @@ class SearchVodsDetail(APIView):
         # serialized_data['review'] = serialized_reviews
         
         # 같은 장르 비디오 가져오기
-        # reviews = self.vod_collection.find({"contents_id": vod['id']})
-        # serialized_reviews = []
-        # for review in reviews:
-        #     user=self.user_collection.find_one({"id":review['user_id']})
-        #     serialized_review = {
-        #         "payload": review.get("payload", ""),
-        #         "rating": review.get("rating", 0),
-        #         "username":user.get("email")
-        #     }
-        #     serialized_reviews.append(serialized_review)
-        # serialized_data['review'] = serialized_reviews
+        vods = self.vods_collection.find({"smallcategory": vod['smallcategory']}).sort("count",-1).limit(5)
+        serialized_vods = []
+        for cont in vods:
+            serialized_review = {
+                "id": cont.get("id"),
+                "name": cont.get("name"),
+                "imgpath":cont.get("imgpath"),
+                "backgroundimgpath":cont.get("backgroundimgpath")
+            }
+            serialized_vods.append(serialized_review)
+        serialized_data['related_vods'] = serialized_vods
 
 
 
@@ -559,6 +559,79 @@ class CategorySearchTOP5(APIView):
             else:
                 return Response(status=status.HTTP_404_NOT_FOUND)        
         return Response(serialized_vods, status=status.HTTP_200_OK)
+    def serialize_vod(self, vod):
+        return {
+            "id": vod["id"],
+            "name": vod["name"],
+            "smallcategory": vod["smallcategory"],
+            "imgpath": vod["imgpath"],
+            "count": vod["count"],
+        }
+    
+
+class CategoryPick(APIView):
+    ip = settings.EC2_IP
+    pw = settings.MONGO_PW
+    client = MongoClient(f"mongodb://hellovision:{pw}@{ip}", 27017)
+    db = client.LGHV
+    vods_collection = db.contents
+
+    def get(self, request, Bigcategory):
+        movie_category = {
+            "fantasy": "SF/환타지",
+            "thriller": "공포/스릴러",
+            "documentary": "다큐멘터리",
+            "shortfilm": "단편",
+            "drama": "드라마",
+            "RoCo": "로맨틱코미디",
+            "melo": "멜로",
+            "martial": "무협",
+            "musical": "뮤지컬",
+            "western": "서부",
+            "animation": "애니메이션",
+            "action": "액션/어드벤쳐",
+            "history": "역사",
+            "comedy": "코미디",
+            "etc": "기타",
+        }
+        kids_category = {
+            "etc": "기타",
+            "animation": "애니메이션",
+            "entertainment": "오락",
+            "study": "학습",
+        }
+        tv_category = {
+            "Neighborhood": "우리동네",
+            "Sports": "스포츠",
+            "etc": "미분류",
+            "Life": "라이프",
+            "Documentary": "다큐",
+            "Animation": "TV애니메이션",
+            "Drama": "TV드라마",
+            "Entertainment": "TV 연예/오락",
+            "Education": "TV 시사/교양",
+            "Music": "공연/음악",
+        }
+        serialized_vods=[]
+        if Bigcategory == "tv":
+            smallcategory=list(tv_category.values())
+            for i in smallcategory:
+                vods = self.vods_collection.find({"category": "TV프로그램","bigcategory":i}).sort("count",-1).limit(1)
+                serialized_vods.append([self.serialize_vod(vod) for vod in vods])
+        elif Bigcategory == "movie":
+            smallcategory=list(movie_category.values())
+            for i in smallcategory:
+                vods = self.vods_collection.find({"category": "영화","smallcategory":i}).sort("count",-1).limit(1)
+                serialized_vods.append([self.serialize_vod(vod) for vod in vods])
+        elif Bigcategory == "kids":
+            smallcategory=list(kids_category.values())
+            for i in smallcategory:
+                vods = self.vods_collection.find({"category": "키즈","smallcategory":i}).sort("count",-1).limit(1)
+                serialized_vods.append([self.serialize_vod(vod) for vod in vods])
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)        
+        return Response(serialized_vods, status=status.HTTP_200_OK)
+    
     def serialize_vod(self, vod):
         return {
             "id": vod["id"],
