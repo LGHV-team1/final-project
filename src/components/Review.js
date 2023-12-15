@@ -1,13 +1,11 @@
 import React, { useState, useCallback } from "react";
 import Rank from "./Rank";
 import Button from "./Button";
-import axios from "axios";
 import { useSelector } from "react-redux";
 import { useParams} from "react-router-dom";
 import ApiService from "../api/ApiService";
 
 export default function Review() {
-  const { BASE_URL: URL } = ApiService;
   const {name} = useParams();
   const [review, setReview] = useState("");
   const [reviewScore, setReviewScore] = useState(0);
@@ -26,7 +24,6 @@ export default function Review() {
   const sendReview = async (e) => {
    
     try {
-      const url = `${URL}contents/${name}/review/`;
       console.log(review, rankValue)
       const response = await ApiService.postReview(name, review, rankValue);
       console.log(response.data);

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link} from "react-router-dom";
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -41,7 +41,6 @@ function MyWish() {
     );
 
     const [wishList, setWishList] = useState([]);
-    const token = localStorage.getItem('jwtToken');
 
     useEffect(() => {
         ApiService.getMywish()
@@ -60,7 +59,7 @@ function MyWish() {
         prevArrow: <Arrowleft />,
       };
     return (
-        <div>
+        <div className="text-gray-300">
         <div className="block text-end mb-2">총 {wishList.length}건</div>
         <Slider  {...settings} >
           {wishList.length === 0 ? (

@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import axios from 'axios'
 import ApiService from '../api/ApiService'
 import { useEffect } from 'react'
 import RecMiniSlide from './RecMiniSlide'
