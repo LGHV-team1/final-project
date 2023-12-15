@@ -67,6 +67,9 @@ class ApiService {
             password: password
         });
     }
+    getPrefer(prefer){
+        return this.axiosInstance.get(`/contents/Firstuser/${prefer}`);
+    }
     getUserInfo() {
         return this.axiosInstance.get('accounts/dj-rest-auth/user/');
     }
@@ -124,8 +127,12 @@ class ApiService {
             rating: rankValue,
         });
     }
-    postWish(name){
-        return this.axiosInstance.post(`contents/${name}/detail/`);
+    postWish(name, wish){
+        return this.axiosInstance.post(`contents/${name}/detail/`,
+        {
+            wish: wish,
+        }
+        );
 
     }
     changeSTB(newSTB) {
@@ -139,7 +146,11 @@ class ApiService {
             user_profile: profilenum
         });
     }
-
+    changePrefer(prefer) {
+        return this.axiosInstance.put('accounts/dj-rest-auth/user/', {
+            prefer_contents: prefer
+        });
+    }
     changePW(pw1, pw2){
         return this.axiosInstance.post('accounts/dj-rest-auth/password/change/', {
             new_password1: pw1,

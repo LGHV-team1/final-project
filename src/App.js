@@ -10,7 +10,6 @@ import Detail from "./page/Detail.js";
 import Socialkakao from "./page/tmp/Socialkakao.js";
 import Socialnaver from "./page/tmp/Socialnaver.js";
 import Socialgoogle from "./page/tmp/Socialgoogle.js";
-import Search from "./page/Search.js";
 import Movie from "./page/Movie.js";
 import Tv from "./page/Tv.js";
 import Kids from "./page/Kids.js";
@@ -19,11 +18,9 @@ import PrivateRouter from "./PrivateRouter.js";
 import LoginRouter from "./LoginRouter.js";
 import MainLayout from "./layout/MainLayout.js";
 import SubLayout from "./layout/SubLayout.js";
-// import AppRoute from "./routes/AppRoute.js";
-// function App() {
-//   return (
-//     <AppRoute />
-
+import Search from "./page/Search.js";
+import SelectCategory from "./page/SelectCategory.js";
+import SelectContents from "./page/SelectContents.js";
 function App() {
   return (
     <Router>
@@ -39,9 +36,10 @@ function App() {
             <Route path="/detail/:name" element={<><Detail/></>} />
             <Route path="/mypage" element={<><Mypage /></>} />
             <Route path="/search" element={<><Search /></>} />
+            <Route path="/selectcategory" element={<><SelectCategory /></>} />
+            <Route path="/selectcontents" element={<><SelectContents /></>} />
           </Route>
         </Route>
-        
         <Route element={<SubLayout/>}>
           <Route element={<LoginRouter/>}>
             <Route path="/"element={<><First/></>}/>
@@ -55,8 +53,6 @@ function App() {
 
         </Route>
       </Routes>
-    
- 
     </div>
   </Router>
   );

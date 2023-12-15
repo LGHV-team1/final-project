@@ -34,11 +34,12 @@ function First() {
   return (
     <body
       style={{
-        backgroundImage: `url(${BGimg})`,
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
-        height: "100vh",
+        backgroundImage: `linear-gradient(to top, rgba(0,0,0,0), rgba(0,0,0,0.8)), url(${BGimg})`,
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    height: "100vh",
       }}
+      
     >
       <div style={style}>
         <span

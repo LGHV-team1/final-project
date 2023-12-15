@@ -82,7 +82,7 @@ function MyReview() {
       ) : (
         reviewList.map((a) => (
           <div key={a.id} className="flex  py-4 border-b border-gray-600 ">
-            <div className="w-1/5">
+            <div className="w-[200px] mr-10">
               <Link to={`/detail/${a.contents}`}>
                 <img
                   src={
@@ -100,11 +100,11 @@ function MyReview() {
                 />
               </Link>
             </div>
-            <div className="w-4/5 flex-col">
+            <div className="w-full flex-col">
               <div className="flex justify-between">
                 <Link
                   to={`/detail/${a.contents}`}
-                  className="text-gray-200 text-3xl w-80 float-left text-left font-medium hover:text-gray-600 no-underline"
+                  className="text-gray-200 text-3xl float-left text-left font-medium hover:text-gray-600 no-underline"
                 >
                   {a.vodname}
                 </Link>

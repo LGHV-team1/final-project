@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { debounce } from "lodash";
 import logo from "../images/tmplogo.png";
@@ -7,15 +7,18 @@ import ApiService from "../api/ApiService";
 import { useDispatch, useSelector } from "react-redux";
 import { setSearchValue } from "../redux/searchSlice";
 import Dropdown from "../components/Dropdown";
+import useDebounce from "../hook/useDebounce";
 
 function Header2() {
   const searchInputRef = useRef(null); // 입력창 참조 생성
   const dispatch = useDispatch();
-
-  const search = useSelector((state) => state.search.value);
+  const [search, setSearch] = useState();
+  const debouncedValue = useDebounce(search, 500);
+  useEffect(() => {
+    dispatch(setSearchValue(debouncedValue));
+  }, [debouncedValue]);
   const handleInputChange = (e) => {
-    dispatch(setSearchValue(e.target.value));
-    debouncedFetch(e.target.value);
+    setSearch(e.target.value);
   };
   const movieCategory = [
     "SF/환타지",
@@ -76,7 +79,6 @@ function Header2() {
   };
   const navigate = new useNavigate();
   const location = new useLocation();
-  console.log(location.pathname);
 
   const goToLoginForm = () => {
     navigate("/login");
@@ -90,7 +92,7 @@ function Header2() {
   const goToSearch = () => {
     navigate("/search");
   };
-  
+
   const goToLogout = () => {
     const refreshToken = localStorage.getItem("refresh");
     ApiService.logout(refreshToken)

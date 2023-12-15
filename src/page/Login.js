@@ -39,10 +39,17 @@ function Login() {
       );
       const aceess = response.data.access;
       const refresh = response.data.refresh;
+      const stbnumber = response.data.user.stbnumber;
+      const prefer = response.data.user.prefer_contents;
       console.log('로그인 성공:', response);
       localStorage.setItem("jwtToken", aceess);
       localStorage.setItem("refresh", refresh);
-      navigate("/home");
+      if(stbnumber === 0 && prefer === null){
+        navigate("/SelectCategory");
+      }
+      else {
+        navigate("/home");
+      }
     } catch (error) {
       // API 호출 중 에러가 발생한 경우
       if (error.response) {
