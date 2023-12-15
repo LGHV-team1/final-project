@@ -8,8 +8,8 @@ import img6 from "../images/About/효심.jpg"
 function About() {
 
     return(
-        <div className="mx-44 mt-5 text-center pb-11">
-            <div className="mb-5">
+        <div className=" mx-28 p-5 text-center pb-11 text-gray-300 h-full">
+            <div className="mb-5 ">
                 <h1>웹 사이트 소개</h1>
                 <p> 안녕하세요! 저희는 Rec=VoD팀입니다. <br/>
                 이 웹사이트는 LG헬로비전 DX DATA SCHOOL 1기 프로젝트로 <br/>
@@ -23,7 +23,7 @@ function About() {
               marginBottom: "3%",
             }}
           ></hr>
-            <div className="mb-10">
+            <div className="mb-10 ">
                 <h1>팀 소개</h1>
                 <div className="mt-3">
                     <div className="text-center inline-block">

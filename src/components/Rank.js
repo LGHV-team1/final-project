@@ -60,7 +60,7 @@ function Rank() {
                   width="50"
                   height="50"
                   viewBox="0 0 14 14"
-                  fill={hovered[item] || clicked[item] ? "#C62A5B" : "#BDBDBD"}
+                  fill={hovered[item] || clicked[item] ? "#A50034" : "#BDBDBD"}
                   onClick={() => handleStarClick(item)}
                   onMouseEnter={() => {
                     let hoverStates = [...hovered]; // 새 배열을 만들기 위해 스프레드 연산자 사용

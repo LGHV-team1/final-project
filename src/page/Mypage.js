@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Button from "../components/Button.js";
 import { BsBookmarkHeartFill } from "react-icons/bs";
 import { BsPencilSquare } from "react-icons/bs";
@@ -14,7 +14,6 @@ import profile4 from "../images/profileimg/profile_woman.png";
 import ModalProfile from "../components/Modal/ModalProfile.js";
 import ModalChangeinfo from "../components/Modal/ModalChangeinfo.js";
 import { Cookies } from "react-cookie";
-import axios from "axios";
 
 const IconWrap = styled.div`
   svg {
@@ -34,7 +33,6 @@ const IconWrap = styled.div`
 `;
 
 export default function Mypage() {
-  const { BASE_URL: URL } = ApiService;
   const navigate = useNavigate();
   const cookies = new Cookies();
   const csrftoken = cookies.get("csrftoken");
@@ -51,42 +49,30 @@ export default function Mypage() {
     email: "",
     user_profile: "",
   });
-
-  // useEffect(() => {
-  //   ApiService.getUserInfo(
-  //     { withCredentials: true }
-  //   )
-  //   .then((res)=> {
-  //     setUserinfo(res.data);
-  //     switch (userinfo.user_profile) {
-  //       case 1:
-  //         setProfilepic(profile2);
-  //         break;
-  //       case 2:
-  //         setProfilepic(profile3);
-  //         break;
-  //       case 3:
-  //         setProfilepic(profile4);
-  //         break;
-  //       default:
-  //         setProfilepic(profile1);
-  //     }
-  //   })
-  // }, [userinfo]);
-
   useEffect(() => {
-    ApiService.getUserInfo(config,{ withCredentials: true }).then((res) => {
-      console.log(res.data);
-      // 현재 상태와 비교
-      if (
-        userinfo.email !== res.data.email ||
-        userinfo.user_profile !== res.data.user_profile
-      ) {
-        setUserinfo(res.data);
-        updateProfilePic(res.data.user_profile);
-      }
-    });
+    try {
+      ApiService.getUserInfo(config, { withCredentials: true })
+        .then((res) => {
+          console.log(res.data);
+          // 현재 상태와 비교
+          if (
+            userinfo.email !== res.data.email ||
+            userinfo.user_profile !== res.data.user_profile
+          ) {
+            setUserinfo(res.data);
+            updateProfilePic(res.data.user_profile);
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching user info:", error);
+          // 오류 처리
+        });
+    } catch (error) {
+      console.error("An error occurred:", error);
+      // 오류 처리
+    }
   }, [userinfo]);
+  
 
   const updateProfilePic = (userProfile) => {
     switch (userProfile) {

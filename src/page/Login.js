@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/Button.js";
 import GoogleLoginButton from "../components/GoogleButton.js";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import KakaoButton from "../components/KakaoButton.js";
 import NaverButton from "../components/NaverButton.js";
 import Input from "../components/Input.js";
@@ -89,7 +89,7 @@ function Login() {
           <Button
             label={"로그인"}
             className={
-              "w-full my-4 py-2 bg-my-color text-white hover:bg-my-color/70 rounded "
+              "w-full my-4 py-2 bg-my-color text-white hover:bg-my-color/70 rounded-md "
             }
           />
           <div className="flex justify-between mb-5">

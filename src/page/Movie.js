@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import axios from "axios";
 import MiniSlide from "../components/MiniSlide";
 import ApiService from "../api/ApiService";
 import SortData from "../components/SortData";
 function Movie() {
-  const { BASE_URL: URL } = ApiService;
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const categoryWord = searchParams.get("category");

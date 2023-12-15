@@ -4,16 +4,13 @@ import profile1 from "../../images/profileimg/profile_boy.png"
 import profile2 from "../../images/profileimg/profile_girl.png"
 import profile3 from "../../images/profileimg/profile_man.png"
 import profile4 from "../../images/profileimg/profile_woman.png"
-import { Cookies } from "react-cookie";
-import axios from "axios";
 import Button from '../Button';
 import ApiService from '../../api/ApiService';
 function ModalProfile({ setModalOpen}){
-    const { BASE_URL: URL } = ApiService;
-    const cookies = new Cookies();
+
     const [selectedImage, setSelectedImage] = useState(null);
     const [profilenumber, setProfilenumber] = useState(0);
-    const csrftoken = cookies.get("csrftoken");
+
     
     const closeModal = () => {
         setModalOpen(false);
@@ -31,12 +28,7 @@ function ModalProfile({ setModalOpen}){
         selectImage(image);
         setProfilenumber(profileNumber);
     };
-    const config = {
-        headers: {
-          "X-CSRFToken": csrftoken,
-          'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`,
-        },
-      };
+    
     const changeProfile = async () => {
         try {
           const response = await ApiService.changePPic(profilenumber)
