@@ -32,25 +32,27 @@ function App() {
       <Route path="/about" element={<><About /></>} />
         <Route element={<PrivateRouter/>}>
           <Route element={<MainLayout />}>
-          <Route path="/Home" element={<><Home /></>} />
-          <Route path="/movie" element={<><Movie /></>} />
-          <Route path="/tv" element={<><Tv /></>} />
-          <Route path="/kids" element={<><Kids /></>} />
-          <Route path="/detail/:name" element={<><Detail/></>} />
-          <Route path="/mypage" element={<><Mypage /></>} />
-          <Route path="/search" element={<><Search /></>} />
-        </Route>
+            <Route path="/Home" element={<><Home /></>} />
+            <Route path="/movie" element={<><Movie /></>} />
+            <Route path="/tv" element={<><Tv /></>} />
+            <Route path="/kids" element={<><Kids /></>} />
+            <Route path="/detail/:name" element={<><Detail/></>} />
+            <Route path="/mypage" element={<><Mypage /></>} />
+            <Route path="/search" element={<><Search /></>} />
+          </Route>
         </Route>
         
         <Route element={<SubLayout/>}>
-        <Route element={<LoginRouter/>}>
-          <Route path="/"element={<><First/></>}/>
-        </Route>
-        <Route path="/login"element={<><Login /></>}/>
-        <Route path="/register" element={<><Register /></>}/>
-        <Route path="/socialk" element={<><Socialkakao /></>} />
-        <Route path="/socialn" element={<><Socialnaver /></>} />
-        <Route path="/socialg" element={<><Socialgoogle /></>} />
+          <Route element={<LoginRouter/>}>
+            <Route path="/"element={<><First/></>}/>
+          </Route>
+          <Route path="/login"element={<><Login /></>}/>
+          <Route path="/register" element={<><Register /></>}/>
+          <Route path="/socialk" element={<><Socialkakao /></>} />
+          <Route path="/socialn" element={<><Socialnaver /></>} />
+          <Route path="/socialg" element={<><Socialgoogle /></>} />
+          <Route path="/about" element={<><About /></>} />
+
         </Route>
       </Routes>
     
