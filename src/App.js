@@ -19,7 +19,8 @@ import LoginRouter from "./LoginRouter.js";
 import MainLayout from "./layout/MainLayout.js";
 import SubLayout from "./layout/SubLayout.js";
 import Search from "./page/Search.js";
-
+import SelectCategory from "./page/SelectCategory.js";
+import SelectContents from "./page/SelectContents.js";
 function App() {
   return (
     <Router>
@@ -35,6 +36,8 @@ function App() {
             <Route path="/detail/:name" element={<><Detail/></>} />
             <Route path="/mypage" element={<><Mypage /></>} />
             <Route path="/search" element={<><Search /></>} />
+            <Route path="/selectcategory" element={<><SelectCategory /></>} />
+            <Route path="/selectcontents" element={<><SelectContents /></>} />
           </Route>
         </Route>
         <Route element={<SubLayout/>}>

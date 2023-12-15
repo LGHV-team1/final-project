@@ -97,7 +97,7 @@ function ModalChangeinfo({ setModalOpen}){
                 <form className="mb-3 flex items-center ">
                     <label className="mr-5 text-lg">　 이메일 　</label>
                     <input
-                        className="border p-2 rounded bg-gray-100"
+                        className="border p-2 rounded bg-gray-100 text-gray-800"
                         type="email"
                         value={userinfo.email}
                         readOnly
@@ -132,9 +132,10 @@ function ModalChangeinfo({ setModalOpen}){
                     <label className="mr-2 text-lg">셋톱박스 번호</label>
                     <input
                         name = "stbnumber"
-                        className="border p-2 rounded"
+                        className="border p-2 rounded text-gray-800"
                         type="text"
-                        defaultValue={userinfo.stbnumber}
+                        
+                        defaultValue={(userinfo.stbnumber===0) ? ("") : (userinfo.stbnumber)}
                         onChange={onSTBHandler}
                         
                     />
