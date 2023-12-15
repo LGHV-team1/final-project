@@ -111,6 +111,38 @@ def con_sync():
 		}
 		collect.insert_one(doc)
 	print("end sync")
+
+
+
+def time_sync():
+	print("time_sync")
+	# recommend SYNC
+	rec_collect = db.timerecommends
+	cursor = con.cursor()
+	cursor.execute("select * from recommends_timerecommend")
+	data = cursor.fetchall()
+	for rec in data:
+		doc = {
+			"id": rec[0],
+			"yesterday": rec[1],
+			"today": rec[2],
+			"tomorrow": rec[3],
+			"time": rec[4],
+			"rec1": rec[6],
+			"rec2": rec[8],
+			"rec3": rec[9],
+			"rec4":rec[10],
+			"rec5": rec[11],
+			"rec6": rec[12],
+			"rec7": rec[13],
+			"rec8": rec[14],
+			"rec9": rec[15],
+			"rec10": rec[7],
+			"method":rec[5],
+		}
+		rec_collect.insert_one(doc)
+	print("end sync")
+
 	
 
 if __name__=="__main__":
@@ -133,4 +165,5 @@ if __name__=="__main__":
 	rec_sync()
 	rev_sync()
 	con_sync()
+	time_sync()
 	con.close()
