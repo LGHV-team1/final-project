@@ -117,7 +117,7 @@ def con_sync():
 def time_sync():
 	print("time_sync")
 	# recommend SYNC
-	rec_collect = db.timerecommends
+	time_rec_collect = db.timerecommends
 	cursor = con.cursor()
 	cursor.execute("select * from recommends_timerecommend")
 	data = cursor.fetchall()
@@ -140,7 +140,7 @@ def time_sync():
 			"rec10": rec[7],
 			"method":rec[5],
 		}
-		rec_collect.insert_one(doc)
+		time_rec_collect.insert_one(doc)
 	print("end sync")
 
 	

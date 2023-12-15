@@ -9,7 +9,7 @@ from random import choice
 from pymongo import MongoClient
 import json
 from config import settings
-from datetime import datetime
+from datetime import datetime,timedelta
 
 class MainRecommend1(APIView):
 	permission_classes=[IsAuthenticated]
@@ -166,9 +166,26 @@ class RandomRecommend(APIView):
 # 	vod_collection = db.contents
 
 # 	def get(self, request):
-# 		current_time=datetime.now()
-# 		datetime.weekday
-# 		recommend = self.rec_collection.find_one({"stbnum": user, "method": 2})
+# 		current_time = datetime.now()
+
+# 		# Calculate if today is a weekday (True) or a weekend (False)
+# 		is_weekday = current_time.weekday() < 5
+
+# 		# Calculate yesterday and tomorrow based on the current date
+# 		yesterday = current_time - timedelta(days=1)
+# 		tomorrow = current_time + timedelta(days=1)
+
+# 		# Define time slots based on the current hour
+# 		current_hour = current_time.hour
+# 		if 0 <= current_hour < 8:
+# 			time_slot = 0
+# 		elif 8 <= current_hour < 18:
+# 			time_slot = 1
+# 		else:
+# 			time_slot = 2
+
+
+# 		recommend = self.timerec_collection.find_one({"today": , "method": 3,"yesterday":,"tomorrow":,"time":,})
 # 		if not recommend:
 # 			raise Exception("No recommendation found")
 # 		vod_ids = [recommend.get(f'rec{i}') for i in range(1, 11)]
