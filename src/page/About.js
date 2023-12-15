@@ -8,7 +8,7 @@ import img6 from "../images/About/효심.jpg"
 function About() {
 
     return(
-        <div className=" mx-28 mt-5 text-center pb-11 text-gray-300 h-full">
+        <div className=" mx-28 p-5 text-center pb-11 text-gray-300 h-full">
             <div className="mb-5 ">
                 <h1>웹 사이트 소개</h1>
                 <p> 안녕하세요! 저희는 Rec=VoD팀입니다. <br/>

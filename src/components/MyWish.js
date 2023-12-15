@@ -59,7 +59,7 @@ function MyWish() {
         prevArrow: <Arrowleft />,
       };
     return (
-        <div>
+        <div className="text-gray-300">
         <div className="block text-end mb-2">총 {wishList.length}건</div>
         <Slider  {...settings} >
           {wishList.length === 0 ? (

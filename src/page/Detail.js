@@ -262,7 +262,7 @@ function Detail() {
                     <h3>출연</h3>
                     <div className="flex flex-wrap gap-2 ">
                       {movie.actors.map((item) => (
-                        <div className="w-[23%] flex flex-col items-center rounded shadow-md">
+                        <div className="w-[23%] flex flex-col items-center rounded ">
                           <img
                             src={`https://image.tmdb.org/t/p/original/${item.image}`}
                             className=" rounded-t"

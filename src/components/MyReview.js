@@ -73,7 +73,7 @@ function MyReview() {
   };
 
   return (
-    <div className="text-center mb-10">
+    <div className="text-center mb-10 text-gray-300 ">
       <div className="block text-end mb-1 text-gray-300">
         총 {reviewList.length}건
       </div>

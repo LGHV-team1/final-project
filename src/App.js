@@ -29,6 +29,7 @@ function App() {
     <Router>
       <div style={style}>
       <Routes>
+      <Route path="/about" element={<><About /></>} />
         <Route element={<PrivateRouter/>}>
           <Route element={<MainLayout />}>
           <Route path="/Home" element={<><Home /></>} />
@@ -40,7 +41,7 @@ function App() {
           <Route path="/search" element={<><Search /></>} />
         </Route>
         </Route>
-        <Route path="/about" element={<><About /></>} />
+        
         <Route element={<SubLayout/>}>
         <Route element={<LoginRouter/>}>
           <Route path="/"element={<><First/></>}/>
