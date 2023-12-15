@@ -75,7 +75,7 @@ function Top5({ images }) {
                     <div key={a.id} className="relative">
                         <div className="img-body">
                         <Link to={`/detail/${a.id}`} className="block overflow-hidden">
-                            <img className={"transition transform duration-500 ease-in-out hover:scale-105"} src={a.img} alt={a.vodname} style={{objectFit:"cover", width:"100%", height:"100%"}} />
+                            <img className=" transition transform duration-500 ease-in-out hover:scale-105 " src={a.img} alt={a.vodname} style={{objectFit:"cover", width:"100%", height:"100%"}} />
                             </Link>
                         </div>
                     </div>))}
