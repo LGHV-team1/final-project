@@ -9,7 +9,7 @@ from random import choice
 from pymongo import MongoClient
 import json
 from config import settings
-
+from datetime import datetime
 
 class MainRecommend1(APIView):
 	permission_classes=[IsAuthenticated]
@@ -156,5 +156,34 @@ class RandomRecommend(APIView):
 			"count": vod["count"],
 		}
 		
+# class timerecommend(APIView):
+# 	permission_classes=[IsAuthenticated]
+# 	ip = settings.EC2_IP
+# 	pw = settings.MONGO_PW
+# 	client = MongoClient(f"mongodb://hellovision:{pw}@{ip}", 27017)
+# 	db = client.LGHV
+# 	timerec_collection = db.timerecommends
+# 	vod_collection = db.contents
 
-			
+# 	def get(self, request):
+# 		current_time=datetime.now()
+# 		datetime.weekday
+# 		recommend = self.rec_collection.find_one({"stbnum": user, "method": 2})
+# 		if not recommend:
+# 			raise Exception("No recommendation found")
+# 		vod_ids = [recommend.get(f'rec{i}') for i in range(1, 11)]
+# 		vod_objects = list(self.vod_collection.find({"id": {"$in": vod_ids}}))
+# 		vod_serialized = [self.serialize_vod(vod) for vod in vod_objects]
+# 		return Response(vod_serialized, status=status.HTTP_200_OK)
+	
+	
+	
+	
+# 	def serialize_vod(self, vod):
+# 		return {
+# 			"id": vod["id"],
+# 			"name": vod["name"],
+# 			"smallcategory": vod["smallcategory"],
+# 			"imgpath": vod["imgpath"],
+# 			"count": vod["count"],
+# 		}

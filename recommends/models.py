@@ -34,5 +34,42 @@ class MainRecommend(models.Model):
 	)
 	method=models.IntegerField()
 
+class TimeRecommend(models.Model):
+	yesterday=models.BooleanField()
+	today=models.BooleanField()
+	tomorrow=models.BooleanField()
+	time=models.IntegerField()
+	rec1 = models.ForeignKey(
+		"contents.Vod", on_delete=models.CASCADE, related_name="cont1"
+	)
+	rec2 = models.ForeignKey(
+		"contents.Vod", on_delete=models.CASCADE, related_name="cont2"
+	)
+	rec3 = models.ForeignKey(
+		"contents.Vod", on_delete=models.CASCADE, related_name="cont3"
+	)
+	rec4 = models.ForeignKey(
+		"contents.Vod", on_delete=models.CASCADE, related_name="cont4"
+	)
+	rec5 = models.ForeignKey(
+		"contents.Vod", on_delete=models.CASCADE, related_name="cont5"
+	)
+	rec6 = models.ForeignKey(
+		"contents.Vod", on_delete=models.CASCADE, related_name="cont6"
+	)
+	rec7 = models.ForeignKey(
+		"contents.Vod", on_delete=models.CASCADE, related_name="cont7"
+	)
+	rec8 = models.ForeignKey(
+		"contents.Vod", on_delete=models.CASCADE, related_name="cont8"
+	)
+	rec9 = models.ForeignKey(
+		"contents.Vod", on_delete=models.CASCADE, related_name="cont9"
+	)
+	rec10 = models.ForeignKey(
+		"contents.Vod", on_delete=models.CASCADE, related_name="cont10"
+	)
+	method=models.IntegerField()
+
 
 
