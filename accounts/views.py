@@ -25,9 +25,9 @@ from django.middleware.csrf import get_token
 from django.conf import settings
 from rest_framework.views import APIView
 from accounts.models import User
-from .serializers import UserSerializer
-from urllib.parse import urlencode
+from .serializers import UserSerializer,CustomUserDetailsSerializer
 import requests
+from contents.models import Vod
 
 
 
@@ -386,3 +386,42 @@ class ConfirmEmailView(APIView):
         qs = EmailConfirmation.objects.all_valid()
         qs = qs.select_related("email_address__user")
         return qs
+
+class MessageProducer:
+    def __init__(self,broker,topic):
+        self.broker=broker
+        self.topic=topic
+        self.producer=KafkaProducer(
+            bootstrap_servers=self.broker,
+            value_serializer=lambda x: json.dumps(x).encode("utf-8"),
+            acks=0,
+            api_version=(2,5,0),
+            key_serializer=str.encode,
+            retries=3,
+
+        )
+    def send_message(self, msg, auto_close=True):
+        try:
+            print(self.producer)
+            future = self.producer.send(self.topic, value=msg, key="key")
+            self.producer.flush() # 비우는 작업
+            if auto_close:
+                self.producer.close()
+            future.get(timeout=2)
+            return {"status_code": 200, "error": None}
+        except Exception as exc:
+            raise exc
+
+class PreferView(APIView):
+    def get_object(self,id):
+        return User.objects.get(id=id)
+    
+
+    def put(self, request):
+        user = self.get_object(request.user.id)
+        serializer = CustomUserDetailsSerializer(user, data=request.data, partial=True)
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=400)
+        else:
+            serializer.save()
+        return Response(serializer.data)
