@@ -14,9 +14,11 @@ COPY requirements.txt ./
 
 # Python 의존성 설치
 RUN pip install -r requirements.txt
-
+    
 # 애플리케이션 파일 복사
 COPY . .
+
+RUN python sync.py
 
 # 서버가 사용할 포트 번호
 EXPOSE 80
