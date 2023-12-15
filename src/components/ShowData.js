@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Button from "./Button";
-function ShowData({ data, handleShow, isShow }) {
+function ShowData({ data, handleShow, isShow = true }) {
   const BASE_URL = "https://image.tmdb.org/t/p/w500";
   const BASE_URL_NO = "https://i.ibb.co/7pYHFY3";
   return (

@@ -1,6 +1,6 @@
 function Button({
   label,
-  className = "my-4 py-2 bg-my-color  text-white  hover:bg-my-color/70 rounded px-4",
+  className = "my-2 py-2 bg-my-color  text-white  hover:bg-my-color/70 rounded-md px-3",
   onClick,
   disabled,
   icon,

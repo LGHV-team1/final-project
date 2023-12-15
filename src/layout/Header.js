@@ -3,14 +3,12 @@ import { useNavigate, useLocation, Link } from "react-router-dom";
 import { debounce } from "lodash";
 import logo from "../images/tmplogo.png";
 import Button from "../components/Button";
-import { Cookies } from "react-cookie";
 import ApiService from "../api/ApiService";
 import { useDispatch, useSelector } from "react-redux";
 import { setSearchValue } from "../redux/searchSlice";
 import Dropdown from "../components/Dropdown";
 
 function Header2() {
-  const { BASE_URL: URL } = ApiService;
   const searchInputRef = useRef(null); // 입력창 참조 생성
   const dispatch = useDispatch();
 
@@ -76,11 +74,10 @@ function Header2() {
       }
     }
   };
-  const cookies = new Cookies();
   const navigate = new useNavigate();
   const location = new useLocation();
   console.log(location.pathname);
-  const csrftoken = cookies.get("csrftoken");
+
   const goToLoginForm = () => {
     navigate("/login");
   };
@@ -93,12 +90,7 @@ function Header2() {
   const goToSearch = () => {
     navigate("/search");
   };
-  const config = {
-    headers: {
-      "X-CSRFToken": csrftoken,
-      Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
-    },
-  };
+  
   const goToLogout = () => {
     const refreshToken = localStorage.getItem("refresh");
     ApiService.logout(refreshToken)

@@ -77,20 +77,6 @@ function SortData({ data }) {
     }
   };
 
-  // const handleShowMorevodData = () => {
-  //   const remainingDataLength = vodData.length - visiblevodData.length;
-
-  //   if (remainingDataLength <= itemsPerpage) {
-  //     setIsShow(false);
-  //   } else {
-  //     const newDataToShow = vodData.slice(
-  //       visiblevodData.length,
-  //       visiblevodData.length + itemsPerpage
-  //     );
-  //     setVisiblevodData([...visiblevodData, ...newDataToShow]);
-  //   }
-  // };
-
   const handleShowMorevodData = () => {
     const newDataToShow = vodData.slice(
       visiblevodData.length,

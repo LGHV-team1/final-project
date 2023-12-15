@@ -28,20 +28,19 @@ export default function BeforeHeader() {
 	}, []);
   return (
     <nav className={`
-    sticky top-0 z-10 bg-black py-1
+    sticky top-0 z-10 bg-black py-2
     ${isScroll ? "saturate-100 backdrop-blur-lg" : ""}`}>
-    <div className=' mx-44  flex items-center justify-between'>
+    <div className=' mx-28  flex items-center justify-between'>
         <a href="/">
-          <img  src={logo} alt="logo" width="200px" />
+          <img  src={logo} alt="logo" width="100px" />
         </a>
           <div>
             <Button
-              className=" mr-5 cursor-pointer text-gray-400 "
+              className=" mr-5 cursor-pointer text-gray-400 hover:text-my-color"
               onClick={goToLoginForm}
-              label={"로그인"}
+              label={"로그인"}  
             />
-            <Button
-              className=" h-8 px-2 border border-gray-300 rounded-md cursor-pointer text-gray-400 "
+            <Button 
               onClick={goToSignupForm}
               label={"회원가입"}
             />

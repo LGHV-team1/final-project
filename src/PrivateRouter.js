@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Outlet, Navigate } from "react-router-dom";
+import { Outlet, Navigate } from "react-router-dom";
 function PrivateRouter() {
     const jwtToken = window.localStorage.getItem("jwtToken");
     const refresh = window.localStorage.getItem("refresh");

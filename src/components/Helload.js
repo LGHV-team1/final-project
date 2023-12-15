@@ -6,7 +6,6 @@ import ad4_1 from "../images/Ad/광고4_1.png"
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { Link } from "react-router-dom";
 
 function Helload() {
     const Arrowright = ({onClick}) => (
@@ -28,9 +27,6 @@ function Helload() {
         { id: 2, img: ad2, vodname: "광고2", url: "https://www.lghellovision.net/benefits/event/eventDetail.do?Ls_Type=0&Ls_Order=0&Ls_Row=2&Ls_Idx=398&BN_CATE2=03&BN_CATE3=06&BN_CATE4=00"},
         { id: 3, img: ad3, vodname: "광고3", url: "https://www.lghellovision.net/benefits/event/eventDetail.do?Ls_Type=0&Ls_Order=0&Ls_Row=1&Ls_Idx=385"},
     ]
-    const Click = (url) => {
-        window.open(url)
-    }
     const settings = {
         infinite: true,      // 슬라이드가 끝까지 가면 다시 처음으로 반복
         autoplay: true,      // 자동 재생
