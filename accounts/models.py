@@ -43,7 +43,7 @@ class User(AbstractUser, PermissionsMixin):
     stbnumber = models.IntegerField(default=0,null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    prefer_contents=models.CharField(max_length=50,null=True)
+    prefer_contents=models.JSONField(null=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []

@@ -18,6 +18,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='user',
             name='prefer_contents',
-            field=models.CharField(max_length=50, null=True),
+            field=models.JSONField(null=True),
         ),
     ]
