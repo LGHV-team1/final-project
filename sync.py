@@ -161,9 +161,9 @@ if __name__=="__main__":
 	# 데이터베이스 설정
 	db = conn.LGHV
 	user_sync()
+	time_sync()
 	wish_sync()
 	rec_sync()
 	rev_sync()
 	con_sync()
-	time_sync()
 	con.close()
