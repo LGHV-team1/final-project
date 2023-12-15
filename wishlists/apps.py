@@ -23,6 +23,7 @@ class WishlistsConfig(AppConfig):
             # pw=settings.MONGO_PW
             # conn = MongoClient(f'mongodb://hellovision:{pw}@{ip}', 27017)
             
+
             # # 데이터베이스 설정
             # db = conn.LGHV
             # collect = db.wishlists

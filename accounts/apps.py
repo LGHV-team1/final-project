@@ -20,7 +20,6 @@ class AccountsConfig(AppConfig):
     #         ip=settings.EC2_IP
     #         pw=settings.MONGO_PW
     #         conn = MongoClient(f'mongodb://hellovision:{pw}@{ip}', 27017)
-            
     #         # 데이터베이스 설정
     #         db = conn.LGHV
     #         collect = db.users
@@ -38,5 +37,3 @@ class AccountsConfig(AppConfig):
     #                 }
     #                 collect.insert_one(doc)
     #         con.close()
-
-
