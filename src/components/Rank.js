@@ -50,11 +50,11 @@ function Rank() {
 
   return (
     <>
-      <div>
-        <div className="flex">
+      <div className="text-gray-900">
+        <div className="flex ">
           {ARRAY.map((item, idx) => {
             return (
-              <div>
+              <div >
                 <svg
                   key={idx}
                   width="50"

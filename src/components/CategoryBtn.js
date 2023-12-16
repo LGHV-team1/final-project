@@ -1,6 +1,7 @@
 
 import { useDispatch } from 'react-redux';
 import { setCategory } from '../redux/categorySlice';
+import { Link } from 'react-router-dom';
 function CategoryBtn({data , bigcategory}) {
     const dispatch = useDispatch();
 
@@ -45,12 +46,12 @@ return (
     <div className="text-gray-300 mb-[7%]">
         <div className="flex flex-wrap justify-start">
             {data.map((a, idx) => (
-                <a 
+                <Link
                     key={a.id} 
-                    href={`${dynamicUrl}${ (bigcategory==="tv") ? smallCategory[a.bigcategory]  : smallCategory[a.smallcategory]}`}
+                    to={`${dynamicUrl}${ (bigcategory==="tv") ? smallCategory[a.bigcategory]  : smallCategory[a.smallcategory]}`}
                     className="relative mb-3 mr-3 group" // 'group' 클래스를 여기에 추가
                     style={{ width: "230px", height: "350px" }}
-                    onClick={() => handleCategoryClick((bigcategory==="tv") ? smallCategory[a.bigcategory]  : smallCategory[a.smallcategory])}
+                    onClick={() => handleCategoryClick((bigcategory==="tv") ? a.bigcategory  : a.smallcategory)}
                 >
                     <img
                         src={a.imgpath === "/noimage.png" ? `${BASE_URL_NO}${a.imgpath}` : `${BASE_URL}${a.imgpath}`}
@@ -62,7 +63,7 @@ return (
                         >
                             { (bigcategory==="tv") ? a.bigcategory  : a.smallcategory}
                         </p>
-                </a>
+                </Link>
             ))}
         </div>
     </div>
