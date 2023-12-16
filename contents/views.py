@@ -617,7 +617,7 @@ class CategoryPick(APIView):
             smallcategory=list(tv_category.values())
             for i in smallcategory:
                 vods = self.vods_collection.find({"category": "TV프로그램","bigcategory":i}).sort("count",-1).limit(1)
-                serialized_vods.append([self.serialize_vod(vod) for vod in vods])
+                serialized_vods.append([self.serialize_tvvod(vod) for vod in vods])
         elif Bigcategory == "movie":
             smallcategory=list(movie_category.values())
             for i in smallcategory:
@@ -637,6 +637,15 @@ class CategoryPick(APIView):
             "id": vod["id"],
             "name": vod["name"],
             "smallcategory": vod["smallcategory"],
+            "imgpath": vod["imgpath"],
+            "count": vod["count"],
+        }
+    def serialize_tvvod(self,vod):
+        bigcategory= "기타" if vod['bigcategory']=="미분류" else vod['bigcategory']
+        return  {
+            "id": vod["id"],
+            "name": vod["name"],
+            "bigcategory": bigcategory,
             "imgpath": vod["imgpath"],
             "count": vod["count"],
         }
