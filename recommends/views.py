@@ -9,7 +9,11 @@ from random import choice
 from pymongo import MongoClient
 import json
 from config import settings
-from datetime import datetime,timedelta
+from datetime import timedelta
+import datetime
+from pytimekr import pytimekr
+
+
 
 class MainRecommend1(APIView):
 	permission_classes=[IsAuthenticated]
@@ -166,42 +170,51 @@ class timerecommend(APIView):
 	vod_collection = db.contents
 
 	def get(self, request):
-		return Response(status=status.HTTP_200_OK)
-# 		current_time = datetime.now()
+		# return Response(status=status.HTTP_200_OK)
+		
+		current_date = datetime.date.today()
+		yesterday = current_date - datetime.timedelta(days=1)
+		tomorrow = current_date + datetime.timedelta(days=1)
+		holiday = pytimekr.holidays() 
+		
+		today = 1 if current_date.weekday() > 5 else 0
+		day_before= 1 if yesterday.weekday()>5 else 0
+		next_day= 1 if tomorrow.weekday()>5 else 0
 
-# 		# Calculate if today is a weekday (True) or a weekend (False)
-# 		is_weekday = current_time.weekday() < 5
+		if yesterday in holiday:
+			day_before=1
+		if current_date in holiday:
+			today=1
+		if tomorrow in holiday:
+			next_day=1
 
-# 		# Calculate yesterday and tomorrow based on the current date
-# 		yesterday = current_time - timedelta(days=1)
-# 		tomorrow = current_time + timedelta(days=1)
+		current_time = datetime.datetime.now()
 
-# 		# Define time slots based on the current hour
-# 		current_hour = current_time.hour
-# 		if 0 <= current_hour < 8:
-# 			time_slot = 0
-# 		elif 8 <= current_hour < 18:
-# 			time_slot = 1
-# 		else:
-# 			time_slot = 2
+		current_hour = current_time.hour
+		if 0 <= current_hour < 8:
+			hour = 0
+		elif 8 <= current_hour < 18:
+			hour = 1
+		else:
+			hour = 2
 
 
-# 		recommend = self.timerec_collection.find_one({"today": , "method": 3,"yesterday":,"tomorrow":,"time":,})
-# 		if not recommend:
-# 			raise Exception("No recommendation found")
-# 		vod_ids = [recommend.get(f'rec{i}') for i in range(1, 11)]
-# 		vod_objects = list(self.vod_collection.find({"id": {"$in": vod_ids}}))
-# 		vod_serialized = [self.serialize_vod(vod) for vod in vod_objects]
-# 		return Response(vod_serialized, status=status.HTTP_200_OK)
+		recommend = self.timerec_collection.find_one({"today":today ,"yesterday":day_before,"tomorrow":next_day,"time":hour})
+		if not recommend:
+			raise Exception("No recommendation found")
+		vod_ids = [recommend.get(f'rec{i}') for i in range(1, 11)]
+		vod_objects = list(self.vod_collection.find({"id": {"$in": vod_ids}}))
+		vod_serialized = [self.serialize_vod(vod) for vod in vod_objects]
+		return Response(vod_serialized, status=status.HTTP_200_OK)
 	
 	
 	
 	
-# 	def serialize_vod(self, vod):
-# 		return {
-# 			"id": vod["id"],
-# 			"name": vod["name"],
-# 			"smallcategory": vod["smallcategory"],
-# 			"imgpath": vod["imgpath"],
-# 			"count": vod["count"],
-# 		}
+	def serialize_vod(self, vod):
+		return {
+			"id": vod["id"],
+			"name": vod["name"],
+			"smallcategory": vod["smallcategory"],
+			"imgpath": vod["imgpath"],
+			"count": vod["count"],
+		}
