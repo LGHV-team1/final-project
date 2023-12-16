@@ -12,7 +12,7 @@ class Command(BaseCommand):
     }
 
     def dbinsert(self, *args, **options):
-        with open("./data/vod_final_list.csv", encoding="utf-8") as f:
+        with open("./data/vod.csv", encoding="utf-8") as f:
             reader = csv.reader(f)
             next(reader)  # Skip header
             vod_list = []
