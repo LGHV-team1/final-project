@@ -44,7 +44,7 @@ function CategoryBtn({data , bigcategory}) {
 
 return (
     <div className="text-gray-300 mb-[7%]">
-        <div className="flex flex-wrap justify-start">
+        <div className="flex flex-wrap justify-start gap-2.5">
             {data.map((a, idx) => (
                 <Link
                     key={a.id} 

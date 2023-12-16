@@ -105,7 +105,7 @@ function Header2() {
       .catch((err) => console.log(err));
   };
   return (
-    <nav className="sticky top-0 z-10 bg-bg-color border-b border-gray-600">
+    <nav className="sticky top-0 z-30 bg-bg-color border-b border-gray-600 ">
       <div className=" pt-10 pb-8 mx-28  flex h-16 justify-between ">
         <div className="flex items-center gap-10 ">
           <Link to="/">
