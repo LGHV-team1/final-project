@@ -10,10 +10,12 @@ import Modal from "../components/Modal";
 import ViewReview from "../components/ViewReview";
 import ApiService from "../api/ApiService";
 import useDebounce from "../hook/useDebounce";
+import Related from "../components/Related";
 
 function Detail() {
   const { name } = useParams();
   const [movie, setMovie] = useState({});
+  const [related, setRelated] = useState([]);
   const [loading, setLoading] = useState(true);
   const [wish, setWish] = useState(false);
   const [originalWish, setOriginalWish] = useState(false);
@@ -25,6 +27,7 @@ function Detail() {
       const response = await ApiService.getVodDetail(name);
       const data = response.data;
       setMovie(data); // 먼저 movie 상태를 설정
+      setRelated(data.related_vods)
       setOriginalWish(data.is_liked);
       setWish(data.is_liked);
       console.log("처음 wish", wish);
@@ -260,7 +263,14 @@ function Detail() {
               </div>
             </div>
           </div>
-          <div className="mx-28">
+          <div className="mx-28 text-gray-200 mt-[7%]">
+            <hr />
+              <div>
+                <h3 className="mb-3">관련 있는 컨텐츠예요</h3>
+                <Related data={related}/>
+              </div>
+          </div>
+          <div className="mx-28 text-gray-200">
             <hr />
             <div ref={inputForm}>
               <Review />
