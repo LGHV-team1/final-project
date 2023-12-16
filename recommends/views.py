@@ -1,6 +1,6 @@
 from rest_framework.views import APIView,status
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated,IsAuthenticatedOrReadOnly
 from .serializers import MainRecommendSerializer
 from .models import MainRecommend
 from contents.models import Vod
@@ -12,6 +12,11 @@ from config import settings
 from datetime import timedelta
 import datetime
 from pytimekr import pytimekr
+import pandas as pd
+from django_pandas.io import read_frame
+from random import sample
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.neighbors import NearestNeighbors
 
 
 
@@ -220,3 +225,67 @@ class timerecommend(APIView):
 			"imgpath": vod["imgpath"],
 			"count": vod["count"],
 		}
+	
+
+class FirstUser_Preference_2(APIView):
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    ip = settings.EC2_IP
+    pw = settings.MONGO_PW
+    client = MongoClient(f"mongodb://hellovision:{pw}@{ip}", 27017)
+    db = client.LGHV
+    vods_collection = db.contents
+
+    def get(self, request):
+        vod_id_list=request.user.prefer_contents
+        # vod list 가져오기
+        query_set = Vod.objects.all()
+        vod_list=read_frame(query_set)
+        print(type(vod_list))
+        # BigCategory, SmallCategory로 장르 생성
+        vod_list['genres'] = vod_list['bigcategory'].str.replace('/', '').str.replace(' ', '') + ' ' + vod_list['smallcategory'].str.replace('/', '').str.replace(' ', '')
+        
+        # 장르 정보 추출
+        cv = CountVectorizer()
+        genres = cv.fit_transform(vod_list.genres)
+        
+        # one-hot vector 생성
+        genres = pd.DataFrame(genres.toarray(), columns=list(sorted(cv.vocabulary_.keys(), key=lambda x:cv.vocabulary_[x])))
+        
+        
+        # n_neighbors: 가장 가까운 n개의 이웃을 찾도록 지정합니다.
+        nbrs = NearestNeighbors(n_neighbors=100).fit(genres)
+        
+        
+        # vod_id_list에 있는 vod와 가까운 10개 vod
+        recommendation_list = pd.DataFrame()
+        for vod_id in vod_id_list:
+            vod = genres.iloc[vod_id, :]
+            distances, indices = nbrs.kneighbors([vod])
+            recommendations = vod_list.loc[indices[0], ["id"]]
+            recommendations["distance"] = distances[0]
+            # 추천 데이터에 count 합쳐줌
+            recommendations = pd.merge(recommendations, vod_list[['id', 'count']], on='id', how="left")
+            recommendation_list = pd.concat([recommendation_list, recommendations])
+        
+        # 거리순, 시청량 순으로 정렬
+        recommendation_list.sort_values(["distance", "count"], ascending=[True, False], inplace=True)
+        recommendation_list.drop_duplicates(inplace=True)
+        
+        # 상위 10개 가져옴
+        top_10 = list(recommendation_list['id'].head(10))
+        serialized_vods=[]
+        for vod in top_10:
+            vod = self.vods_collection.find_one({"id": vod})
+            serialized_vods.append(self.serialize_vod(vod))
+        return Response(serialized_vods, status=status.HTTP_200_OK)
+        
+    def serialize_vod(self, vod):
+        # VOD 객체를 직렬화하는 메서드
+        # 여기서 필요한 필드를 선택하여 dictionary 형태로 반환
+        return {
+            "id": vod["id"],
+            "name": vod["name"],
+            "smallcategory": vod["smallcategory"],
+            "imgpath": vod["imgpath"],
+            "count": vod["count"],
+        }
