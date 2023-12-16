@@ -18,7 +18,7 @@ function Home() {
     <div className="mx-28 mt-5 text-gray-300 font-bold">
       <div className="mb-20">
         <div className="mt-3">
-          <p className=" text-3xl my-5">⭐인기 Top5⭐</p>
+          <p className=" text-3xl my-5">인기 Top5</p>
           <Top5 images={bgArr} />
         </div>
       </div>
