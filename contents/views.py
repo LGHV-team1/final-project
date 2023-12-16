@@ -13,6 +13,12 @@ from kafka import KafkaProducer
 from pymongo import MongoClient
 from config import settings
 import json
+from datetime import timedelta
+import datetime
+from pytimekr import pytimekr
+import pandas as pd
+from django_pandas.io import read_frame
+from random import sample
 
 
 class MessageProducer:
