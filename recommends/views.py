@@ -176,11 +176,13 @@ class timerecommend(APIView):
 		yesterday = current_date - datetime.timedelta(days=1)
 		tomorrow = current_date + datetime.timedelta(days=1)
 		holiday = pytimekr.holidays() 
-		
-		today = 1 if current_date.weekday() > 5 else 0
-		day_before= 1 if yesterday.weekday()>5 else 0
-		next_day= 1 if tomorrow.weekday()>5 else 0
 
+		today = 1 if current_date.weekday() > 4 else 0
+		day_before= 1 if yesterday.weekday()>4 else 0
+		next_day= 1 if tomorrow.weekday()>4 else 0
+		
+		
+		
 		if yesterday in holiday:
 			day_before=1
 		if current_date in holiday:
