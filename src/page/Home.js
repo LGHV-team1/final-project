@@ -22,13 +22,14 @@ function Home() {
           <Top5 images={bgArr} />
         </div>
       </div>
-      <p className=" text-3xl">당신이 좋아할만한 컨텐츠</p>
+      <p className=" text-3xl">💕 당신이 좋아할만한 컨텐츠 💕</p>
       <ShowRec algorithmNum={1} />
-      <p className=" text-3xl">당신이 주로 본 장르</p>
+      <p className=" text-3xl">📺 당신이 주로 본 장르 📺</p>
       <ShowRec algorithmNum={2} />
-      <p className=" text-3xl">이런 영화 어때?</p>
+      <p className=" text-3xl">🎥 이런 컨텐츠 어때요? 🎥</p>
       <ShowRec algorithmNum={"otheruser"} />
-      <p className=" text-3xl">지금 시간에 인기 있는 컨텐츠</p>
+      <p className=" text-3xl">🕐 지금 시간에 인기 있는 컨텐츠 🕐</p>
+      <ShowRec algorithmNum={3} />
     </div>
   );
 }

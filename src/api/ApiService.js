@@ -92,6 +92,9 @@ class ApiService {
     getRec(algorithmNum) {
         return this.axiosInstance.get(`recommend/${algorithmNum}`);
     }
+    getCategory(category) {
+        return this.axiosInstance.get(`contents/pick/${category}`);
+    }
     getKids1(){
         return this.axiosInstance.get('contents/category/kids/');
     }
