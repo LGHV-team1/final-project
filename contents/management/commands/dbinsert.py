@@ -12,7 +12,7 @@ class Command(BaseCommand):
     }
 
     def dbinsert(self, *args, **options):
-        with open("./data/a.csv", encoding="utf-8") as f:
+        with open("./data/vod_final_list.csv", encoding="utf-8") as f:
             reader = csv.reader(f)
             next(reader)  # Skip header
             vod_list = []
@@ -47,14 +47,18 @@ class Command(BaseCommand):
                     count=count,
                     name_no_space=rename
                 )
-                
-                vod_list.append(vod)
+                try:
+                    fix_obj=Vod.objects.get(id=vod_id)
+                    fix_obj.count=count
+                    fix_obj.save()
+                except:
+                    vod_list.append(vod)
                 print(vod)
             Vod.objects.bulk_create(vod_list)
             self.stdout.write(self.style.SUCCESS("Data imported successfully"))
 
     def dbgetimgpath(self, *args, **options):
-        vod_list = Vod.objects.all()
+        vod_list = Vod.objects.filter(imgpath__isnull=True)
         for row in vod_list:
             # 포스터 가져오기.
             if row.category == "영화":  # 영화 처리

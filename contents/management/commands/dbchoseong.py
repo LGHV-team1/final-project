@@ -6,7 +6,7 @@ from contents.models import Vod
 
 class Command(BaseCommand):
     def dbchoseong(self, *args, **options):
-        vod_list = Vod.objects.all()
+        vod_list = Vod.objects.filter(choseong__isnull=True)
         for row in vod_list:
             CHOSEONG_LIST = [
                 'ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅃ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'
