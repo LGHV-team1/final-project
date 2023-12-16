@@ -71,6 +71,7 @@ $$R_{ec}=V_oD$$
 <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=Python&logoColor=white"/> &nbsp
 <img src="https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=Django&logoColor=white"/> &nbsp
 <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=MySQL&logoColor=white"/> &nbsp
+<img src="https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=MongoDB&logoColor=white"/> &nbsp
 <br>
 
 <h3>DataAnalysis</h3>
@@ -92,6 +93,7 @@ $$R_{ec}=V_oD$$
 <img src="https://img.shields.io/badge/Amazon Route 53-8c4fff?style=for-the-badge&logo=Amazon Route 53&logoColor=white"> &nbsp
 <img src="https://img.shields.io/badge/docker-2496ED?style=for-the-badge&logo=docker&logoColor=white"/> &nbsp
 <img src="https://img.shields.io/badge/GitHub Actions-2088FF?style=for-the-badge&logo=GitHub Actions&logoColor=white"/> &nbsp
+<img src="https://img.shields.io/badge/Kafka-231F20?style=for-the-badge&logo=apachekafka&logoColor=white"/> &nbsp
 </div>
 <br>
 
