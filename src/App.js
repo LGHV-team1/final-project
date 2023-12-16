@@ -21,9 +21,10 @@ import SubLayout from "./layout/SubLayout.js";
 import Search from "./page/Search.js";
 import SelectCategory from "./page/SelectCategory.js";
 import SelectContents from "./page/SelectContents.js";
+
 function App() {
   return (
-    <Router>
+  
       <div style={style}>
       <Routes>
       <Route path="/about" element={<><About /></>} />
@@ -54,7 +55,7 @@ function App() {
         </Route>
       </Routes>
     </div>
-  </Router>
+
   );
 }
 const style ={

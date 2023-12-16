@@ -3,7 +3,7 @@ import Review from "../components/Review";
 import noImage from "../images/noimage.png";
 import noImageBG from "../images/no_img.jpg";
 import Star from "../components/Star";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Spinner from "../components/Spinner";
 import noImagePs from "../images/noimageps.png";
 import Modal from "../components/Modal";
@@ -27,7 +27,7 @@ function Detail() {
       const response = await ApiService.getVodDetail(name);
       const data = response.data;
       setMovie(data); // 먼저 movie 상태를 설정
-      setRelated(data.related_vods)
+      setRelated(data.related_vods);
       setOriginalWish(data.is_liked);
       setWish(data.is_liked);
       console.log("처음 wish", wish);
@@ -100,30 +100,27 @@ function Detail() {
           <div
             className="relative py-80 bg-cover bg-center bg-no-repeat z-10"
             style={{
-              backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0.6)), url(${backgroundImageUrl})`,
+              backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0), rgba(21,21,21,1)), url(${backgroundImageUrl})`,
               backgroundSize: "cover",
               zIndex: "9",
               backgroundColor: "transparent",
             }}
           >
-           
             <div
-              className="bg-transparent absolute bottom-10 left-44  text-white "
+              className="bg-transparent absolute bottom-14 left-28  text-gray-200 "
               style={{ textShadow: "2px 2px 4px black" }}
             >
-              <span className="bg-transparent text-6xl pb-3 ">
+              <span className="bg-transparent text-6xl mb-3 ">
                 {movie.name}
               </span>
-              <div className="bg-transparent pb-2 text-2xl ">
-                {movie.bigcategory}
-                <br />
-                {movie.smallcategory}
-                <br />
-                {movie.runningtime}
+              <div className="bg-transparent text-2xl ">
+                <p className="mb-0">{movie.bigcategory}</p>
+                <p className="mb-0">{movie.smallcategory}</p>
+                <p className="mb-0">{movie.runningtime}</p>
               </div>
             </div>
           </div>
-          <div className="flex mx-28 mt-10 mb-10 gap-10 ">
+          <div className="relative bottom-14 flex mx-28 mt-10 mb-10 gap-10 z-10 ">
             <div className="w-1/4">
               <img
                 src={`https://image.tmdb.org/t/p/original/${movie.imgpath}`}
@@ -246,15 +243,17 @@ function Detail() {
                     <div className="flex flex-wrap gap-2 ">
                       {movie.actors.map((item) => (
                         <div className="w-[23%] flex flex-col items-center rounded ">
-                          <img
-                            src={`https://image.tmdb.org/t/p/original/${item.image}`}
-                            className=" rounded-t"
-                            onError={(e) => (e.currentTarget.src = noImagePs)}
-                            alt="배우사진"
-                          />
-                          {item.name.length < 6
-                            ? item.name
-                            : `${item.name.slice(0, 7)}..`}
+                          <Link to={`/search?searchWord=${item.name}` } className="no-underline text-gray-300">
+                            <img
+                              src={`https://image.tmdb.org/t/p/original/${item.image}`}
+                              className=" rounded-t"
+                              onError={(e) => (e.currentTarget.src = noImagePs)}
+                              alt="배우사진"
+                            />
+                            {item.name.length < 6
+                              ? item.name
+                              : `${item.name.slice(0, 7)}..`}
+                          </Link>
                         </div>
                       ))}
                     </div>
@@ -265,10 +264,10 @@ function Detail() {
           </div>
           <div className="mx-28 text-gray-200 mt-[7%]">
             <hr />
-              <div>
-                <h3 className="mb-3">관련 있는 컨텐츠예요</h3>
-                <Related data={related}/>
-              </div>
+            <div>
+              <h3 className="mb-3">관련 있는 컨텐츠예요</h3>
+              <Related data={related} />
+            </div>
           </div>
           <div className="mx-28 text-gray-200">
             <hr />
