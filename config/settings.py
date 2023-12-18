@@ -51,6 +51,18 @@ AWS_DB_HOST = get_secret("AWS_DB_HOST")
 EC2_IP=get_secret("EC2_IP")
 MONGO_PW=get_secret("MongoPW")
 
+# AWS_REGION = 'ap-northeast-2' #AWS서버의 지역
+# AWS_STORAGE_BUCKET_NAME = 'rvdshortvideo' #생성한 버킷 이름
+# AWS_ACCESS_KEY_ID= get_secret("AWS_ACCESS_KEY_ID")
+# AWS_SECRET_ACCESS_KEY= get_secret("AWS_SECRET_ACCESS_KEY")
+# #버킷이름.s3.AWS서버지역.amazonaws.com 형식
+# AWS_S3_CUSTOM_DOMAIN = '%s.s3.%s.amazonaws.com' % (AWS_STORAGE_BUCKET_NAME, AWS_REGION)
+# # Static Setting
+# STATIC_URL = "https://%s/static/" % AWS_S3_CUSTOM_DOMAIN
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+# MEDIA_URL = "https://%s/meida/" % AWS_S3_CUSTOM_DOMAIN
+# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 
 
