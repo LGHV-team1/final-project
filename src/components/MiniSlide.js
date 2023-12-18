@@ -115,7 +115,6 @@ function MiniSlide({ data, slidesToShowNum = 6, slidesToScrollNum = 1 }) {
                   }}
                 />
               </Link>
-
               <h1
                 className="absolute bottom-[-5%] left-[1%] italic  shadow-2xl font-bold text-white text-6xl bg-transparent"
                 style={{ textShadow: "2px 2px 4px black" }}

@@ -98,17 +98,17 @@ function Header2() {
       .catch((err) => console.log(err));
   };
   return (
-    <nav className="sticky top-0 z-30 bg-bg-color border-b border-gray-600 ">
+    <nav className="sticky top-0 z-30 bg-transparent border-b border-gray-600 ">
       <div className=" pt-10 pb-8 mx-28  flex h-16 justify-between ">
         <div className="flex items-center gap-10 ">
           <Link to="/">
             <img className="my-1" src={logo} alt="logo" width="100px" />
           </Link>
 
-          <div className="flex justify-center items-center sorts-contents gap-3 ">
+          <div className="flex justify-center items-center sorts-contents gap-3">
             <Link
               to="/home"
-              className=" text-gray-400 no-underline hover:text-my-color"
+              className=" text-gray-100 no-underline hover:text-my-color"
             >
               홈
             </Link>
@@ -153,7 +153,7 @@ function Header2() {
               className="flex relative  h-10 bg-white rounded"
               style={{
                 width: isExpanded ? "20rem" : "0", // 너비 변경
-                transition: "width 1s ease-out", // 부드러운 전환 효과
+                transition: "width 0.5s ease-in", // 부드러운 전환 효과
                 overflow: "hidden", // 너비가 0일 때 내용 숨김
               }}
             >

@@ -20,7 +20,7 @@ function Detail() {
   const [wish, setWish] = useState(false);
   const [originalWish, setOriginalWish] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const debounceWish = useDebounce(wish, 1000);
+  const debounceWish = useDebounce(wish, 500);
   console.log("debounce", debounceWish);
   const getData = async () => {
     try {
@@ -30,8 +30,6 @@ function Detail() {
       setRelated(data.related_vods);
       setOriginalWish(data.is_liked);
       setWish(data.is_liked);
-      console.log("처음 wish", wish);
-      console.log("처음 original wish", originalWish);
       // 그 다음에 wish 상태를 설정
       setLoading(false);
     } catch (err) {
@@ -107,7 +105,7 @@ function Detail() {
             }}
           >
             <div
-              className="bg-transparent absolute bottom-14 left-28  text-gray-200 "
+              className="bg-transparent absolute bottom-24 left-28  text-gray-200 "
               style={{ textShadow: "2px 2px 4px black" }}
             >
               <span className="bg-transparent text-6xl mb-3 ">
@@ -120,7 +118,7 @@ function Detail() {
               </div>
             </div>
           </div>
-          <div className="relative bottom-14 flex mx-28 mt-10 mb-10 gap-10 z-10 ">
+          <div className="relative bottom-24 flex mx-28 mt-10 mb-10 gap-10 z-10 ">
             <div className="w-1/4">
               <img
                 src={`https://image.tmdb.org/t/p/original/${movie.imgpath}`}
@@ -263,15 +261,15 @@ function Detail() {
             </div>
           </div>
           <div className="mx-28 text-gray-200 mt-[7%]">
-            <hr />
-            <div>
-              <h3 className="mb-3">관련 있는 컨텐츠예요</h3>
+            
+            <div className="relative bottom-10  border-t border-gray-500">
+              <h3 className="my-3">관련 있는 컨텐츠예요</h3>
               <Related data={related} />
             </div>
           </div>
           <div className="mx-28 text-gray-200">
-            <hr />
-            <div ref={inputForm}>
+            
+            <div ref={inputForm} className="border-t border-gray-500 ">
               <Review />
               <ViewReview name={name} />
             </div>
