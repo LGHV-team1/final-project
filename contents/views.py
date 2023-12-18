@@ -3,7 +3,9 @@ from rest_framework.views import APIView, status
 from rest_framework.response import Response
 from .models import Vod
 from reviews.models import Review
+from accounts.models import User
 from .serializers import VodListSerializer, VodDetailSerializer
+from rest_framework.exceptions import NotFound, APIException
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from reviews.serializers import ReviewSerializer, ReviewshowSerializer
 from wishlists.models import Wishlist
@@ -352,23 +354,39 @@ class VodReviews(APIView):
         return self.vods_collection.find_one({"id": vodid})
 
     def get(self, request, vodid):
-        vod = self.get_object(vodid)
-        
-        serialized_vod = self.serialize_vod(vod)
-        return Response(serialized_vod)
+        try:
+            vod = self.get_object(vodid)
+            print(vod)
+            if not vod:
+                # VOD가 존재하지 않는 경우
+                raise NotFound(detail="VOD not found.", code=404)
+
+            serialized_vod = self.serialize_vod(vod)
+            return Response(serialized_vod, status=status.HTTP_200_OK)
+
+        except NotFound as e:
+            # 특정 VOD를 찾을 수 없는 경우
+            return Response({"error": str(e)}, status=e.status_code)
+
+        except Exception as e:
+            # 기타 예외 처리
+            print(e)
+            return Response({"error": "An unexpected error occurred."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     def serialize_vod(self, vod):
         reviews = self.reviews_collection.find({"contents_id": vod['id']})
         serialized_reviews = []
-        for review in reviews:
-            user=self.user_collection.find_one({"id":review['user_id']})
+        for review in reviews: 
+            # user=self.user_collection.find_one({"id":review['user_id']})
+            user=User.objects.get(id=review['user_id'])
+            email=user.email
             serialized_review = {
                 "id":review.get("id"),
                 "payload": review.get("payload", ""),
                 "rating": review.get("rating", 0),
-                "username":user.get("email")
+                "username":email
             }
             serialized_reviews.append(serialized_review)
-
+        
         return serialized_reviews
 
 
@@ -395,7 +413,7 @@ class VodReviews(APIView):
             "contents": int(vodid),
             **request.data,  # Include other data from the request
         }
-        print(review_data)
+        
 
         review = ReviewSerializer(data=review_data)
         # Save the review instance
