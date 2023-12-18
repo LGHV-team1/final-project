@@ -2,7 +2,7 @@ from rest_framework.views import APIView,status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated,IsAuthenticatedOrReadOnly
 from .serializers import MainRecommendSerializer
-from .models import MainRecommend
+from .models import MainRecommend,vod_score
 from contents.models import Vod
 from contents.serializers import VodListSerializer
 from random import choice
@@ -17,6 +17,9 @@ from django_pandas.io import read_frame
 from random import sample
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.neighbors import NearestNeighbors
+from surprise import Reader
+from surprise import Dataset
+from surprise.prediction_algorithms import KNNBaseline
 
 
 
@@ -225,7 +228,83 @@ class timerecommend(APIView):
 			"imgpath": vod["imgpath"],
 			"count": vod["count"],
 		}
-	
+
+
+class FirstUser_Preference_1(APIView):
+	permission_classes = [IsAuthenticatedOrReadOnly]
+	ip = settings.EC2_IP
+	pw = settings.MONGO_PW
+	client = MongoClient(f"mongodb://hellovision:{pw}@{ip}", 27017)
+	db = client.LGHV
+	vods_collection = db.contents
+
+	def get(self, request):
+		vod_id_list=request.user.prefer_contents
+        # vod list 가져오기
+		query_set = Vod.objects.all()
+		vod_list=read_frame(query_set)
+		score_query_set=vod_score.objects.all()
+		score=read_frame(score_query_set)
+		
+		vod = pd.DataFrame([[1]*len(vod_id_list), vod_id_list, [0.7]*len(vod_id_list)]).T
+		vod.columns =score.columns[1:]
+		vod_score_1 = pd.concat([score, vod], axis = 0)
+
+			# surprise 데이터 형식으로 변환
+		def convert_traintest_dataframe_forsurprise(training_dataframe):
+			reader = Reader(rating_scale=(0, 1)) # 이 범위를 넘으면 양극값으로 대체
+			trainset = Dataset.load_from_df(training_dataframe[['substr', 'vod_id', 'score']], reader)
+			trainset = trainset.construct_trainset(trainset.raw_ratings)
+			return trainset
+
+		trainset = convert_traintest_dataframe_forsurprise(vod_score_1)
+		
+		sim_options = {'name': 'pearson_baseline', 'user_based': False} # item-based similarity
+		bsl_options = {'method' : 'sgd', 'n_epochs' : 1}
+		knnbaseline = KNNBaseline(k = 40, sim_options=sim_options, random_state = 42,
+								bsl_options = bsl_options)
+
+		knnbaseline.fit(trainset)
+		vod_id = sorted(vod_score_1.vod_id.unique())
+		result = []
+		for vod in vod_id:
+			result.append(knnbaseline.predict(1, vod)[0:4])
+
+		result = pd.DataFrame(result, columns = ['subsr', 'vod_id', 'real', 'predict'])
+		result = result[['subsr', 'vod_id', 'predict']].sort_values(by = 'predict', ascending= False).vod_id.tolist()		
+		
+		# 추천 VOD가 영화인 경우, 본 적이 있다면 추천안함
+		TV_kids = vod_list[(vod_list['category'] == 'TV프로그램') | (vod_list['category'] == '키즈')].id.unique().tolist()
+		movie = vod_list[vod_list['category'] == '영화'].id.unique().tolist()
+
+		li = []
+		for x in result:
+			if x not in vod_id_list:
+				li.append(x)
+			elif x in vod_id_list and x in TV_kids:
+				li.append(x)
+			elif x in vod_id_list and x in movie:
+				continue
+
+		top_10=li[:10]
+
+		serialized_vods=[]
+		for vod in top_10:
+			vod = self.vods_collection.find_one({"id": vod})
+			serialized_vods.append(self.serialize_vod(vod))
+		return Response(serialized_vods, status=status.HTTP_200_OK)
+		
+	def serialize_vod(self, vod):
+		# VOD 객체를 직렬화하는 메서드
+		# 여기서 필요한 필드를 선택하여 dictionary 형태로 반환
+		return {
+			"id": vod["id"],
+			"name": vod["name"],
+			"smallcategory": vod["smallcategory"],
+			"imgpath": vod["imgpath"],
+			"count": vod["count"],
+		}
+
 
 class FirstUser_Preference_2(APIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
@@ -253,7 +332,7 @@ class FirstUser_Preference_2(APIView):
         
         
         # n_neighbors: 가장 가까운 n개의 이웃을 찾도록 지정합니다.
-        nbrs = NearestNeighbors(n_neighbors=10	).fit(genres)
+        nbrs = NearestNeighbors(n_neighbors=10	).fit(genres.values)
         
         
         # vod_id_list에 있는 vod와 가까운 10개 vod
@@ -313,3 +392,86 @@ class SeasonRecommend(APIView):
 			"imgpath": vod["imgpath"],
 			"count": vod["count"],
 		}
+
+
+class wishlist_recommend(APIView):
+	permission_classes = [IsAuthenticatedOrReadOnly]
+	ip = settings.EC2_IP
+	pw = settings.MONGO_PW
+	client = MongoClient(f"mongodb://hellovision:{pw}@{ip}", 27017)
+	db = client.LGHV
+	vods_collection = db.contents
+	wish_collection=db.wishlists
+
+	def get(self, request):
+		user_id=request.user.id
+		vods = self.wish_collection.find({"user_id": user_id})
+		vod_id_list = [i['vod_id'] for i in vods]
+
+		
+		# vod list 가져오기
+		query_set = Vod.objects.all()
+		vod_list=read_frame(query_set)
+		score_query_set=vod_score.objects.all()
+		score=read_frame(score_query_set)
+		
+		vod = pd.DataFrame([[1]*len(vod_id_list), vod_id_list, [0.7]*len(vod_id_list)]).T
+		vod.columns =score.columns[1:]
+		vod_score_1 = pd.concat([score, vod], axis = 0)
+
+			# surprise 데이터 형식으로 변환
+		def convert_traintest_dataframe_forsurprise(training_dataframe):
+			reader = Reader(rating_scale=(0, 1)) # 이 범위를 넘으면 양극값으로 대체
+			trainset = Dataset.load_from_df(training_dataframe[['substr', 'vod_id', 'score']], reader)
+			trainset = trainset.construct_trainset(trainset.raw_ratings)
+			return trainset
+
+		trainset = convert_traintest_dataframe_forsurprise(vod_score_1)
+		
+		sim_options = {'name': 'pearson_baseline', 'user_based': False} # item-based similarity
+		bsl_options = {'method' : 'sgd', 'n_epochs' : 1}
+		knnbaseline = KNNBaseline(k = 40, sim_options=sim_options, random_state = 42,
+								bsl_options = bsl_options)
+
+		knnbaseline.fit(trainset)
+		vod_id = sorted(vod_score_1.vod_id.unique())
+		result = []
+		for vod in vod_id:
+			result.append(knnbaseline.predict(1, vod)[0:4])
+
+		result = pd.DataFrame(result, columns = ['subsr', 'vod_id', 'real', 'predict'])
+		result = result[['subsr', 'vod_id', 'predict']].sort_values(by = 'predict', ascending= False).vod_id.tolist()		
+		
+		# 추천 VOD가 영화인 경우, 본 적이 있다면 추천안함
+		TV_kids = vod_list[(vod_list['category'] == 'TV프로그램') | (vod_list['category'] == '키즈')].id.unique().tolist()
+		movie = vod_list[vod_list['category'] == '영화'].id.unique().tolist()
+
+		li = []
+		for x in result:
+			if x not in vod_id_list:
+				li.append(x)
+			elif x in vod_id_list and x in TV_kids:
+				li.append(x)
+			elif x in vod_id_list and x in movie:
+				continue
+
+		top_10=li[:10]
+
+		serialized_vods=[]
+		for vod in top_10:
+			vod = self.vods_collection.find_one({"id": vod})
+			serialized_vods.append(self.serialize_vod(vod))
+		return Response(serialized_vods, status=status.HTTP_200_OK)
+		
+	def serialize_vod(self, vod):
+		# VOD 객체를 직렬화하는 메서드
+		# 여기서 필요한 필드를 선택하여 dictionary 형태로 반환
+		return {
+			"id": vod["id"],
+			"name": vod["name"],
+			"smallcategory": vod["smallcategory"],
+			"imgpath": vod["imgpath"],
+			"count": vod["count"],
+		}
+
+
