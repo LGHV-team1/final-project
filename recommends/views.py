@@ -253,7 +253,7 @@ class FirstUser_Preference_2(APIView):
         
         
         # n_neighbors: 가장 가까운 n개의 이웃을 찾도록 지정합니다.
-        nbrs = NearestNeighbors(n_neighbors=100).fit(genres)
+        nbrs = NearestNeighbors(n_neighbors=10	).fit(genres)
         
         
         # vod_id_list에 있는 vod와 가까운 10개 vod
