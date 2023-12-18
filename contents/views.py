@@ -160,7 +160,7 @@ class SearchVodsDetail(APIView):
     vods_collection = db.contents
     wishlist_collection=db.wishlists
     reviews_collection=db.reviews
-    user_collection=db.users
+    
     def get_object(self, vodid):
         return Vod.objects.get(id=vodid)
     
@@ -349,7 +349,7 @@ class VodReviews(APIView):
     vods_collection = db.contents
     wishlist_collection=db.wishlists
     reviews_collection=db.reviews
-    user_collection=db.users
+    
     def get_object(self, vodid):
         return self.vods_collection.find_one({"id": vodid})
 
