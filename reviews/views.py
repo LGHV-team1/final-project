@@ -11,6 +11,7 @@ from kafka import KafkaProducer
 from pymongo import MongoClient
 from config import settings
 import json
+from accounts.models import User
 
 class MessageProducer:
     def __init__(self,broker,topic):
@@ -42,7 +43,7 @@ class MyReviews(APIView):
     pw = settings.MONGO_PW
     client = MongoClient(f"mongodb://hellovision:{pw}@{ip}", 27017)
     db = client.LGHV
-    user_collection=db.users
+    
     review_collection = db.reviews
     vod_collection = db.contents
     def get(self, request):
@@ -55,7 +56,8 @@ class MyReviews(APIView):
         # data = serializer.data
         # return Response(serializer.data)
     def serialize_review(self, review):
-        user=self.user_collection.find_one({"id":review['user_id']})
+        user=User.objects.get(id=review['user_id'])
+        email=user.email
         vod=self.vod_collection.find_one({"id":review['contents_id']})
         return {
             "id": review['id'],
@@ -63,7 +65,7 @@ class MyReviews(APIView):
             "rating":review['rating'],
             "user":review['user_id'],
             "contents":review['contents_id'],
-            "username":user.get("email",""),
+            "username":email,
             "vodname":vod.get("name"),
             "vodimg":vod.get("imgpath")            
         }
@@ -74,7 +76,6 @@ class MyReviewDetail(APIView):
     pw = settings.MONGO_PW
     client = MongoClient(f"mongodb://hellovision:{pw}@{ip}", 27017)
     db = client.LGHV
-    user_collection=db.users
     review_collection = db.reviews
     vod_collection = db.contents
 

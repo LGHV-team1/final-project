@@ -2,22 +2,7 @@ import pymysql
 from pymongo import MongoClient
 from config import settings
 
-def user_sync():
-	print("user sync")
-	# USER SYNC
-	user_collect = db.users
-	cursor = con.cursor()
-	cursor.execute("select * from accounts_user")
-	data = cursor.fetchall()
-	for user in data:
-		user_id=user[0]
-		if not user_collect.find_one({"id":user_id}):
-			doc = {
-				"id": user[0],
-				"email": user[7],
-			}
-			user_collect.insert_one(doc)
-	print("end sync")
+
 
 
 def rec_sync():
@@ -167,8 +152,8 @@ if __name__=="__main__":
 	pw=settings.MONGO_PW
 	conn = MongoClient(f'mongodb://hellovision:{pw}@{ip}', 27017)
 	# 데이터베이스 설정
+	# conn.drop_database("LGHV")
 	db = conn.LGHV
-	user_sync()
 	time_sync()
 	wish_sync()
 	rec_sync()

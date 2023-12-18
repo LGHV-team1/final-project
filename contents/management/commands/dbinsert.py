@@ -28,11 +28,11 @@ class Command(BaseCommand):
                     Category,
                     rename,
                     count,
+                    vod_id,
                     vod_name,
                     running_time,
-                    vod_id
                 ) = row
-                director=director.split(",")[0]
+                director = director.split(",")[0]
                 actors = actors.replace("-", "")
                 vod = Vod(
                     id=vod_id,
@@ -45,11 +45,11 @@ class Command(BaseCommand):
                     director=director,
                     runningtime=running_time,
                     count=count,
-                    name_no_space=rename
+                    name_no_space=rename,
                 )
                 try:
-                    fix_obj=Vod.objects.get(id=vod_id)
-                    fix_obj.count=count
+                    fix_obj = Vod.objects.get(id=vod_id)
+                    fix_obj.count = count
                     fix_obj.save()
                 except:
                     vod_list.append(vod)
@@ -74,7 +74,9 @@ class Command(BaseCommand):
             response = requests.get(url, headers=self.headers, params=params)
             if response.status_code == 200 and response.json()["results"]:
                 row.imgpath = (
-                    response.json()["results"][0]["poster_path"] if response.json()["results"][0]["poster_path"] else "/noimage.png"
+                    response.json()["results"][0]["poster_path"]
+                    if response.json()["results"][0]["poster_path"]
+                    else "/noimage.png"
                 )
                 row.backgroundimgpath = (
                     response.json()["results"][0]["backdrop_path"]
@@ -86,12 +88,12 @@ class Command(BaseCommand):
                 row.backgroundimgpath = "/noimage.png"
 
             # 인물 사진 가져오기.
-            
+
             actors = list(row.searchactors.split(","))[0:4]
-            actor_list=[]
+            actor_list = []
             for actor in actors:
                 actor_dict = {}
-                actor_dict["name"]=actor    
+                actor_dict["name"] = actor
                 url = "https://api.themoviedb.org/3/search/person"
                 params = {
                     "api_key": "8fe7f744939eb8f0ff8dce0f69237f7f",
@@ -101,7 +103,11 @@ class Command(BaseCommand):
                 }
                 response = requests.get(url, headers=self.headers, params=params)
                 if response.status_code == 200 and response.json()["results"]:
-                    actor_dict["image"] = response.json()["results"][0]["profile_path"] if response.json()["results"][0]["profile_path"] else "/noimage.png"
+                    actor_dict["image"] = (
+                        response.json()["results"][0]["profile_path"]
+                        if response.json()["results"][0]["profile_path"]
+                        else "/noimage.png"
+                    )
                 else:
                     actor_dict["image"] = "/noimage.png"
                 actor_list.append(actor_dict)
