@@ -289,3 +289,27 @@ class FirstUser_Preference_2(APIView):
             "imgpath": vod["imgpath"],
             "count": vod["count"],
         }
+
+
+class SeasonRecommend(APIView):
+	permission_classes = [IsAuthenticatedOrReadOnly]
+	ip = settings.EC2_IP
+	pw = settings.MONGO_PW
+	client = MongoClient(f"mongodb://hellovision:{pw}@{ip}", 27017)
+	db = client.LGHV
+	vods_collection = db.contents
+
+	def get(self, request):
+		christmas=[4297,2225,3450,3854,3810,3647,1722,1001,4680,3190]
+		recommend = self.vods_collection.find({"id":{"$in": christmas}}).sort('count',-1)
+		vod_serialized = [self.serialize_vod(vod) for vod in recommend]
+		return Response(vod_serialized, status=status.HTTP_200_OK)
+	
+	def serialize_vod(self, vod):
+		return {
+			"id": vod["id"],
+			"name": vod["name"],
+			"smallcategory": vod["smallcategory"],
+			"imgpath": vod["imgpath"],
+			"count": vod["count"],
+		}
