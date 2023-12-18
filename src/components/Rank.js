@@ -50,7 +50,7 @@ function Rank() {
 
   return (
     <>
-      <div className="text-gray-900">
+      <div className="text-gray-200">
         <div className="flex ">
           {ARRAY.map((item, idx) => {
             return (

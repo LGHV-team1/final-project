@@ -26,7 +26,6 @@ function CategoryBtn({data , bigcategory}) {
         "액션/어드벤쳐" : "action",
         "역사": "history",
         "코미디": "comedy",
-        "기타": "etc",
         "우리동네": "Neighborhood",
         "스포츠": "Sports",
         "라이프": "Life",
@@ -43,26 +42,27 @@ function CategoryBtn({data , bigcategory}) {
 }
 
 return (
-    <div className="text-gray-300 mb-[7%]">
+    <div className="w-full text-gray-300 mb-[7%]">
         <div className="flex flex-wrap justify-start gap-2.5">
             {data.map((a, idx) => (
                 <Link
-                    key={a.id} 
-                    to={`${dynamicUrl}${ (bigcategory==="tv") ? smallCategory[a.bigcategory]  : smallCategory[a.smallcategory]}`}
-                    className="relative mb-3 mr-3 group" // 'group' 클래스를 여기에 추가
-                    style={{ width: "230px", height: "350px" }}
-                    onClick={() => handleCategoryClick((bigcategory==="tv") ? a.bigcategory  : a.smallcategory)}
+                    key={a.id}
+                    to={`${dynamicUrl}${bigcategory === "tv" ? smallCategory[a.bigcategory] : smallCategory[a.smallcategory]}`}
+                    className="relative mb-3 mr-3 group"
+                    style={{ 
+                        flex: '1 0 calc(15% - 12px)', // 한 줄에 6개 이미지, 유연한 크기 조정
+                        maxWidth: '220px' // 최대 너비 제한
+                    }}
+                    onClick={() => handleCategoryClick(bigcategory === "tv" ? a.bigcategory : a.smallcategory)}
                 >
                     <img
                         src={a.imgpath === "/noimage.png" ? `${BASE_URL_NO}${a.imgpath}` : `${BASE_URL}${a.imgpath}`}
                         alt={a.name}
                         className="rounded object-cover w-full h-full opacity-50"
                     />
-                    <p 
-                            className="absolute top-0 left-0 w-full h-full flex items-center justify-center text-white text-3xl font-bold opacity-1 group-hover:scale-125 transition duration-300 ease-in-out"
-                        >
-                            { (bigcategory==="tv") ? a.bigcategory  : a.smallcategory}
-                        </p>
+                    <p className="absolute top-0 left-0 w-full h-full flex items-center justify-center text-white text-[2vw] font-bold opacity-1 group-hover:scale-125 transition duration-300 ease-in-out">
+                        {bigcategory === "tv" ? a.bigcategory : a.smallcategory}
+                    </p>
                 </Link>
             ))}
         </div>
