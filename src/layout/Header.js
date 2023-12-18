@@ -1,10 +1,9 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
-import { debounce } from "lodash";
 import logo from "../images/tmplogo.png";
 import Button from "../components/Button";
 import ApiService from "../api/ApiService";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch,  } from "react-redux";
 import { setSearchValue } from "../redux/searchSlice";
 import Dropdown from "../components/Dropdown";
 import useDebounce from "../hook/useDebounce";
@@ -14,12 +13,23 @@ function Header2() {
   const dispatch = useDispatch();
   const [search, setSearch] = useState();
   const debouncedValue = useDebounce(search, 500);
+  const navigate = new useNavigate();
+  const location = new useLocation();
   useEffect(() => {
     dispatch(setSearchValue(debouncedValue));
   }, [debouncedValue]);
   const handleInputChange = (e) => {
     setSearch(e.target.value);
   };
+  const [isExpanded, setIsExpanded] = useState(false);
+  useEffect(() => {
+    console.log(location.pathname)
+    // '/search' 경로일 때만 확장 상태를 true로 설정합니다.
+    if (location.pathname === "/search") {
+      setIsExpanded(true);
+    }
+  }, [location.pathname]);
+
   const movieCategory = [
     "SF/환타지",
     "공포/스릴러",
@@ -51,23 +61,6 @@ function Header2() {
   ];
 
   const kidCategory = ["애니메이션", "오락", "학습", "기타"];
-  useEffect(() => {
-    return () => {
-      debouncedFetch.cancel();
-    };
-  }, []);
-
-  const fetchSearchResults = async (query) => {
-    try {
-      // const response = await axios.get(`your-api-endpoint?query=${query}`);
-      // 여기서 response를 처리하거나 상태에 저장
-      // 예: dispatch(setSearchValue(response.data));
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const debouncedFetch = debounce(fetchSearchResults, 300);
 
   const handleInputEnter = (e) => {
     if (e.key === "Enter") {
@@ -77,8 +70,7 @@ function Header2() {
       }
     }
   };
-  const navigate = new useNavigate();
-  const location = new useLocation();
+  
 
   const goToLoginForm = () => {
     navigate("/login");
@@ -91,6 +83,7 @@ function Header2() {
   };
   const goToSearch = () => {
     navigate("/search");
+    setIsExpanded(true);
   };
 
   const goToLogout = () => {
@@ -156,7 +149,14 @@ function Header2() {
               </svg>
             </div>
           ) : (
-            <div className="flex relative w-72 h-10 bg-white rounded">
+            <div
+              className="flex relative  h-10 bg-white rounded"
+              style={{
+                width: isExpanded ? "20rem" : "0", // 너비 변경
+                transition: "width 1s ease-out", // 부드러운 전환 효과
+                overflow: "hidden", // 너비가 0일 때 내용 숨김
+              }}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -172,7 +172,7 @@ function Header2() {
               </svg>
               <input
                 ref={searchInputRef}
-                className=" outline-none rounded transition-opacity duration-1000 ease-in-out opacity-100"
+                className=" outline-none rounded "
                 placeholder="제목, 배우를 검색해보세요."
                 type="text"
                 onChange={handleInputChange}

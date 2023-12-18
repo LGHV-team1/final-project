@@ -101,7 +101,7 @@ function MiniSlide({ data, slidesToShowNum = 6, slidesToScrollNum = 1 }) {
             <div className=" pb-2 rounded-lg">
               <Link to={`/detail/${a.id}`} className="rounded-lg block pr-3 ">
                 <img
-                  className="rounded-lg block transition transform duration-500 ease-in-out hover:opacity-50"
+                  className="rounded-lg block transition transform duration-500 ease-in-out hover:scale-95"
                   src={
                     a.imgpath === "/noimage.png"
                       ? `${BASE_URL_NO}${a.imgpath}`
@@ -117,7 +117,7 @@ function MiniSlide({ data, slidesToShowNum = 6, slidesToScrollNum = 1 }) {
               </Link>
 
               <h1
-                className="absolute bottom-[-5%] left-[1%] italic z-1000 shadow-2xl font-bold text-white text-6xl bg-transparent"
+                className="absolute bottom-[-5%] left-[1%] italic  shadow-2xl font-bold text-white text-6xl bg-transparent"
                 style={{ textShadow: "2px 2px 4px black" }}
               >
                 {idx + 1}

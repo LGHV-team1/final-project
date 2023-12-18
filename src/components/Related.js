@@ -7,10 +7,9 @@ function Related({ data }) {
     <div className="w-full text-gray-300 mb-[7%]">
       <div className="flex flex-wrap justify-start">
         {data.map((a, idx) => (
-          <div className="relative mb-3 mr-3 group flex-grow" style={{ flexBasis: 'calc(20% - 12px)' }}>
-            <Link
-              key={a.id}
-              to={`/detail/${a.id}`}
+          <div className="relative mb-3 mr-3 group flex-grow" style={{ flexBasis: 'calc(20% - 12px)' }} key={a.id}>
+            <a
+              href={`/detail/${a.id}`}
               className="no-underline"
             >
               <img
@@ -23,7 +22,7 @@ function Related({ data }) {
                 className="rounded object-cover opacity-80 transition transform duration-500 ease-in-out hover:scale-95 w-full h-auto"
               />
               <p className="text-gray-400 text-center">{a.name}</p>
-            </Link>
+            </a>
           </div>
         ))}
       </div>
