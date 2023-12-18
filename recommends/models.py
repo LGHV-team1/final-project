@@ -71,5 +71,7 @@ class TimeRecommend(models.Model):
 	)
 	method=models.IntegerField()
 
-
-
+class vod_score(models.Model):
+	substr=models.IntegerField()
+	vod_id=models.IntegerField()
+	score=models.FloatField()
