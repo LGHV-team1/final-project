@@ -236,7 +236,7 @@ class SearchVodsDetail(APIView):
         
         # 같은 장르 비디오 가져오기
         if vod["category"]=="키즈":
-            vods=self.vods_collection.find({"category":"키즈","smallcategory":vod['smallcategory']}).sort("count",-1).limit(20)
+            vods=self.vods_collection.find({"category":"키즈"}).sort("count",-1).limit(20)
             vods_list=list(vods)
             selected_vods=sample(vods_list,5)
             serialized_vods = []
@@ -313,7 +313,7 @@ class SearchVodsDetail(APIView):
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class VodTop10(APIView):
+class VodTop10(APIView): # 카테고리별 TOP10
     permission_classes = [IsAuthenticatedOrReadOnly]
     ip = settings.EC2_IP
     pw = settings.MONGO_PW
@@ -340,7 +340,7 @@ class VodTop10(APIView):
         }
 
 
-class VodReviews(APIView):
+class VodReviews(APIView): # 리뷰
     permission_classes = [IsAuthenticatedOrReadOnly]
     ip = settings.EC2_IP
     pw = settings.MONGO_PW
@@ -461,7 +461,7 @@ class VodReviews(APIView):
         """
 
 
-class CategorySearch(APIView):
+class CategorySearch(APIView): # 카테고리별 검색
     ip = settings.EC2_IP
     pw = settings.MONGO_PW
     client = MongoClient(f"mongodb://hellovision:{pw}@{ip}", 27017)
@@ -536,7 +536,7 @@ class CategorySearch(APIView):
     
 
 
-class CategorySearchTOP5(APIView):
+class CategorySearchTOP5(APIView): # 첫 유저에게 컨텐츠 5개 고르게 하기 위한 API
     ip = settings.EC2_IP
     pw = settings.MONGO_PW
     client = MongoClient(f"mongodb://hellovision:{pw}@{ip}", 27017)
@@ -610,7 +610,7 @@ class CategorySearchTOP5(APIView):
         }
     
 
-class CategoryPick(APIView):
+class CategoryPick(APIView): # 영화,TV,키즈 창에 진입시 각 카테고리별 대표 이미지 1개씩 제공
     ip = settings.EC2_IP
     pw = settings.MONGO_PW
     client = MongoClient(f"mongodb://hellovision:{pw}@{ip}", 27017)

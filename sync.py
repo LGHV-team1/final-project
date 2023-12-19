@@ -152,7 +152,7 @@ if __name__=="__main__":
 	pw=settings.MONGO_PW
 	conn = MongoClient(f'mongodb://hellovision:{pw}@{ip}', 27017)
 	# 데이터베이스 설정
-	# conn.drop_database("LGHV")
+	conn.drop_database("LGHV")
 	db = conn.LGHV
 	time_sync()
 	wish_sync()
