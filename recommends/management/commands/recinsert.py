@@ -6,7 +6,7 @@ from contents.models import Vod
 
 class Command(BaseCommand):
     def recinsert(self, *args, **options):
-        with open("./data/test_data.csv", encoding="cp949") as f:
+        with open("./data/vod_recommendation.csv", encoding="cp949") as f:
             reader = csv.reader(f)
             
             next(reader)  # Skip header
