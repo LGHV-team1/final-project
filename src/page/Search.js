@@ -108,7 +108,7 @@ function Search() {
       setVisiblevodData2([...visiblevodData2, ...newDataToShow]);
       console.log("New visible data (2):", newDataToShow);
     };
-  if (searchValue === undefined) {
+  if (searchValue === undefined || searchValue === "") {
     return (
       <div className="mx-28 mt-5 text-gray-300">
         <h1>검색어를 입력해주세요</h1>

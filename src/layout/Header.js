@@ -1,10 +1,9 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
-import { debounce } from "lodash";
-import logo from "../images/tmplogo.png";
+import logo from "../images/seasonlogo.png";
 import Button from "../components/Button";
 import ApiService from "../api/ApiService";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch,  } from "react-redux";
 import { setSearchValue } from "../redux/searchSlice";
 import Dropdown from "../components/Dropdown";
 import useDebounce from "../hook/useDebounce";
@@ -14,12 +13,38 @@ function Header2() {
   const dispatch = useDispatch();
   const [search, setSearch] = useState();
   const debouncedValue = useDebounce(search, 500);
+  const navigate = new useNavigate();
+  const location = new useLocation();
+  const [isScroll, setIsScroll] = useState(false);
+  useEffect(() => {
+    const handleScroll = () => {
+      // window 스크롤 위치가 100보다 크면 true, 그렇지 않으면 false
+      setIsScroll(window.scrollY > 100);
+    };
+
+    // 스크롤 이벤트 리스너 추가
+    window.addEventListener('scroll', handleScroll);
+
+    // 컴포넌트가 언마운트될 때 이벤트 리스너 제거
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
   useEffect(() => {
     dispatch(setSearchValue(debouncedValue));
   }, [debouncedValue]);
   const handleInputChange = (e) => {
     setSearch(e.target.value);
   };
+  const [isExpanded, setIsExpanded] = useState(false);
+  useEffect(() => {
+    console.log(location.pathname)
+    // '/search' 경로일 때만 확장 상태를 true로 설정합니다.
+    if (location.pathname === "/search") {
+      setIsExpanded(true);
+    }
+  }, [location.pathname]);
+
   const movieCategory = [
     "SF/환타지",
     "공포/스릴러",
@@ -51,23 +76,6 @@ function Header2() {
   ];
 
   const kidCategory = ["애니메이션", "오락", "학습", "기타"];
-  useEffect(() => {
-    return () => {
-      debouncedFetch.cancel();
-    };
-  }, []);
-
-  const fetchSearchResults = async (query) => {
-    try {
-      // const response = await axios.get(`your-api-endpoint?query=${query}`);
-      // 여기서 response를 처리하거나 상태에 저장
-      // 예: dispatch(setSearchValue(response.data));
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const debouncedFetch = debounce(fetchSearchResults, 300);
 
   const handleInputEnter = (e) => {
     if (e.key === "Enter") {
@@ -77,8 +85,7 @@ function Header2() {
       }
     }
   };
-  const navigate = new useNavigate();
-  const location = new useLocation();
+  
 
   const goToLoginForm = () => {
     navigate("/login");
@@ -91,6 +98,7 @@ function Header2() {
   };
   const goToSearch = () => {
     navigate("/search");
+    setIsExpanded(true);
   };
 
   const goToLogout = () => {
@@ -105,17 +113,17 @@ function Header2() {
       .catch((err) => console.log(err));
   };
   return (
-    <nav className="sticky top-0 z-30 bg-bg-color border-b border-gray-600 ">
+    <nav className={`sticky top-0 z-30 transition-all duration-300 ease-in-out ${isScroll ? " bg-bg-color " : "bg-transparent"}`}>
       <div className=" pt-10 pb-8 mx-28  flex h-16 justify-between ">
         <div className="flex items-center gap-10 ">
           <Link to="/">
-            <img className="my-1" src={logo} alt="logo" width="100px" />
+            <img className="my-1" src={logo} alt="logo" width="110px" />
           </Link>
 
-          <div className="flex justify-center items-center sorts-contents gap-3 ">
+          <div className="flex justify-center items-center sorts-contents gap-3">
             <Link
               to="/home"
-              className=" text-gray-400 no-underline hover:text-my-color"
+              className=" text-gray-100 no-underline hover:text-my-color"
             >
               홈
             </Link>
@@ -156,7 +164,14 @@ function Header2() {
               </svg>
             </div>
           ) : (
-            <div className="flex relative w-72 h-10 bg-white rounded">
+            <div
+              className="flex relative  h-10 bg-white rounded"
+              style={{
+                width: isExpanded ? "20rem" : "0", // 너비 변경
+                transition: "width 0.5s ease-in", // 부드러운 전환 효과
+                overflow: "hidden", // 너비가 0일 때 내용 숨김
+              }}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -172,7 +187,7 @@ function Header2() {
               </svg>
               <input
                 ref={searchInputRef}
-                className=" outline-none rounded transition-opacity duration-1000 ease-in-out opacity-100"
+                className=" outline-none rounded "
                 placeholder="제목, 배우를 검색해보세요."
                 type="text"
                 onChange={handleInputChange}

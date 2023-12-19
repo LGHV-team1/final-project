@@ -1,18 +1,18 @@
-import React, { useState } from 'react'
-import ApiService from '../api/ApiService'
-import { useEffect } from 'react'
-import RecMiniSlide from './RecMiniSlide'
+import React, { useState } from "react";
+import ApiService from "../api/ApiService";
+import { useEffect } from "react";
+import RecMiniSlide from "./RecMiniSlide";
 
-function ShowRec({algorithmNum}) {
-
-  const [vodData, setvodData] = useState([])
+function ShowRec({ className,label, algorithmNum }) {
+  const [vodData, setvodData] = useState([]);
+  const [loading, setLoading] = useState(false)
   const getData = async () => {
-    
     try {
-      const response = await ApiService.getRec(algorithmNum)
+      const response = await ApiService.getRec(algorithmNum);
       const data = response.data;
-      console.log(data);
-      setvodData(data)
+      console.log(`알고리즘번호${algorithmNum}: ${data}`);
+      setvodData(data);
+      setLoading(false)
     } catch (err) {
       console.error(err);
     }
@@ -21,10 +21,11 @@ function ShowRec({algorithmNum}) {
     getData();
   }, []);
   return (
-    <div className='mb-24 mt-5'>
+    <div className={className}>
+      <p className=" text-3xl">{label}</p>
       <RecMiniSlide data={vodData} />
     </div>
-     )
+  );
 }
 
-export default ShowRec
+export default ShowRec;

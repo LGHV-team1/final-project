@@ -41,7 +41,7 @@ export default function Dropdown({ categoryName, categoryList, link }) {
       <div>
         <button
           type="button"
-          className="inline-flex w-full justify-center gap-x-1.5 rounded-md   text-gray-400 shadow-sm ring-1 ring-inset  hover:scale-105 hover:text-my-color"
+          className="inline-flex w-full justify-center gap-x-1.5 rounded-md text-gray-100 shadow-sm ring-1 ring-inset  hover:scale-105 hover:text-my-color"
           id="menu-button"
           aria-expanded={showDropdown}
           aria-haspopup={showDropdown}
