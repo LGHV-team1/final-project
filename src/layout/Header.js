@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState, } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
-import logo from "../images/tmplogo.png";
+import logo from "../images/seasonlogo.png";
 import Button from "../components/Button";
 import ApiService from "../api/ApiService";
 import { useDispatch,  } from "react-redux";
@@ -15,6 +15,21 @@ function Header2() {
   const debouncedValue = useDebounce(search, 500);
   const navigate = new useNavigate();
   const location = new useLocation();
+  const [isScroll, setIsScroll] = useState(false);
+  useEffect(() => {
+    const handleScroll = () => {
+      // window 스크롤 위치가 100보다 크면 true, 그렇지 않으면 false
+      setIsScroll(window.scrollY > 100);
+    };
+
+    // 스크롤 이벤트 리스너 추가
+    window.addEventListener('scroll', handleScroll);
+
+    // 컴포넌트가 언마운트될 때 이벤트 리스너 제거
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
   useEffect(() => {
     dispatch(setSearchValue(debouncedValue));
   }, [debouncedValue]);
@@ -98,11 +113,11 @@ function Header2() {
       .catch((err) => console.log(err));
   };
   return (
-    <nav className="sticky top-0 z-30 bg-transparent border-b border-gray-600 ">
+    <nav className={`sticky top-0 z-30 transition-all duration-300 ease-in-out ${isScroll ? " bg-bg-color " : "bg-transparent"}`}>
       <div className=" pt-10 pb-8 mx-28  flex h-16 justify-between ">
         <div className="flex items-center gap-10 ">
           <Link to="/">
-            <img className="my-1" src={logo} alt="logo" width="100px" />
+            <img className="my-1" src={logo} alt="logo" width="110px" />
           </Link>
 
           <div className="flex justify-center items-center sorts-contents gap-3">

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { Link } from "react-router-dom";
 import mainimg1 from "../images/MainTop/엘리멘탈.jpg";
 import mainimg2 from "../images/MainTop/아바타.jpg";
 import mainimg3 from "../images/MainTop/밀수.jpg";
@@ -10,9 +9,9 @@ import mainimg4 from "../images/MainTop/소방서.jpg";
 import mainimg5 from "../images/MainTop/가오갤.jpg";
 import title1 from "../images/MainTop/엘리멘탈제목.png";
 import title2 from "../images/MainTop/아바타제목.png";
-import title3 from "../images/MainTop/밀수제목.webp";
+import title3 from "../images/MainTop/밀수제목.png";
 import title4 from "../images/MainTop/소방서제목.png";
-import title5 from "../images/MainTop/가오갤제목.png";
+import title5 from "../images/MainTop/가오갤제목4.png";
 
 import styled from "styled-components";
 import Streaming from "./Streaming";
@@ -29,7 +28,7 @@ function Top5() {
       title: title4,
     },
     {
-      id: 2351,
+      id: 2352,
       img: mainimg5,
       vodname: "가디언즈 오브 갤럭시3",
       title: title5,
@@ -58,15 +57,14 @@ function Top5() {
   };
 
   return (
-    <div className="relative bottom-20">
+    <div className=" ">
       <Streaming id={trailerId} titleimg={findVodname.title} />
-
-      <div className="mx-28 relative bottom-[300px] z-30">
+      <div className="relative mx-28  bottom-[420px] z-20">
         <StyledSlider {...settings}>
           {bgArr.map((a, index) => (
             <div
               key={a.id}
-              className={`rounded-md block pr-10 outline-none transition-all duration-300 ease-in-out ${
+              className={`rounded-md block outline-none transition-all duration-300 ease-in-out ${
                 currentSlide === index ? "scale-110" : "scale-75 opacity-50"
               }`}
             >
@@ -74,10 +72,10 @@ function Top5() {
                 onClick={() => {
                   setTrailerId(a.id);
                 }}
-                className="rounded-md transition transform duration-500 ease-in-out "
+                className="rounded-md transition transform duration-500 ease-in-out w-full h-full"
                 src={a.img}
                 alt={a.vodname}
-                style={{ objectFit: "cover", width: "100%", height: "100%" }}
+                
               />
             </div>
           ))}
@@ -92,34 +90,4 @@ const StyledSlider = styled(Slider)`
   height: 100%;
   width: 100%;
   position: relative;
-  .slick-dots {
-    left: 50%;
-    width: auto;
-    z-index: 10;
-    transform: translate(-50%, -150%);
-
-    li {
-      width: 8px;
-      height: 8px;
-      margin: 3px;
-
-      button {
-        width: 100%;
-        height: 100%;
-        padding: 0;
-
-        &::before {
-          width: 8px;
-          height: 8px;
-          position: static;
-          top: auto;
-          left: auto;
-          right: auto;
-          background: white;
-          border-radius: 100%;
-          color: transparent;
-        }
-      }
-    }
-  }
 `;

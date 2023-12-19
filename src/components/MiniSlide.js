@@ -58,10 +58,10 @@ function MiniSlide({ data, slidesToShowNum = 6, slidesToScrollNum = 1 }) {
       <Slider {...settings} className="text-center">
         {data.map((a, idx) => (
           <div key={a.id} className="relative mb-3 rounded-lg">
-            <div className=" pb-2 rounded-lg">
+            <div className=" pb-2 rounded-lg ">
               <Link to={`/detail/${a.id}`} className="rounded-lg block pr-3 ">
                 <img
-                  className="rounded-lg block transition transform duration-500 ease-in-out hover:scale-95"
+                  className="  rounded-lg block transition transform duration-500 ease-in-out hover:scale-95"
                   src={
                     a.imgpath === "/noimage.png"
                       ? `${BASE_URL_NO}${a.imgpath}`
