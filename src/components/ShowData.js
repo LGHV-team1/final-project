@@ -6,11 +6,11 @@ function ShowData({ data, handleShow, isShow = true }) {
   const BASE_URL_NO = "https://i.ibb.co/7pYHFY3";
   return (
     <div>
-      <div className="flex flex-wrap gap-4">
+      <div className="flex flex-wrap gap-4 ">
         {data.map((item, idx) => (
           <div
             key={idx}
-            className=" sm:w-[30%] md:w-[30%] lg:w-[20%] xl:w-[15%] mb-5"
+            className=" sm:w-[30%] md:w-[30%] lg:w-[20%] xl:w-[15%] mb-5 text-center "
           >
             <Link
               to={`/detail/${item.id}`}
@@ -26,13 +26,15 @@ function ShowData({ data, handleShow, isShow = true }) {
                 style={{ height: "350px" }}
               />
             </Link>
-            <div className="text-gray-300 text-[18px] text-center">
+            <div className="text-gray-300 text-[18px] ">
               {item.name}
             </div>
           </div>
         ))}
       </div>
-      {isShow ? <Button onClick={handleShow} label={"더보기"} /> : <></>}
+      <div className="flex justify-center">
+      {isShow ? <Button onClick={handleShow} label={"더보기"} className="text-white animate-bounce bg-my-color  py-2 px-3 rounded"/> : <></>}
+      </div>
     </div>
   );
 }

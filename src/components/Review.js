@@ -35,7 +35,7 @@ export default function Review() {
   };
 
   return (
-    <form onSubmit={sendReview} className=" rounded">
+    <form onSubmit={sendReview} className=" rounded pt-3">
       <div className="w-full mb-4 border-t  border-b border-l border-r border-gray-500 rounded-lg bg-bg-color ">
         <div className="p-4 bg-gray-500-t-lg ">
           <textarea

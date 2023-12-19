@@ -1,7 +1,7 @@
 import React, { useState,useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Button from '../components/Button'
-import logo from "../images/tmplogo.png";
+import logo from "../images/seasonlogo.png";
 export default function BeforeHeader() {
     const [isScroll, setIsScroll] = useState(false)
     const navigate = useNavigate()
@@ -32,7 +32,7 @@ export default function BeforeHeader() {
     ${isScroll ? "saturate-100 backdrop-blur-lg" : ""}`}>
     <div className=' mx-28  flex items-center justify-between'>
         <a href="/">
-          <img  src={logo} alt="logo" width="100px" />
+          <img  src={logo} alt="logo" width="110px" />
         </a>
           <div>
             <Button
