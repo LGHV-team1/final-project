@@ -741,12 +741,3 @@ class CategoryPick(APIView): # 영화,TV,키즈 창에 진입시 각 카테고�
         }
     
 
-
-# 필요한 import
-    import pandas as pd
-    from sklearn.neighbors import NearestNeighbors
-    from sklearn.feature_extraction.text import CountVectorizer
-    from konlpy.tag import Okt
-    import re
-    from sklearn.feature_extraction.text import TfidfVectorizer
-    from scipy.sparse import hstack
