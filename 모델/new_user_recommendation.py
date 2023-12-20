@@ -7,9 +7,9 @@ from surprise import Dataset
 from surprise.prediction_algorithms import KNNBaseline
 
 def new_user_recommendation(vod_input = []):
-    vod_score = pd.read_csv('../data/vod_score.csv')
+    vod_score = pd.read_csv('../data/vod_heavy_score.csv')
     vod = pd.DataFrame([[1]*len(vod_input), vod_input, [0.7]*len(vod_input)]).T
-    vod.columns =vod_score.columns
+    vod.columns = vod_score.columns
     vod_score_1 = pd.concat([vod_score, vod], axis = 0)
 
     # surprise 데이터 형식으로 변환
@@ -35,7 +35,7 @@ def new_user_recommendation(vod_input = []):
     result = result[['subsr', 'vod_id', 'predict']].sort_values(by = 'predict', ascending= False).vod_id.tolist()
 
     # 추천 VOD가 영화인 경우, 본 적이 있다면 추천안함
-    vod_list = pd.read_csv('../data/vod_list_add10.csv', index_col=0)
+    vod_list = pd.read_csv('../data/vod_list_add10_1220.csv', index_col=0)
     TV_kids = vod_list[(vod_list['Category'] == 'TV프로그램') | (vod_list['Category'] == '키즈')].vod_id.unique().tolist()
     movie = vod_list[vod_list['Category'] == '영화'].vod_id.unique().tolist()
 
