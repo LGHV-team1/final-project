@@ -25,6 +25,7 @@ class Command(BaseCommand):
                     substr=int(subsr),
                     vod_id=int(vod_id),
                     score=float(score),
+                    method=1 # 1은 준호, 2는 tscore(수정)
                     
 				)
                 rec_list.append(rec)
