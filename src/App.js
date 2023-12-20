@@ -21,6 +21,7 @@ import SubLayout from "./layout/SubLayout.js";
 import Search from "./page/Search.js";
 import SelectCategory from "./page/SelectCategory.js";
 import SelectContents from "./page/SelectContents.js";
+import Trailer from "./page/Trailer.js";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
             <Route path="/search" element={<><Search /></>} />
             <Route path="/selectcategory" element={<><SelectCategory /></>} />
             <Route path="/selectcontents" element={<><SelectContents /></>} />
+            <Route path="/trailer" element={<><Trailer /></>} />
           </Route>
         </Route>
         <Route element={<SubLayout/>}>

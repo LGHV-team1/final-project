@@ -113,7 +113,7 @@ function Header2() {
       .catch((err) => console.log(err));
   };
   return (
-    <nav className={`sticky top-0 z-30 transition-all duration-300 ease-in-out ${isScroll ? " bg-bg-color " : "bg-transparent"}`}>
+    <nav className={`sticky top-0 z-1000 transition-all duration-300 ease-in-out ${isScroll ? " bg-bg-color " : "bg-transparent"}`}>
       <div className=" pt-10 pb-8 mx-28  flex h-16 justify-between ">
         <div className="flex items-center gap-10 ">
           <Link to="/">
@@ -142,6 +142,9 @@ function Header2() {
               categoryList={kidCategory}
               link={"kids"}
             />
+            <Link to="/trailer" className="no-underline text-gray-100 hover:text-my-color">
+              숏필름
+            </Link>
           </div>
         </div>
 
@@ -197,33 +200,33 @@ function Header2() {
             </div>
           )}
 
-          {localStorage.getItem("jwtToken") === null ? (
+          {/* {localStorage.getItem("jwtToken") === null ? (
             <div>
               <Button
-                className=" mr-5 cursor-pointer text-gray-400 "
+                className=" mr-5 cursor-pointer text-gray-100 "
                 onClick={goToLoginForm}
                 label={"로그인"}
               />
               <Button
-                className=" h-8 px-2 border border-gray-300 rounded-md cursor-pointer text-gray-400 "
+                className=" h-8 px-2 border border-gray-300 rounded-md cursor-pointer text-gray-100 "
                 onClick={goToSignupForm}
                 label={"회원가입"}
               />
             </div>
-          ) : (
+          ) : ( */}
             <div>
               <Button
-                className=" mr-5 cursor-pointer text-gray-400 hover:text-my-color "
+                className=" mr-5 cursor-pointer text-gray-100 hover:text-my-color "
                 onClick={goToLogout}
                 label={"로그아웃"}
               />
               <Button
-                className=" h-8 px-2  rounded-md cursor-pointer text-gray-400 hover:text-my-color"
+                className=" h-8 px-2  rounded-md cursor-pointer text-gray-100 hover:text-my-color"
                 onClick={goToMypage}
                 label={"마이페이지"}
               />
             </div>
-          )}
+          {/* )} */}
         </div>
       </div>
     </nav>

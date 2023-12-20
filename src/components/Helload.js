@@ -37,7 +37,16 @@ function Helload() {
         prevArrow: <Arrowleft />,
       };
         return (
-            <div className="mt-[7%]">
+            <div className="mt-20 mb-20">
+                <div className="relative my-20">
+                    <img src={ad4_1} alt="구매가이드" className="absolute top-[-14%] left-[5%] z-[5] "  />
+                    <a className="block overflow-hidden" href="https://www.lghellovision.net/shop/isReasonOffer/isReasonOfferView.do?DPR_IDX=74&BN_CATE2=03&BN_CATE3=05&BN_CATE4=00" target="_blank" rel="noopener noreferrer">
+                        <img className={"transition transform duration-500 ease-in-out hover:scale-105 block"} src={ad4} alt="구매가이드" style={{objectFit:"cover", width:"100%", height:"360px"}} />
+                        <p className="absolute text-white top-32 text-5xl font-thin left-[5%]">헬로비전을 선택해야하는</p>
+                        <p className="absolute text-white top-44 text-5xl font-extrabold left-[5%]">더 많은 이유</p>
+                        <p className="absolute text-white top-60 t text-2xl font-bold left-[5%]">망설임을 확신으로, TV 구매가이드</p>
+                    </a>
+                </div>       
                 <Slider {...settings} >
                     {AdList.map((a) => (
                         <div key={a.id} className="relative">
@@ -50,16 +59,6 @@ function Helload() {
                             </div>
                         </div>))}
                 </Slider>
-                <div className="relative my-36">
-                    <img src={ad4_1} alt="구매가이드" className="absolute top-[-14%] left-[5%] z-[5]"  />
-                    <a href="https://www.lghellovision.net/shop/isReasonOffer/isReasonOfferView.do?DPR_IDX=74&BN_CATE2=03&BN_CATE3=05&BN_CATE4=00" target="_blank" rel="noopener noreferrer">
-                        <img className={"transition transform duration-500 ease-in-out hover:scale-105"} src={ad4} alt="구매가이드" style={{objectFit:"cover", width:"100%", height:"360px"}} />
-                        <p className="absolute text-white top-32 text-5xl font-thin left-[5%]">헬로비전을 선택해야하는</p>
-                        <p className="absolute text-white top-44 text-5xl font-extrabold left-[5%]">더 많은 이유</p>
-                        <p className="absolute text-white top-60 t text-2xl font-bold left-[5%]">망설임을 확신으로, TV 구매가이드</p>
-                    </a>
-                </div>       
-
 
             </div>
         )

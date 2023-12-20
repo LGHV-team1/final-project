@@ -6,7 +6,7 @@ export const Arrowright = ({ onClick }) => (
       position: "absolute",
       top: "50%",
       transform: "translateY(-50%)",
-      right: "-20px",
+      right: "-40px",
       cursor: "pointer",
       zIndex: 20
     }}
