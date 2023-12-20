@@ -6,7 +6,19 @@ import Spinner from "../components/Spinner";
 function Home() {
   const [userInfo, setUserInfo] = useState({ stbnumber: null });
   const [loading, setLoading] = useState(true);
+  const [watchedData, setWatchedData] = useState([]);
+  const handleWatchedData = (data) => {
+    setWatchedData(data);
+  };
+  const [watchedLabel, setWatchedLabel] = useState("📺 당신이 관심가진 것과 비슷한 컨텐츠 📺");
 
+  // watched 데이터가 변경될 때 레이블 업데이트
+  useEffect(() => {
+    if (watchedData.length > 0) {
+      // 예를 들어 첫 번째 아이템의 이름을 사용
+      setWatchedLabel(`📺 당신이 관심가진 <${watchedData[0].name}> 비슷한 컨텐츠 📺`);
+    }
+  }, [watchedData]);
   const getData = async () => {
     try {
       const response = await ApiService.getUserInfo();
@@ -42,7 +54,8 @@ function Home() {
               />
               <ShowRec 
               className={"relative bottom-[272px]"}
-              label={"📺 당신이 주로 본 장르 📺"} algorithmNum={2} />
+              label={watchedLabel} 
+              algorithmNum={2} onWatchedData={handleWatchedData} />
               <ShowRec
               className={"relative bottom-56"}
                 label={"🎥 이런 컨텐츠 어때요? 🎥"}
@@ -58,7 +71,7 @@ function Home() {
             <ShowRec className={"relative bottom-32"} label={"🎄 크리스마스 시즌 🎄"} algorithmNum={6} />
             <ShowRec
             className={"relative bottom-[88px]"}
-              label={"👀 당신의 찜목록을 훔쳐봤어~ 👀"}
+              label={"👀 당신의 찜목록을 훔쳐봤어요 👀"}
               algorithmNum={7}
             />
         </div>
