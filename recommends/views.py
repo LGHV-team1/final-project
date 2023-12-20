@@ -107,18 +107,18 @@ class MainRecommend2(APIView): # <2>
 			recommend_list = self.rec_collection.find({"stbnum": user, "method": 2})
 			rec_list = list(recommend_list)
 			recommend=sample(rec_list,1)[0]
-			print(recommend)
+			
 			if not recommend:
 				raise Exception("No recommendation found")
 			vod_ids = [recommend[f'rec{i}'] for i in range(1, 11)]
 			vod_watched=recommend['watched']
 			vod_objects = list(self.vod_collection.find({"id": {"$in": vod_ids}}))
-			print(vod_objects)
+			
 			vod_list={}
 			vod_serialized = [self.serialize_vod(vod) for vod in vod_objects]
 			watched = self.vod_collection.find_one({"id": vod_watched})
 			vod_watched=[self.serialize_vod(watched)]
-			print(vod_watched)
+			
 			vod_list["watched"]=vod_watched
 			vod_list["recommend"]=vod_serialized
 			return Response(vod_list, status=status.HTTP_200_OK)
