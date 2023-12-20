@@ -3,15 +3,21 @@ import ApiService from "../api/ApiService";
 import { useEffect } from "react";
 import RecMiniSlide from "./RecMiniSlide";
 
-function ShowRec({ className,label, algorithmNum }) {
+function ShowRec({ className,label, algorithmNum, onWatchedData }) {
   const [vodData, setvodData] = useState([]);
   const [loading, setLoading] = useState(false)
   const getData = async () => {
     try {
       const response = await ApiService.getRec(algorithmNum);
       const data = response.data;
-      console.log(`알고리즘번호${algorithmNum}: ${data}`);
-      setvodData(data);
+      if (algorithmNum === 2) {
+        onWatchedData(data.watched);
+        setvodData(data.recommend);
+      }
+      //console.log(`알고리즘번호${algorithmNum}: ${data}`);
+      else {
+        setvodData(data);
+      }
       setLoading(false)
     } catch (err) {
       console.error(err);
@@ -20,6 +26,7 @@ function ShowRec({ className,label, algorithmNum }) {
   useEffect(() => {
     getData();
   }, []);
+
   return (
     <div className={className}>
       <p className=" text-3xl">{label}</p>
