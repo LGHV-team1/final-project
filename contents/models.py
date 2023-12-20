@@ -3,7 +3,7 @@ from django.db import models
 class Vod(models.Model):
     id=models.IntegerField(primary_key=True)
     name = models.CharField(max_length=50, null=False)
-    description = models.TextField(max_length=500, null=True)
+    description = models.TextField(null=True)
     bigcategory = models.CharField(max_length=50, null=False,default="기타")
     smallcategory = models.CharField(max_length=50, null=False,default='기타')
     category = models.CharField(max_length=50, null=True)
@@ -16,6 +16,7 @@ class Vod(models.Model):
     backgroundimgpath=models.CharField(max_length=100,null=True)
     count = models.IntegerField(null=True)
     choseong = models.CharField(max_length=255,null=True)
+    text=models.TextField(null=True)
 
 
     def __str__(self) -> str:

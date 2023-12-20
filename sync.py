@@ -104,7 +104,34 @@ def con_sync():
 			collect.insert_one(doc)
 	print("end sync")
 
-
+def genre_sync():
+	print("genre_sync")
+	# recommend SYNC
+	genrerec_collect = db.genrerecommends
+	cursor = con.cursor()
+	cursor.execute("select * from recommends_genrebasedrecommend")
+	data = cursor.fetchall()
+	for rec in data:
+		rec_id=rec[0]
+		if not genrerec_collect.find_one({"id":rec_id}):
+			doc = {
+				"id": rec[0],
+				"stbnum":rec[1],
+				"watched":rec[13],
+				"rec1": rec[3],
+				"rec2": rec[5],
+				"rec3": rec[6],
+				"rec4":rec[7],
+				"rec5": rec[8],
+				"rec6": rec[9],
+				"rec7": rec[10],
+				"rec8": rec[11],
+				"rec9": rec[12],
+				"rec10": rec[4],
+				"method":rec[2],
+			}
+			genrerec_collect.insert_one(doc)
+	print("end sync")
 
 def time_sync():
 	print("time_sync")
@@ -152,9 +179,10 @@ if __name__=="__main__":
 	pw=settings.MONGO_PW
 	conn = MongoClient(f'mongodb://hellovision:{pw}@{ip}', 27017)
 	# 데이터베이스 설정
-	conn.drop_database("LGHV")
+	# conn.drop_database("LGHV")
 	db = conn.LGHV
 	time_sync()
+	genre_sync()
 	wish_sync()
 	rec_sync()
 	rev_sync()

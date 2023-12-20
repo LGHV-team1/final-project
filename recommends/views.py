@@ -23,7 +23,7 @@ from surprise.prediction_algorithms import KNNBaseline
 
 
 
-class MainRecommend1(APIView):
+class MainRecommend1(APIView): #<1>
 	permission_classes=[IsAuthenticated]
 	ip = settings.EC2_IP
 	pw = settings.MONGO_PW
@@ -90,40 +90,48 @@ class MainRecommend1(APIView):
 			# 직렬화된 VOD 데이터를 응답으로 반환
 			return Response(vod_serializer.data,status=status.HTTP_202_ACCEPTED)
 	"""
-			
-			
-	
-		
 
-
-class MainRecommend2(APIView):
+class MainRecommend2(APIView): # <2>
 
 	permission_classes=[IsAuthenticated]
 	ip = settings.EC2_IP
 	pw = settings.MONGO_PW
 	client = MongoClient(f"mongodb://hellovision:{pw}@{ip}", 27017)
 	db = client.LGHV
-	rec_collection = db.recommends
+	rec_collection = db.genrerecommends
 	vod_collection = db.contents
 
 	def get(self, request):
 		user = request.user.stbnumber
 		try:
-			recommend = self.rec_collection.find_one({"stbnum": user, "method": 2})
+			recommend_list = self.rec_collection.find({"stbnum": user, "method": 2})
+			rec_list = list(recommend_list)
+			recommend=sample(rec_list,1)[0]
+			print(recommend)
 			if not recommend:
 				raise Exception("No recommendation found")
-			vod_ids = [recommend.get(f'rec{i}') for i in range(1, 11)]
+			vod_ids = [recommend[f'rec{i}'] for i in range(1, 11)]
+			vod_watched=recommend['watched']
 			vod_objects = list(self.vod_collection.find({"id": {"$in": vod_ids}}))
+			print(vod_objects)
+			vod_list={}
 			vod_serialized = [self.serialize_vod(vod) for vod in vod_objects]
-			return Response(vod_serialized, status=status.HTTP_200_OK)
+			watched = self.vod_collection.find_one({"id": vod_watched})
+			vod_watched=[self.serialize_vod(watched)]
+			print(vod_watched)
+			vod_list["watched"]=vod_watched
+			vod_list["recommend"]=vod_serialized
+			return Response(vod_list, status=status.HTTP_200_OK)
 
 		except Exception as e:
-			# 기본 추천 처리
-			recommend = self.rec_collection.find_one({"stbnum": 1, "method": 2})
-			vod_ids = [recommend.get(f'rec{i}') for i in range(1, 11)]
-			vod_objects = list(self.vod_collection.find({"id": {"$in": vod_ids}}))
-			vod_serialized = [self.serialize_vod(vod) for vod in vod_objects]
-			return Response(vod_serialized, status=status.HTTP_202_ACCEPTED)
+		# 	# # 기본 추천 처리
+		# 	# recommend = self.rec_collection.find_one({"stbnum": 1, "method": 2})
+		# 	# vod_ids = [recommend.get(f'rec{i}') for i in range(1, 11)]
+		# 	# watched=recommend.get("watched")
+		# 	# vod_objects = list(self.vod_collection.find({"id": {"$in": vod_ids}}))
+		# 	# vod_serialized = [self.serialize_vod(vod) for vod in vod_objects]
+		# 	# return Response(vod_serialized, status=status.HTTP_202_ACCEPTED)
+			print(e)
 
 	def serialize_vod(self, vod):
 		return {
@@ -133,8 +141,9 @@ class MainRecommend2(APIView):
 			"imgpath": vod["imgpath"],
 			"count": vod["count"],
 		}
+
 	
-class RandomRecommend(APIView):
+class RandomRecommend(APIView):# <otheruser>
 	ip = settings.EC2_IP
 	pw = settings.MONGO_PW
 	client = MongoClient(f"mongodb://hellovision:{pw}@{ip}", 27017)
@@ -168,7 +177,7 @@ class RandomRecommend(APIView):
 			"count": vod["count"],
 		}
 		
-class timerecommend(APIView):
+class timerecommend(APIView): # <3>
 	permission_classes=[IsAuthenticated]
 	ip = settings.EC2_IP
 	pw = settings.MONGO_PW
@@ -230,7 +239,7 @@ class timerecommend(APIView):
 		}
 
 
-class FirstUser_Preference_1(APIView):
+class FirstUser_Preference_1(APIView): # <5>
 	permission_classes = [IsAuthenticatedOrReadOnly]
 	ip = settings.EC2_IP
 	pw = settings.MONGO_PW
@@ -247,7 +256,7 @@ class FirstUser_Preference_1(APIView):
 		score=read_frame(score_query_set)
 		
 		vod = pd.DataFrame([[1]*len(vod_id_list), vod_id_list, [0.7]*len(vod_id_list)]).T
-		vod.columns =score.columns[1:]
+		vod.columns =score.columns[1:4]
 		vod_score_1 = pd.concat([score, vod], axis = 0)
 
 			# surprise 데이터 형식으로 변환
@@ -306,7 +315,7 @@ class FirstUser_Preference_1(APIView):
 		}
 
 
-class FirstUser_Preference_2(APIView):
+class FirstUser_Preference_2(APIView): # <4>
     permission_classes = [IsAuthenticatedOrReadOnly]
     ip = settings.EC2_IP
     pw = settings.MONGO_PW
@@ -370,7 +379,7 @@ class FirstUser_Preference_2(APIView):
         }
 
 
-class SeasonRecommend(APIView):
+class SeasonRecommend(APIView): # <6>
 	permission_classes = [IsAuthenticatedOrReadOnly]
 	ip = settings.EC2_IP
 	pw = settings.MONGO_PW
@@ -379,7 +388,7 @@ class SeasonRecommend(APIView):
 	vods_collection = db.contents
 
 	def get(self, request):
-		christmas=[4297,2225,3450,3854,3810,3647,1722,1001,4680,3190]
+		christmas=[4299,2226,3452,3856,3192,3812,3649,2130,1723,1001,4682]
 		recommend = self.vods_collection.find({"id":{"$in": christmas}}).sort('count',-1)
 		vod_serialized = [self.serialize_vod(vod) for vod in recommend]
 		return Response(vod_serialized, status=status.HTTP_200_OK)
@@ -394,7 +403,7 @@ class SeasonRecommend(APIView):
 		}
 
 
-class wishlist_recommend(APIView):
+class wishlist_recommend(APIView): # <7>
 	permission_classes = [IsAuthenticatedOrReadOnly]
 	ip = settings.EC2_IP
 	pw = settings.MONGO_PW
@@ -407,6 +416,7 @@ class wishlist_recommend(APIView):
 		user_id=request.user.id
 		vods = self.wish_collection.find({"user_id": user_id})
 		vod_id_list = [i['vod_id'] for i in vods]
+		print(vod_id_list)
 
 		
 		# vod list 가져오기
@@ -416,7 +426,7 @@ class wishlist_recommend(APIView):
 		score=read_frame(score_query_set)
 		
 		vod = pd.DataFrame([[1]*len(vod_id_list), vod_id_list, [0.7]*len(vod_id_list)]).T
-		vod.columns =score.columns[1:]
+		vod.columns =score.columns[1:4]
 		vod_score_1 = pd.concat([score, vod], axis = 0)
 
 			# surprise 데이터 형식으로 변환
@@ -473,5 +483,18 @@ class wishlist_recommend(APIView):
 			"imgpath": vod["imgpath"],
 			"count": vod["count"],
 		}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

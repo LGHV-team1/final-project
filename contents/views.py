@@ -15,12 +15,14 @@ from kafka import KafkaProducer
 from pymongo import MongoClient
 from config import settings
 import json
-from datetime import timedelta
-import datetime
-from pytimekr import pytimekr
-import pandas as pd
 from django_pandas.io import read_frame
-from random import sample
+from sklearn.neighbors import NearestNeighbors
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer
+from scipy.sparse import hstack
+
+
+
 
 
 class MessageProducer:
@@ -235,32 +237,79 @@ class SearchVodsDetail(APIView):
         # serialized_data['review'] = serialized_reviews
         
         # 같은 장르 비디오 가져오기
-        if vod["category"]=="키즈":
-            vods=self.vods_collection.find({"category":"키즈"}).sort("count",-1).limit(20)
-            vods_list=list(vods)
-            selected_vods=sample(vods_list,5)
-            serialized_vods = []
-            for cont in selected_vods:
-                serialized_review = {
-                    "id": cont.get("id"),
-                    "name": cont.get("name"),
-                    "imgpath":cont.get("imgpath"),
-                    "backgroundimgpath":cont.get("backgroundimgpath")
-                }
-                serialized_vods.append(serialized_review)
-        else:
-            vods = self.vods_collection.find({"smallcategory": vod['smallcategory']}).sort("count",-1).limit(20)
-            vods_list = list(vods)
-            selected_vods=sample(vods_list,5)
-            serialized_vods = []
-            for cont in selected_vods:
-                serialized_review = {
-                    "id": cont.get("id"),
-                    "name": cont.get("name"),
-                    "imgpath":cont.get("imgpath"),
-                    "backgroundimgpath":cont.get("backgroundimgpath")
-                }
-                serialized_vods.append(serialized_review)
+        # if vod["category"]=="키즈":
+        #     vods=self.vods_collection.find({"category":"키즈"}).sort("count",-1).limit(20)
+        #     vods_list=list(vods)
+        #     selected_vods=sample(vods_list,5)
+        #     serialized_vods = []
+        #     for cont in selected_vods:
+        #         serialized_review = {
+        #             "id": cont.get("id"),
+        #             "name": cont.get("name"),
+        #             "imgpath":cont.get("imgpath"),
+        #             "backgroundimgpath":cont.get("backgroundimgpath")
+        #         }
+        #         serialized_vods.append(serialized_review)
+        # else:
+        #     vods = self.vods_collection.find({"smallcategory": vod['smallcategory']}).sort("count",-1).limit(20)
+        #     vods_list = list(vods)
+        #     selected_vods=sample(vods_list,5)
+        #     serialized_vods = []
+        #     for cont in selected_vods:
+        #         serialized_review = {
+        #             "id": cont.get("id"),
+        #             "name": cont.get("name"),
+        #             "imgpath":cont.get("imgpath"),
+        #             "backgroundimgpath":cont.get("backgroundimgpath")
+        #         }
+        #         serialized_vods.append(serialized_review)
+        # serialized_data['related_vods'] = serialized_vods
+        def detail_page_contents(vod_id):
+            # vod_list 가져오기
+            query_set = Vod.objects.all()
+            vod_list=read_frame(query_set)
+
+            vod_list['genres'] = vod_list['bigcategory'].str.replace('/', '').str.replace(' ', '') + ' ' + vod_list['smallcategory'].str.replace('/', '').str.replace(' ', '')
+
+            # 장르 정보 추출
+            cv = CountVectorizer(ngram_range = (1,2))
+            genres = cv.fit_transform(vod_list.genres)
+            
+            # TF-IDF 벡터화 (줄거리)
+            tfidf_vectorizer = TfidfVectorizer()
+            tfidf_matrix = tfidf_vectorizer.fit_transform(vod_list['text'])
+            # 특징 벡터 결합
+            combined_features = hstack([tfidf_matrix, genres])
+
+            # n_neighbors: 가장 가까운 21개의 이웃을 찾도록 지정
+            nbrs = NearestNeighbors(n_neighbors=6).fit(combined_features)
+            nbrs
+            # vod_id와 유사한 21개 가져오기
+            vod_index = vod_list[vod_list['id'] == vod_id].index[0]
+            
+            # 해당 VOD의 특징 벡터
+            vod_features = combined_features[vod_index]
+            
+            _, indices = nbrs.kneighbors(vod_features)
+            recommendations = vod_list.loc[indices[0], ["id"]]
+
+            # 상세페이지 vod가 있으면 제거
+            recom = recommendations[recommendations['id'] != vod_id]
+
+            return list(recom['id'])
+        selected_vods=detail_page_contents(vod["id"])
+
+
+        serialized_vods = []
+        relate_vods = self.vods_collection.find({"id": {"$in":selected_vods}})
+        for cont in relate_vods:
+            serialized_review = {
+                "id": cont.get("id"),
+                "name": cont.get("name"),
+                "imgpath":cont.get("imgpath"),
+                "backgroundimgpath":cont.get("backgroundimgpath")
+            }
+            serialized_vods.append(serialized_review)
         serialized_data['related_vods'] = serialized_vods
 
 
@@ -691,3 +740,13 @@ class CategoryPick(APIView): # 영화,TV,키즈 창에 진입시 각 카테고�
             "count": vod["count"],
         }
     
+
+
+# 필요한 import
+    import pandas as pd
+    from sklearn.neighbors import NearestNeighbors
+    from sklearn.feature_extraction.text import CountVectorizer
+    from konlpy.tag import Okt
+    import re
+    from sklearn.feature_extraction.text import TfidfVectorizer
+    from scipy.sparse import hstack
