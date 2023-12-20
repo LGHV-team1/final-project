@@ -1,12 +1,12 @@
 import csv
 from django.core.management.base import BaseCommand
-from recommends.models import MainRecommend
+from recommends.models import MainRecommend,genrebasedRecommend
 from contents.models import Vod
 
 
 class Command(BaseCommand):
     def recinsert(self, *args, **options):
-        with open("./data/recommend_all_user.csv", encoding="cp949") as f:
+        with open("./data/contents_based_recommendation.csv", encoding="cp949") as f:
             reader = csv.reader(f)
             
             next(reader)  # Skip header
@@ -14,6 +14,7 @@ class Command(BaseCommand):
             for row in reader:
                 (
                     stbnum,
+                    vod_id,
                     rec1,
                     rec2,
                     rec3,
@@ -23,12 +24,13 @@ class Command(BaseCommand):
                     rec7,
                     rec8,
                     rec9,
-                    rec10
+                    rec10,
+                    
 					
                     
                 ) = row
                 
-
+                watched=Vod.objects.get(id=vod_id)
                 vod_instance1=Vod.objects.get(id=rec1)
                 vod_instance2=Vod.objects.get(id=rec2)
                 vod_instance3=Vod.objects.get(id=rec3)
@@ -42,8 +44,9 @@ class Command(BaseCommand):
                 
                 
 
-                rec=MainRecommend(
+                rec=genrebasedRecommend(
                     stbnum=int(stbnum),
+                    watched=watched,
                     rec1=vod_instance1,
                     rec2=vod_instance2,
                     rec3=vod_instance3,
@@ -54,10 +57,10 @@ class Command(BaseCommand):
                     rec8=vod_instance8,
                     rec9=vod_instance9,
                     rec10=vod_instance10,
-					method=1
+					method=2
 				)
                 rec_list.append(rec)
-            MainRecommend.objects.bulk_create(rec_list)
+            genrebasedRecommend.objects.bulk_create(rec_list)
             self.stdout.write(self.style.SUCCESS("Data imported successfully"))
     def handle(self, *args, **options):
         self.recinsert(*args, **options)
