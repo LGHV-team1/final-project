@@ -6,7 +6,7 @@ from contents.models import Vod
 
 class Command(BaseCommand):
     def recinsert(self, *args, **options):
-        with open("./data/vod_score.csv", encoding="cp949") as f:
+        with open("./data/score.csv", encoding="cp949") as f:
             reader = csv.reader(f)
             
             next(reader)  # Skip header
@@ -25,7 +25,7 @@ class Command(BaseCommand):
                     substr=int(subsr),
                     vod_id=int(vod_id),
                     score=float(score),
-                    method=1 # 1은 준호, 2는 tscore(수정)
+                    method=2 # 1은 준호, 2는 tscore(수정)
                     
 				)
                 rec_list.append(rec)
