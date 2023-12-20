@@ -15,6 +15,8 @@ function Socialnaver() {
       const loginerror = cookies.get('loginerror');
       const loginjwt = cookies.get('loginjwt');
       const loginrefresh = cookies.get('loginrefresh');
+      localStorage.setItem("jwtToken", loginjwt);
+      localStorage.setItem("refresh", loginrefresh);
         if (loginerror === "not_social") {
             cookies.remove('loginerror')
             window.location.href = "/login"
@@ -32,8 +34,6 @@ function Socialnaver() {
             alert("로그인 에러 다시 실행해주세요.");
         }
         else{
-            localStorage.setItem("jwtToken", loginjwt);
-            localStorage.setItem("refresh", loginrefresh);
             cookies.remove('loginjwt')
             cookies.remove('loginrefresh')
             navigate("/home");
