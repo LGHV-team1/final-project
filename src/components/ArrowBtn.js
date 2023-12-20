@@ -1,12 +1,12 @@
 import React from "react";
 
-export const Arrowright = ({ onClick }) => (
+export const Arrowright = ({ onClick, position = "-40px" }) => (
   <div
     style={{
       position: "absolute",
       top: "50%",
       transform: "translateY(-50%)",
-      right: "-40px",
+      right: position,
       cursor: "pointer",
       zIndex: 20
     }}
@@ -18,13 +18,13 @@ export const Arrowright = ({ onClick }) => (
   </div>
 );
 
-export const Arrowleft = ({ onClick }) => (
+export const Arrowleft = ({ onClick, position = "-30px" }) => (
   <div
     style={{
       position: "absolute",
       top: "50%",
       transform: "translateY(-50%)",
-      left: "-30px",
+      left: position,
       cursor: "pointer",
     }}
     onClick={onClick}

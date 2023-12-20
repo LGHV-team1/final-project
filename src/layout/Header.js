@@ -18,14 +18,9 @@ function Header2() {
   const [isScroll, setIsScroll] = useState(false);
   useEffect(() => {
     const handleScroll = () => {
-      // window 스크롤 위치가 100보다 크면 true, 그렇지 않으면 false
-      setIsScroll(window.scrollY > 100);
+      setIsScroll(window.scrollY > 50);
     };
-
-    // 스크롤 이벤트 리스너 추가
     window.addEventListener('scroll', handleScroll);
-
-    // 컴포넌트가 언마운트될 때 이벤트 리스너 제거
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
@@ -142,7 +137,7 @@ function Header2() {
               categoryList={kidCategory}
               link={"kids"}
             />
-            <Link to="/trailer" className="no-underline text-gray-100 hover:text-my-color">
+            <Link to="/shortfilm" className="no-underline text-gray-100 hover:text-my-color">
               숏필름
             </Link>
           </div>
