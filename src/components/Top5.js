@@ -12,7 +12,6 @@ import title2 from "../images/MainTop/아바타제목.png";
 import title3 from "../images/MainTop/밀수제목.png";
 import title4 from "../images/MainTop/소방서제목.png";
 import title5 from "../images/MainTop/가오갤제목4.png";
-
 import styled from "styled-components";
 import Streaming from "./Streaming";
 import { Arrowleft, Arrowright } from "./ArrowBtn";
@@ -59,7 +58,7 @@ function Top5() {
   return (
     <div className=" ">
       <Streaming id={trailerId} titleimg={findVodname.title} />
-      <div className="relative mx-28  bottom-[420px] z-20">
+      <div className="relative mx-28  bottom-[468px] z-20">
         <StyledSlider {...settings}>
           {bgArr.map((a, index) => (
             <div

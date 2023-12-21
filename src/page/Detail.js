@@ -94,7 +94,7 @@ function Detail() {
       ) : (
         <div>
           <div
-            className="relative bottom-20 py-80 bg-cover bg-center bg-no-repeat z-10"
+            className="relative bottom-20 py-[360px] bg-cover bg-center bg-no-repeat z-10"
             style={{
               backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0), rgba(21,21,21,1)), url(${backgroundImageUrl})`,
               backgroundSize: "cover",
@@ -132,7 +132,7 @@ function Detail() {
                     <Star AVR_RATE={movie.avg_rate} />
                     <div className="flex gap-3">
                       {wish === false ? (
-                        <div className="flex flex-col items-center  hover:scale-105">
+                        <div className="flex flex-col items-center transition duration-300 ease-in-out hover:scale-105">
                           <svg
                             fill="currentColor"
                             viewBox="0 0 16 16"
@@ -146,7 +146,7 @@ function Detail() {
                           <div className="text-center">위시 추가</div>
                         </div>
                       ) : (
-                        <div className="flex flex-col items-center hover:scale-105">
+                        <div className="flex flex-col items-center transition duration-300 ease-in-out hover:scale-105">
                           <svg
                             fill="#A50034"
                             viewBox="0 0 16 16"
@@ -166,7 +166,7 @@ function Detail() {
                         </div>
                       )}
 
-                      <div className=" flex flex-col items-center  hover:scale-105 ">
+                      <div className=" flex flex-col items-center transition duration-300 ease-in-out hover:scale-105 ">
                         <svg
                           fill="none"
                           viewBox="0 0 24 24"
@@ -181,7 +181,7 @@ function Detail() {
 
                         <div className="text-center">리뷰 남기기</div>
                       </div>
-                      <div className="flex flex-col items-center hover:scale-105">
+                      <div className="flex flex-col items-center transition duration-300 ease-in-out hover:scale-105">
                         <svg
                           fill="none"
                           stroke="currentColor"
@@ -200,7 +200,7 @@ function Detail() {
                         </svg>
                         <div className="text-center">주소 복사</div>
                       </div>
-                      <div className="flex flex-col items-center hover:scale-105">
+                      <div className="flex flex-col items-center transition duration-300 ease-in-out hover:scale-105">
                         <svg
                           fill="none"
                           viewBox="0 0 24 24"
