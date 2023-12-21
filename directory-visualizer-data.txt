@@ -1,0 +1,91 @@
+LG_FINAL_PROJECT
+ ┣ .github
+ ┃  ┗ PULL_REQUEST_TEMPLATE.md
+ ┣ accounts
+ ┃  ┣ __init__.py
+ ┃  ┣ adapters.py
+ ┃  ┣ admin.py
+ ┃  ┣ apps.py
+ ┃  ┣ models.py
+ ┃  ┣ serializers.py
+ ┃  ┣ tests.py
+ ┃  ┣ urls.py
+ ┃  ┗ views.py
+ ┣ config
+ ┃  ┣ __init__.py
+ ┃  ┣ asgi.py
+ ┃  ┣ settings.py
+ ┃  ┣ urls.py
+ ┃  ┣ views.py
+ ┃  ┗ wsgi.py
+ ┣ contents
+ ┃  ┣ management
+ ┃  ┃  ┗ commands
+ ┃  ┃     ┣ dbchoseong.py
+ ┃  ┃     ┣ dbinsert.py
+ ┃  ┃     ┗ insert_text.py
+ ┃  ┣ __init__.py
+ ┃  ┣ admin.py
+ ┃  ┣ apps.py
+ ┃  ┣ models.py
+ ┃  ┣ serializers.py
+ ┃  ┣ tests.py
+ ┃  ┣ urls.py
+ ┃  ┗ views.py
+ ┣ myvenv
+ ┃  ┗ pyvenv.cfg
+ ┣ recommends
+ ┃  ┣ management
+ ┃  ┃  ┗ commands
+ ┃  ┃     ┣ genrebaseinsert.py
+ ┃  ┃     ┣ recinsert.py
+ ┃  ┃     ┣ scoreinsert.py
+ ┃  ┃     ┗ timeinsert.py
+ ┃  ┣ __init__.py
+ ┃  ┣ admin.py
+ ┃  ┣ apps.py
+ ┃  ┣ models.py
+ ┃  ┣ serializers.py
+ ┃  ┣ tests.py
+ ┃  ┣ urls.py
+ ┃  ┗ views.py
+ ┣ reviews
+ ┃  ┣ __init__.py
+ ┃  ┣ admin.py
+ ┃  ┣ apps.py
+ ┃  ┣ models.py
+ ┃  ┣ serializers.py
+ ┃  ┣ tests.py
+ ┃  ┣ urls.py
+ ┃  ┗ views.py
+ ┣ static
+ ┃  ┣ admin
+ ┃  ┗ rest_framework
+ ┣ templates
+ ┃  ┣ account
+ ┃  ┃  ┣ email
+ ┃  ┃  ┃  ┣ email_confirmation_signup_message.html
+ ┃  ┃  ┃  ┗ email_confirmation_signup_subject.txt
+ ┃  ┃  ┗ .DS_Store
+ ┃  ┗ .DS_Store
+ ┣ wishlists
+ ┃  ┣ __init__.py
+ ┃  ┣ admin.py
+ ┃  ┣ apps.py
+ ┃  ┣ models.py
+ ┃  ┣ serializers.py
+ ┃  ┣ tests.py
+ ┃  ┣ urls.py
+ ┃  ┣ utils.py
+ ┃  ┗ views.py
+ ┣ .DS_Store
+ ┣ .gitignore
+ ┣ .gitmessage
+ ┣ docker-compose.yml
+ ┣ Dockerfile
+ ┣ manage.py
+ ┣ README.md
+ ┣ requirements.txt
+ ┣ secrets.json
+ ┣ sync.py
+ ┗ task-definition.json

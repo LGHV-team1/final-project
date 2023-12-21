@@ -522,7 +522,7 @@ class wishlist_recommend(APIView): # <9>
 		user_id=request.user.id
 		vods = self.wish_collection.find({"user_id": user_id})
 		vod_id_list = [i['vod_id'] for i in vods]
-		print(vod_id_list)
+		
 
 		
 		# vod list 가져오기
