@@ -17,7 +17,6 @@ function Streaming({ id, titleimg }) {
             volume={volume}
             loop={true}
           />
-
           <div
             style={{
               position: "absolute",
@@ -29,7 +28,7 @@ function Streaming({ id, titleimg }) {
                 "linear-gradient(to bottom, rgba(0,0,0,0), rgba(21,21,21,1))",
             }}
           ></div>
-          <div className="relative flex gap-6 items-center bottom-[500px]  z-20   left-28">
+          <div className="relative flex gap-6 items-center bottom-[530px]  z-20   ml-28">
             <img className="xl:h-[135px] xl:w-[350px] lg:h-[90px] lg:w-[210px] md:w-[210px] sm:h-[90px] " src={titleimg}></img>
             {volume === "1" ? (
               <svg

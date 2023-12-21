@@ -39,7 +39,7 @@ function Home() {
       <>
         <Top5 />
         <div className="relative mx-28 text-gray-300 font-bold z-10">
-          {userInfo && userInfo.stbnumber === 0 ? (
+          {userInfo.stbnumber === 0 ? (
             <>
               <ShowRec className={"relative bottom-80"}label={"💕 환영해요 뉴비 💕"} algorithmNum={5} />
               <ShowRec className={"relative bottom-[272px]"} label={"🍺 새로 온 당신을 위하여 🍺"} algorithmNum={4} />
