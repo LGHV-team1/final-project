@@ -21,7 +21,7 @@ $$R_{ec}=V_oD$$
 - [🏛️ 전체 서비스 아키텍처](#%EF%B8%8F-전체-서비스-아키텍처-cicd)
 - [🦅 ERD 다이어그램](#-erd-다이어그램)
 - [🌱 사용자 요청 흐름도](#-사용자-요청-흐름도)
-- [👉🏻 시연 영상](#-시연-영상)
+- [👉🏻 화면 및 시연 영상](#-화면-및-시연-영상)
 - [🌈 상세 기능 설명](#-상세-기능-설명)
 <br>
 
@@ -46,7 +46,7 @@ $$R_{ec}=V_oD$$
 # 🙋🏻‍♂️🙋🏻‍♀️ 팀 소개
 |[김도현](https://github.com/dhyeon1320)|[김수정](https://github.com/sugenre)|[김지민](https://github.com/jmboy713)|[김한경](https://github.com/kkk1k)|[박효심](https://github.com/recordhyo)|[송준호](https://github.com/junoflows)|
 |:---:|:---:|:---:|:---:|:---:|:---:|
-|<img src="https://github.com/JMboy713/LG_final-project/assets/110653633/ef7ac8e2-d151-444a-af64-29f26edce1d0.jpg" >|<img src="https://github.com/JMboy713/LG_final-project/assets/110653633/c60e0377-3989-4a2c-9278-61b2c65bd6fb.jpg" >|<img src="https://github.com/JMboy713/LG_final-project/assets/110653633/99d92c90-dad3-45cc-8f64-7d7230c5626e.jpg" width="400" height="148">|<img src="https://github.com/JMboy713/LG_final-project/assets/110653633/05fc4d36-07de-42da-bbc5-0295cedcf15c.jpg" >|<img src="https://github.com/JMboy713/LG_final-project/assets/110653633/2c10b34e-2903-471b-bebd-d860a824dccb.jpg" width="700" height="150">|<img src="https://github.com/JMboy713/LG_final-project/assets/110653633/43e1cc04-1cf0-4176-b2f6-31e46ee4c91e.jpg" >|
+|<img src="https://github.com/LGHV-team1/final-project/assets/126046238/27e521e1-729f-40c2-9f25-b6500c34da97">|<img src="https://github.com/JMboy713/LG_final-project/assets/110653633/c60e0377-3989-4a2c-9278-61b2c65bd6fb.jpg" >|<img src="https://github.com/JMboy713/LG_final-project/assets/110653633/99d92c90-dad3-45cc-8f64-7d7230c5626e.jpg" width="400" height="148">|<img src="https://github.com/JMboy713/LG_final-project/assets/110653633/05fc4d36-07de-42da-bbc5-0295cedcf15c.jpg" >|<img src="https://github.com/JMboy713/LG_final-project/assets/110653633/2c10b34e-2903-471b-bebd-d860a824dccb.jpg" width="700" height="140">|<img src="https://github.com/JMboy713/LG_final-project/assets/110653633/43e1cc04-1cf0-4176-b2f6-31e46ee4c91e.jpg" >|
 |Data Analysis|Data Analysis|Backend,CI/CD|Front-end|Front-end,Back-end|Data Analysis|
 |-|-|-|-|-|-|
 
@@ -71,6 +71,7 @@ $$R_{ec}=V_oD$$
 <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=Python&logoColor=white"/> &nbsp
 <img src="https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=Django&logoColor=white"/> &nbsp
 <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=MySQL&logoColor=white"/> &nbsp
+<img src="https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=MongoDB&logoColor=white"/> &nbsp
 <br>
 
 <h3>DataAnalysis</h3>
@@ -92,6 +93,7 @@ $$R_{ec}=V_oD$$
 <img src="https://img.shields.io/badge/Amazon Route 53-8c4fff?style=for-the-badge&logo=Amazon Route 53&logoColor=white"> &nbsp
 <img src="https://img.shields.io/badge/docker-2496ED?style=for-the-badge&logo=docker&logoColor=white"/> &nbsp
 <img src="https://img.shields.io/badge/GitHub Actions-2088FF?style=for-the-badge&logo=GitHub Actions&logoColor=white"/> &nbsp
+<img src="https://img.shields.io/badge/Kafka-231F20?style=for-the-badge&logo=apachekafka&logoColor=white"/> &nbsp
 </div>
 <br>
 
@@ -123,8 +125,27 @@ $$R_{ec}=V_oD$$
 * 추후 추가 예정
 <!-- <p align="center"><img src="https://user-images.githubusercontent.com/71438046/217651629-961a43a2-c7e7-4580-bde6-c14b8a8e331e.png" /><br><br></p>  -->
 
-# 👉🏻 시연 영상
-* 추후 추가 예정
+# 👉🏻 화면 및 시연 영상
+<br>
+
+### 로그인
+<img src="https://github.com/LGHV-team1/final-project/assets/126046238/e77384ec-c759-4ea6-b1e9-0c9d8a9cfefb" width="800px"/> 
+
+<br>
+
+### 디테일 페이지
+<img src="https://github.com/LGHV-team1/final-project/assets/126046238/3ae87158-d065-47ba-a4f6-0a692c39e7d6" width="800px"/> 
+
+<br>
+
+### 리뷰
+<img src="https://github.com/LGHV-team1/final-project/assets/126046238/cde267dc-a6ca-4c60-90b5-a47cda30b6e2" width="800px"/>
+
+<br>
+
+### 검색
+<img src="https://github.com/LGHV-team1/final-project/assets/126046238/e7769b61-74e8-4fa8-b4c5-bfc9956663d2" width="800px"/> 
+
 <br>
 
 # 🌈 상세 기능 설명

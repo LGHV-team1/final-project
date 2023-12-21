@@ -91,13 +91,19 @@ class Searchactors(APIView):
         client = MongoClient(f"mongodb://hellovision:{pw}@{ip}", 27017)
         db = client.LGHV
         vods_collection = db.contents
+        query_list=[]
         if actor:
             actor_no_space = actor.replace(" ", "")
-            
+            # 대소문자 구분 없는 검색을 위한 regex 쿼리 (띄어쓰기 없는 버전)
+            regex_query_actor_no_space = {"searchactors": {"$regex": actor_no_space, "$options": "i"}}
+            query_list.append(regex_query_actor_no_space)
 
-            # 대소문자 구분 없는 검색을 위한 regex 쿼리
-            regex_query = {"$regex": actor_no_space, "$options": "i"}
-            query = {"searchactors": regex_query}
+            # 대소문자 구분 없는 검색을 위한 regex 쿼리 (띄어쓰기 있는 버전)
+            regex_query_actor = {"searchactors": {"$regex": actor, "$options": "i"}}
+            query_list.append(regex_query_actor)
+        if query_list:
+            # 여러 쿼리를 OR 연산으로 조합
+            query = {"$or": query_list}
             # 쿼리 실행
             vods = vods_collection.find(query)
             # 결과를 Python 리스트로 변환
@@ -106,6 +112,8 @@ class Searchactors(APIView):
             return Response(vod_data)
         else:
             return Response({"error": "검색어를 제공해야 합니다."}, status=400)
+            
+                
 
     def serialize_vod(self, vod):
         # VOD 객체를 직렬화하는 메서드
