@@ -37,14 +37,13 @@ function ShortFilm() {
 
   return (
     <div className=" text-white h-[100vh] mx-28">
-      
       <Slider {...settings}>
         {shortFilmIdArr.map((item, index) => (
           <div
             key={item.id}
             className={` my-56 ${
               currentSlide === index ? " scale-[230%]" : " z-0"
-            }`}
+            } transition-all duration-300 ease-in-out`}
           >
             <ReactPlayer
               url={`https://rvdshortvideo.s3.ap-northeast-2.amazonaws.com/sv${item.id}.mp4`}
@@ -55,10 +54,60 @@ function ShortFilm() {
               height="100%"
             />
             {currentSlide === index ? (
-              <div className="flex justify-between">
-                <p className="text-xl text-center">{item.vodname}</p>
+              <div className="flex justify-between ">
+                <div className="flex items-center gap-2 ">
+                <p className="text-[16px] text-center mb-0">{item.vodname}</p>
+                {volume === "1" ? (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="#FFFFFF"
+                    data-slot="icon"
+                    height="1.2em"
+                    width="1.2em"
+                    onClick={() => {
+                      setVolume("0");
+                    }}
+                    className=" cursor-pointer"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M19.114 5.636a9 9 0 0 1 0 12.728M16.463 8.288a5.25 5.25 0 0 1 0 7.424M6.75 8.25l4.72-4.72a.75.75 0 0 1 1.28.53v15.88a.75.75 0 0 1-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.009 9.009 0 0 1 2.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75Z"
+                    />
+                  </svg>
+                ) : (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="#FFFFFF"
+                    data-slot="icon"
+                    height="1.2em"
+                    width="1.2em"
+                    onClick={() => {
+                      setVolume("1");
+                    }}
+                    className=" cursor-pointer"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M17.25 9.75 19.5 12m0 0 2.25 2.25M19.5 12l2.25-2.25M19.5 12l-2.25 2.25m-10.5-6 4.72-4.72a.75.75 0 0 1 1.28.53v15.88a.75.75 0 0 1-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.009 9.009 0 0 1 2.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75Z"
+                    />
+                  </svg>
+                )}
+                </div>
                 {item.url === 0 ? (
-                  <a href="https://seasonmarket.co.kr/" className="no-underline text-gray-100 hover:text-my-color">더보기</a>
+                  <a
+                    href="https://seasonmarket.co.kr/"
+                    className="no-underline text-[8px] text-gray-100 hover:text-my-color"
+                  >
+                    더보기
+                  </a>
                 ) : (
                   <Link
                     to={`/detail/${item.url}`}
@@ -72,49 +121,7 @@ function ShortFilm() {
           </div>
         ))}
       </Slider>
-      <div className="relative bottom-44 left-48">
-      {volume === "1" ? (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="#FFFFFF"
-                data-slot="icon"
-                height="3em"
-                width="3em"
-                onClick={() => {
-                  setVolume("0");
-                }}
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M19.114 5.636a9 9 0 0 1 0 12.728M16.463 8.288a5.25 5.25 0 0 1 0 7.424M6.75 8.25l4.72-4.72a.75.75 0 0 1 1.28.53v15.88a.75.75 0 0 1-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.009 9.009 0 0 1 2.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75Z"
-                />
-              </svg>
-            ) : (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="#FFFFFF"
-                data-slot="icon"
-                height="3em"
-                width="3em"
-                onClick={() => {
-                  setVolume("1");
-                }}
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M17.25 9.75 19.5 12m0 0 2.25 2.25M19.5 12l2.25-2.25M19.5 12l-2.25 2.25m-10.5-6 4.72-4.72a.75.75 0 0 1 1.28.53v15.88a.75.75 0 0 1-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.009 9.009 0 0 1 2.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75Z"
-                />
-              </svg>
-            )}
-    </div>
+      <div className="relative bottom-44 left-48"></div>
     </div>
   );
 }

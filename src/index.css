@@ -10,5 +10,20 @@
 }
 * {
 	font-family: 'Pretendard-Regular';
-    
 }
+
+@keyframes fall {
+    0% {
+      opacity: 0;
+    }
+    3% {
+      opacity: 0.9;
+    }
+    90% {
+      opacity: 0.9;
+    }
+    100% {
+      transform: translate(0, 97vh);
+      opacity: 0;
+    }
+  }
