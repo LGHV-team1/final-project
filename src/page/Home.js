@@ -53,7 +53,7 @@ function Home() {
               />
               <ShowRec
                 className={"relative bottom-[272px]"}
-                label={"🍺 새로 온 당신을 위하여 🍺"}
+                label={"🍺 당신이 선택한 콘텐츠와 비슷한 걸 추천해봤어요! 🍺"}
                 algorithmNum={5}
               />
               <ShowRec

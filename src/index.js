@@ -12,8 +12,9 @@ axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
 root.render(
   <Provider store={store}>
     <BrowserRouter>
-      <ScrollToTop/>
+      <ScrollToTop>
         <App />
+        </ScrollToTop>
     </BrowserRouter>
   </Provider>
 );

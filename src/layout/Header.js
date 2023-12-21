@@ -178,9 +178,9 @@ function Header2() {
             <div
               className="flex relative  h-10 bg-white rounded"
               style={{
-                width: isExpanded ? "20rem" : "0", // 너비 변경
-                transition: "width 0.5s ease-in", // 부드러운 전환 효과
-                overflow: "hidden", // 너비가 0일 때 내용 숨김
+                width: isExpanded ? "20rem" : "0", 
+                transition: "width 0.5s ease-in", 
+                overflow: "hidden", 
               }}
             >
               <svg
@@ -207,21 +207,6 @@ function Header2() {
               />
             </div>
           )}
-
-          {/* {localStorage.getItem("jwtToken") === null ? (
-            <div>
-              <Button
-                className=" mr-5 cursor-pointer text-gray-100 "
-                onClick={goToLoginForm}
-                label={"로그인"}
-              />
-              <Button
-                className=" h-8 px-2 border border-gray-300 rounded-md cursor-pointer text-gray-100 "
-                onClick={goToSignupForm}
-                label={"회원가입"}
-              />
-            </div>
-          ) : ( */}
             <div>
               <Button
                 className=" mr-5 cursor-pointer text-gray-100 hover:text-my-color "

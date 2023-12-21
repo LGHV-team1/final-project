@@ -33,7 +33,7 @@ function ShowData({ data, handleShow, isShow = true }) {
         ))}
       </div>
       <div className="flex justify-center">
-      {isShow ? <Button onClick={handleShow} label={"더보기"} className="text-white animate-bounce bg-my-color  py-2 px-3 rounded"/> : <></>}
+      {isShow ? <Button onClick={handleShow} label={"더보기"} className="text-white animate-bounce bg-my-color mb-3 py-2 px-3 rounded"/> : <></>}
       </div>
     </div>
   );
