@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Helload from "../components/Helload";
 import ApiService from "../api/ApiService";
 import ShowData from "../components/ShowData";
-
+import { setSearchValue } from '../redux/searchSlice';
 const isChoseongOnly = (string) => {
   return /^[ㄱ-ㅎ]+$/g.test(string);
 };
@@ -17,11 +17,20 @@ function Search() {
     const itemsPerpage = 12;
     const [movies, setMovie] = useState([]);
     const [actormovies, setActorMovie] = useState([]);
+    const dispatch = useDispatch();
+    useEffect(() => {
+      // 컴포넌트가 언마운트될 때 검색 상태 초기화
+      return () => {
+        dispatch(setSearchValue(''));
+      };
+    }, [dispatch]);
+    
     useEffect(() => {
       if (searchValue !== undefined && searchValue !== null && searchValue !== "") {
         getData(searchValue);
         // setVisiblevodData1(movies.slice(0, itemsPerpage));
         // setVisiblevodData2(actormovies.slice(0, itemsPerpage));
+        console.log(searchValue)
       }
     }, [searchValue]);
   
@@ -31,10 +40,6 @@ function Search() {
     useEffect(() => {
       setVisiblevodData2(actormovies.slice(0, itemsPerpage));
     }, [actormovies]);
-    // console.log("영화개수",movies.length)
-    // console.log("보이는 영화",visiblevodData1.length)
-    // console.log("배우개수",actormovies.length)
-    // console.log("보이는 배우",visiblevodData2)
     useEffect(() => {
       // 남은 데이터가 없을 경우 isShow를 false로 설정
       if ((movies.length - visiblevodData1.length) <= 0) {
@@ -52,7 +57,6 @@ function Search() {
         setIsShow2(true);
       }
     }, [visiblevodData2, searchValue]);
-  
     const getData = async (searchValue1) => {
       console.log(searchValue1)
       try {
