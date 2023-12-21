@@ -11,7 +11,9 @@ import ViewReview from "../components/ViewReview";
 import ApiService from "../api/ApiService";
 import useDebounce from "../hook/useDebounce";
 import Related from "../components/Related";
-
+import { useDispatch } from 'react-redux';
+import { setSearchValue } from '../redux/searchSlice';
+import { useNavigate } from 'react-router-dom';
 function Detail() {
   const { name } = useParams();
   const [movie, setMovie] = useState({});
@@ -20,6 +22,12 @@ function Detail() {
   const [wish, setWish] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const debounceWish = useDebounce(wish, 500);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const handleImageClick = (name) => {
+    dispatch(setSearchValue(name));
+    navigate('/search');
+  };
   console.log("debounce", debounceWish);
   const getData = async () => {
     try {
@@ -245,6 +253,7 @@ function Detail() {
                               className=" rounded-t"
                               onError={(e) => (e.currentTarget.src = noImagePs)}
                               alt="배우사진"
+                              onClick={() => handleImageClick(item.name)}
                             />
                             {item.name.length < 6
                               ? item.name
