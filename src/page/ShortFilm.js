@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 function ShortFilm() {
   const shortFilmIdArr = [
-    { id: 0, vodname: "엘리멘탈", url: 2289 },
+    { id: 0, vodname: "엘리멘탈 명장면", url: 2289 },
     { id: 1, vodname: "천원짜리 변호사", url: 1234 },
     { id: 2, vodname: "제철장터", url: 0 },
     { id: 3, vodname: "해리포터와 함께하는 크리스마스", url: 2226 },
