@@ -6,11 +6,11 @@ function ShowData({ data, handleShow, isShow = true }) {
   const BASE_URL_NO = "https://i.ibb.co/7pYHFY3";
   return (
     <div>
-      <div className="flex flex-wrap gap-4 ">
+      <div className="grid  sm:grid-cols-4  xl:grid-cols-6 gap-4">
         {data.map((item, idx) => (
           <div
             key={idx}
-            className=" sm:w-[30%] md:w-[30%] lg:w-[20%] xl:w-[15%] mb-5 text-center "
+            className="  mb-5 text-center "
           >
             <Link
               to={`/detail/${item.id}`}
@@ -23,7 +23,7 @@ function ShowData({ data, handleShow, isShow = true }) {
                     : `${BASE_URL}${item.imgpath}`
                 }
                 className="rounded transition transform duration-500 ease-in-out hover:scale-110"
-                style={{ height: "350px" }}
+                style={{ height: "350px", width:"250px"}}
               />
             </Link>
             <div className="text-gray-300 text-[18px] ">

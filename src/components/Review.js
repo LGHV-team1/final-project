@@ -41,7 +41,7 @@ export default function Review() {
           <textarea
             id="comment"
             rows="4"
-            className="w-full text-gray-400  focus:ring-gray-500 bg-bg-color "
+            className="w-full text-gray-100  focus:ring-gray-500 bg-bg-color "
             placeholder="이 작품에 대한 생각을 자유롭게 작성해주세요..."
             required
             onChange={onHandlerReview}

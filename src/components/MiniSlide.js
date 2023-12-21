@@ -12,7 +12,6 @@ function MiniSlide({ data, slidesToShowNum = 6, slidesToScrollNum = 1 }) {
   const settings = {
     arrow: true,
     dots: false,
-    infinite: false,
     speed: 500,
     slidesToShow: slidesToShowNum,
     slidesToScroll: slidesToScrollNum,

@@ -34,12 +34,13 @@ function First() {
   return (
     <body
       style={{
-        backgroundImage: `linear-gradient(to top, rgba(0,0,0,0), rgba(0,0,0,0.8)), url(${BGimg})`,
-    backgroundSize: "cover",
-    backgroundRepeat: "no-repeat",
-    height: "100vh",
+        backgroundImage: `linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 10%),
+        linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, transparent 10%),
+        url(${BGimg})`,
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        height: "100vh",
       }}
-      
     >
       <div style={style}>
         <span
@@ -56,11 +57,7 @@ function First() {
         <h2> 오늘 볼 VOD를 추천해드립니다 </h2>
         <h3> 지금 바로 로그인해서 확인하세요 </h3>
         <br></br>
-        <Button
-          label={"로그인"}
-          onClick={goToLoginForm}
-        />
-        
+        <Button label={"로그인"} onClick={goToLoginForm} />
       </div>
     </body>
   );
