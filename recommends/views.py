@@ -408,10 +408,8 @@ class TOP10Recommend(APIView):# <6>
     db = client.LGHV
     vods_collection = db.contents
 
-    def get(self, request, Bigcategory):
-        category_map = {"tv": "TV프로그램", "movie": "영화", "kids": "키즈"}
-        category = category_map[Bigcategory]
-        top_vods = self.vods_collection.find({"category": category}).sort("count", -1).limit(10)
+    def get(self, request):
+        top_vods = self.vods_collection.find().sort("count", -1).limit(10)
         serialized_vods = [self.serialize_vod(vod) for vod in top_vods]
         return Response(serialized_vods, status=status.HTTP_200_OK)
     
