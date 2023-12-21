@@ -43,13 +43,12 @@ function CategoryBtn({data , bigcategory}) {
 
 return (
     <div className="w-full text-gray-300 mb-[7%]">
-        <div className="flex flex-wrap gap-[11px] ">
+        <div className="grid xl:grid-cols-6 sm:grid-cols-4 gap-4 ">
             {data.map((a, idx) => (
                 <Link
                 key={a.id}
                 to={`${dynamicUrl}${bigcategory === "tv" ? smallCategory[a.bigcategory] : smallCategory[a.smallcategory]}`}
-                className="relative mb-3 mr-3 group w-[15%] "
-                
+                className="relative mb-3 mr-3 group "
                 onClick={() => handleCategoryClick(bigcategory === "tv" ? a.bigcategory : a.smallcategory)}
                 >
                     <img
@@ -59,6 +58,7 @@ return (
                         style={{
                             objectFit: "object-fill",
                             height: "350px",
+                            width:"250px",
                           }}
                     />
                     <p className="absolute top-0 left-0 w-full h-full flex items-center justify-center text-white text-[2vw] font-bold opacity-1 group-hover:scale-125 transition duration-300 ease-in-out z-40">

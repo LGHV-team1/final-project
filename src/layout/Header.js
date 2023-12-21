@@ -149,7 +149,7 @@ function Header2() {
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
-                fill="#BDBDBD"
+                fill="#ffffff"
                 className="p-1 cursor-pointer hover:scale-105"
                 width="2em"
                 onClick={goToSearch}

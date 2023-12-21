@@ -54,7 +54,7 @@ function Tv() {
             <MiniSlide data={tv} />
           </div>
           <div className="mt-3">
-          <p className=" text-3xl text-gray-300 my-5">👀 카테고리를 골라보세요 👀</p>
+          <p className=" text-3xl text-gray-300 my-5">☝ 카테고리를 골라보세요 ☝</p>
             <CategoryBtn data={TvCategory} bigcategory={bigcategory}/>
           </div>
         </div>

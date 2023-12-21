@@ -5,7 +5,6 @@ import RecMiniSlide from "./RecMiniSlide";
 
 function ShowRec({ className,label, algorithmNum, onWatchedData }) {
   const [vodData, setvodData] = useState([]);
-  const [loading, setLoading] = useState(false)
   const getData = async () => {
     try {
       const response = await ApiService.getRec(algorithmNum);
@@ -18,7 +17,6 @@ function ShowRec({ className,label, algorithmNum, onWatchedData }) {
       else {
         setvodData(data);
       }
-      setLoading(false)
     } catch (err) {
       console.error(err);
     }

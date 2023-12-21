@@ -56,7 +56,7 @@ function Movie() {
           <div className="text-center mt-3"></div>
         </div>
         <div className="mt-3">
-        <p className=" text-3xl text-gray-300 my-5">👀 카테고리를 골라보세요 👀</p>
+        <p className=" text-3xl text-gray-300 my-5">☝ 카테고리를 골라보세요 ☝</p>
             <CategoryBtn data={MovieCategory} bigcategory={bigcategory}/>
           </div>
       </div>
