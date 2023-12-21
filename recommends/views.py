@@ -528,7 +528,7 @@ class wishlist_recommend(APIView): # <9>
 		# vod list 가져오기
 		query_set = Vod.objects.all()
 		vod_list=read_frame(query_set)
-		score_query_set=vod_score.objects.all()
+		score_query_set=vod_score.objects.filter(method=1)
 		score=read_frame(score_query_set)
 		
 		vod = pd.DataFrame([[1]*len(vod_id_list), vod_id_list, [0.7]*len(vod_id_list)]).T
