@@ -3,7 +3,7 @@ import { useNavigate, useLocation, Link } from "react-router-dom";
 import logo from "../images/seasonlogo.png";
 import Button from "../components/Button";
 import ApiService from "../api/ApiService";
-import { useDispatch,  } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setSearchValue } from "../redux/searchSlice";
 import Dropdown from "../components/Dropdown";
 import useDebounce from "../hook/useDebounce";
@@ -11,11 +11,24 @@ import useDebounce from "../hook/useDebounce";
 function Header2() {
   const searchInputRef = useRef(null); // 입력창 참조 생성
   const dispatch = useDispatch();
-  const [search, setSearch] = useState();
-  const debouncedValue = useDebounce(search, 500);
+  //const [search, setSearch] = useState();
   const navigate = new useNavigate();
   const location = new useLocation();
   const [isScroll, setIsScroll] = useState(false);
+  const searchValue = useSelector((state) => state.search.value);
+  const [search, setSearch] = useState(searchValue);
+  const debouncedValue = useDebounce(search, 500);
+  useEffect(() => {
+    // 리덕스 스토어의 searchValue 상태가 변경될 때마다 검색 입력창의 값 업데이트
+    setSearch(searchValue);
+  }, [searchValue]);
+
+  // ... 나머지 코드
+
+  const handleInputChange = (e) => {
+    setSearch(e.target.value);
+    dispatch(setSearchValue(e.target.value));
+  };
   useEffect(() => {
     const handleScroll = () => {
       setIsScroll(window.scrollY > 50);
@@ -28,9 +41,9 @@ function Header2() {
   useEffect(() => {
     dispatch(setSearchValue(debouncedValue));
   }, [debouncedValue]);
-  const handleInputChange = (e) => {
-    setSearch(e.target.value);
-  };
+  // const handleInputChange = (e) => {
+  //   setSearch(e.target.value);
+  // };
   const [isExpanded, setIsExpanded] = useState(false);
   useEffect(() => {
     console.log(location.pathname)
