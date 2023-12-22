@@ -125,7 +125,7 @@ function Search() {
         <h1>검색 결과 : {searchValue}</h1>
 
         <div className="mt-5 font-bold">
-          <h3>제목 검색</h3>
+          <h2>🎬︎ 제목 검색 🎬︎</h2>
           {movies.length === 0 ? (
             <p className="text-lg"> 제목 검색 결과가 없습니다</p>
           ) : (
@@ -137,8 +137,8 @@ function Search() {
           )}
         </div>
 
-        <div className="my-5 pb-10 font-bold">
-          <h3>인물 검색</h3>
+        <div className="my-5 pb-10 font-bold ">
+          <h2 >🧑 인물 검색 🧑</h2>
           {actormovies.length === 0 ? (
             <p className="text-lg"> 인물 검색 결과가 없습니다</p>
           ) : (

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 function Snowflake({ id }) {
   const [animationDelay, setAnimationDelay] = useState("0s");
-  const [fontSize, setFontSize] = useState("20px");
+  const [fontSize, setFontSize] = useState("0px");
 
   useEffect(() => {
     const newDelay = `${(Math.random() * 16).toFixed(2)}s`;
@@ -23,14 +23,14 @@ function Snowflake({ id }) {
   };
 
   return (
-    <p className="p-0 m-0 z-30" id={`item${id}`} style={style}>
+    <p className="p-0 m-0" id={`item${id}`} style={style}>
       *
     </p>
   );
 }
 
 function Snow() {
-  const numFlakes = 500;
+  const numFlakes = 1000;
   const snowflakes = Array.from({ length: numFlakes }, (_, i) => (
     <Snowflake key={i} id={i} />
   ));
