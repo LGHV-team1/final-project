@@ -23,12 +23,12 @@ function MiniSlide({
     prevArrow: <Arrowleft />,
     responsive: [
       {
-        breakpoint: 1024,
+        breakpoint: 1025,
         settings: {
           slidesToShow: 4,
           slidesToScroll: 4,
           infinite: true,
-          dots: true,
+          initialSlide:1,
         },
       },
       {
@@ -36,6 +36,8 @@ function MiniSlide({
         settings: {
           slidesToShow: 3,
           slidesToScroll: 3,
+          infinite: true,
+          
         },
       },
       {
@@ -43,6 +45,8 @@ function MiniSlide({
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
+          infinite: true,
+          
         },
       },
       {
@@ -50,6 +54,8 @@ function MiniSlide({
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
+          infinite: true,
+       
         },
       },
     ],

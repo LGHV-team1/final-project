@@ -7,51 +7,40 @@ import { Arrowleft, Arrowright } from "./ArrowBtn";
 function MiniSlide({ data, slidesToShowNum = 6, slidesToScrollNum = 1 }) {
   const BASE_URL = "https://image.tmdb.org/t/p/w500";
   const BASE_URL_NO = "https://i.ibb.co/7pYHFY3";
-  
 
   const settings = {
-    arrow: true,
-    dots: false,
-    speed: 500,
-    slidesToShow: slidesToShowNum,
-    slidesToScroll: slidesToScrollNum,
-    nextArrow: <Arrowright />,
-    prevArrow: <Arrowleft />,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-          initialSlide: 1,
-          arrow: true,
-          dots: false,
-          infinite: false,
+      infinite: false,
+      speed: 500,
+      slidesToShow: 4,
+      slidesToScroll: 4,
+
+      responsive: [
+        {
+          breakpoint: 1025,
+          settings: {
+            slidesToShow: 4,
+            slidesToScroll: 1,
+            infinite: true,
+     
+          }
         },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 1,
-          arrow: true,
-          dots: false,
-          infinite: false,
+        {
+          breakpoint: 600,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 2,
+
+          }
         },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          arrow: true,
-          dots: false,
-          infinite: false,
-        },
-      },
-    ],
-  };
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1
+          }
+        }
+      ]
+    };
   return (
     <div>
       <Slider {...settings} className="text-center">

@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Arrowleft, Arrowright } from "../components/ArrowBtn";
 import { Link } from "react-router-dom";
-
+// import "./ShortFilm.css"
 function ShortFilm() {
   const shortFilmIdArr = [
     {
@@ -60,12 +60,11 @@ function ShortFilm() {
     className: "center",
     centerMode: true,
     infinite: true,
-    centerPadding: "-1px",
+    centerPadding: "-0px",
     slidesToShow: 3,
     speed: 500,
     focusOnSelect: true,
     dots: false,
-    infinite: true,
     swipeToSlide: true,
     beforeChange: (current, next) => setCurrentSlide(next),
     afterChange: (index) => {
@@ -74,25 +73,39 @@ function ShortFilm() {
     nextArrow: <Arrowright />,
     prevArrow: <Arrowleft />,
   };
-  const [play, setPlay] = useState(true);
+  const [playStates, setPlayStates] = useState({});
+  const handleClick = (index) => {
+    setPlayStates((prevStates) => ({
+      ...prevStates,
+      [index]: !prevStates[index]
+    }));
+  };
+
+  // 슬라이드별 재생 상태를 결정하는 함수
+  const isPlaying = (index) => {
+    // 기본적으로 현재 슬라이드이며, playStates에 따라 재생 상태 결정
+    return currentSlide === index && playStates[index] !== false;
+  };
+
   return (
-    <div className=" text-white h-[100vh] mx-28">
+    <div className=" text-white h-[80vh] mx-28 " >
       <Slider {...settings}>
         {shortFilmIdArr.map((item, index) => (
           <div
             key={item.id}
-            className={` my-56 ${
-              currentSlide === index ? " scale-[230%]" : ""
+            className={` my-56  ${
+              currentSlide === index ? " scale-[200%]" : ""
             } transition-all duration-300 ease-in-out`}
+            
           >
             <ReactPlayer
               url={`https://rvdshortvideo.s3.ap-northeast-2.amazonaws.com/sv${item.id}.mp4`}
-              playing={currentSlide === index}
               volume={volume}
               loop={true}
               width="100%"
               height="100%"
-              // onClick={setPlay((current) => !current)}
+              onClick={() => handleClick(index)}
+              playing={isPlaying(index)}
             />
             {currentSlide === index ? (
               <div>

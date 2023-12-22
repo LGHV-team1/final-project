@@ -121,14 +121,14 @@ function Header2() {
       .catch((err) => console.log(err));
   };
   return (
-    <nav className={`sticky top-0 z-1000 transition-all duration-300 ease-in-out ${isScroll ? " bg-bg-color " : "bg-transparent"}`}>
+    <nav className={`sticky top-0 z-50 transition-all duration-300 ease-in-out ${isScroll ? " bg-bg-color " : "bg-transparent"}`}>
       <div className=" pt-10 pb-8 mx-28  flex h-16 justify-between ">
-        <div className="flex items-center gap-10 ">
+        <div className="flex items-center xl:gap-10 sm:gap-3">
           <Link to="/">
             <img className="my-1" src={logo} alt="logo" width="110px" />
           </Link>
 
-          <div className="flex justify-center items-center sorts-contents gap-3">
+          <div className="flex justify-center items-center sorts-contents xl:gap-3 sm:gap-2">
             <Link
               to="/home"
               className=" text-gray-100 no-underline hover:text-my-color"
@@ -178,7 +178,7 @@ function Header2() {
             <div
               className="flex relative  h-10 bg-white rounded"
               style={{
-                width: isExpanded ? "20rem" : "0", 
+                width: isExpanded ? "15rem" : "0", 
                 transition: "width 0.5s ease-in", 
                 overflow: "hidden", 
               }}
@@ -199,7 +199,7 @@ function Header2() {
               <input
                 ref={searchInputRef}
                 className=" outline-none rounded "
-                placeholder="제목, 배우를 검색해보세요."
+                placeholder="제목, 배우를 검색해보세요"
                 type="text"
                 onChange={handleInputChange}
                 onKeyUp={handleInputEnter}
