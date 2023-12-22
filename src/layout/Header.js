@@ -95,15 +95,10 @@ function Header2() {
   };
   
 
-  const goToLoginForm = () => {
-    navigate("/login");
-  };
   const goToMypage = () => {
     navigate("/mypage");
   };
-  const goToSignupForm = () => {
-    navigate("/register");
-  };
+ 
   const goToSearch = () => {
     navigate("/search");
     setIsExpanded(true);

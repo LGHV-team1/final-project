@@ -11,9 +11,10 @@ function MiniSlide({ data, slidesToShowNum = 6, slidesToScrollNum = 1 }) {
   const settings = {
       infinite: false,
       speed: 500,
-      slidesToShow: 4,
-      slidesToScroll: 4,
-
+      slidesToShow: 6,
+      slidesToScroll: 6,
+      nextArrow: <Arrowright />,
+    prevArrow: <Arrowleft />,
       responsive: [
         {
           breakpoint: 1025,
@@ -28,7 +29,7 @@ function MiniSlide({ data, slidesToShowNum = 6, slidesToScrollNum = 1 }) {
           breakpoint: 600,
           settings: {
             slidesToShow: 2,
-            slidesToScroll: 2,
+            slidesToScroll: 1,
 
           }
         },
