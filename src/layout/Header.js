@@ -95,15 +95,10 @@ function Header2() {
   };
   
 
-  const goToLoginForm = () => {
-    navigate("/login");
-  };
   const goToMypage = () => {
     navigate("/mypage");
   };
-  const goToSignupForm = () => {
-    navigate("/register");
-  };
+ 
   const goToSearch = () => {
     navigate("/search");
     setIsExpanded(true);
@@ -121,14 +116,14 @@ function Header2() {
       .catch((err) => console.log(err));
   };
   return (
-    <nav className={`sticky top-0 z-1000 transition-all duration-300 ease-in-out ${isScroll ? " bg-bg-color " : "bg-transparent"}`}>
+    <nav className={`sticky top-0 z-50 transition-all duration-300 ease-in-out ${isScroll ? " bg-bg-color " : "bg-transparent"}`}>
       <div className=" pt-10 pb-8 mx-28  flex h-16 justify-between ">
-        <div className="flex items-center gap-10 ">
+        <div className="flex items-center xl:gap-10 sm:gap-3">
           <Link to="/">
             <img className="my-1" src={logo} alt="logo" width="110px" />
           </Link>
 
-          <div className="flex justify-center items-center sorts-contents gap-3">
+          <div className="flex justify-center items-center sorts-contents xl:gap-3 sm:gap-2">
             <Link
               to="/home"
               className=" text-gray-100 no-underline hover:text-my-color"
@@ -178,9 +173,9 @@ function Header2() {
             <div
               className="flex relative  h-10 bg-white rounded"
               style={{
-                width: isExpanded ? "20rem" : "0", // 너비 변경
-                transition: "width 0.5s ease-in", // 부드러운 전환 효과
-                overflow: "hidden", // 너비가 0일 때 내용 숨김
+                width: isExpanded ? "15rem" : "0", 
+                transition: "width 0.5s ease-in", 
+                overflow: "hidden", 
               }}
             >
               <svg
@@ -199,7 +194,7 @@ function Header2() {
               <input
                 ref={searchInputRef}
                 className=" outline-none rounded "
-                placeholder="제목, 배우를 검색해보세요."
+                placeholder="제목, 배우를 검색해보세요"
                 type="text"
                 onChange={handleInputChange}
                 onKeyUp={handleInputEnter}
@@ -207,21 +202,6 @@ function Header2() {
               />
             </div>
           )}
-
-          {/* {localStorage.getItem("jwtToken") === null ? (
-            <div>
-              <Button
-                className=" mr-5 cursor-pointer text-gray-100 "
-                onClick={goToLoginForm}
-                label={"로그인"}
-              />
-              <Button
-                className=" h-8 px-2 border border-gray-300 rounded-md cursor-pointer text-gray-100 "
-                onClick={goToSignupForm}
-                label={"회원가입"}
-              />
-            </div>
-          ) : ( */}
             <div>
               <Button
                 className=" mr-5 cursor-pointer text-gray-100 hover:text-my-color "

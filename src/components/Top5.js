@@ -58,7 +58,7 @@ function Top5() {
   return (
     <div className=" ">
       <Streaming id={trailerId} titleimg={findVodname.title} />
-      <div className="relative mx-28  bottom-[468px] z-20">
+      <div className="relative mx-28  xl:bottom-[468px] sm:bottom-[320px] z-20">
         <StyledSlider {...settings}>
           {bgArr.map((a, index) => (
             <div
@@ -74,6 +74,7 @@ function Top5() {
                 className="rounded-md transition transform duration-500 ease-in-out w-full h-full"
                 src={a.img}
                 alt={a.vodname}
+                width={"70%"}
                 
               />
             </div>
