@@ -1,0 +1,143 @@
+import { Link, useNavigate } from "react-router-dom";
+import Button from "../components/Button.js";
+import Input from "../components/Input.js";
+import { useState } from "react";
+import axios from "axios";
+import BGimg from "../images/background.png";
+import ApiService from "../api/ApiService.js";
+function Register() {
+  const { BASE_URL: URL } = ApiService;
+  const [Email, setEmail] = useState("");
+  const [STB, setSTB] = useState("");
+  const [Password, setPassword] = useState("");
+  const [ConfirmPassword, setConfirmPassword] = useState("");
+  const navigate = useNavigate();
+  const onEmailHandler = (event) => {
+    setEmail(event.currentTarget.value);
+  };
+  const onSTBHandler = (event) => {
+    setSTB(event.currentTarget.value);
+  };
+  const onPasswordHandler = (event) => {
+    setPassword(event.currentTarget.value);
+  };
+  const onConfirmPasswordHandler = (event) => {
+    setConfirmPassword(event.currentTarget.value);
+  };
+  const onRegister = (e) => {
+    e.preventDefault();
+    registerSend();
+  };
+
+  const registerSend = async () => {
+    try {
+      const response = await axios.post(
+        `${URL}accounts/dj-rest-auth/registration/`,
+        {
+          email: Email,
+          password1: Password,
+          password2: ConfirmPassword,
+          stbnumber: Number(STB),
+        }
+      );
+
+      console.log(response.data); // 성공한 경우 응답 데이터 출력
+      confirmEmail();
+    } catch (error) {
+      // API 호출 중 에러가 발생한 경우
+      if (error.response) {
+        // 서버가 응답을 반환하지만 2xx 상태 코드가 아닌 경우
+        console.error("Error response from server:", error.response.data);
+        const getValues = Object.values(error.response.data);
+        const arrayString = getValues.join("\n");
+        alert(arrayString);
+      } else if (error.request) {
+        // 서버로의 요청이 전송되지 않은 경우
+        console.error(
+          "No response received from server. Request might not have been sent."
+        );
+      } else {
+        // 요청을 설정하는 동안 에러가 발생한 경우
+        console.error("Error setting up the request:", error.message);
+      }
+    }
+  };
+
+  const confirmEmail = () => {
+    if (window.confirm(`${Email}로 가서 이메일 인증을 하세요~`)) {
+      navigate("/login");
+    }
+  };
+  return (
+    <body
+      style={{
+        backgroundImage: `url(${BGimg})`,
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        height: "100vh",
+      }}
+    >
+      <div className="max-w-[400px] w-[400px] mx-auto bg-transparent p-4 rounded position-relative">
+        <form onSubmit={onRegister}>
+          <h2 className="text-5xl font-bold text-center text-white py-5 ">
+            회원가입
+          </h2>
+          <div className="flex flex-col py-2">
+            <label className="text-white">
+              Email <p className="inline text-pink-400 text-xs">* 필수</p>
+            </label>
+            <Input
+              className="border p-2 rounded"
+              type="text"
+              value={Email}
+              onChange={onEmailHandler}
+              placeholder="example@xxx.com"
+            />
+          </div>
+          <div className="flex flex-col py-2">
+            <label className="text-white">
+              Password <p className="inline text-pink-400 text-xs">* 필수</p>
+            </label>
+            <Input
+              className="border p-2 rounded"
+              type="password"
+              value={Password}
+              onChange={onPasswordHandler}
+            />
+          </div>
+          <div className="flex flex-col py-2">
+            <label className="text-white">
+              Password 확인{" "}
+              <p className="inline text-pink-400 text-xs">* 필수</p>
+            </label>
+            <Input
+              className="border p-2 rounded"
+              type="password"
+              value={ConfirmPassword}
+              onChange={onConfirmPasswordHandler}
+            />
+          </div>
+          <div className="flex flex-col pt-2">
+            <label className="text-white">
+              셋톱박스 번호 <p className="inline text-pink-400 text-xs">선택</p>
+            </label>
+            <Input
+              className="border p-2 rounded"
+              type="text"
+              value={STB}
+              onChange={onSTBHandler}
+            />
+          </div>
+          <div className="flex justify-between">
+            <Link to="/login">
+              <Button label={"아이디가 있음"} />
+            </Link>
+            <Button label={"회원가입"} />
+          </div>
+        </form>
+      </div>
+    </body>
+  );
+}
+
+export default Register;

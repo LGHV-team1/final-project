@@ -1,4 +1,4 @@
-# 📼 R=VD vol.1
+# 📼 R=VD vol.2
 
 
 $$R_{ec}=V_oD$$
@@ -31,8 +31,16 @@ $$R_{ec}=V_oD$$
 
 
 # 🏆️ 프로젝트 소개
+<h3 style="text-align:center"> LG Hellovision 의 신규 고객 유입 및 기존 셋탑박스 사용 유저의 고객 이탈 방지를 위한 <br> 시청 기록 기반 vod 추천, 평점 및 리뷰 검색 서비스 <h3/>
 
-### LG Hellovision 의 셋탑박스 사용 유저의 시청 기록 기반 vod 추천, 평점 및 리뷰 검색 서비스
+```
+목적
+1. 셋탑박스 개인화
+2. 추천 다양화
+3. 숏필름 및 신규 유저 추천 제공
+4. 사용자 경험 및 고객 만족도 극대화
+5. 트렌드에 알맞은 UI구성
+```
 
 <br>
 
@@ -50,8 +58,8 @@ $$R_{ec}=V_oD$$
 # 🙋🏻‍♂️🙋🏻‍♀️ 팀 소개
 |[김도현](https://github.com/dhyeon1320)|[김수정](https://github.com/sugenre)|[김지민](https://github.com/jmboy713)|[김한경](https://github.com/kkk1k)|[박효심](https://github.com/recordhyo)|[송준호](https://github.com/junoflows)|
 |:---:|:---:|:---:|:---:|:---:|:---:|
-|<img src="https://github.com/LGHV-team1/final-project/assets/126046238/27e521e1-729f-40c2-9f25-b6500c34da97">|<img src="https://github.com/JMboy713/LG_final-project/assets/110653633/c60e0377-3989-4a2c-9278-61b2c65bd6fb.jpg" >|<img src="https://github.com/JMboy713/LG_final-project/assets/110653633/99d92c90-dad3-45cc-8f64-7d7230c5626e.jpg" width="400" height="148">|<img src="https://github.com/JMboy713/LG_final-project/assets/110653633/05fc4d36-07de-42da-bbc5-0295cedcf15c.jpg" >|<img src="https://github.com/JMboy713/LG_final-project/assets/110653633/2c10b34e-2903-471b-bebd-d860a824dccb.jpg" width="700" height="140">|<img src="https://github.com/JMboy713/LG_final-project/assets/110653633/43e1cc04-1cf0-4176-b2f6-31e46ee4c91e.jpg" >|
-|Data Analysis|Data Analysis|Backend,CI/CD|Front-end|Front-end,Back-end|Data Analysis|
+|<img src="https://github.com/dhyeon1320.png" width="100px" height="100" >|<img src="https://github.com/sugenre.png" width="100px" height="100" >|<img src="https://github.com/JMboy713.png" width="100px" height="100" >|<img src="https://github.com/kkk1k.png" width="100px" height="100">|<img src="https://github.com/recordhyo.png" width="100px" height="100"  >|<img src="https://github.com/junoflows.png" width="100px" height="100"  >|
+|Data Analysis|Data Analysis|Back-end<br>CI/CD|Front-end|Front-end<br>Back-end|Data Analysis|
 |-|-|-|-|-|-|
 
 <br/>
@@ -140,6 +148,185 @@ $$R_{ec}=V_oD$$
 # 🏛️ 전체 서비스 아키텍처 (CI/CD)
 <p align="center"><img src="https://github.com/LGHV-team1/final-project/assets/126046238/1430f6ce-9ac7-42d8-a8c3-3aeea9734307)\" /><br><br></p>
 
+
+<h4>디렉토리 구조</h4>
+
+<details>
+<summary>Front-End Directory</summary>
+
+<!--summary 아래 빈칸 공백 두고 내용을 적는공간-->
+```
+┣ public
+ ┃  ┣ favicon-96x96.png
+ ┃  ┣ favicon.ico
+ ┃  ┣ index.html
+ ┃  ┣ kakao.png
+ ┃  ┣ logo192.png
+ ┃  ┣ logo512.png
+ ┃  ┣ manifest.json
+ ┃  ┗ robots.txt
+ ┣ src
+ ┃  ┣ api
+ ┃  ┃  ┗ ApiService.js
+ ┃  ┣ components
+ ┃  ┃  ┣ Modal
+ ┃  ┃  ┃  ┣ ModalChangeinfo.js
+ ┃  ┃  ┃  ┣ ModalChangeinfo.module.css
+ ┃  ┃  ┃  ┣ ModalProfile.js
+ ┃  ┃  ┃  ┗ ModalProfile.module.css
+ ┃  ┃  ┣ ArrowBtn.js
+ ┃  ┃  ┣ Button.js
+ ┃  ┃  ┣ CategoryBtn.js
+ ┃  ┃  ┣ DarkButton.js
+ ┃  ┃  ┣ Dropdown.js
+ ┃  ┃  ┣ GoogleButton.js
+ ┃  ┃  ┣ Helload.js
+ ┃  ┃  ┣ Input.js
+ ┃  ┃  ┣ KakaoButton.js
+ ┃  ┃  ┣ MiniSlide.js
+ ┃  ┃  ┣ Modal.js
+ ┃  ┃  ┣ MyReview.js
+ ┃  ┃  ┣ MyWish.js
+ ┃  ┃  ┣ NaverButton.js
+ ┃  ┃  ┣ Rank.js
+ ┃  ┃  ┣ RecMiniSlide.js
+ ┃  ┃  ┣ Related.js
+ ┃  ┃  ┣ Review.js
+ ┃  ┃  ┣ ScrollonTop.js
+ ┃  ┃  ┣ ShowData.js
+ ┃  ┃  ┣ ShowRec.js
+ ┃  ┃  ┣ Snow.js
+ ┃  ┃  ┣ SortData.js
+ ┃  ┃  ┣ Spinner.js
+ ┃  ┃  ┣ Star.js
+ ┃  ┃  ┣ Streaming.js
+ ┃  ┃  ┣ Top5.js
+ ┃  ┃  ┗ ViewReview.js
+ ┃  ┣ hook
+ ┃  ┃  ┣ useCategory.js
+ ┃  ┃  ┗ useDebounce.js
+ ┃  ┣ layout
+ ┃  ┃  ┣ BeforeHeader.js
+ ┃  ┃  ┣ Footer.js
+ ┃  ┃  ┣ Header.js
+ ┃  ┃  ┣ MainLayout.js
+ ┃  ┃  ┗ SubLayout.js
+ ┃  ┣ page
+ ┃  ┃  ┣ tmp
+ ┃  ┃  ┃  ┣ Socialgoogle.js
+ ┃  ┃  ┃  ┣ Socialkakao.js
+ ┃  ┃  ┃  ┗ Socialnaver.js
+ ┃  ┃  ┣ __Search.js
+ ┃  ┃  ┣ About.js
+ ┃  ┃  ┣ Detail.js
+ ┃  ┃  ┣ First.js
+ ┃  ┃  ┣ Home.js
+ ┃  ┃  ┣ Kids.js
+ ┃  ┃  ┣ Login.js
+ ┃  ┃  ┣ Movie.js
+ ┃  ┃  ┣ Mypage.js
+ ┃  ┃  ┣ Register.js
+ ┃  ┃  ┣ Search.js
+ ┃  ┃  ┣ SelectCategory.js
+ ┃  ┃  ┣ SelectContents.js
+ ┃  ┃  ┣ ShortFilm.css
+ ┃  ┃  ┣ ShortFilm.js
+ ┃  ┃  ┗ Tv.js
+ ┃  ┣ redux
+ ┃  ┃  ┣ store
+ ┃  ┃  ┃  ┗ store.js
+ ┃  ┃  ┣ categorySlice.js
+ ┃  ┃  ┣ rankSlice.js
+ ┃  ┃  ┗ searchSlice.js
+ ┃  ┣ App.css
+ ┃  ┣ App.js
+ ┃  ┣ index.css
+ ┃  ┣ index.js
+ ┃  ┣ LoginRouter.js
+ ┃  ┗ PrivateRouter.js
+ ┣ .gitignore
+ ┣ .gitmessage
+ ┣ package-lock.json
+ ┣ package.json
+ ┣ postcss.config.js
+ ┣ README.md
+ ┗ tailwind.config.js┣ public
+
+```
+</details>
+  
+<details>
+<summary>Back-End Directory</summary>
+
+<!--summary 아래 빈칸 공백 두고 내용을 적는공간-->
+```
+┣ .github
+┃  ┗ PULL_REQUEST_TEMPLATE.md
+┣ accounts
+┃  ┣ __init__.py
+┃  ┣ adapters.py
+┃  ┣ admin.py
+┃  ┣ apps.py
+┃  ┣ models.py
+┃  ┣ serializers.py
+┃  ┣ tests.py
+┃  ┣ urls.py
+┃  ┗ views.py
+┣ config
+┃  ┣ __init__.py
+┃  ┣ asgi.py
+┃  ┣ settings.py
+┃  ┣ urls.py
+┃  ┣ views.py
+┃  ┗ wsgi.py
+┃
+┣ contents
+┃  ┗ management
+┃     ┗ commands
+┃        ┣ dbchoseong.py
+┃        ┣ dbinsert.py
+┃        ┗ insert_text.py
+┃
+┣ myvenv
+┣ recommends
+┃  ┗ management
+┃    ┗ commands
+┃       ┣ genrebaseinsert.py
+┃       ┣ recinsert.py
+┃       ┣ scoreinsert.py
+┃       ┗ timeinsert.py
+┣ reviews
+┣ static
+┃  ┣ admin
+┃  ┗ rest_framework
+┣ templates
+┃   ┗account
+┃     ┗ email
+┃     		┣ email_confirmation_signup_message.html
+┃     		┗ email_confirmation_signup_subject.txt
+┣ wishlists
+┃
+┃
+┣ .DS_Store
+┣ .gitignore
+┣ .gitmessage
+┣ docker-compose.yml
+┣ Dockerfile
+┣ manage.py
+┣ README.md
+┣ requirements.txt
+┣ secrets.json
+┣ sync.py
+┗ task-definition.json
+```
+</details>
+
+
+
+
+<br>
+
+
 <br>
 
 
@@ -154,11 +341,15 @@ $$R_{ec}=V_oD$$
 <br>
 
 # 🌱 사용자 요청 흐름도
-<p align="center"><img src="https://github.com/LGHV-team1/final-project/assets/126046238/03c2ca76-796c-4fd8-94d2-c1650af5bec6" /><br><br></p>
+<p align="center"><img src="https://github.com/LGHV-team1/final-project/assets/110653633/8c8a4431-b7cd-4df1-9e7e-03fdac76d61e" /><br><br></p>
 
 
 
 # 🗒 API 명세서
+
+![image](https://github.com/JMboy713/pr_template/assets/110653633/1b0fb9ef-929b-4e5e-a1d3-e87a63cb1f4f)
+![image](https://github.com/JMboy713/pr_template/assets/110653633/34af5ac7-2a24-42dc-a4c0-bc74e54663ae)
+
 
 <br/>
 
