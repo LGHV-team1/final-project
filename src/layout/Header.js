@@ -171,12 +171,7 @@ function Header2() {
             </div>
           ) : (
             <div
-              className="flex relative  h-10 bg-white rounded"
-              style={{
-                width: isExpanded ? "15rem" : "0", 
-                transition: "width 0.5s ease-in", 
-                overflow: "hidden", 
-              }}
+              className={`flex h-10 bg-white rounded overflow-hidden transition-width duration-500 ease-in ${isExpanded ? "xl:w-80 sm:w-60" : "w-0"}`}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

@@ -1,9 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/Button.js";
-import GoogleLoginButton from "../components/GoogleButton.js";
 import { useState } from "react";
-import KakaoButton from "../components/KakaoButton.js";
-import NaverButton from "../components/NaverButton.js";
 import Input from "../components/Input.js";
 import axios from "axios";
 import BGimg from "../images/background.png";
@@ -113,9 +110,6 @@ function Login() {
           </div>
         </form>
         <div className="flex justify-around">
-          <KakaoButton />
-          <GoogleLoginButton />
-          <NaverButton />
         </div>
       </div>
     </body>
