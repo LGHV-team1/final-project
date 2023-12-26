@@ -1,0 +1,16 @@
+# Title: Summary, imperative, start upper case, don't end with a period
+# No more than 50 chars. #### 50 chars is here: #
+
+# Remember blank line between title and body.
+
+# Body: Explain *what* and *why* (not *how*). Include task ID (Jira issue).
+# Wrap at 72 chars. ################################## which is here: #
+
+
+#   TASKS   : main / dev / feat - fix
+#   feat    : 기능 한 줄 설명 (새로운 기능, 새로운 브랜치 생성)
+#   fix     : 버그 수정 설명
+#   style   : 스타일 (코드 형식, pythonic, 명칭 변경, 주석 추가 또는 수정 -> 동작에 영향 없음)
+#   docs    : 문서 (README 등 각종 Markdown만)
+#   test    : 테스트 (테스트 코드 추가, 수정, 삭제 -> test 코드 외 동작에 변경 없음)
+#   chore   : 기타 변경사항 (빌드 스크립트 수정 등 MD 제외 모든 파일)
