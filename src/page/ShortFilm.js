@@ -105,7 +105,7 @@ function ShortFilm() {
               width="100%"
               height="100%"
               onClick={() => handleClick(index)}
-              playing={isPlaying(index)}
+              playing={false}
             />
             {currentSlide === index ? (
               <div>
@@ -177,7 +177,6 @@ function ShortFilm() {
           </div>
         ))}
       </Slider>
-      <div className="relative bottom-44 left-48"></div>
     </div>
   );
 }
