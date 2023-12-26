@@ -76,7 +76,8 @@ function ShortFilm2() {
 
   return (
     <>
-      <div className="flex mx-28  items-center">
+      <div className="flex flex-col mx-28  items-center">
+        <div className="flex justify-center">
         <Button
           className={"text-white text-6xl"}
           icon={<MdChevronLeft />}
@@ -84,32 +85,23 @@ function ShortFilm2() {
             reduceIndex(index);
           }}
         />
-        <div className="flex justify-center ">
+        <div className="flex flex-col text-white items-center w-full h-full">
           <ReactPlayer
             url={`https://rvdshortvideo.s3.ap-northeast-2.amazonaws.com/sv${index}.mp4`}
             volume={volume}
             loop={true}
-            width="82%"
-            height="82%"
+            width="80%"
+            height="80%"
             playing={isPlayed}
             onClick={() => {
               setIsPlayed((current) => !current);
             }}
             autoplay
           />
-        </div>
-
-        <Button
-          className={"text-white text-6xl"}
-          icon={<MdChevronRight />}
-          onClick={() => {
-            increaseIndex(index);
-          }}
-        />
-      </div>
-      <div className="flex items-center text-center text-white text-2xl ">
-        {shortFilmIdArr[index].vodname}
-        
+           <div className="flex justify-between w-[80%] items-center">
+           <p className="mb-0 text-3xl">
+        {shortFilmIdArr[index].vodname}  
+        </p>
         {volume === "1" ? (
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -118,12 +110,12 @@ function ShortFilm2() {
             stroke-width="1.5"
             stroke="#FFFFFF"
             data-slot="icon"
-            height="1em"
-            width="1em"
+            height="2em"
+            width="2em"
             onClick={() => {
               setVolume("0");
             }}
-            className=" cursor-pointer relative bottom-[18px]"
+            className=" cursor-pointer"
           >
             <path
               stroke-linecap="round"
@@ -139,12 +131,12 @@ function ShortFilm2() {
             stroke-width="1.5"
             stroke="#FFFFFF"
             data-slot="icon"
-            height="1.5em"
-            width="1.5em"
+            height="2em"
+            width="2em"
             onClick={() => {
               setVolume("1");
             }}
-            className=" cursor-pointer relative bottom-[18px]"
+            className=" cursor-pointer"
           >
             <path
               stroke-linecap="round"
@@ -154,7 +146,16 @@ function ShortFilm2() {
           </svg>
         )}
         </div>
-      
+        </div>
+        <Button
+          className={"text-white text-6xl"}
+          icon={<MdChevronRight />}
+          onClick={() => {
+            increaseIndex(index);
+          }}
+        />
+        </div>
+      </div>
     </>
   );
 }
