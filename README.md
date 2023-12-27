@@ -331,7 +331,7 @@ $$R_{ec}=V_oD$$
 
 
 # 📺 모델 설명
-* 추후 추가 예정
+[modeling](https://github.com/LGHV-team1/final-project/blob/main/modeling/README.md)
 
 <br/>
 
