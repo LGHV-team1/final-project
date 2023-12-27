@@ -4,7 +4,8 @@
 $$R_{ec}=V_oD$$
 
 <div align="center">
-  <img width="200" alt="image" src="https://github.com/JMboy713/test-s3/assets/110653633/127ff5df-1b40-4ce6-b60b-be6c2733e6da">
+  <img width="150" alt="image" src="https://github.com/LGHV-team1/final-project/assets/110653633/b71ec6d4-66f8-49d1-96f9-1bca53ce4bf0">
+
 </div>
 <div align="center"><br>
 
@@ -331,7 +332,7 @@ $$R_{ec}=V_oD$$
 
 
 # 📺 모델 설명
-[modeling](https://github.com/LGHV-team1/final-project/blob/main/modeling/README.md)
+[🤖 modeling](https://github.com/LGHV-team1/final-project/blob/main/modeling/README.md)
 
 <br/>
 
@@ -347,8 +348,10 @@ $$R_{ec}=V_oD$$
 
 # 🗒 API 명세서
 
-![image](https://github.com/JMboy713/pr_template/assets/110653633/1b0fb9ef-929b-4e5e-a1d3-e87a63cb1f4f)
-![image](https://github.com/JMboy713/pr_template/assets/110653633/34af5ac7-2a24-42dc-a4c0-bc74e54663ae)
+<img width="862" alt="image" src="https://github.com/LGHV-team1/final-project/assets/110653633/5b81e96f-8762-4db4-b4b8-f3fe0fd98563">
+<img width="860" alt="image" src="https://github.com/LGHV-team1/final-project/assets/110653633/a860f65b-c808-42b4-9ab7-fd114cd3d48d">
+
+
 
 
 <br/>
