@@ -35,7 +35,7 @@ train set, test set, 평가지표는 다음과 같이 설정하고 학습하였�
 vod를 시청하는 사용자들의 하루 스케줄이 비슷할 것이라는 가정에 착안하여 주로 사용하는 시간대에 많이 시청한 콘텐츠를 추천
 로그 데이터 중 시(hour) 이용하여 구간 확인
 
-<img /><br>
+<img src='http://drive.google.com/uc?export=view&id=1k34iiQDe6q1eVfBoZAzcGoLvyj1Poesc_link' /><br>
 
 평일 / 휴일 간 프로그램 별 시청 비율 확인 결과 차이가 두드러지는 프로그램 카테고리가 있다는 것을 확인할 수 있었음
 
