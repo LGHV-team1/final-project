@@ -27,3 +27,5 @@ train set, test set, 평가지표는 다음과 같이 설정하고 학습하였�
 그룹화의 효과로 다른 유저에 비해 heavy user 의 추천 정확도가 높다는 것을 확인할 수 있다.
 
 <img src='http://drive.google.com/uc?export=view&id=1q3ncvdqqKO93aJJ_u0i4JJbeVnM_nvtv' /><br>
+
+## Time period based
