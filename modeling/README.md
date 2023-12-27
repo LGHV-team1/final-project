@@ -35,15 +35,15 @@ train set, test set, 평가지표는 다음과 같이 설정하고 학습하였�
 vod를 시청하는 사용자들의 하루 스케줄이 비슷할 것이라는 가정에 착안하여 주로 사용하는 시간대에 많이 시청한 콘텐츠를 추천
 로그 데이터 중 시(hour) 이용하여 구간 확인
 
-<img src='http://drive.google.com/uc?export=view&id=1k34iiQDe6q1eVfBoZAzcGoLvyj1Poesc_link' /><br>
+<img src='http://drive.google.com/uc?export=view&id=1jBmEjnxG6DG_1DBe-XCR3T_Nn3o2uVwa' /><br>
 
 평일 / 휴일 간 프로그램 별 시청 비율 확인 결과 차이가 두드러지는 프로그램 카테고리가 있다는 것을 확인할 수 있었음
 
-<img /><br>
+<img src='http://drive.google.com/uc?export=view&id=1pNB8j0pUFX1wydycm-76y1Yxs6N5Dog2' /><br>
 
 저녁, 새벽의 경우 다음날, 전날의 평일 / 휴일 여부도 영향을 미침
 
-<img /><br>
+<img src='http://drive.google.com/uc?export=view&id=1pKuXju6K9FP1tNGjJBhv-U5fQvpuVpf6' /><br>
 
 10가지 경우로 나누어 그 시간대에 많이 클릭된 콘텐츠를 추천
 
@@ -52,6 +52,6 @@ vod를 시청하는 사용자들의 하루 스케줄이 비슷할 것이라는 �
 
 콘텐츠 별 Attribute(장르, 줄거리)를 활용하여 사용자가 선호하는 콘텐츠를 활용해 추천
 
-<img /><br>
+<img src='http://drive.google.com/uc?export=view&id=1k34iiQDe6q1eVfBoZAzcGoLvyj1Poesc' /><br>
 
 
