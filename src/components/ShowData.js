@@ -6,7 +6,7 @@ function ShowData({ data, handleShow, isShow = true }) {
   const BASE_URL_NO = "https://i.ibb.co/7pYHFY3";
   return (
     <div>
-      <div className="grid  sm:grid-cols-4  xl:grid-cols-6 gap-4">
+      <div className="grid  sm:grid-cols-4  xl:grid-cols-6  gap-4">
         {data.map((item, idx) => (
           <div
             key={idx}
