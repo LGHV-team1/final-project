@@ -52,7 +52,7 @@ $$R_{ec}=V_oD$$
 <br>
 
 # 🗓️ 프로젝트 수행 기간 
-- 2023.11 ~ 2023.12  
+- 2023.10 ~ 2023.12 (10주)
 
 <br>
 
@@ -360,28 +360,84 @@ $$R_{ec}=V_oD$$
 # 👉🏻 화면 및 시연 영상
 <br>
 
-### 로그인
-<img src="https://github.com/LGHV-team1/final-project/assets/126046238/e77384ec-c759-4ea6-b1e9-0c9d8a9cfefb" width="800px"/> 
+### 신규유저 로그인 (선호 컨텐츠 선택 및 신규유저 추천)
+
+
+
+https://github.com/recordhyo/final-project/assets/126046238/2c8e2983-a941-41c2-a939-0afa7d298934
+
+
 
 <br>
 
-### 디테일 페이지
-<img src="https://github.com/LGHV-team1/final-project/assets/126046238/3ae87158-d065-47ba-a4f6-0a692c39e7d6" width="800px"/> 
+
+### 기존유저 로그인 (시청 및 클릭 로그 기반 추천)
+
+
+
+https://github.com/recordhyo/final-project/assets/126046238/e153b558-ea7d-4910-8beb-fd0811935c86
+
+
 
 <br>
 
-### 리뷰
-<img src="https://github.com/LGHV-team1/final-project/assets/126046238/cde267dc-a6ca-4c60-90b5-a47cda30b6e2" width="800px"/>
+### 메인 페이지 (예고영상 및 추천 제공)
+
+
+
+https://github.com/recordhyo/final-project/assets/126046238/94c7ad34-9393-4347-bb68-e30028962d78
+
+
+
+<br/>
+
+
+### 카테고리 별 페이지 (장르 버튼, 이름・인기・랜덤순 정렬, 숏필름)
+
+
+
+https://github.com/recordhyo/final-project/assets/126046238/76c8474d-6e91-4803-b443-b982d39b275d
+
+
+
 
 <br>
 
-### 검색
-<img src="https://github.com/LGHV-team1/final-project/assets/126046238/e7769b61-74e8-4fa8-b4c5-bfc9956663d2" width="800px"/> 
+### 디테일 페이지 (VOD상세, 위시 추가 및 리뷰 작성)
+
+
+
+https://github.com/recordhyo/final-project/assets/126046238/21ed66da-8cd6-460a-ba2c-5b55a8ee019a
+
+
+
+<br>
+
+
+### 마이페이지 (프로필 수정, 위시리스트 확인, 리뷰 수정 및 삭제) 
+
+
+
+https://github.com/recordhyo/final-project/assets/126046238/b490a530-b3b6-4c9c-8bd5-f94efc0e69e0
+
+
+
+
+<br>
+
+### 검색 (제목, 초성, 인물 검색)
+
+
+
+https://github.com/recordhyo/final-project/assets/126046238/af1420e6-4ef1-455a-ba72-da6abcab3bca
+
+
 
 <br>
 
 # 🌈 상세 기능 설명
-* 추후 추가 예정
+
+[자세히보기 (최종발표자료)](https://drive.google.com/file/d/1R2NNytJQkys3FPxny0_eSzR3liSqm0l7/view?usp=sharing)
 
 <br>
 
