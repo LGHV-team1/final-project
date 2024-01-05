@@ -26,12 +26,12 @@ function ShortFilm2() {
     if (prev > 0) {
       setIndex((prev) => prev - 1);
     } else {
-      setIndex(9);
+      setIndex(2);
     }
   };
 
   const increaseIndex = (prev) => {
-    if (prev > 8) {
+    if (prev > 1) {
       setIndex(0);
     } else {
       setIndex((prev) => prev + 1);
@@ -55,7 +55,7 @@ function ShortFilm2() {
           />
           <div className="flex flex-col text-white items-center w-full h-full">
             <ReactPlayer
-              url={`https://github.com/jason980713/video/assets/142579121/${shortFilmIdArr[index].url}.mp4`}
+              url={`https://github.com/jason980713/video/assets/142579121/${shortFilmIdArr[index].url}`}
               volume={volume}
               loop={true}
               width="80%"
