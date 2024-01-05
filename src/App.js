@@ -7,9 +7,6 @@ import Mypage from "./page/Mypage.js";
 import First from "./page/First.js";
 import Home from "./page/Home.js";
 import Detail from "./page/Detail.js";
-import Socialkakao from "./page/tmp/Socialkakao.js";
-import Socialnaver from "./page/tmp/Socialnaver.js";
-import Socialgoogle from "./page/tmp/Socialgoogle.js";
 import Movie from "./page/Movie.js";
 import Tv from "./page/Tv.js";
 import Kids from "./page/Kids.js";
@@ -49,9 +46,6 @@ function App() {
           </Route>
           <Route path="/login"element={<><Login /></>}/>
           <Route path="/register" element={<><Register /></>}/>
-          <Route path="/socialk" element={<><Socialkakao /></>} />
-          <Route path="/socialn" element={<><Socialnaver /></>} />
-          <Route path="/socialg" element={<><Socialgoogle /></>} />
           <Route path="/about" element={<><About /></>} />
 
         </Route>
