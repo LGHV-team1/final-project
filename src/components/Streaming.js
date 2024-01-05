@@ -2,17 +2,17 @@ import React, { useState } from "react";
 import ReactPlayer from "react-player";
 import { Link } from "react-router-dom";
 
-function Streaming({ id, titleimg }) {
+function Streaming({ id, titleimg, trailerUrl }) {
   const [volume, setVolume] = useState("0");
 
   return (
     <>
-      <div className="relative w-full pt-[57%] bottom-20" >
+      <div className="relative w-full pt-[57%] bottom-20">
         <div className="absolute top-0 left-0 w-full h-full z-10">
           <ReactPlayer
             width="100%"
             height="100%"
-            url={`https://rvdshortvideo.s3.ap-northeast-2.amazonaws.com/sv${id}.mp4`}
+            url={`https://github.com/jason980713/video/assets/142579121/${trailerUrl}`}
             playing={true}
             volume={volume}
             loop={true}
@@ -29,7 +29,10 @@ function Streaming({ id, titleimg }) {
             }}
           ></div>
           <div className="relative flex gap-6 items-center xl:bottom-[530px] sm:bottom-[350px] z-20   ml-28">
-            <img className="xl:h-[135px] xl:w-[350px] lg:h-[90px] lg:w-[210px] md:w-[210px] sm:h-[90px] " src={titleimg}></img>
+            <img
+              className="xl:h-[135px] xl:w-[350px] lg:h-[90px] lg:w-[210px] md:w-[210px] sm:h-[90px] "
+              src={titleimg}
+            ></img>
             {volume === "1" ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"

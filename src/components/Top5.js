@@ -17,25 +17,45 @@ import Streaming from "./Streaming";
 import { Arrowleft, Arrowright } from "./ArrowBtn";
 function Top5() {
   const bgArr = [
-    { id: 2289, img: mainimg1, vodname: "엘리멘탈", title: title1 },
-    { id: 4140, img: mainimg2, vodname: "아바타2", title: title2 },
-    { id: 2867, img: mainimg3, vodname: "밀수", title: title3 },
+    {
+      id: 2289,
+      img: mainimg1,
+      vodname: "엘리멘탈",
+      title: title1,
+      url: "b0c1eda0-8502-43ec-9c4d-f5f0e4daf678",
+    },
+    {
+      id: 4140,
+      img: mainimg2,
+      vodname: "아바타2",
+      title: title2,
+      url: "5209cf8d-64f8-433e-830d-f332b7d75ae5",
+    },
+    {
+      id: 2867,
+      img: mainimg3,
+      vodname: "밀수",
+      title: title3,
+      url: "f5f12311-f2da-4090-98bd-54b424cb3eec",
+    },
     {
       id: 1156,
       img: mainimg4,
       vodname: "소방서 옆 경찰서 그리고 국과수",
       title: title4,
+      url: "86abf381-1250-4e6e-883d-10569ec648a3",
     },
     {
       id: 2352,
       img: mainimg5,
       vodname: "가디언즈 오브 갤럭시3",
       title: title5,
+      url: "0d2c37b8-0ff7-4ad4-9bb1-93bd2091aafa",
     },
   ];
   const [trailerId, setTrailerId] = useState(2289);
   const [currentSlide, setCurrentSlide] = useState(0);
-  const findVodname = bgArr.find((item) => item.id === trailerId);
+  const findVod = bgArr.find((item) => item.id === trailerId);
 
   const settings = {
     className: "center",
@@ -57,7 +77,11 @@ function Top5() {
 
   return (
     <div className=" ">
-      <Streaming id={trailerId} titleimg={findVodname.title} />
+      <Streaming
+        id={trailerId}
+        titleimg={findVod.title}
+        trailerUrl={findVod.url}
+      />
       <div className="relative mx-28  xl:bottom-[468px] sm:bottom-[320px] z-20">
         <StyledSlider {...settings}>
           {bgArr.map((a, index) => (
@@ -75,7 +99,6 @@ function Top5() {
                 src={a.img}
                 alt={a.vodname}
                 width={"70%"}
-                
               />
             </div>
           ))}
